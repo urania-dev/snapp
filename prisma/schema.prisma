@@ -1,0 +1,84 @@
+
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @unique
+  username     String
+  email        String?
+  auth_session Session[]
+  key          Key[]
+  snapps       Snapp[]
+  settings     Settings[]
+}
+
+model Settings {
+  id          String @id @unique
+  user_id     String
+  user        User @relation(references: [id],fields:[user_id],onDelete: Cascade)
+  setting     String
+  value       String
+
+  @@index([setting,user_id,id])
+}
+
+model Session {
+  id             String  @id @unique
+  user_id        String
+  active_expires BigInt
+  idle_expires   BigInt
+  user           User   @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+  @@index([user_id])
+}
+
+model Key {
+  id              String  @id @unique
+  hashed_password String?
+  user_id         String
+  user            User    @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+  @@index([user_id])
+}
+
+model Snapp {
+  id            String      @id @unique @default(uuid())
+  original_url  String
+  short_code    String      @unique
+  created_at    DateTime    @default(now())
+  expires_at    DateTime?
+  secret        String?
+  has_secret    Boolean     @default(false)
+  usages        UrlUsage[]
+  user_id       String
+  user          User    @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+
+  @@index([short_code]) 
+}
+
+model UrlUsage {
+  id                String     @id @unique @default(uuid())
+  timestamp         DateTime   @default(now())
+  snapp_id          String
+  snapp             Snapp      @relation(fields: [snapp_id], references: [id], onDelete: Cascade)
+  country           String?    
+  city              String?    
+  region            String?    
+  user_agent        String?    
+  referrer          String?    
+  language          String?    
+  browser           String?   
+  os                String?
+  device            String?
+  cpu               String?
+}
+
