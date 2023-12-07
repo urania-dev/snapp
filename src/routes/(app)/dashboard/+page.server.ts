@@ -91,7 +91,7 @@ export async function load({ locals, request, url, depends }) {
 			end_reached: snapps_count <= take * page,
 			total: snapps_count,
 			query,
-			dashboard_columns: settings.find((s) => s.setting === 'dashboard-columns')?.value.split(',')
+			dashboard_columns: settings.find((s) => s.setting === 'dashboard-columns')?.value?.split(',')
 		};
 	} catch (error) {
 		throw error;

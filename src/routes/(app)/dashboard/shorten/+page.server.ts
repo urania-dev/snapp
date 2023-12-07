@@ -1,4 +1,4 @@
-import { fail, redirect, text } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import { generateRandomString } from '$lib/utils/generateRandomString.js';
 import { prisma } from '$lib/server/prisma.js';
 import type { Snapp } from '@prisma/client';
