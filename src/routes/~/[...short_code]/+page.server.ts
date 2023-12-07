@@ -10,7 +10,7 @@ let lookup = await maxmind.open('src/lib/server/geo-db/geolite-2-city.mmdb');
 async function markUsage(snapp: Snapp, request: Request) {
 	const headers = Object.fromEntries(request.headers);
 
-	const language = headers['accept-language'].split(',')[0];
+	const language = headers['accept-language']?.split(',')[0];
 	const { 'user-agent': user_agent, 'x-real-ip': real_ip } = headers;
 
 	const uaParsed = new UAParser(user_agent);
