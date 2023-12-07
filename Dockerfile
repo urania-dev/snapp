@@ -6,10 +6,12 @@ WORKDIR /app
 
 # Copy the package.json and package-lock.json files to the container
 COPY package*.json /app
-COPY ./prisma/schema.prisma ./prisma/schema.prisma
+
 # Install dependencies
+COPY ./prisma/schema.prisma ./prisma/schema.prisma
 ENV DATABASE_URL="file:./db.sqlite"
 
+RUN touch /app/prisma/db.sqlite
 RUN npm i --legacy-peer-deps
 RUN npx prisma db push
 
@@ -20,7 +22,8 @@ COPY . /app
 ENV TIMEZONE=Europe/Rome
 ENV ENABLE_MULTIUSER=false
 ENV PORT=3000
-ENV PUBLIC_URL=http://localhost:${PORT}
+ENV PUBLIC_URL=http://localhost:3000
+ENV ORIGIN=${PUBLIC_URL}
 
 RUN npm run build 
 # Expose the port on which the app will run

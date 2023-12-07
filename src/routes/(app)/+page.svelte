@@ -10,6 +10,15 @@
 			copied = false;
 		}, 2000);
 	}
+	async function handle_copy_origin(this: HTMLButtonElement) {
+		const copiedCode = "docker run -p 3000:3000 -e ORIGIN=example.com -e PUBLIC_URL=example.com uraniadev/snapp:latest";
+		await navigator.clipboard.writeText(copiedCode);
+
+		copied = true;
+		setTimeout(() => {
+			copied = false;
+		}, 2000);
+	}
 </script>
 
 <svelte:head>
@@ -168,6 +177,14 @@
 							<pre class="m-0 w-100"><code>docker run -p 3000:3000 uraniadev/snapp:latest</code
 								></pre>
 							<button class="btn btn-primary" data-umami-event="Copied Docker" on:click={handle_copy}
+								><i class="ti ti-{copied ? 'check' : 'copy'} fs-2" /></button
+							>
+						</span>
+						<p>If you encounter CORS be sure to set ORIGIN and PUBLIC URL:</p>
+						<span class="btn-group container w-100 m-0 p-0">
+							<pre class="m-0 w-100"><code>docker run -p 3000:3000  \<br/>-e ORIGIN=example.com -e PUBLIC_URL=example.com \ <br/> uraniadev/snapp:latest</code
+								></pre>
+							<button class="btn btn-primary" data-umami-event="Copied Docker" on:click={handle_copy_origin}
 								><i class="ti ti-{copied ? 'check' : 'copy'} fs-2" /></button
 							>
 						</span>
