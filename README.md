@@ -29,16 +29,17 @@ docker run -p 3000:3000 uraniadev/snapp:latest
 If your run into CORS problem be sure to set ORIGIN and PUBLIC_URL
 
 ```bash
-docker run \  
--e ORIGIN=https://example.com -e PUBLIC_URL=https://example.com \  
--p 3000:3000 uraniadev/snapp:latest
+docker run \
+-e ORIGIN=https://example.com -e PUBLIC_URL=https://example.com \
+-p 3000:3000 \ 
+uraniadev/snapp:latest
 ```
 
 CORS and non HTTPS Instances
 
 Snapp uses Lucia Auth, and requires to be hosted behind a Secure HTTPS Protocol.
 
-If self-hosting without a Secure HTTPS Protocol, set `NODE_ENV=development` to allow Lucia handle sessions. 
+If self-hosting without a Secure HTTPS Protocol, set `NODE_ENV=development` to allow Lucia handle sessions.
 
 Let's say for example that you want to host Snapp on an old salvaged homelab with hostname: `refurbished` on port `8000`
 
