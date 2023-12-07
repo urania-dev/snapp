@@ -85,9 +85,9 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="https://github.com/urania-dev/snapp">
+						<a class="nav-link" href="https://hub.docker.com/r/uraniadev/snapp">
 							<span class="nav-link-title fs-3">
-								<i class="ti ti-brand-docker"></i> Docker Image
+								<i class="ti ti-brand-docker"></i> Image
 							</span>
 						</a>
 					</li>

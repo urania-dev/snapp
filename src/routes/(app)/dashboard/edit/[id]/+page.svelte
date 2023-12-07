@@ -54,7 +54,7 @@
 		}
 	}
 	const handle_submit_function: SubmitFunction = function ({ formData }) {
-		formData.set('short_code', slugify(short_code));
+		formData.set('short-code', slugify(short_code));
 
 		return async function ({ update }) {
 			await update();

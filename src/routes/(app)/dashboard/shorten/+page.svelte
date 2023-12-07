@@ -42,7 +42,7 @@
 	}
 
 	const handle_submit_function: SubmitFunction = function ({ formData }) {
-		formData.set('short_code', slugify(short_code) ?? '');
+		formData.set('short-code', slugify(short_code) ?? '');
 
 		return async function ({ update }) {
 			await update();
@@ -56,6 +56,7 @@
 	function slugify_this(e: Event & { currentTarget: EventTarget & HTMLInputElement }) {
 		e.currentTarget.value = slugify(e.currentTarget.value);
 	}
+
 	$effect(mount_picker);
 </script>
 

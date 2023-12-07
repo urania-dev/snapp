@@ -18,12 +18,12 @@ export const actions = {
 		let short_code = form.get('short-code') as string | null;
 		const expiration = form.get('expiration') as string | null;
 		const secret = form.get('secret') as string | null;
-
 		async function check_short_code(slug: string) {
 			const exists = await prisma.snapp.findMany({
 				where: { short_code: { startsWith: slug } },
 				select: { _count: true }
 			});
+
 			if (exists.length > 0) return `${slug}-${exists.length}`;
 			else return slug;
 		}
@@ -37,7 +37,7 @@ export const actions = {
 
 		if (
 			typeof short_code !== 'string' ||
-			short_code.trim() !== '' ||
+			short_code.trim() === '' ||
 			short_code.length < 1 ||
 			short_code.length > 255
 		) {
