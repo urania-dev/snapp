@@ -25,6 +25,8 @@ ENV PORT=3000
 ENV PUBLIC_URL=http://localhost:3000
 ENV ORIGIN=${PUBLIC_URL}
 ENV NODE_ENV=production
+ENV DEMO=false
+ENV DISABLE_HOME=false
 
 RUN npm run build 
 # Expose the port on which the app will run

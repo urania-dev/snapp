@@ -5,7 +5,7 @@
 	import { navigating } from '$app/stores';
 
 	let { data } = $props();
-	let { session, _theme } = $derived(data);
+	let { session, disable_home } = $derived(data);
 
 	let theme = $state<'dark' | 'light'>(data._theme as 'dark' | 'light');
 
@@ -71,9 +71,24 @@
 			</h1>
 			<div class="collapse navbar-collapse" id="sidebar-menu">
 				<ul class="navbar-nav pt-lg-3">
+					{#if disable_home !== true}<li class="nav-item">
+							<a class="nav-link" href="/">
+								<span class="nav-link-title fs-3"> <i class="ti ti-home"></i> Home </span>
+							</a>
+						</li>
+					{/if}
 					<li class="nav-item">
-						<a class="nav-link" href="/">
-							<span class="nav-link-title fs-3"> <i class="ti ti-home"></i> Home </span>
+						<a class="nav-link" href="https://github.com/urania-dev/snapp">
+							<span class="nav-link-title fs-3">
+								<i class="ti ti-brand-github"></i> Repository
+							</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="https://github.com/urania-dev/snapp">
+							<span class="nav-link-title fs-3">
+								<i class="ti ti-brand-docker"></i> Docker Image
+							</span>
 						</a>
 					</li>
 					{#if session === null}

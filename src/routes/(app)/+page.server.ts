@@ -13,12 +13,12 @@ export const actions = {
 		cookies.delete('u:snappli:theme');
 		cookies.set('u:snappli:theme', theme, {
 			path: '/',
-			httpOnly: false,
+			httpOnly: true,
 			secure: !dev,
 			maxAge: 60 * 60 * 25 * 30 * 12
 		});
 
-		const upsert = await prisma.settings.upsert({
+		await prisma.settings.upsert({
 			create: {
 				id: session.user.userId + ':theme',
 				user_id: session.user.userId,
@@ -33,7 +33,12 @@ export const actions = {
 			}
 		});
 
-
 		return {};
 	}
 };
+
+export async function load({locals}) {
+	const session = await locals.auth.validate()
+	if (session === null && process.env.DISABLE_HOME === 'true') throw redirect(302, '/auth/login');
+	if (session !== null && process.env.DISABLE_HOME === 'true') throw redirect(302, '/dashboard');
+}

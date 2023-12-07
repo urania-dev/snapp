@@ -1,0 +1,27 @@
+version: "3"
+services: 
+ snappli-private:
+    restart: always
+    container_name: snappli-private
+    ports:
+      - "5050:3000"
+    image: "uraniadev/snapp:latest"
+    # volumes:
+    # - 'home/snapp/db.sqlite:/app/prisma/db.sqlite'
+    environment:
+      PUBLIC_URL: https://snapp.li
+      ORIGIN: https://snapp.li
+      
+ snappli-demo:
+    restart: always
+    container_name: snappli-demo
+    ports:
+      - "5051:3000"
+    image: "uraniadev/snapp:latest"
+    environment:
+      PUBLIC_URL: https://demo.snapp.li
+      ORIGIN: https://demo.snapp.li
+      DEMO: true
+      ENABLE_MULTIUSER: true
+      DISABLE_HOME: true
+      

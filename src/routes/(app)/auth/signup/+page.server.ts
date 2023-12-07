@@ -1,4 +1,3 @@
-import { ENABLE_MULTIUSER } from '$env/static/private';
 import { auth } from '$lib/server/lucia.js';
 import { prisma } from '$lib/server/prisma.js';
 import { fail, redirect } from '@sveltejs/kit';
@@ -11,7 +10,7 @@ export let actions = {
 
 		const administrator = await prisma.user.findFirst();
 
-		if (administrator && ENABLE_MULTIUSER === 'false') {
+		if (administrator && process.env.ENABLE_MULTIUSER === 'false') {
 			return fail(403, {
 				message: 'There is already an administrator registered. Enable mulituser, if intended.',
 				password: false,

@@ -1,6 +1,4 @@
-## Snapp
-
-### Url Shortner
+# Snapp
 
 Discover the power of Snapp, your self-hostable URL shortening service. Effortlessly shorten links, and with Snapp's self-hosting capability, you have complete control. Create concise, shareable links on your terms with Snapp's user-friendly platform.
 
@@ -8,7 +6,7 @@ A simple excercise to learn Svelte, Svelte5 Runes, and Tabler.
 
 And to host my urls too.
 
-### Manual Install / Local Development
+## Manual Install / Local Development
 
 You need to have [Node.js](https://nodejs.org) installed on your machine.
 
@@ -20,7 +18,7 @@ You need to have [Node.js](https://nodejs.org) installed on your machine.
 - Run for development: `npm run dev`.
 - Run for production: `npm run build` then `node -r dotenv/config build`.
 
-### Docker Install
+## Docker Install
 
 ```bash
 docker run -p 3000:3000 uraniadev/snapp:latest
@@ -52,3 +50,11 @@ docker run \
 -e NODE_ENV=development \
 uraniadev/snapp:latest
 ```
+
+## Multi User
+
+Snapp supports also multi-users, just enable with `ENABLE_MULTIUSER=true`.
+
+The demo will be resetting every 24H. 
+
+### 🖥️ [Link to the demo](https://demo.snapp.li)

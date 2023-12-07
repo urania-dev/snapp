@@ -64,7 +64,7 @@
 			</div>
 		</div>
 		<div class="row row-deck row-cards">
-			<div class="col-sm-12 col-md-6 col-lg-4">
+			<div class="col-sm-12 col-md-12 col-lg-4">
 				<div class="card">
 					<div class="card-body" style:min-height="10rem">
 						<i class="ti ti-layers-intersect fs-1 mt-3 mb-2"></i>
@@ -76,7 +76,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-12 col-md-6 col-lg-4">
+			<div class="col-sm-12 col-md-12 col-lg-4">
 				<div class="card">
 					<div class="card-body" style:min-height="10rem">
 						<i class="ti ti-user-shield fs-1 my-3"></i>
@@ -88,7 +88,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-12 col-md-6 col-lg-4">
+			<div class="col-sm-12 col-md-12 col-lg-4">
 				<div class="card">
 					<div class="card-body" style:min-height="10rem">
 						<i class="ti ti-topology-star-3 fs-1 my-3"></i>
@@ -100,7 +100,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-12 col-md-6 col-lg-4">
+			<div class="col-sm-12 col-md-12 col-lg-4">
 				<div class="card">
 					<div class="card-body" style:min-height="10rem">
 						<i class="ti ti-alarm fs-1 my-3"></i>
@@ -112,7 +112,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-12 col-md-6 col-lg-4">
+			<div class="col-sm-12 col-md-12 col-lg-4">
 				<div class="card">
 					<div class="card-body" style:min-height="10rem">
 						<i class="ti ti-key fs-1 my-3"></i>
@@ -124,7 +124,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-12 col-md-6 col-lg-4">
+			<div class="col-sm-12 col-md-12 col-lg-4">
 				<div class="card">
 					<div class="card-body" style:min-height="10rem">
 						<i class="ti ti-report-analytics fs-1 my-3"></i>
@@ -213,17 +213,23 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-12">
+			<div class="col-md-12 col-lg-6">
 				<div class="card">
 					<div class="card-body p-4">
 						<h4>CORS and non HTTPS Instances</h4>
 						<p class="pt-2 lh-lg">
 							Snapp uses <a href="https://lucia-auth.com/">Lucia Auth</a>, and requires to be hosted
-							behind a <code>Secure HTTPS Protocol</code> If self-hosting without a
-							<code>Secure HTTPS Protocol</code>
-							set
-							<code>NODE_ENV=development</code> to allow Lucia handle sessions. Let's say for
-							example that you want to host Snapp on an old salvaged homelab with hostname: <code>refurbished</code>
+							behind a <code>Secure HTTPS Protocol</code>.
+						</p>
+						<p class="pt-2 lh-lg">
+							If self-hosting without a <code>Secure HTTPS Protocol</code>
+							set <code>NODE_ENV=development</code> to allow Lucia handle sessions.
+						</p>
+
+						<p class="pt-2 lh-lg">
+							Let's say for example that you want to host Snapp on an old salvaged homelab with
+							hostname:
+							<code>refurbished</code>
 							on port <code>8000</code>
 						</p>
 
@@ -240,8 +246,54 @@
 								><i class="p-0 ti ti-{copied_node_env ? 'check' : 'copy'} fs-2" /></button
 							>
 						</div>
-						<p class="small my-3 text-info">
-							<i class="ti ti-alert-circle" /> Be aware that this setting will disable <u>secure cookies</u>.
+						<p class=" my-3 text-info">
+							<i class="ti ti-alert-circle text-warning" /> Be aware that this setting will disable
+							<u>secure cookies</u>.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12 col-lg-6">
+				<div class="card">
+					<div class="card-body p-4">
+						<h4>Demo</h4>
+						<p class="pt-2 lh-lg">This demo is set as a multi users instance of Snapp.</p>
+						<p class="my-3 text-info">
+							<i class="ti ti-alert-circle text-warning" /> <u>The demo DB will be reset</u> every 24H.
+						</p>
+						<p>
+							<a class="btn btn-primary" href="https://demo.snapp.li/auth/signup"
+								>Link to the demo</a
+							>
+						</p>
+
+						<h4 class="mt-4">Enable user signup</h4>
+						<p class="pt-2 lh-lg">
+							By default Snapp is set as a private service. It can be set as a multi users instance
+							with variable <code>ENABLE_MULTIUSER</code> set to <code>true</code>.
+						</p>
+
+						<h4 class="mt-4">Disable Homepage</h4>
+						<p class="pt-2 lh-lg">
+							With variable <code>DISABLE_HOME</code> set to <code>true</code> Snapp will redirect
+							to <code>/dashboard</code> or <code>/auth/login</code>.
+						</p>
+						<h4 class="mt-4">Persist DB with Docker</h4>
+						<p class="pt-2 lh-lg">
+							Mount docker volume at <code>/app/prisma/db.sqlite</code>.<br />
+							You can generate a DB Compliant to Prisma Client with schema in repository.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-12">
+				<div class="card">
+					<div class="card-body">
+						<p class="text-secondary m-0">
+							<i class="ti ti-alert-circle pe-1" /> Disclaimer: the public instance of
+							https://snapp.li and https://demo.snapp.li track anonymous analytics with
+							<a href="https://umami.is">umami.is</a>. <br/> This happens only on this domain, 
+							public docker image and github repository of Snapp don't include any Umami trackers.
 						</p>
 					</div>
 				</div>
@@ -252,9 +304,13 @@
 
 <div class="page-footer">
 	<div class="container-xl">
-		<div class="row pb-4 d-flex flex-wrap align-items-center gap-1 justify-content-end pe-4">
+		<div class="row d-flex flex-wrap align-items-center gap-1 justify-content-end pe-4">
 			<p class="w-auto m-0 p-0">
 				<a href="https://kit.svelte.dev">kit.svelte.dev</a>
+			</p>
+			<span class="w-1">/</span>
+			<p class="w-auto m-0 p-0">
+				<a href="https://prisma.io">prisma.io</a>
 			</p>
 			<span class="w-1">/</span>
 			<p class="w-auto m-0 p-0">
@@ -264,7 +320,8 @@
 			<p class="w-auto m-0 p-0">
 				<a href="https://sqlite.org">sqlite.org</a>
 			</p>
-			<span class="w-1">/</span>
+		</div>
+		<div class="row d-flex flex-wrap align-items-center gap-1 justify-content-end pe-4">
 			<p class="w-auto m-0 p-0">
 				<a href="https://dev.maxmind.com/geoip/geolite2-free-geolocation-data">maxmind.com</a>
 			</p>
@@ -276,7 +333,8 @@
 			<p class="w-auto m-0 p-0">
 				<a href="https://tabler-icons.io">tabler-icons.io</a>
 			</p>
-			<span class="w-1">/</span>
+		</div>
+		<div class="row pb-4 d-flex flex-wrap align-items-center gap-1 justify-content-end pe-4">
 			<div class="w-auto m-0 p-0">
 				<p class="d-flex align-items-center p-0 m-0">
 					<span>made with</span>

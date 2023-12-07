@@ -11,6 +11,11 @@ export async function load({ locals, depends }) {
 		}
 	});
 
-
-	return { session, _theme: theme ? theme.value : 'dark' };
+	return {
+		session,
+		_theme: theme ? theme.value : 'dark',
+		is_demo: process.env.DEMO === 'true',
+		disable_home: process.env.DISABLE_HOME === 'true',
+		website_id: process.env.WEBSITE_ID
+	};
 }

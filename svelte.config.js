@@ -17,7 +17,10 @@ const config = {
 			out: 'build',
 			precompress: true,
 			polyfill: true
-		})
+		}),
+		csrf: {
+			checkOrigin: process.env.NODE_ENV !== 'development'
+		}
 	}
 };
 
