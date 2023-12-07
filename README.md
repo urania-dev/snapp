@@ -30,7 +30,8 @@ If your run into CORS problem be sure to set ORIGIN and PUBLIC_URL
 
 ```bash
 docker run \
--e ORIGIN=https://example.com -e PUBLIC_URL=https://example.com \
+-e ORIGIN=https://example.com \
+-e PUBLIC_URL=https://example.com \
 -p 3000:3000 \ 
 uraniadev/snapp:latest
 ```
