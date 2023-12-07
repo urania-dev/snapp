@@ -1,12 +1,12 @@
 import { lucia } from 'lucia';
 import { sveltekit } from 'lucia/middleware';
 import { prisma as PrismaAdapter } from '@lucia-auth/adapter-prisma';
-import { dev } from '$app/environment';
 import { prisma } from './prisma';
+console.log(process.env.NODE_ENV && process.env.NODE_ENV === 'development' ? 'DEV' : 'PROD')
 
 export const auth = lucia({
 	adapter: PrismaAdapter(prisma),
-	env: dev ? 'DEV' : 'PROD',
+	env: process.env.NODE_ENV && process.env.NODE_ENV === 'development' ? 'DEV' : 'PROD',
 	middleware: sveltekit(),
 	getUserAttributes: (data) => {
 		return {

@@ -25,3 +25,12 @@ You need to have [Node.js](https://nodejs.org) installed on your machine.
 ```bash
 docker run -p 3000:3000 uraniadev/snapp:latest
 ```
+
+If your run into CORS problem be sure to set ORIGIN and PUBLIC_URL
+
+```bash
+docker run \  
+-e ORIGIN=https://sub.domain.com -e PUBLIC_URL=https://sub.domain.com \  
+-p 3000:3000 uraniadev/snapp:latest
+```
+If you plan to use it on non HTTPS localhost 

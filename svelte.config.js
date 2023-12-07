@@ -17,8 +17,7 @@ const config = {
 			out: 'build',
 			precompress: true,
 			polyfill: true
-		}),
-		
+		})
 	}
 };
 

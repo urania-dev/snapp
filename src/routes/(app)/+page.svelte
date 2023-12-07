@@ -1,23 +1,36 @@
 <script lang="ts">
 	let copied = $state(false);
+	let copied_origin = $state(false);
+	let copied_node_env = $state(false);
 
 	async function handle_copy(this: HTMLButtonElement) {
-		const copiedCode = "docker run -p 3000:3000 uraniadev/snapp:latest";
+		const copiedCode = 'docker run -p 3000:3000 uraniadev/snapp:latest';
 		await navigator.clipboard.writeText(copiedCode);
 
 		copied = true;
 		setTimeout(() => {
 			copied = false;
-		}, 2000);
+		}, 1500);
 	}
 	async function handle_copy_origin(this: HTMLButtonElement) {
-		const copiedCode = "docker run -p 3000:3000 -e ORIGIN=example.com -e PUBLIC_URL=example.com uraniadev/snapp:latest";
+		const copiedCode =
+			'docker run -p 3000:3000 -e ORIGIN=https://example.com -e PUBLIC_URL=https://example.com uraniadev/snapp:latest';
 		await navigator.clipboard.writeText(copiedCode);
 
-		copied = true;
+		copied_origin = true;
 		setTimeout(() => {
-			copied = false;
-		}, 2000);
+			copied_origin = false;
+		}, 1500);
+	}
+	async function handle_copy_node_env(this: HTMLButtonElement) {
+		const copiedCode =
+			'docker run -p 8000:3000 -e ORIGIN=http://refurbished:8000 -e PUBLIC_URL=http://refurbished:8000 -e NODE_ENV=development uraniadev/snapp:latest';
+		await navigator.clipboard.writeText(copiedCode);
+
+		copied_node_env = true;
+		setTimeout(() => {
+			copied_node_env = false;
+		}, 1500);
 	}
 </script>
 
@@ -151,18 +164,18 @@
 							<li>
 								Install dependencies: <code class="bg-secondary text-white">
 									npm install --legacy-peer-deps
-								</code>.
+								</code>
 							</li>
 							<li>
 								Run for development:
-								<code class="bg-secondary text-white"> npx prisma db push </code>.
+								<code class="bg-secondary text-white"> npx prisma db push </code>
 							</li>
 							<li>
-								Run for development: <code class="bg-secondary text-white">npm run dev</code>.
+								Run for development: <code class="bg-secondary text-white">npm run dev</code>
 							</li>
 							<li>
 								Run for production: <code class="bg-secondary text-white">npm run build</code> then
-								<code class="bg-secondary text-white">npm start</code>.
+								<code class="bg-secondary text-white">node dotenv/config build</code>
 							</li>
 						</ul>
 					</div>
@@ -172,22 +185,64 @@
 				<div class="card">
 					<div class="card-body p-4" style:min-height="10rem">
 						<h4>Docker</h4>
-						<p>As simple as typing this in your terminal:</p>
-						<span class="btn-group container w-100 m-0 p-0">
-							<pre class="m-0 w-100"><code>docker run -p 3000:3000 uraniadev/snapp:latest</code
+						<p class="">As simple as typing this in your terminal</p>
+						<div class="position-relative">
+							<pre class="m-0 mb-2 w-100"><code>docker run -p 3000:3000 uraniadev/snapp:latest</code
 								></pre>
-							<button class="btn btn-primary" data-umami-event="Copied Docker" on:click={handle_copy}
-								><i class="ti ti-{copied ? 'check' : 'copy'} fs-2" /></button
+							<button
+								class="btn align-items-center position-absolute avatar avatar-sm p-2 end-0 top-0 m-2"
+								data-umami-event="Copied Docker"
+								on:click={handle_copy}><i class="ti ti-{copied ? 'check' : 'copy'} fs-2" /></button
 							>
-						</span>
-						<p>If you encounter CORS be sure to set ORIGIN and PUBLIC URL:</p>
-						<span class="btn-group container w-100 m-0 p-0">
-							<pre class="m-0 w-100"><code>docker run -p 3000:3000  \<br/>-e ORIGIN=example.com -e PUBLIC_URL=example.com \ <br/> uraniadev/snapp:latest</code
+						</div>
+						<p class="mt-3">
+							If you ran into CORS, set <code>ORIGIN</code> and <code>PUBLIC_URL</code>
+						</p>
+						<div class="position-relative">
+							<pre class="m-0 my-2 w-100"><code
+									>docker run \<br />-p 3000:3000  \<br />-e ORIGIN=https://example.com \<br
+									/>-e PUBLIC_URL=https://example.com \ <br />uraniadev/snapp:latest</code
 								></pre>
-							<button class="btn btn-primary" data-umami-event="Copied Docker" on:click={handle_copy_origin}
-								><i class="ti ti-{copied ? 'check' : 'copy'} fs-2" /></button
+							<button
+								class="btn align-items-center position-absolute avatar avatar-sm p-2 end-0 top-0 m-2"
+								data-umami-event="Copied Docker"
+								on:click={handle_copy_origin}
+								><i class="p-0 ti ti-{copied_origin ? 'check' : 'copy'} fs-2" /></button
 							>
-						</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-body p-4">
+						<h4>CORS and non HTTPS Instances</h4>
+						<p class="pt-2 lh-lg">
+							Snapp uses <a href="https://lucia-auth.com/">Lucia Auth</a>, and requires to be hosted
+							behind a <code>Secure HTTPS Protocol</code> If self-hosting without a
+							<code>Secure HTTPS Protocol</code>
+							set
+							<code>NODE_ENV=development</code> to allow Lucia handle sessions. Let's say for
+							example that you want to host Snapp on an old salvaged homelab with hostname: <code>refurbished</code>
+							on port <code>8000</code>
+						</p>
+
+						<div class="position-relative my-4">
+							<pre class="m-0 my-2 w-100"><code
+									>docker run \<br />-p 8000:3000 \<br />-e ORIGIN=http://refurbished:8000 \<br
+									/>-e PUBLIC_URL=http://refurbished:8000 \<br />-e NODE_ENV=development \<br
+									/>uraniadev/snapp:latest</code
+								></pre>
+							<button
+								class="btn align-items-center position-absolute avatar avatar-sm p-2 end-0 top-0 m-2"
+								data-umami-event="Copied Docker"
+								on:click={handle_copy_node_env}
+								><i class="p-0 ti ti-{copied_node_env ? 'check' : 'copy'} fs-2" /></button
+							>
+						</div>
+						<p class="small my-3 text-info">
+							<i class="ti ti-alert-circle" /> Be aware that this setting will disable <u>secure cookies</u>.
+						</p>
 					</div>
 				</div>
 			</div>
@@ -200,6 +255,10 @@
 		<div class="row pb-4 d-flex flex-wrap align-items-center gap-1 justify-content-end pe-4">
 			<p class="w-auto m-0 p-0">
 				<a href="https://kit.svelte.dev">kit.svelte.dev</a>
+			</p>
+			<span class="w-1">/</span>
+			<p class="w-auto m-0 p-0">
+				<a href="https://lucia-auth.com">lucia-auth.com</a>
 			</p>
 			<span class="w-1">/</span>
 			<p class="w-auto m-0 p-0">
