@@ -312,7 +312,7 @@
 				<div class="card p-0">
 					<div class="card-header">
 						<h3 class="card-title w-100 d-flex">
-							<span>Operative System</span>
+							<span>Operating System</span>
 						</h3>
 					</div>
 					<div class="card-body card-body-scrollable card-body-scrollable-shadow p-0">
