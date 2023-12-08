@@ -30,7 +30,7 @@ export let actions = {
 				username: true,
 				password: false,
 				confirmPassword: false,
-				message: 'Invalid username'
+				message: 'A Username is requested'
 			});
 		}
 		if (typeof password !== 'string' || password.length < 6 || password.length > 255) {
@@ -38,7 +38,7 @@ export let actions = {
 				username: false,
 				password: true,
 				confirmPassword: false,
-				message: 'Invalid password'
+				message: 'A password is requested'
 			});
 		}
 		if (typeof confirmPassword !== 'string' || confirmPassword !== password) {
@@ -82,7 +82,7 @@ export let actions = {
 				username: false,
 				password: false,
 				confirmPassword: false,
-				message: 'Wrong credentials, please check your info, and try again.'
+				message: 'An unexpected server error occurred. Please try again later.'
 			});
 		}
 		// redirect to

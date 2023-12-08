@@ -42,7 +42,7 @@ async function deleteOldUsages() {
 	let olderThan = new Date();
 	olderThan.setUTCDate(
 		today.getUTCDate() -
-			(process.env.METRIC_RETENTION_DAYS
+			(process.env.METRIC_RETENTION_DAYS !== 'false'
 				? Number(process.env.METRIC_RETENTION_DAYS?.toString())
 				: 30)
 	);

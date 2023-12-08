@@ -122,7 +122,7 @@ export const actions = {
 		const form = await request.formData();
 		let maxEntries = form.get('max-entries') as number | null;
 
-		if (maxEntries === null) return fail(400, { message: 'Server Error' });
+		if (maxEntries === null) return fail(500, { message: 'An unexpected server error occurred. Please try again later' });
 
 		const upsert = await prisma.settings.upsert({
 			create: {
@@ -145,7 +145,7 @@ export const actions = {
 		if (!session) throw redirect(302, '/');
 		const form = await request.formData();
 		let actual_columns = form.get('columns') as string | null;
-		if (actual_columns === null) return fail(400, { message: 'Server Error' });
+		if (actual_columns === null) return fail(500, { message: 'An unexpected server error occurred. Please try again later' });
 
 		const upsert = await prisma.settings.upsert({
 			create: {

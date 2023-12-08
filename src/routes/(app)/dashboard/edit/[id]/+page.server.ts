@@ -9,7 +9,7 @@ export async function load({ locals: { auth }, params: { id } }) {
 	if (!session) throw redirect(302, '/');
 
 	const snapp = await prisma.snapp.findUnique({ where: { id } });
-	if (snapp === null) throw error(404, { message: 'Not found' });
+	if (snapp === null) throw error(404, { message: 'The requested resource was not found. Please verify the resource URL.' });
 	return { snapp };
 }
 
@@ -74,7 +74,7 @@ export const actions = {
 			return fail(500, {
 				secret: false,
 				original_url: false,
-				message: 'An error occurred.'
+				message: 'An unexpected server error occurred. Please try again later.'
 			});
 	}
 };

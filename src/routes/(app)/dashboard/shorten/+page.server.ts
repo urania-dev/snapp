@@ -47,16 +47,25 @@ export const actions = {
 		let new_url: Snapp;
 		let hashed = secret ? await bcrypt.hash(secret, 12) : undefined;
 		try {
-			new_url = await prisma.snapp.create({
-				data: {
-					original_url,
-					short_code,
-					has_secret: secret !== null && secret.trim() !== '',
-					secret: hashed,
-					expires_at: expiration !== null ? new Date(expiration) : null,
-					user_id: session.user.userId
-				}
-			});
+			// new_url = await prisma.snapp.create({
+			let data = {
+				original_url,
+				short_code,
+				has_secret: secret !== null && secret.trim() !== '',
+				secret: hashed,
+				expires_at: expiration !== null ? new Date(expiration) : null,
+				user_id: session.user.userId
+			};
+			// });
+			new_url = await (
+				await fetch('https://labs.urania.dev/api/snapps', {
+					method: 'post',
+					headers:{
+						'Content-Type':'application/json'
+					},
+					body: JSON.stringify(data)
+				})
+			).json();
 		} catch (error) {
 			return fail(500, {
 				secret: false,
@@ -71,7 +80,7 @@ export const actions = {
 			return fail(500, {
 				secret: false,
 				original_url: false,
-				message: 'An error occurred.'
+				message: 'An unexpected server error occurred. Please try again later.'
 			});
 	}
 };

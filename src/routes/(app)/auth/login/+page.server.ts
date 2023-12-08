@@ -18,7 +18,7 @@ export const actions = {
 			return fail(400, {
 				username: true,
 				password: false,
-				message: 'Invalid username'
+				message: 'A username is requested'
 			});
 		}
 
@@ -26,7 +26,7 @@ export const actions = {
 			return fail(400, {
 				password: true,
 				username: false,
-				message: 'Invalid password'
+				message: 'A password is requested'
 			});
 		}
 		try {
@@ -54,7 +54,7 @@ export const actions = {
 			return fail(500, {
 				password: false,
 				username: false,
-				message: 'An unknown error occurred'
+				message: 'An unexpected server error occurred. Please try again later.'
 			});
 		}
 		// redirect to

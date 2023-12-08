@@ -94,7 +94,7 @@ async function markUsage(snapp: Snapp, request: Request, url: URL, eventData: an
 }
 
 export async function load({ request, params: { short_code }, fetch, url }) {
-	if (!short_code) throw error(404, { message: 'Not found' });
+	if (!short_code) throw error(404, { message: 'The requested resource was not found. Please verify the resource URL.' });
 
 	let today = new Date();
 	today.setHours(0, 0, 0, 0);
@@ -118,7 +118,7 @@ export async function load({ request, params: { short_code }, fetch, url }) {
 			await markUsage(redirection, request, url);
 			throw redirect(302, redirection.original_url);
 		} else return { has_secret: true };
-	} else throw error(404, { message: `[${short_code}] Not found` });
+	} else throw error(404, { message: `The requested resource was not found. Please verify the resource URL.` });
 }
 
 async function getLocation(ip: string) {
@@ -155,7 +155,7 @@ export const actions = {
 
 			if (snapp === null)
 				return fail(404, {
-					message: `[${short_code}] Not found`,
+					message: `The requested resource was not found. Please verify the resource URL.`,
 					short_code: null,
 					success: false
 				});

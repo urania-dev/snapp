@@ -178,6 +178,12 @@
 								<code class="bg-secondary text-white">node dotenv/config build</code>
 							</li>
 						</ul>
+						<h4 class="mt-4">REST API</h4>
+						<p class="pt-2 lh-lg">
+							Most requested feature, the ability to create and retrieve Snapps via REST API. <br
+							/>Read more <a href="/openapi.html">here</a>.
+							<span class="small">(Generated with Redoc)</span>
+						</p>
 					</div>
 				</div>
 			</div>

@@ -9,7 +9,7 @@ export const actions = {
 		const form = await request.formData();
 		let theme = form.get('theme') as string | null;
 
-		if (theme === null) return fail(400, { message: 'Server Error' });
+		if (theme === null) return fail(500, { message: 'An unexpected server error occurred. Please try again later' });
 		cookies.delete('u:snappli:theme');
 		cookies.set('u:snappli:theme', theme, {
 			path: '/',

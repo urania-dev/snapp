@@ -1,0 +1,688 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Snapp.li API",
+    "version": "1.0.0",
+    "description": "Discover the power of Snapp, your self-hostable URL shortening service. Effortlessly shorten links, and with Snapp's self-hosting capability, you have complete control. Create concise, shareable links on your terms with Snapp's user-friendly platform.\n\nA simple excercise to learn Svelte, Svelte5 Runes, and Tabler.\n\nAnd to host my urls too.\n",
+    "x-logo": {
+      "url": "https://snapp.li/logo.svg",
+      "backgroundColor": "#1d273b",
+      "altText": "Snapp.li"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/urania-dev/snapp/blob/main/LICENSE.md"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://snapps.li/api",
+      "description": "Rest Api Interface"
+    }
+  ],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "summary": "Authenticate user",
+        "description": "This endpoint authenticates a user using their username and password.\n",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "description": "User's username"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "User's password"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "description": "a token to be utilized to access API via Authorization header"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "summary": "Logout user",
+        "description": "This endpoint logs out the authenticated user, invalidates the session, and returns a JSON response indicating the user is no longer authenticated.\n",
+        "responses": {
+          "200": {
+            "description": "Successful logout",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "authenticated": {
+                      "type": "boolean",
+                      "description": "Indicates if the user is authenticated",
+                      "example": false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/snapps": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Retrieve a list of Snapps",
+        "description": "This endpoint returns a list of Snapps owned by the authenticated user.\nThe response includes basic information about each Snapp and optionally the total count of Snapps.\n",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/PageParam"
+          },
+          {
+            "$ref": "#/components/parameters/LimitParam"
+          },
+          {
+            "$ref": "#/components/parameters/Query"
+          },
+          {
+            "$ref": "#/components/parameters/SortByParam"
+          },
+          {
+            "$ref": "#/components/parameters/DirParam"
+          },
+          {
+            "$ref": "#/components/parameters/Count"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response | Can be Snapp[] or {count:number, snapps:Snapp[]}",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Snapp"
+                      }
+                    },
+                    {
+                      "$ref": "#/components/schemas/SnappAndTotalCount"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Create a new Snapp",
+        "description": "This endpoint allows the authenticated user to create a new Snapp.\nProvide the necessary information in the request body to create a Snapp.\n",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SnappInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Snapp"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          }
+        }
+      }
+    },
+    "/snapps/{id}/": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Retrieve a specific Snapp",
+        "description": "This endpoint retrieves information about a specific Snapp identified by its ID or short code.\nThe response includes basic information about the Snapp and optionally its usage details. Pagination is related to Url Usages if included in the query\n",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Id"
+          },
+          {
+            "$ref": "#/components/parameters/Usages"
+          },
+          {
+            "$ref": "#/components/parameters/PageParam"
+          },
+          {
+            "$ref": "#/components/parameters/LimitParam"
+          },
+          {
+            "$ref": "#/components/parameters/SortByUrlParam"
+          },
+          {
+            "$ref": "#/components/parameters/DirParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SnappAndUsages"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Update a specific Snapp",
+        "description": "This endpoint allows the authenticated user to update a specific Snapp identified by its ID.\nProvide the updated information in the request body to modify the Snapp.\n",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Id"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SnappInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Snapp"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Delete a specific Snapp",
+        "description": "This endpoint allows the authenticated user to delete a specific Snapp identified by its ID.\nProvide the Snapp ID in the request body to delete the Snapp.\n",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "deleted": {
+                      "type": "integer",
+                      "description": "Count of Snapps deleted"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Snapp": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Snapp ID (UUID)",
+            "format": "uuid",
+            "example": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          "original_url": {
+            "type": "string",
+            "description": "Original URL of the Snapp",
+            "example": "https://example.com"
+          },
+          "short_code": {
+            "type": "string",
+            "description": "Short code associated with the Snapp",
+            "example": "abcde"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of Snapp creation",
+            "example": "2023-12-08T12:34:56Z"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Expiration timestamp for the Snapp (optional)",
+            "example": "2024-01-08T12:34:56Z"
+          },
+          "secret": {
+            "type": "string",
+            "description": "Secret associated with the Snapp (optional)",
+            "example": "s3cr3tP@ssw0rd"
+          },
+          "has_secret": {
+            "type": "boolean",
+            "description": "Indicates if the Snapp has a secret",
+            "example": true
+          },
+          "user_id": {
+            "type": "string",
+            "description": "User ID associated with the Snapp",
+            "format": "uuid",
+            "example": "240e8400-e29b-41d4-a716-446655344003"
+          }
+        }
+      },
+      "SnappAndUsages": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Snapp"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "usages": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/UrlUsage"
+                }
+              },
+              "_count": {
+                "type": "object",
+                "properties": {
+                  "usages": {
+                    "type": "number",
+                    "example": 3,
+                    "description": "The count of UrlUsages generated by this Snapp"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "SnappAndTotalCount": {
+        "type": "object",
+        "properties": {
+          "snapps": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Snapp"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "example": 3,
+            "description": "Total count of Snapps (included only if count parameter is true)"
+          }
+        }
+      },
+      "UrlUsage": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "UrlUsage ID",
+            "example": "2317b019-573c-4dbe-b673-c984a1dac53f"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-12-08T10:37:11.314Z",
+            "description": "Timestamp of UrlUsage"
+          },
+          "snapp_id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "550e8400-e29b-41d4-a716-446655440000",
+            "description": "Snapp ID associated with the UrlUsage"
+          },
+          "country": {
+            "type": "string",
+            "description": "Country information (optional)",
+            "example": "Italy"
+          },
+          "city": {
+            "type": "string",
+            "description": "City information (optional)",
+            "example": "Turin"
+          },
+          "region": {
+            "type": "string",
+            "description": "Region information (optional)",
+            "example": "Piedmont"
+          },
+          "user_agent": {
+            "type": "string",
+            "description": "User agent information (optional)",
+            "example": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0"
+          },
+          "referrer": {
+            "type": "string",
+            "description": "Referrer information (optional)",
+            "example": "github.com"
+          },
+          "language": {
+            "type": "string",
+            "description": "Language information (optional)",
+            "example": "it-IT"
+          },
+          "browser": {
+            "type": "string",
+            "description": "Browser information (optional)",
+            "example": "Firefox"
+          },
+          "os": {
+            "type": "string",
+            "description": "Operating system information (optional)",
+            "example": "Windows"
+          },
+          "device": {
+            "type": "string",
+            "description": "Device information (optional)",
+            "example": "PC"
+          },
+          "cpu": {
+            "type": "string",
+            "description": "CPU information (optional)",
+            "example": "amd64"
+          }
+        }
+      },
+      "DeleteIds": {
+        "type": "object",
+        "properties": {
+          "ids": {
+            "description": "Original URL for the new Snapp",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": "https://example.com"
+          }
+        }
+      },
+      "SnappInput": {
+        "type": "object",
+        "properties": {
+          "original_url": {
+            "type": "string",
+            "description": "Original URL for the new Snapp",
+            "example": "https://example.com"
+          },
+          "short_code": {
+            "type": "string",
+            "description": "Short code for the new Snapp (optional)",
+            "example": "my-short-code"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Expiration timestamp for the new Snapp (optional)",
+            "example": "2023-12-31T23:59:59Z"
+          },
+          "secret": {
+            "type": "string",
+            "description": "Secret for the new Snapp (optional)",
+            "example": "my-secret"
+          }
+        }
+      }
+    },
+    "parameters": {
+      "Id": {
+        "name": "id",
+        "in": "path",
+        "description": "Snapp ID (UUID)",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "default": "1023938d-0294-4d35-b5c0-08339bf1738c"
+        }
+      },
+      "PageParam": {
+        "name": "page",
+        "in": "query",
+        "description": "Page number",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "default": 1
+        }
+      },
+      "LimitParam": {
+        "name": "limit",
+        "in": "query",
+        "description": "Number of items per page",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "default": 10
+        }
+      },
+      "Query": {
+        "name": "query",
+        "in": "query",
+        "description": "Search query for short codes or original URLs",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "SortByParam": {
+        "name": "sortBy",
+        "in": "query",
+        "description": "Field to sort by (created_at, expires_at, original_url, short_code, usages)",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "SortByUrlParam": {
+        "name": "sortBy",
+        "in": "query",
+        "description": "Field to sort by for URLs (timestamp, country, city, region, user_agent, referrer, language, browser, os, device, cpu, id)",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "DirParam": {
+        "name": "dir",
+        "in": "query",
+        "description": "Sorting direction (asc or desc)",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "asc",
+            "desc"
+          ]
+        }
+      },
+      "Usages": {
+        "name": "usages",
+        "in": "query",
+        "description": "Include the UrlUsages to Snapp",
+        "required": false,
+        "schema": {
+          "type": "boolean"
+        }
+      },
+      "Count": {
+        "name": "count",
+        "in": "query",
+        "description": "Include the total count of Snapps",
+        "required": false,
+        "schema": {
+          "type": "boolean"
+        }
+      }
+    },
+    "responses": {
+      "BadRequest": {
+        "description": "The request payload is not valid.",
+        "content": {
+          "application/json": {
+            "example": {
+              "message": "The request payload is not valid. Please check your input data."
+            }
+          }
+        }
+      },
+      "ServerError": {
+        "description": "An unknown server error occurred.",
+        "content": {
+          "application/json": {
+            "example": {
+              "message": "An unexpected server error occurred. Please try again later."
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "The requested resource was not found.",
+        "content": {
+          "application/json": {
+            "example": {
+              "message": "The requested resource was not found. Please verify the resource URL."
+            }
+          }
+        }
+      },
+      "Unauthorized": {
+        "description": "Unauthorized access. Authentication session is missing.",
+        "content": {
+          "application/json": {
+            "example": {
+              "message": "Unauthorized access. Please authenticate first."
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
