@@ -22,11 +22,10 @@ const rule = new schedule.RecurrenceRule();
 rule.tz = process.env.TIMEZONE ?? 'Europe/Rome';
 rule.hour = 0;
 
-let today = new Date();
-today.setUTCDate(today.getDate());
-today.setUTCHours(0, 0, 0, 0);
-
 async function deleteExpiredSnapps() {
+	let today = new Date();
+	today.setUTCDate(today.getDate());
+	today.setUTCHours(0, 0, 0, 0);
 	console.log('🧹 started cleaning service');
 
 	const ids = await prisma.snapp.deleteMany({
@@ -34,6 +33,27 @@ async function deleteExpiredSnapps() {
 	});
 
 	console.log(`${ids.count} snapps are expired and have been deleted`);
+}
+
+async function deleteOldUsages() {
+	let today = new Date();
+	today.setUTCDate(today.getDate());
+	today.setUTCHours(0, 0, 0, 0);
+	let olderThan = new Date();
+	olderThan.setUTCDate(
+		today.getUTCDate() -
+			(process.env.METRIC_RETENTION_DAYS
+				? Number(process.env.METRIC_RETENTION_DAYS?.toString())
+				: 30)
+	);
+	olderThan.setUTCHours(0, 0, 0, 0);
+	const res = await prisma.urlUsage.deleteMany({
+		where: {
+			timestamp: { lte: olderThan }
+		}
+	});
+
+	console.log('♻️ cleaning old metrics. [' + res.count + '] object erased');
 }
 async function resetDemo() {
 	console.log('♻️ resetting demo service');
@@ -43,6 +63,8 @@ async function resetDemo() {
 			id: { not: '' }
 		}
 	});
+
+	if (process.env.METRIC_RETENTION_DAYS !== 'false') await deleteOldUsages();
 
 	console.log(`${users.count} users have been deleted`);
 	console.log(`Instance has been reset`);

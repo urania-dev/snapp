@@ -27,6 +27,7 @@ ENV ORIGIN=${PUBLIC_URL}
 ENV NODE_ENV=production
 ENV DEMO=false
 ENV DISABLE_HOME=false
+ENV METRIC_RETENTION_DAYS=30
 
 RUN npm run build 
 # Expose the port on which the app will run
