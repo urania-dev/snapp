@@ -6,6 +6,13 @@ A simple excercise to learn Svelte, Svelte5 Runes, and Tabler.
 
 And to host my urls too.
 
+## Changelog
+
+Since this is a hobby, and i'm still learning, the way of github are obscure to me, so I introduced a change-log,
+to see if there has been any change on this project recently.
+
+You can find it [here](https://github.com/urania-dev/snapp/blob/main/CHANGELOG.MD)
+
 ## Manual Install / Local Development
 
 You need to have [Node.js](https://nodejs.org) installed on your machine.
