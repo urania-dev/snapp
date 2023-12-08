@@ -233,7 +233,7 @@
 							on port <code>8000</code>
 						</p>
 
-						<div class="position-relative my-4">
+						<div class="position-relative mt-4 mb-2">
 							<pre class="m-0 my-2 w-100"><code
 									>docker run \<br />-p 8000:3000 \<br />-e ORIGIN=http://refurbished:8000 \<br
 									/>-e PUBLIC_URL=http://refurbished:8000 \<br />-e NODE_ENV=development \<br
@@ -246,9 +246,14 @@
 								><i class="p-0 ti ti-{copied_node_env ? 'check' : 'copy'} fs-2" /></button
 							>
 						</div>
-						<p class=" my-3 text-info">
+						<p class="mt-3 text-info">
 							<i class="ti ti-alert-circle text-warning" /> Be aware that this setting will disable
 							<u>secure cookies</u>.
+						</p>
+						<h4 class="mt-4">Enable Umami Integration</h4>
+						<p class="pt-2 lh-lg">
+							If you want to use <a href="https://umami.is">Umami</a> Self-hosted analytics on your
+							Snapps, you can set <code>UMAMI_URL</code> and the provided <code>WEBSITE_ID</code>.
 						</p>
 					</div>
 				</div>
@@ -292,8 +297,8 @@
 						<p class="text-secondary m-0">
 							<i class="ti ti-alert-circle pe-1" /> Disclaimer: the public instance of
 							https://snapp.li and https://demo.snapp.li track anonymous analytics with
-							<a href="https://umami.is">umami.is</a>. <br/> This happens only on this domain, 
-							public docker image and github repository of Snapp don't include any Umami trackers.
+							<a href="https://umami.is">umami.is</a>. <br /> This happens only on this domain, public
+							docker image and github repository of Snapp don't include any Umami trackers.
 						</p>
 					</div>
 				</div>

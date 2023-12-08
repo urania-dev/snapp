@@ -2,7 +2,6 @@
 	import { enhance } from '$app/forms';
 	import { goto, invalidate } from '$app/navigation';
 	import { env } from '$env/dynamic/public';
-	import { PUBLIC_URL } from '$env/static/public';
 	import { debounce } from '$lib/utils/debounce.js';
 	import type { Snapp } from '@prisma/client';
 	import type { Toast } from 'bootstrap';
@@ -131,7 +130,7 @@
 				error: 'Not found'
 			};
 		else {
-			const object = await qrcode.toDataURL(`${PUBLIC_URL}/~/${qrCode.short_code}`, {
+			const object = await qrcode.toDataURL(`${env.PUBLIC_URL}/~/${qrCode.short_code}`, {
 				color: {
 					dark: darkMode ? '#206bc4' : '#000000',
 					light: darkMode ? '#1a2335' : '#ffffff'
@@ -154,7 +153,7 @@
 
 	async function handle_download_qrcode() {
 		if (!qrCode) return;
-		const object = await qrcode.toDataURL(`${PUBLIC_URL}/~/${qrCode.short_code}`, {
+		const object = await qrcode.toDataURL(`${env.PUBLIC_URL}/~/${qrCode.short_code}`, {
 			width: 500,
 			type: 'image/png'
 		});
@@ -609,7 +608,12 @@
 											<td class="w-auto"><span>{snapp.original_url}</span></td>{/if}
 										{#if actual_columns.includes('short-code')}
 											<td class="w-auto">
-												<a href="/~/{snapp.short_code}" data-sveltekit-preload-data="off" class="text-reset" tabindex="-1">
+												<a
+													href="/~/{snapp.short_code}"
+													data-sveltekit-preload-data="off"
+													class="text-reset"
+													tabindex="-1"
+												>
 													{snapp.short_code}
 												</a>
 											</td>

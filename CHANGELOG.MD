@@ -10,3 +10,9 @@
   - QRCodes integrated  
   - IP for metrics are gathered from X-Forward-For instead of X-Real-IP
   - Introduction of this changelog 
+- 0.2.1
+  - QRCodes fix on PUBLIC_URL not being dynamic env
+- 0.3.0
+  - Integrated UMAMI metrics
+  - Fixed secret snapp not always triggering redirect
+

@@ -16,6 +16,7 @@ export async function load({ locals, depends }) {
 		_theme: theme ? theme.value : 'dark',
 		is_demo: process.env.DEMO === 'true',
 		disable_home: process.env.DISABLE_HOME === 'true',
-		website_id: process.env.WEBSITE_ID
+		website_id: process.env.WEBSITE_ID,
+		umami_url: process.env.UMAMI_URL
 	};
 }

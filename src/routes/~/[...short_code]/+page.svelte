@@ -1,5 +1,8 @@
-<script>
+<script lang="ts">
 	import { enhance } from '$app/forms';
+
+	const { form } = $props();
+	$effect(() => console.log(form));
 </script>
 
 <svelte:head>
@@ -14,7 +17,7 @@
 			</a>
 		</div>
 		<form class="card card-md" method="post" autocomplete="off" novalidate use:enhance>
-			<div class="card-body text-center">
+			<div class="card-body text-center pt-4 pb-2">
 				<div class="d-flex flex-column gap-2">
 					<i class="ti ti-shield-lock mx-auto" style:font-size="5rem"></i>
 					<h2 class="card-title">Protected Short url</h2>
@@ -30,11 +33,18 @@
 					/>
 				</div>
 				<div>
-					<button class="btn btn-primary w-100">
+					<button class="btn btn-primary w-100" type="submit">
 						<i class="ti ti-unlock" />
 						Unlock
 					</button>
 				</div>
+				<p class="text-danger py-2 m-0 mx-auto text-center">
+					{#if form?.message}
+						{form.message}
+					{:else}
+						&nbsp;
+					{/if}
+				</p>
 			</div>
 		</form>
 	</div>

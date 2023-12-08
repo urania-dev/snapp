@@ -37,7 +37,7 @@ If your run into CORS problem be sure to set ORIGIN and PUBLIC_URL
 docker run \
 -e ORIGIN=https://example.com \
 -e PUBLIC_URL=https://example.com \
--p 3000:3000 \ 
+-p 3000:3000 \
 uraniadev/snapp:latest
 ```
 
@@ -58,10 +58,24 @@ docker run \
 uraniadev/snapp:latest
 ```
 
+## Umami Integrations
+
+Yeah my metrics are cool, and integrated, but if you want to have more control, and leverage the power of a real metrics Analytics provider, you can pass
+
+`UMAMI_URL` set to your [Umami](ttps://umami.js) instance or cloud.
+
+`WEBSITE_ID` provided by Umami.
+
+And that should also works in the snapp server-side redirect, as i set a script to send a `/api/post` request with a payload filled at my best
+
 ## Multi User
 
 Snapp supports also multi-users, just enable with `ENABLE_MULTIUSER=true`.
 
-The demo will be resetting every 24H. 
+The demo will be resetting every 24H.
 
 ### 🖥️ [Link to the demo](https://demo.snapp.li)
+
+## DISCLAIMER
+
+The public instance of [https://snapp.li](https://snapp.li) and [https://demo.snapp.li](https://demo.snapp.li) track anonymous analytics with umami.is.
