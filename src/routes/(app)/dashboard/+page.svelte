@@ -609,7 +609,7 @@
 											<td class="w-auto"><span>{snapp.original_url}</span></td>{/if}
 										{#if actual_columns.includes('short-code')}
 											<td class="w-auto">
-												<a href="/~/{snapp.short_code}" class="text-reset" tabindex="-1">
+												<a href="/~/{snapp.short_code}" data-sveltekit-preload-data="off" class="text-reset" tabindex="-1">
 													{snapp.short_code}
 												</a>
 											</td>
