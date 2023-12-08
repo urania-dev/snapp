@@ -21,6 +21,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 const rule = new schedule.RecurrenceRule();
 rule.tz = process.env.TIMEZONE ?? 'Europe/Rome';
 rule.hour = 0;
+rule.minute = 0
+
 
 async function deleteExpiredSnapps() {
 	let today = new Date();
