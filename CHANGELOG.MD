@@ -16,4 +16,4 @@
 - 0.3.0
   - Integrated UMAMI metrics
   - Fixed secret snapp not always triggering redirect
-  - Optimized metric retention to 30 customizable via MAX_RETENTION_DAY=number|false
+  - Optimized metric retention to 30 customizable via MAX_RETENTION_DAYS=number|false
