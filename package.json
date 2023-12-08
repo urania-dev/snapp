@@ -19,6 +19,7 @@
 		"@types/bcrypt": "^5.0.2",
 		"@types/bootstrap": "^5.2.10",
 		"@types/node-schedule": "^2.1.5",
+		"@types/qrcode": "^1.5.5",
 		"@types/ua-parser-js": "^0.7.39",
 		"@typescript-eslint/eslint-plugin": "^6.0.0",
 		"@typescript-eslint/parser": "^6.0.0",
@@ -46,6 +47,7 @@
 		"litepicker": "^2.0.12",
 		"maxmind": "^4.3.17",
 		"node-schedule": "^2.1.1",
+		"qrcode": "^1.5.3",
 		"ua-parser-js": "^1.0.37"
 	}
 }

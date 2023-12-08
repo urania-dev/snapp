@@ -2,9 +2,11 @@
 	import { enhance } from '$app/forms';
 	import { goto, invalidate } from '$app/navigation';
 	import { env } from '$env/dynamic/public';
+	import { PUBLIC_URL } from '$env/static/public';
 	import { debounce } from '$lib/utils/debounce.js';
+	import type { Snapp } from '@prisma/client';
 	import type { Toast } from 'bootstrap';
-
+	import qrcode from 'qrcode';
 	let { data } = $props();
 	let { snapps } = $derived(data);
 
@@ -24,6 +26,7 @@
 	let selected_columns = $state<Columns[]>(starting_columns);
 	let actual_columns = $state<Columns[]>(starting_columns);
 	let sortDir = $derived(data.sortDir);
+	let qrCode = $state<Snapp>();
 
 	function handle_select_all() {
 		if (!selected_length) selected = snapps.map((url) => url.id);
@@ -112,6 +115,56 @@
 		document.forms.namedItem('delete-snapps')?.requestSubmit();
 	}
 
+	function handle_show_qrcode(this: HTMLButtonElement) {
+		const id = this.dataset.idx;
+		if (!id) return;
+		const snapp = data.snapps.find((s) => s.id === id);
+		if (snapp) qrCode = snapp;
+	}
+
+	async function handle_generate_qrcode() {
+		const darkMode = data._theme === 'dark';
+
+		if (qrCode === undefined)
+			return {
+				qrCodeImage: null,
+				error: 'Not found'
+			};
+		else {
+			const object = await qrcode.toDataURL(`${PUBLIC_URL}/~/${qrCode.short_code}`, {
+				color: {
+					dark: darkMode ? '#206bc4' : '#000000',
+					light: darkMode ? '#1a2335' : '#ffffff'
+				},
+				width: 500,
+				type: 'image/png'
+			});
+			if (object)
+				return {
+					qrCodeImage: object,
+					error: null
+				};
+			else
+				return {
+					qrCodeImage: null,
+					error: 'Error during QR Code generation'
+				};
+		}
+	}
+
+	async function handle_download_qrcode() {
+		if (!qrCode) return;
+		const object = await qrcode.toDataURL(`${PUBLIC_URL}/~/${qrCode.short_code}`, {
+			width: 500,
+			type: 'image/png'
+		});
+
+		const downloadLink = document.createElement('a');
+		downloadLink.href = object;
+		downloadLink.download = `${qrCode.short_code}.png`;
+		downloadLink.click();
+		downloadLink.remove();
+	}
 	async function handle_search(this: HTMLInputElement) {
 		const query = this.value;
 		const url = new URL(data.url);
@@ -278,7 +331,47 @@
 </div>
 
 <div
-	class="toast position-absolute bottom-0 end-0 m-0 mb-3"
+	class="modal fade"
+	id="qrcode-modal"
+	tabindex="-1"
+	aria-labelledby="qrcode-modal-label"
+	aria-hidden="true"
+>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="qrcode-modal-label">QR Code</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			{#await handle_generate_qrcode()}
+				<div class="modal-body row w-100 m-0 ratio ratio-1x1">
+					<div class="ratio ratio-1x1">
+						<h1 class="d-flex justify-content-center align-items-center">
+							Loading <span class="animated-dots"></span>
+						</h1>
+					</div>
+				</div>
+			{:then { qrCodeImage, error }}
+				<div class="modal-body row w-100 m-0 ratio ratio-1x1 pt-2">
+					<img
+						src={qrCodeImage}
+						class="w-100 p-0"
+						alt="QrCodeImage"
+						style:image-rendering="pixelated"
+					/>
+				</div>
+				<div class="modal-footer mt-3 row">
+					<button type="button" class="btn col" data-bs-dismiss="modal">Close</button>
+					<h3 class="text-primary text-center col">/~/{qrCode?.short_code}</h3>
+					<button class="btn btn-primary col" on:click={handle_download_qrcode}>Download</button>
+				</div>
+			{/await}
+		</div>
+	</div>
+</div>
+
+<div
+	class="toast position-absolute z-3 bottom-0 end-0 m-0 mb-3"
 	data-bs-animation={true}
 	role="alert"
 	bind:this={toastRef}
@@ -561,6 +654,15 @@
 														Copy
 													</button>
 													<a class="dropdown-item" href="dashboard/edit/{snapp.id}"> Edit </a>
+													<button
+														class="dropdown-item"
+														on:click={handle_show_qrcode}
+														data-idx={snapp.id}
+														data-bs-toggle="modal"
+														data-bs-target="#qrcode-modal"
+													>
+														QR Code
+													</button>
 													<button
 														class="dropdown-item"
 														on:click={handle_delete_shortcode}

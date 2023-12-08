@@ -11,7 +11,7 @@ async function markUsage(snapp: Snapp, request: Request) {
 	const headers = Object.fromEntries(request.headers);
 
 	const language = headers['accept-language']?.split(',')[0];
-	const { 'user-agent': user_agent, 'x-real-ip': real_ip } = headers;
+	const { 'user-agent': user_agent, 'x-forwarded-for': real_ip } = headers;
 
 	const uaParsed = new UAParser(user_agent);
 
@@ -19,7 +19,12 @@ async function markUsage(snapp: Snapp, request: Request) {
 
 	const browser = parsed.browser.name;
 	const os = parsed.os.name;
-	const device = parsed.device.type && `${parsed.device.type?.slice(0,1).toUpperCase()}${parsed.device.type?.slice(1).toLowerCase()}` || 'PC';
+	const device =
+		(parsed.device.type &&
+			`${parsed.device.type?.slice(0, 1).toUpperCase()}${parsed.device.type
+				?.slice(1)
+				.toLowerCase()}`) ||
+		'PC';
 	const cpu = parsed.cpu.architecture;
 	let city: undefined | string, country: string | undefined, region: string | undefined;
 
