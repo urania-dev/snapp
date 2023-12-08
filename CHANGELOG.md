@@ -19,6 +19,6 @@
   - Optimized metric retention to 30 customizable via MAX_RETENTION_DAYS=number|false
 - 0.4.0
   - REST API at /api
-  - OpenApi via Redoc-Static at /openapi.html
+  - OpenApi via Redoc-Static at [/openapi.html](http://snapp.li/openapi.html)
   - Updated FrontEnd
   - Updated minor fixes on REST API docs

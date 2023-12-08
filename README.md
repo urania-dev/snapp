@@ -11,7 +11,7 @@ And to host my urls too.
 Since this is a hobby, and i'm still learning, the way of github are obscure to me, so I introduced a change-log,
 to see if there has been any change on this project recently.
 
-You can find it [here](https://github.com/urania-dev/snapp/blob/main/CHANGELOG.MD)
+You can find it [here](https://github.com/urania-dev/snapp/blob/main/CHANGELOG.md)
 
 ## Manual Install / Local Development
 
@@ -57,6 +57,10 @@ docker run \
 -e NODE_ENV=development \
 uraniadev/snapp:latest
 ```
+
+## API REST Interface
+
+Built-in Api endpoints and OpenApi Documentation via Redoc-Static at [/openapi.html](http://snapp.li/openapi.html)
 
 ## Umami Integrations
 
