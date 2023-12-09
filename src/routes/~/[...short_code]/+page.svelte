@@ -2,7 +2,6 @@
 	import { enhance } from '$app/forms';
 
 	const { form } = $props();
-	$effect(() => console.log(form));
 </script>
 
 <svelte:head>

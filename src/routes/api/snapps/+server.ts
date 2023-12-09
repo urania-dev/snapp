@@ -87,7 +87,6 @@ export async function POST({ locals, request, cookies }) {
 		throw error(401, { message: 'Unauthorized access. Please authenticate first.' });
 
 	let data = (await request.json()) as Partial<Snapp>;
-	console.log(data);
 	async function check_short_code(slug: string) {
 		const exists = await prisma.snapp.findMany({
 			where: { short_code: { startsWith: slug } },

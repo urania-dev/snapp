@@ -42,9 +42,7 @@
 	}
 
 	const handle_submit_function: SubmitFunction = function ({ formData }) {
-		console.log('submit?')
 		formData.set('short-code', slugify(short_code) ?? '');
-		console.log(Object.fromEntries(formData))
 		return async function ({ update }) {
 			await update();
 		};
