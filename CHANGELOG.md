@@ -22,3 +22,6 @@
   - OpenApi via Redoc-Static at [/openapi.html](http://snapp.li/openapi.html)
   - Updated FrontEnd
   - Updated minor fixes on REST API docs
+- 0.4.1
+  - Fixed regex in new shorten creation
+  - Fixed some mispell around
