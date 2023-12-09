@@ -66,7 +66,7 @@ Built-in Api endpoints and OpenApi Documentation via Redoc-Static at [/openapi.h
 
 Yeah my metrics are cool, and integrated, but if you want to have more control, and leverage the power of a real metrics Analytics provider, you can pass
 
-`UMAMI_URL` set to your [Umami](ttps://umami.js) instance or cloud.
+`UMAMI_URL` set to your [Umami](https://umami.js) instance or cloud.
 
 `WEBSITE_ID` provided by Umami.
 
