@@ -35,9 +35,7 @@
 	}
 
 	function handle_url_verification() {
-		const regex = new RegExp(
-			/^(http(s):\/\/)[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$/
-		);
+		const regex = new RegExp(/^https:\/\/[^\s/$.?#].[^\s]*$/);
 		if (original_url) valid_original_url = regex.test(original_url);
 	}
 

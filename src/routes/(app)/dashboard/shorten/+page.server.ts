@@ -34,7 +34,6 @@ export const actions = {
 				original_url: true,
 				message: 'Original url must be set'
 			});
-
 		if (
 			typeof short_code !== 'string' ||
 			short_code.trim() === '' ||

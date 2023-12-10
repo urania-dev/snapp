@@ -96,8 +96,14 @@ export async function POST({ locals, request, cookies }) {
 		if (exists.length > 0) return `${slug}-${exists.length}`;
 		else return slug;
 	}
-
 	if (typeof data.original_url !== 'string' || data.original_url?.trim() === '')
+		throw error(400, {
+			message:
+				'The request payload is not valid. Please check your input data. Original url must be set'
+		});
+	const regex = new RegExp(/^https:\/\/[^\s/$.?#].[^\s]*$/);
+	const valid_original_url = regex.test(data.original_url);
+	if (valid_original_url === false)
 		throw error(400, {
 			message:
 				'The request payload is not valid. Please check your input data. Original url must be set'
