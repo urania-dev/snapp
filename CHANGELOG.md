@@ -25,3 +25,6 @@
 - 0.4.1
   - Fixed regex in new shorten creation
   - Fixed some mispell around
+- 0.4.2
+  - Fixed the DB inconsistencies when linking a volume through docker. It now pushes the db. not the most elegant fix.
+  

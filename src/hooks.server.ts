@@ -1,6 +1,6 @@
 import { auth } from '$lib/server/lucia';
 import schedule, { scheduledJobs } from 'node-schedule';
-
+import { execSync } from 'child_process';
 import type { Handle } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma';
 
@@ -21,8 +21,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 const rule = new schedule.RecurrenceRule();
 rule.tz = process.env.TIMEZONE ?? 'Europe/Rome';
 rule.hour = 0;
-rule.minute = 0
-
+rule.minute = 0;
 
 async function deleteExpiredSnapps() {
 	let today = new Date();
@@ -88,4 +87,10 @@ function initiateSchedules() {
 	else console.log('--- ❌ An error occurred during schedule');
 }
 
+async function checkDb() {
+	console.log(execSync('npx prisma db push').toString());
+	console.log('Database is up to date.');
+}
+
+checkDb();
 initiateSchedules();

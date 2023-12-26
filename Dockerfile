@@ -13,7 +13,6 @@ ENV DATABASE_URL="file:./db.sqlite"
 
 RUN touch /app/prisma/db.sqlite
 RUN npm i --legacy-peer-deps
-RUN npx prisma db push
 
 # Copy the source code to the container
 COPY . /app
