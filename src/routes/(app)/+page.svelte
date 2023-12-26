@@ -187,6 +187,7 @@
 					</div>
 				</div>
 			</div>
+
 			<div class="col-md-12 col-lg-6">
 				<div class="card">
 					<div class="card-body p-4" style:min-height="10rem">
@@ -219,6 +220,7 @@
 					</div>
 				</div>
 			</div>
+
 			<div class="col-md-12 col-lg-6">
 				<div class="card">
 					<div class="card-body p-4">
@@ -294,6 +296,56 @@
 							Mount docker volume at <code>/app/prisma/db.sqlite</code>.<br />
 							You can generate a DB Compliant to Prisma Client with schema in repository.
 						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-12 col-lg-6">
+				<div class="card">
+					<div class="card-body p-4" style:min-height="10rem">
+						<h4>Admin credentials</h4>
+						<p style:max-width="80ch">
+							By default the app will not create any admin user, you should setup your own by signin
+							up on the front-end. First user registered get marked as Admin.
+						</p>
+						<p style:max-width="80ch">
+							You can set up variables to create admin if not already existing by the same username
+							at platform launch.
+						</p>
+
+						<ul class="d-flex flex-column gap-2">
+							<li>
+								<code class="bg-secondary text-white">ADMIN_USERNAME=admin</code>
+							</li>
+							<li>
+								<code class="bg-secondary text-white">ADMIN_PASSWORD=password</code>
+							</li>
+							<li>
+								<code class="bg-secondary text-white">ADMIN_EMAIL=admin@snapp.li</code>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12 col-lg-6">
+				<div class="card">
+					<div class="card-body p-4" style:min-height="10rem">
+						<h4>SMTP Transporter</h4>
+						<p style:max-width="80ch">
+							You can setup email for your account, and so recover password if forgotten
+						</p>
+						<p style:max-width="80ch">
+							Here a resend / generic smtp example of using the SMTP for password recovery. It
+							checks username and email before sending.
+						</p>
+						<ul class="d-flex flex-column gap-2">
+							<li>
+								<code class="bg-secondary text-white">SMTP_HOST=smtp.resend.com</code>
+							</li>
+							<li><code class="bg-secondary text-white">SMTP_USER=resend</code></li>
+							<li><code class="bg-secondary text-white">SMTP_PASSWORD=apiKey</code></li>
+							<li><code class="bg-secondary text-white">SMTP_FROM=admin@snapp.li</code></li>
+						</ul>
 					</div>
 				</div>
 			</div>
