@@ -3,6 +3,7 @@ import schedule, { scheduledJobs } from 'node-schedule';
 import { execSync } from 'child_process';
 import type { Handle } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma';
+import { env } from '$env/dynamic/private';
 
 console.log('🖥️  Starting handle server side');
 let jobs = Array.from(Object.entries(scheduledJobs));
@@ -89,7 +90,38 @@ function initiateSchedules() {
 
 async function checkDb() {
 	console.log(execSync('npx prisma db push').toString());
+
 	console.log('Database is up to date.');
+	if (env.ADMIN_USERNAME && env.ADMIN_PASSWORD) {
+		const findAdmin = await prisma.user.findFirst({ where: { username: env.ADMIN_USERNAME } });
+		if(findAdmin !== null) return console.log('Admin already set on this DB.')
+		const user = await auth.createUser({
+			key: {
+				providerId: 'username', // auth method
+				providerUserId: env.ADMIN_USERNAME, // unique id when using "username" auth method
+				password: env.ADMIN_PASSWORD // hashed by Lucia
+			},
+			attributes: {
+				username: env.ADMIN_USERNAME,
+				email: env.ADMIN_EMAIL ?? null
+			}
+		});
+		await prisma.settings.upsert({
+			create: {
+				id: user.userId + ':isadmin',
+				user_id: user.userId,
+				setting: 'administrator',
+				value: 'true'
+			},
+			update: {
+				value: 'true'
+			},
+			where: {
+				id: user.userId + ':isadmin'
+			}
+		});
+		console.log('Admin has been set as variables');
+	}
 }
 
 checkDb();

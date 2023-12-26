@@ -13,6 +13,7 @@ export let actions = {
 		if (administrator && process.env.ENABLE_MULTIUSER === 'false') {
 			return fail(403, {
 				message: 'There is already an administrator registered. Enable mulituser, if intended.',
+				email: false,
 				password: false,
 				username: false,
 				confirmPassword: false
@@ -23,11 +24,13 @@ export let actions = {
 
 		const username = form.get('username') as string | null;
 		const password = form.get('password') as string | null;
+		const email = form.get('email') as string | null;
 		const confirmPassword = form.get('confirm-password') as string | null;
 
 		if (typeof username !== 'string' || username.length < 4 || username.length > 31) {
 			return fail(400, {
 				username: true,
+				email: false,
 				password: false,
 				confirmPassword: false,
 				message: 'A Username is requested'
@@ -36,15 +39,17 @@ export let actions = {
 		if (typeof password !== 'string' || password.length < 6 || password.length > 255) {
 			return fail(400, {
 				username: false,
+				email: false,
 				password: true,
 				confirmPassword: false,
-				message: 'A password is requested'
+				message: 'At least six digit password is requested'
 			});
 		}
 		if (typeof confirmPassword !== 'string' || confirmPassword !== password) {
 			return fail(400, {
+				email: false,
 				username: false,
-				password: false,
+				password: true,
 				confirmPassword: true,
 				message: 'Passwords are not matching'
 			});
@@ -58,19 +63,38 @@ export let actions = {
 					password // hashed by Lucia
 				},
 				attributes: {
-					username
+					username,
+					email
 				}
 			});
 			const session = await auth.createSession({
 				userId: user.userId,
 				attributes: {}
 			});
+
+			if (administrator === null)
+				await prisma.settings.upsert({
+					create: {
+						id: session.user.userId + ':isadmin',
+						user_id: session.user.userId,
+						setting: 'administrator',
+						value: 'true'
+					},
+					update: {
+						value: 'true'
+					},
+					where: {
+						id: session.user.userId + ':isadmin'
+					}
+				});
+
 			locals.auth.setSession(session); // set session cookie
 		} catch (e) {
 			// this part depends on the database you're using
 			// check for unique constraint error in user table
 			if (e instanceof LuciaError && e.message === 'AUTH_DUPLICATE_KEY_ID') {
 				return fail(400, {
+					email: false,
 					username: true,
 					password: false,
 					confirmPassword: false,
@@ -79,6 +103,7 @@ export let actions = {
 			}
 
 			return fail(500, {
+				email: false,
 				username: false,
 				password: false,
 				confirmPassword: false,

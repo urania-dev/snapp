@@ -1,3 +1,4 @@
+import { env } from '$env/dynamic/private';
 import { prisma } from '$lib/server/prisma.js';
 
 export async function load({ locals, depends }) {
@@ -11,16 +12,16 @@ export async function load({ locals, depends }) {
 				setting: 'theme'
 			}
 		});
-
 		return {
 			session,
 			_theme: theme ? theme.value : 'dark',
-			is_demo: process.env.DEMO === 'true',
-			disable_home: process.env.DISABLE_HOME === 'true',
-			website_id: process.env.WEBSITE_ID,
-			umami_url: process.env.UMAMI_URL
+			is_demo: env.DEMO === 'true',
+			disable_home: env.DISABLE_HOME === 'true',
+			website_id: env.WEBSITE_ID,
+			umami_url: env.UMAMI_URL,
+			has_smtp: env.SMTP_HOST !== undefined
 		};
 	} catch (err) {
-		throw err
+		throw err;
 	}
 }

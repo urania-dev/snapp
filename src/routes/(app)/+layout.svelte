@@ -108,8 +108,19 @@
 								<span class="nav-link-title fs-3"><i class="ti ti-graph"></i> Metrics </span>
 							</a>
 						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/dashboard/settings">
+								<span class="nav-link-title fs-3"><i class="ti ti-settings"></i> Settings </span>
+							</a>
+						</li>
+
 						<li class="nav-item mt-auto">
-							<a class="nav-link" href="/auth/logout" data-sveltekit-reload>
+							<a
+								class="nav-link"
+								href="/auth/logout"
+								data-sveltekit-preload-data="off"
+								data-sveltekit-reload
+							>
 								<span class="nav-link-title mx-auto"> Logout </span>
 							</a>
 						</li>

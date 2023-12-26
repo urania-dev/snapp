@@ -25,6 +25,17 @@ You need to have [Node.js](https://nodejs.org) installed on your machine.
 - Run for development: `npm run dev`.
 - Run for production: `npm run build` then `node -r dotenv/config build`.
 
+## Admin credentials
+
+By default the app will not create any admin user, you should setup your own by signin up on the front-end.
+First user registered get marked as Admin.
+
+Also you can set up variables to create admin if not already existing by the same username at platform launch.
+
+- `ADMIN_USERNAME=admin`
+- `ADMIN_EMAIL=admin@snapp.li`
+- `ADMIN_PASSWORD=password`
+
 ## Docker Install
 
 ```bash

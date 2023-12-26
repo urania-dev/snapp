@@ -1,4 +1,3 @@
-import { auth } from '$lib/server/lucia.js';
 import { prisma } from '$lib/server/prisma.js';
 import { generateRandomString } from '$lib/utils/generateRandomString.js';
 import { slugify } from '$lib/utils/slugify.js';
@@ -6,7 +5,7 @@ import type { Prisma, Snapp } from '@prisma/client';
 import { error, json } from '@sveltejs/kit';
 import bcrypt from 'bcrypt';
 
-export async function GET({ locals, request, url }) {
+export async function GET({ locals,  url }) {
 	const session = await locals.auth.validateBearerToken();
 	if (session === null)
 		throw error(401, { message: 'Unauthorized access. Please authenticate first.' });
@@ -80,7 +79,7 @@ export async function GET({ locals, request, url }) {
 	}
 }
 
-export async function POST({ locals, request, cookies }) {
+export async function POST({ locals, request }) {
 	const session = await locals.auth.validateBearerToken();
 
 	if (session === null)

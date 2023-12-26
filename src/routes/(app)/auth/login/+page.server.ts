@@ -2,10 +2,18 @@
 import { auth } from '$lib/server/lucia';
 import { LuciaError } from 'lucia';
 import { fail, redirect } from '@sveltejs/kit';
+import { prisma } from '$lib/server/prisma.js';
 
 export async function load({ locals: { auth } }) {
 	const session = await auth.validate();
 	if (session) throw redirect(302, '/');
+
+	try {
+		const findFirst = await prisma.user.findFirst();
+		if (findFirst === null) throw redirect(302, '/auth/signup');
+	} catch (error) {
+		throw redirect(302, '/auth/signup');
+	}
 }
 
 export const actions = {

@@ -30,3 +30,7 @@
 - 0.4.3
   - Github version was missing a +layout file wrongly in gitignore, that would not expose metrics umami integrations
   - minor cleaning
+- 0.5
+  - Added a SMTP to send confirmation mail and recover password 
+  - Added Settings page to update own profile
+  - Added ossibility to create admin on launch if not exists

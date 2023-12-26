@@ -24,7 +24,7 @@
 		<div class="card card-md">
 			<div class="card-body">
 				<h2 class="h2 text-center mb-4">Create a new account</h2>
-				<form method="post" use:enhance autocomplete="off">
+				<form method="post" id="signup" use:enhance autocomplete="off">
 					<div class="mb-3">
 						<label class="form-label" for="username">Username</label>
 						<div class="input-group input-group-flat">
@@ -44,6 +44,29 @@
 							/>
 						</div>
 						{#if form?.username}
+							<div class="small text-red mt-2">{form.message}</div>
+						{/if}
+					</div>
+					<div class="mb-3">
+						<label class="form-label" for="username">Email</label>
+						<div class="input-group input-group-flat">
+							<span class="input-group-text p-2" class:border-red={form?.email}>
+								<div class="link-secondary d-flex align-center">
+									<i class="ti ti-mail fs-3"></i>
+								</div>
+							</span>
+							<input
+								id="email"
+								type="email"
+								name="email"
+								required
+								class="form-control"
+								placeholder="Your email"
+								autocomplete="off"
+								class:is-invalid={form?.email}
+							/>
+						</div>
+						{#if form?.email}
 							<div class="small text-red mt-2">{form.message}</div>
 						{/if}
 					</div>
@@ -123,6 +146,11 @@
 									placeholder="Repeat the password"
 									autocomplete="off"
 									bind:value={confirmPassword}
+									on:keydown={(e) => {
+										if (e.key !== 'Enter') return;
+										e.preventDefault();
+										document.forms.namedItem('signup')?.requestSubmit();
+									}}
 								/>
 							{/if}
 							<span class="input-group-text p-0" class:border-red={form?.confirmPassword}>
@@ -144,10 +172,9 @@
 					<div class="form-footer">
 						<button type="submit" class="btn btn-primary w-100">Create new account</button>
 					</div>
-					{#if form && form.password === false && form.username === false}
+					{#if form?.message}
 						<div class="text-center text-secondary mt-3 text-red">{form.message}</div>
 					{/if}
-					
 				</form>
 			</div>
 		</div>
