@@ -42,7 +42,7 @@ Here a resend / generic example of using the SMTP for password recovery. It will
 - `SMTP_HOST=smtp.resend.com`
 - `SMTP_USER=resend`
 - `SMTP_PASSWORD={RESEND_API_KEY HERE}`
-- `SMTP_FROM= No Reply <noreplay@{RESEND VERIFIED DNS HERE}.com>`
+- `SMTP_FROM="No Reply <noreplay@{RESEND VERIFIED DNS HERE}.com>"`
 
 ## Docker Install
 
