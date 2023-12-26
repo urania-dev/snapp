@@ -36,7 +36,8 @@ Also you can set up variables to create admin if not already existing by the sam
 - `ADMIN_EMAIL=admin@snapp.li`
 - `ADMIN_PASSWORD=password`
 
-Here a resend / generic example of using the SMTP 
+## SMTP Transporter 
+Here a resend / generic example of using the SMTP for password recovery. It will check username and mail inserted to be correct before sending.
 
 - `SMTP_HOST=smtp.resend.com`
 - `SMTP_USER=resend`
