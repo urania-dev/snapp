@@ -1,5 +1,4 @@
 prisma/db.sqlite
-src/routes/+layout.svelte
 src/lib/server/geo-db/geolite-2-city.mmdb
 .DS_Store
 node_modules

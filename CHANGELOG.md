@@ -27,4 +27,6 @@
   - Fixed some mispell around
 - 0.4.2
   - Fixed the DB inconsistencies when linking a volume through docker. It now pushes the db. not the most elegant fix.
-  
+- 0.4.3
+  - Github version was missing a +layout file wrongly in gitignore, that would not expose metrics umami integrations
+  - minor cleaning

@@ -21,6 +21,6 @@ export async function load({ locals, depends }) {
 			umami_url: process.env.UMAMI_URL
 		};
 	} catch (err) {
-		console.log(err);
+		throw err
 	}
 }
