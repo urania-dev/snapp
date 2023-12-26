@@ -7,7 +7,7 @@ services:
       - "5050:3000"
     image: "uraniadev/snapp:latest"
     # volumes:
-    # - 'home/snapp/db.sqlite:/app/prisma/db.sqlite'
+    # - '/home/snapp/db.sqlite:/app/prisma/db.sqlite'
     environment:
       PUBLIC_URL: https://snapp.li
       ORIGIN: https://snapp.li

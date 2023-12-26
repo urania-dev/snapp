@@ -8,7 +8,10 @@ export async function load({ url, parent }) {
 	if (!token) throw error(400, { message: 'There is not token set' });
 	const session = await auth.getSession(token);
 	const { has_smtp } = await parent();
-	if (!has_smtp) throw redirect(302, '/auth/login');
+	if (!has_smtp) {
+		await auth.invalidateSession(token);
+		throw redirect(302, '/auth/login');
+	}
 	return {
 		session
 	};
@@ -60,7 +63,8 @@ export const actions = {
 		} catch (error) {
 			throw error;
 		}
-
+		// invalidate mail token as it has been used
+		await auth.invalidateSession(token);
 		throw redirect(302, '/auth/login');
 	}
 };
