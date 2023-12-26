@@ -34,3 +34,4 @@
   - Added a SMTP to send confirmation mail and recover password 
   - Added Settings page to update own profile
   - Added ossibility to create admin on launch if not exists
+  - Some cleaning around the reamde file
