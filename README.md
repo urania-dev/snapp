@@ -36,6 +36,13 @@ Also you can set up variables to create admin if not already existing by the sam
 - `ADMIN_EMAIL=admin@snapp.li`
 - `ADMIN_PASSWORD=password`
 
+Here a resend / generic example of using the SMTP 
+
+- `SMTP_HOST=smtp.resend.com`
+- `SMTP_USER=resend`
+- `SMTP_PASSWORD={RESEND_API_KEY HERE}`
+- `SMTP_FROM= No Reply <noreplay@{RESEND VERIFIED DNS HERE}.com>`
+
 ## Docker Install
 
 ```bash
