@@ -77,6 +77,31 @@ docker run \
 uraniadev/snapp:latest
 ```
 
+## Docker-Compose
+```yaml
+version: "3"
+services: 
+ snapp:
+    restart: always
+    container_name: snapp
+    image: "uraniadev/snapp:latest"
+    volumes:
+      - /docker/snapp/db.sqlite:/app/prisma/db.sqlite
+    ports:
+      - "3000:3000"
+    environment:
+      PUBLIC_URL: https://example.com
+      ORIGIN: https://example.com
+      SMTP_HOST: mail.example.com
+      SMTP_USER: snapp@example.com
+      SMTP_PASSWORD: SuperSecurePassword
+      SMTP_FROM: snapp@example.com
+      UMAMI_URL: https://umami.example.com
+      WEBSITE_ID: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+      ENABLE_MULTIUSER: false
+      DISABLE_HOME: true
+```
+
 ## API REST Interface
 
 Built-in Api endpoints and OpenApi Documentation via Redoc-Static at [/openapi.html](http://snapp.li/openapi.html)
