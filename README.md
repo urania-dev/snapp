@@ -70,10 +70,45 @@ At the moment the 0.7.test has major changes and need to migrate shortened url w
 Read more and have docker compose in [announcement discussion](https://github.com/urania-dev/snapp/discussions/16).
 
 ```
-docker run -p 3000:3000 \
--e ORIGIN=https://example.com \
--e PUBLIC_URL=https://example.com \
-uraniadev/snapp:0.7.test
+version: "3"
+services:
+  redis-stack:
+    image: redis/redis-stack:latest
+    ports:
+      - 6379:6379/tcp
+      - 8001:8001
+    volumes:
+      - /home/snapp/redis/test:/data:rw
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      REDIS_ARGS: "--save 60 1 --appendonly yes"
+  snapp:
+    image: uraniadev/snapp:0.7.test
+    ports:
+      - 5173:3000
+    volumes:
+      - /home/snapp/app/translations:/app/translations:ro
+      - /home/snapp/redis/theme/theme.css:/app/static/custom-theme.css
+    environment:
+      AUTH_SECRET: 
+      DB_HOST: 
+      DB_PASS:
+      DB_PORT: 6379
+      DB_IDX: 0
+      ENABLE_LIMITS: false
+      ENABLE_SIGNUP: true
+      ENABLE_HOME: false
+      DEFAULT_THEME: dark
+      DEFAULT_LANG: en
+      LOCALIZATION_FOLDER: /app/translations
+      MAX_SHORT_URL: 10
+      MAX_USAGES: 0
+      MAX_RPM: 0
+      MAX_RPD: 0
+      VIRUSTOTAL_API_KEY: 
+      PUBLIC_URL: https://example.com
+      ORIGIN: https://example.com
+
 ```
 
 ## Migration
