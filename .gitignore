@@ -1,7 +1,7 @@
 .DS_Store
 node_modules
 /build
-.vscode
+/.vscode
 .gitignore
 /.svelte-kit
 /package
@@ -10,4 +10,4 @@ node_modules
 !.env.example
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
-**/src/lib/server/geo-db/geolite-2-city.mmdb
+./src/lib/server/geo-db/geolite-2-city.mmdb

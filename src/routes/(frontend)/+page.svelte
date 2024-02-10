@@ -18,6 +18,7 @@
 	import DownloadIcon from 'lucide-svelte/icons/hard-drive-download';
 	import DevIcon from 'lucide-svelte/icons/keyboard';
 	import BuildIcon from 'lucide-svelte/icons/server-cog';
+	import LoveIcon from 'lucide-svelte/icons/heart';
 	import RunIcon from 'lucide-svelte/icons/router';
 	import RocketIcon from 'lucide-svelte/icons/rocket';
 	import KeyIcon from 'lucide-svelte/icons/key';
@@ -326,6 +327,13 @@
 			</a>
 		</div>
 	</div>
+	<div class="flex gap-4 w-full items-center my-4">
+		<hr class="w-full max-w-24 ms-auto" />
+		<Small class="pb-1 flex items-center gap-2 font-semibold"
+			>made with <LoveIcon fill="currentColor" class="h-4 w-4" /> in urania</Small
+		>
+		<hr class="w-full max-w-24 me-auto" />
+	</div>
 </div>
 
 <style lang="postcss">
@@ -335,6 +343,11 @@
 	}
 
 	:global(.code) {
-		@apply whitespace-normal md:whitespace-nowrap;
+		@apply whitespace-normal;
+	}
+	@media (min-width: 380px) {
+		:global(.code) {
+			@apply whitespace-nowrap;
+		}
 	}
 </style>
