@@ -85,7 +85,7 @@ services:
   snapp:
     image: uraniadev/snapp:0.7.test
     ports:
-      - 5173:3000
+      - 3000:3000
     volumes:
       - /home/snapp/app/translations:/app/translations:ro
       - /home/snapp/redis/theme/theme.css:/app/static/custom-theme.css
