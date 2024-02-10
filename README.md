@@ -69,7 +69,7 @@ uraniadev/snapp:latest
 At the moment the 0.7.test has major changes and need to migrate shortened url with CSV Exporter from old to this version:
 Read more and have docker compose in [announcement discussion](https://github.com/urania-dev/snapp/discussions/16).
 
-```
+```yml
 version: "3"
 services:
   redis-stack:
