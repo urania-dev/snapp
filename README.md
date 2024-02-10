@@ -12,7 +12,7 @@ Are you looking for a reliable solution for self-hosted URL shortening? Look no 
 - **Usage Analytics:** Empower yourself with detailed analytics for every link you create. Snapp gathers metrics anonymously, providing insights into link engagements.
 - **Extend Metrics:** Integrate your Snapp Instance with your self-hosted or cloud Umami Analytics instance for advanced metrics of your Snapp.
 - **Check URL Reputation:** Secure the links passing through your Snapp instance with a check on VirusTotal API reputation.
-- **REST API:** Community requested features that enable REST API endpoints to create and manage your Snapps remotely. Read all Swagger Docs [here](/dashboard/docs).
+- **REST API:** Community requested features that enable REST API endpoints to create and manage your Snapps remotely. Read all Swagger Docs [here](https://labs.snapp.li/dashboard/docs).
 
 ## Getting Started
 
@@ -50,16 +50,30 @@ To run Snapp, you need an environment with NodeJS installed and available.
 ### Using Docker Container
 
 Simply type in your terminal:
-   ```
-   docker run -p 3000:3000 uraniadev/snapp:latest
-   ```
+
+```
+docker run -p 3000:3000 uraniadev/snapp:latest
+```
+
 If you run into CORS errors, remember to set the `PUBLIC_URL` and `ORIGIN` environment variables:
-   ``` 
-   docker run -p 3000:3000 \
-   -e ORIGIN=https://example.com \
-   -e PUBLIC_URL=https://example.com \
-   uraniadev/snapp:latest
-   ```
+
+```
+docker run -p 3000:3000 \
+-e ORIGIN=https://example.com \
+-e PUBLIC_URL=https://example.com \
+uraniadev/snapp:latest
+```
+
+### Testing 0.7.test version
+
+At the moment the 0.7.test has major changes and need to migrate shortened url with CSV Exporter from old to this version:
+
+```
+docker run -p 3000:3000 \
+-e ORIGIN=https://example.com \
+-e PUBLIC_URL=https://example.com \
+uraniadev/snapp:0.7.test
+```
 
 ## Migration
 
@@ -68,6 +82,7 @@ The latest versions of Snapp include CSV Export to facilitate migration. Simply 
 ## The Stack
 
 The technology involved:
+
 - Svelte Kit
 - Redis
 - Auth.js
