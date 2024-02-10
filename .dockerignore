@@ -1,0 +1,13 @@
+# .dockerignore
+.vscode
+node_modules
+.env
+.env.example
+.git
+.gitattributes
+.eslintignore
+.eslintrc.cjs
+.prettierrc
+.prettierignore
+README.md
+Dockerfile
