@@ -1,5 +1,5 @@
 import { createClient } from 'redis';
-import { DB_HOST, DB_IDX, DB_PASS, DB_PORT } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import { Repository } from 'redis-om';
 // schema
 import userSchema from './users';
@@ -76,7 +76,7 @@ export class Database {
 }
 
 const client = await createClient({
-	url: `redis://default:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_IDX}`
+	url: `redis://default:${env.DB_PASS}@${env.DB_HOST}:${env.DB_PORT}/${env.DB_IDX}`
 }).connect();
 
 const db = new Database(client);

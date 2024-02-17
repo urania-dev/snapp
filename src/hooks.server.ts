@@ -85,47 +85,31 @@ const authHandler = SvelteKitAuth({
 });
 
 async function initializeDBIndexes() {
-	const {
-		ENABLE_SIGNUP,
-		SMTP_HOST,
-		SMTP_PASSWORD,
-		ENABLE_LIMITS,
-		ENABLE_HOME,
-		SMTP_PORT,
-		SMTP_USER,
-		SMTP_FROM,
-		MAX_SHORT_URL,
-		VIRUSTOTAL_API_KEY,
-		MAX_USAGES,
-		MAX_RPM,
-		MAX_RPD,
-		UMAMI_WEBSITE_ID,
-		UMAMI_URL
-	} = env;
+	
 	try {
 		await db.users.createIndex();
 		await db.apikeys.createIndex();
 		await db.snapps.createIndex();
 		await db.usages.createIndex();
 
-		await check_and_set('settings:app:limits:enabled', ENABLE_LIMITS?.toString()?.toLowerCase());
-		await check_and_set('settings:app:limits:max:urls', MAX_SHORT_URL?.toString()?.toLowerCase());
-		await check_and_set('settings:app:limits:max:usages', MAX_USAGES?.toString()?.toLowerCase());
-		await check_and_set('settings:app:limits:max:rpm', MAX_RPM?.toString()?.toLowerCase());
-		await check_and_set('settings:app:limits:max:rpd', MAX_RPD?.toString()?.toLowerCase());
-		await check_and_set('settings:app:signup:enabled', ENABLE_SIGNUP?.toString()?.toLowerCase());
-		await check_and_set('settings:app:home:enabled', ENABLE_HOME?.toString()?.toLowerCase());
-		await check_and_set('settings:app:smtp:host', SMTP_HOST?.toString()?.toLowerCase());
-		await check_and_set('settings:app:smtp:pass', SMTP_PASSWORD?.toString()?.toLowerCase());
-		await check_and_set('settings:app:smtp:port', SMTP_PORT?.toString()?.toLowerCase());
-		await check_and_set('settings:app:smtp:user', SMTP_USER?.toString()?.toLowerCase());
-		await check_and_set('settings:app:smtp:from', SMTP_FROM?.toString()?.toLowerCase());
-		await check_and_set('settings:api:key:vt', VIRUSTOTAL_API_KEY?.toString()?.toLowerCase());
+		await check_and_set('settings:app:limits:enabled', env.ENABLE_LIMITS?.toString()?.toLowerCase());
+		await check_and_set('settings:app:limits:max:urls', env.MAX_SHORT_URL?.toString()?.toLowerCase());
+		await check_and_set('settings:app:limits:max:usages', env.MAX_USAGES?.toString()?.toLowerCase());
+		await check_and_set('settings:app:limits:max:rpm', env.MAX_RPM?.toString()?.toLowerCase());
+		await check_and_set('settings:app:limits:max:rpd', env.MAX_RPD?.toString()?.toLowerCase());
+		await check_and_set('settings:app:signup:enabled', env.ENABLE_SIGNUP?.toString()?.toLowerCase());
+		await check_and_set('settings:app:home:enabled', env.ENABLE_HOME?.toString()?.toLowerCase());
+		await check_and_set('settings:app:smtp:host', env.SMTP_HOST?.toString()?.toLowerCase());
+		await check_and_set('settings:app:smtp:pass', env.SMTP_PASSWORD?.toString()?.toLowerCase());
+		await check_and_set('settings:app:smtp:port', env.SMTP_PORT?.toString()?.toLowerCase());
+		await check_and_set('settings:app:smtp:user', env.SMTP_USER?.toString()?.toLowerCase());
+		await check_and_set('settings:app:smtp:from', env.SMTP_FROM?.toString()?.toLowerCase());
+		await check_and_set('settings:api:key:vt', env.VIRUSTOTAL_API_KEY?.toString()?.toLowerCase());
 		await check_and_set(
 			'settings:api:key:umami:website:id',
-			UMAMI_WEBSITE_ID?.toString()?.toLowerCase()
+			env.UMAMI_WEBSITE_ID?.toString()?.toLowerCase()
 		);
-		await check_and_set('settings:api:key:umami:url', UMAMI_URL?.toString()?.toLowerCase());
+		await check_and_set('settings:api:key:umami:url', env.UMAMI_URL?.toString()?.toLowerCase());
 	} catch (err) {
 		console.log(err);
 	}
