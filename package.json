@@ -72,6 +72,7 @@
     "qrcode": "^1.5.3",
     "redis": "^4.6.12",
     "redis-om": "^0.4.3",
+    "sqlite3": "^5.1.7",
     "svelte-sonner": "^0.3.7",
     "tailwind-merge": "^2.2.0",
     "tailwind-variants": "^0.1.20",

@@ -12,7 +12,7 @@ Are you looking for a reliable solution for self-hosted URL shortening? Look no 
 - **Usage Analytics:** Empower yourself with detailed analytics for every link you create. Snapp gathers metrics anonymously, providing insights into link engagements.
 - **Extend Metrics:** Integrate your Snapp Instance with your self-hosted or cloud Umami Analytics instance for advanced metrics of your Snapp.
 - **Check URL Reputation:** Secure the links passing through your Snapp instance with a check on VirusTotal API reputation.
-- **REST API:** Community requested features that enable REST API endpoints to create and manage your Snapps remotely. Read all Swagger Docs [here](https://labs.snapp.li/dashboard/docs).
+- **REST API:** Community requested features that enable REST API endpoints to create and manage your Snapps remotely. Read all Swagger Docs [here](https://snapp.li/dashboard/docs).
 
 ## Getting Started
 

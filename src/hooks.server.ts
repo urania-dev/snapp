@@ -85,19 +85,30 @@ const authHandler = SvelteKitAuth({
 });
 
 async function initializeDBIndexes() {
-	
 	try {
 		await db.users.createIndex();
 		await db.apikeys.createIndex();
 		await db.snapps.createIndex();
 		await db.usages.createIndex();
 
-		await check_and_set('settings:app:limits:enabled', env.ENABLE_LIMITS?.toString()?.toLowerCase());
-		await check_and_set('settings:app:limits:max:urls', env.MAX_SHORT_URL?.toString()?.toLowerCase());
-		await check_and_set('settings:app:limits:max:usages', env.MAX_USAGES?.toString()?.toLowerCase());
+		await check_and_set(
+			'settings:app:limits:enabled',
+			env.ENABLE_LIMITS?.toString()?.toLowerCase()
+		);
+		await check_and_set(
+			'settings:app:limits:max:urls',
+			env.MAX_SHORT_URL?.toString()?.toLowerCase()
+		);
+		await check_and_set(
+			'settings:app:limits:max:usages',
+			env.MAX_USAGES?.toString()?.toLowerCase()
+		);
 		await check_and_set('settings:app:limits:max:rpm', env.MAX_RPM?.toString()?.toLowerCase());
 		await check_and_set('settings:app:limits:max:rpd', env.MAX_RPD?.toString()?.toLowerCase());
-		await check_and_set('settings:app:signup:enabled', env.ENABLE_SIGNUP?.toString()?.toLowerCase());
+		await check_and_set(
+			'settings:app:signup:enabled',
+			env.ENABLE_SIGNUP?.toString()?.toLowerCase()
+		);
 		await check_and_set('settings:app:home:enabled', env.ENABLE_HOME?.toString()?.toLowerCase());
 		await check_and_set('settings:app:smtp:host', env.SMTP_HOST?.toString()?.toLowerCase());
 		await check_and_set('settings:app:smtp:pass', env.SMTP_PASSWORD?.toString()?.toLowerCase());
@@ -115,7 +126,7 @@ async function initializeDBIndexes() {
 	}
 }
 
-async function check_and_set(setting: string, value: string | null) {
+async function check_and_set(setting: string, value: string | null | undefined) {
 	const exists = await db.getSetting(setting);
 	if (!exists && value) await db.setSetting(setting, value);
 }

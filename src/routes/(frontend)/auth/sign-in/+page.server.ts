@@ -3,11 +3,7 @@ import type SnappError from '$lib/db/utils/snappError.js';
 import { redirect, fail } from '@sveltejs/kit';
 
 export async function load({ locals, fetch }) {
-	const session = await locals.getSession();
-
 	const { active_smtp } = await (await fetch('/api/smtp/test')).json();
-
-	if (session) throw redirect(302, '/');
 
 	return { active_smtp };
 }

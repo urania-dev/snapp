@@ -342,6 +342,9 @@
 	"snapps:vt:api:key:malicious": "Questo URL è stato inserito nella blacklist dall'API VirusTotal. Se pensi che ciò sia un errore, contatta l'amministratore di sistema.",
 
 	"snapps:import": "Importa Snapps",
+	"snapps:import:sqlite:button": "Aggiorna Database",
+	"snapps:import:sqlite:modal:label":"Aggiorna Database",
+	"snapps:import:sqlite:modal:helper":"Un file SQLITE di una precedente versione è stato rilevato. Vuoi provare l'importazione dei precedenti Snapp? Questa operazione potrebbe richiedere molto tempo in caso di database corposi",
 	"snapps:import:helper": "Importa il CSV di una versione precedente di Snapp",
 	"snapps:import:label": "Carica un CSV",
 	"snapps:import:label:assign": "Assegna snapps agli utenti",

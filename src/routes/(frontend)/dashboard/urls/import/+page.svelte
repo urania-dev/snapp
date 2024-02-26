@@ -7,7 +7,7 @@
 
 	import Breadcrumbs from '$lib/ui/crumbs/breadcrumbs.svelte';
 	import { H3, Lead, Paragraph, Small } from '$lib/ui/typography';
-	import { FileDropzone } from '@skeletonlabs/skeleton';
+	import { FileDropzone, getModalStore, type ModalSettings } from '@skeletonlabs/skeleton';
 	import { toast } from 'svelte-sonner';
 	import CustomToast from '$lib/ui/toaster/customToast.svelte';
 
@@ -35,7 +35,7 @@
 
 	let imported_snapps: Partial<DBSnapp>[] = [];
 
-	let main_author = data.user.id;
+	let main_author = data.user?.id;
 	type OldSnapp = {
 		id: string;
 		original_url: string;
@@ -121,32 +121,72 @@
 				});
 			await invalidateAll();
 			loading = false;
-            imported_snapps = [];
-            files=undefined
+			imported_snapps = [];
+			files = undefined;
 		};
 	};
 
 	function handle_submit() {
 		document.forms.namedItem('import')?.requestSubmit();
 	}
+
+	async function importFromOldDB() {
+		const modal = {
+			type: 'confirm',
+			// Data
+			title: $t('snapps:import:sqlite:modal:label'),
+			body: $t('snapps:import:sqlite:modal:helper'),
+			buttonTextConfirm: $t('global:misc:confirm'),
+			buttonTextCancel: $t('global:misc:cancel'),
+			// TRUE if confirm pressed, FALSE if cancel pressed
+			response: async (r: boolean) => {
+				if (r === true) {
+					const rows: OldSnapp[] = (await (await data.fetch('/api/upgrade')).json()) as OldSnapp[];
+
+					rows.map((snapp) => {
+						const _snapp = {
+							id: snapp.id,
+							created: new Date(snapp.created_at),
+							user_id: data.user.id,
+							shortcode: snapp.short_code,
+							has_secret: snapp.has_secret,
+							secret: snapp.secret,
+							original_url: snapp.original_url
+						};
+
+						imported_snapps = [...imported_snapps, _snapp];
+					});
+				}
+			}
+		} satisfies ModalSettings;
+
+		modalStore.trigger(modal);
+	}
+	const modalStore = getModalStore();
 </script>
+
 <svelte:head><title>{$t('global:appname')} | {$t('snapps:import')}</title></svelte:head>
 
 <form method="post" use:enhance={enhanceImport} id="import" />
 <div class="page h-full flex">
 	<div class="flex max-h-max">
-		<div class="flex flex-col gap-4">
+		<div class="flex flex-col gap-4 w-full">
 			<Breadcrumbs
 				urls={[
 					{ label: $t('global:pages:dashboard'), href: '/dashboard' },
 					{ label: $t('snapps:import') }
 				]}
 			/>
-			<div class="flex gap-2 items-center">
+			<div class="flex gap-2 items-center w-full">
 				<LinkIcon class="w-6 h-6" />
 				<H3 class="mb-1 w-max">
 					{$t('global:sections:import')}
 				</H3>
+				{#if data.has_sqlite}
+					<button class="btn variant-outline-primary ms-auto" on:click={importFromOldDB}>
+						<Small class="font-semibold">{$t('snapps:import:sqlite:button')}</Small>
+					</button>
+				{/if}
 			</div>
 		</div>
 	</div>

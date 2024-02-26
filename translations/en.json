@@ -340,6 +340,9 @@
 	"snapps:vt:api:key:malicious": "This url has been blacklisted by VirusTotal API. If you think this is a mistake, please contact System Administrator.",
 
 	"snapps:import": "Import Snapps",
+	"snapps:import:sqlite:button": "Upgrade Database",
+	"snapps:import:sqlite:modal:label": "Upgrade Database",
+	"snapps:import:sqlite:modal:helper":"A SQLITE file from a previous version has been detected. Do you want to try importing the previous Snapp? This operation may take a long time for large databases.",
 	"snapps:import:helper": "Import CSV File from previous version of Snapp",
 	"snapps:import:label": "Upload a CSV File",
 	"snapps:import:label:assign": "Assign snapps to users",
@@ -428,6 +431,6 @@
 	"home:migration": "Migration",
 	"home:migration:description": "Latest versions of Snapp included CSV Export in order to facilitate migration. Simply login and import your urls from dashboard, and continue from where you left.",
 
-	"home:stack:label":"The Stack",
-	"home:stack:description":"The technology involved" 
+	"home:stack:label": "The Stack",
+	"home:stack:description": "The technology involved"
 }

@@ -2,6 +2,7 @@ import { db } from '$lib/db/index.js';
 import jsonify from '$lib/utils/jsonify/index.js';
 import { fail, redirect } from '@sveltejs/kit';
 import { randomUUID } from 'crypto';
+import { existsSync } from 'fs';
 
 export async function load({ locals }) {
 	const session = await locals.getSession();
@@ -9,11 +10,15 @@ export async function load({ locals }) {
 	const is_admin = await db.admin(session.user.id);
 
 	const user = await db.users.search().where('id').equalTo(session.user.id).first();
-	const users = is_admin ? await db.users.search().where('id').not.equalTo(session.user.id).returnAll() : [];
-
+	const users = is_admin
+		? await db.users.search().where('id').not.equalTo(session.user.id).returnAll()
+		: [];
+	const filepath = process.cwd() + '/prisma/db.sqlite';
+	const oldDB = existsSync(filepath);
 	return {
 		users: jsonify(users) as DBUser[],
-		user: jsonify(user!) as DBUser
+		user: jsonify(user!) as DBUser,
+		has_sqlite: oldDB
 	};
 }
 
