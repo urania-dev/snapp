@@ -27,6 +27,7 @@ import isBlackListedEmail from './users/isEmailBlackListed';
 import trackMaxURLs from './settings/trackMaxURLs';
 import trackRPDandRPM from './settings/trackRPDandRPM';
 import hasWhiteList from './snapps/has_whitelist';
+import checkRepoInfo from './repoInfo';
 
 export const domainZList = 'settings:app:banlists:website' as const;
 export const usernameZList = 'settings:app:banlists:username' as const;
@@ -47,32 +48,53 @@ export class Database {
 		this.snapps = new Repository(snappsSchema, redis);
 		this.apikeys = new Repository(apiKeysSchema, redis);
 		this.usages = new Repository(usagesSchema, redis);
+		signinUser.bind(this);
+		signupUser.bind(this);
+		updateUser.bind(this);
+		deleteUser.bind(this);
+		admin.bind(this);
+		shortenSnapp.bind(this);
+		editSnapp.bind(this);
+		authorship.bind(this);
+		getSetting.bind(this);
+		setSetting.bind(this);
+		checkRPMLimit.bind(this);
+		checkRPDLimit.bind(this);
+		trackMaxURLs.bind(this);
+		trackRPDandRPM.bind(this);
+		isWhiteListed.bind(this);
+		isBlackListed.bind(this);
+		isBlackListedEmail.bind(this);
+		hasWhiteList.bind(this);
+		checkRepoInfo.bind(this);
 	}
 
-	signinUser = signinUser.bind(this);
-	signupUser = signupUser.bind(this);
-	updateUser = updateUser.bind(this);
-	deleteUser = deleteUser.bind(this);
-	admin = admin.bind(this);
+	signinUser = signinUser;
+	signupUser = signupUser;
+	updateUser = updateUser;
+	deleteUser = deleteUser;
+	admin = admin;
 
-	shorten = shortenSnapp.bind(this);
-	edit = editSnapp.bind(this);
-	authorship = authorship.bind(this);
+	shorten = shortenSnapp;
+	edit = editSnapp;
+	authorship = authorship;
 
-	getSetting = getSetting.bind(this);
-	setSetting = setSetting.bind(this);
+	getSetting = getSetting;
+	setSetting = setSetting;
 
-	rpm = checkRPMLimit.bind(this);
-	rpd = checkRPDLimit.bind(this);
+	rpm = checkRPMLimit;
+	rpd = checkRPDLimit;
 
-	trackMaxURLs = trackMaxURLs.bind(this);
-	trackRPDandRPM = trackRPDandRPM.bind(this);
+	trackMaxURLs = trackMaxURLs;
+	trackRPDandRPM = trackRPDandRPM;
 
-	whitelisted = isWhiteListed.bind(this);
-	blacklisted = isBlackListed.bind(this);
-	blacklistedEmail = isBlackListedEmail.bind(this);
+	whitelisted = isWhiteListed;
+	blacklisted = isBlackListed;
+	blacklistedEmail = isBlackListedEmail;
 
-	hasWhiteList = hasWhiteList.bind(this);
+	hasWhiteList = hasWhiteList;
+
+	repoInfo = checkRepoInfo;
 }
 
 let password = env.DB_PASS ?? '';
@@ -89,7 +111,7 @@ async function getClient() {
 				console.log(err);
 			})
 			.connect();
-			else throw new Error('This version of Snapps requires REDIS STACK, please read documentation')
+	else throw new Error('This version of Snapps requires REDIS STACK, please read documentation');
 }
 
 const client = await getClient();

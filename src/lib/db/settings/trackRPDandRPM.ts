@@ -1,6 +1,4 @@
-import getLanguage from '$lib/api/utils/getLanguage';
 import parseNumber from '$lib/utils/parseNumber';
-import { error } from 'console';
 import type { Database } from '..';
 
 export default async function trackRPDandRPM(this: Database, apiKey: DBAPIKey, _EN?: Translation) {

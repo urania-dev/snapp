@@ -1,6 +1,4 @@
-import getLanguage from '$lib/api/utils/getLanguage';
 import parseNumber from '$lib/utils/parseNumber';
-import { error } from '@sveltejs/kit';
 import type { Database } from '..';
 
 export default async function trackMaxURLs(this: Database, apiKey: DBAPIKey, _EN?: Translation) {
@@ -10,8 +8,6 @@ export default async function trackMaxURLs(this: Database, apiKey: DBAPIKey, _EN
 		(res) => res === 'true' || false
 	);
 	if (!is_limited) return false;
-
-	const EN = _EN ? _EN : await getLanguage();
 
 	const global_limit_urls = await parseNumber(this.getSetting('settings:app:limits:max:urls'));
 

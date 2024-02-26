@@ -1,3 +1,94 @@
-:root{
-    --color-surface-950: "30 42 52",
-}
+/* :root [data-theme="snappTheme"] {
+  --theme-font-family-base: `system-ui`;
+  --theme-font-family-heading: `system-ui`;
+  --theme-font-color-base: 0 0 0;
+  --theme-font-color-dark: 255 255 255;
+  --theme-rounded-base: 0px;
+  --theme-rounded-container: 0px;
+  --theme-border-base: 1px;
+
+  --on-primary: 0 0 0;
+  --on-secondary: 255 255 255;
+  --on-tertiary: 255 255 255;
+  --on-success: 0 0 0;
+  --on-warning: 0 0 0;
+  --on-error: 255 255 255;
+  --on-surface: 255 255 255;
+
+  --color-primary-50: 249 243 225;
+  --color-primary-100: 246 239 215;
+  --color-primary-200: 244 235 205;
+  --color-primary-300: 238 223 175;
+  --color-primary-400: 225 199 115;
+  --color-primary-500: 212 175 55;
+  --color-primary-600: 191 158 50;
+  --color-primary-700: 159 131 41;
+  --color-primary-800: 127 105 33;
+  --color-primary-900: 104 86 27;
+
+  --color-secondary-50: 238 231 236;
+  --color-secondary-100: 233 222 229;
+  --color-secondary-200: 227 214 223;
+  --color-secondary-300: 210 190 203;
+  --color-secondary-400: 177 141 164;
+  --color-secondary-500: 143 92 125;
+  --color-secondary-600: 129 83 113;
+  --color-secondary-700: 107 69 94;
+  --color-secondary-800: 86 55 75;
+  --color-secondary-900: 70 45 61;
+
+  --color-tertiary-50: 222 228 233;
+  --color-tertiary-100: 211 218 225;
+  --color-tertiary-200: 201 209 218;
+  --color-tertiary-300: 168 182 196;
+  --color-tertiary-400: 102 127 151;
+  --color-tertiary-500: 37 72 107;
+  --color-tertiary-600: 33 65 96;
+  --color-tertiary-700: 28 54 80;
+  --color-tertiary-800: 22 43 64;
+  --color-tertiary-900: 18 35 52;
+
+  --color-success-50: 242 247 220;
+  --color-success-100: 238 245 208;
+  --color-success-200: 233 242 197;
+  --color-success-300: 220 235 161;
+  --color-success-400: 194 219 91;
+  --color-success-500: 168 204 21;
+  --color-success-600: 151 184 19;
+  --color-success-700: 126 153 16;
+  --color-success-800: 101 122 13;
+  --color-success-900: 82 100 10;
+
+  --color-warning-50: 248 230 222;
+  --color-warning-100: 245 221 211;
+  --color-warning-200: 243 213 200;
+  --color-warning-300: 236 188 167;
+  --color-warning-400: 221 137 101;
+  --color-warning-500: 207 87 35;
+  --color-warning-600: 186 78 32;
+  --color-warning-700: 155 65 26;
+  --color-warning-800: 124 52 21;
+  --color-warning-900: 101 43 17;
+
+  --color-error-50: 249 221 234;
+  --color-error-100: 246 209 228;
+  --color-error-200: 244 198 221;
+  --color-error-300: 238 163 200;
+  --color-error-400: 225 94 159;
+  --color-error-500: 212 25 118;
+  --color-error-600: 191 23 106;
+  --color-error-700: 159 19 89;
+  --color-error-800: 127 15 71;
+  --color-error-900: 104 12 58;
+
+  --color-surface-50: 224 225 226;
+  --color-surface-100: 214 215 216;
+  --color-surface-200: 204 206 206;
+  --color-surface-300: 173 176 177;
+  --color-surface-400: 112 116 119;
+  --color-surface-500: 51 57 60;
+  --color-surface-600: 46 51 54;
+  --color-surface-700: 38 43 45;
+  --color-surface-800: 31 34 36;
+  --color-surface-900: 25 28 29;
+} */

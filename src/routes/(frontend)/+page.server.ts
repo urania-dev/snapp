@@ -2,13 +2,15 @@ import { dev } from '$app/environment';
 import { db } from '$lib/db/index.js';
 import { redirect } from '@sveltejs/kit';
 
-export async function load({ locals }) {
-	const session = await locals.getSession();
+export async function load({ fetch }) {
+	const repoInfo = await db.repoInfo(fetch);
 	const disabled_home = await db
 		.getSetting('settings:app:home:enabled')
 		.then((res) => res === 'false');
 
 	if (disabled_home === true) throw redirect(302, '/dashboard');
+
+	return { repoInfo };
 }
 
 export const actions = {
@@ -27,7 +29,11 @@ export const actions = {
 		if (!session) return { success: true, theme: theme ?? 'dark' };
 		else {
 			if (session.user.id === undefined) return;
-			const user = await db.users.search().where('id').equalTo(session.user.id).first() as DBUser | null;
+			const user = (await db.users
+				.search()
+				.where('id')
+				.equalTo(session.user.id)
+				.first()) as DBUser | null;
 			if (user)
 				await db.updateUser({ ...user, settings: { ...user.settings, theme: theme ?? 'dark' } });
 			return { success: true, mode: theme ?? 'dark' };

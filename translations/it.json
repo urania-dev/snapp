@@ -343,8 +343,8 @@
 
 	"snapps:import": "Importa Snapps",
 	"snapps:import:sqlite:button": "Aggiorna Database",
-	"snapps:import:sqlite:modal:label":"Aggiorna Database",
-	"snapps:import:sqlite:modal:helper":"Un file SQLITE di una precedente versione è stato rilevato. Vuoi provare l'importazione dei precedenti Snapp? Questa operazione potrebbe richiedere molto tempo in caso di database corposi",
+	"snapps:import:sqlite:modal:label": "Aggiorna Database",
+	"snapps:import:sqlite:modal:helper": "Un file SQLITE di una precedente versione è stato rilevato. Vuoi provare l'importazione dei precedenti Snapp? Questa operazione potrebbe richiedere molto tempo in caso di database corposi",
 	"snapps:import:helper": "Importa il CSV di una versione precedente di Snapp",
 	"snapps:import:label": "Carica un CSV",
 	"snapps:import:label:assign": "Assegna snapps agli utenti",
@@ -425,10 +425,8 @@
 	"home:manual:install:run:0": "Esegui e goditi!",
 	"home:manual:install:run:1": "<code class=\"code\">node -r dotenv/config build</code>",
 	"home:docker": "Utilizzo del container Docker",
-	"home:docker:description": "Scrivi semplicemente nel tuo terminale",
-	"home:docker:run": "docker run -p 3000:3000 uraniadev/snapp:latest",
-	"home:docker:run:cors": "Se incontri errori di <code class=\"code\">CORS</code>, ricorda di impostare le variabili d'ambiente <code class=\"code\">PUBLIC_URL</code> e <code class=\"code\">ORIGIN</code>",
-	"home:docker:run:origin": "docker run -p 3000:3000 \n -e ORIGIN=https://example.com \n -e PUBLIC_URL=https://example.com \n uraniadev/snapp:latest",
+	"home:docker:description": "Usa questo docker-compose.yml per far partire il tuo Snapp",
+	"home:docker:better": "Puoi trovare un docker compose migliore sul nostro <a class=\"link\" href=\"{{url}}\">Github Repository</a>.",
 	"home:migration": "Migrazione",
 	"home:migration:description": "Le ultime versioni di Snapp includono l'esportazione CSV per facilitare la migrazione. Effettua semplicemente il login e importa i tuoi URL dal dashboard e continua da dove hai lasciato.",
 
