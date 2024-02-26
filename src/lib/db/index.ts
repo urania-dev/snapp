@@ -75,10 +75,24 @@ export class Database {
 	hasWhiteList = hasWhiteList.bind(this);
 }
 
-const client = await createClient({
-	url: `redis://default:${env.DB_PASS}@${env.DB_HOST}:${env.DB_PORT}/${env.DB_IDX}`
-}).connect();
+let password = env.DB_PASS ?? '';
+let host = env.DB_HOST ?? '';
+let port = env.DB_PORT ?? '6379';
+let dbIndex = env.DB_IDX ?? '0';
 
+async function getClient() {
+	if (env.DB_HOST)
+		return await createClient({
+			url: `redis://default:${password}@${host}:${port}/${dbIndex}`
+		})
+			.on('error', (err) => {
+				console.log(err);
+			})
+			.connect();
+			else throw new Error('This version of Snapps requires REDIS STACK, please read documentation')
+}
+
+const client = await getClient();
 const db = new Database(client);
 
 export { db };
