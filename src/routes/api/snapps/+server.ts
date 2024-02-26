@@ -10,11 +10,11 @@ import { extractDomain } from '$lib/db/snapps/shorten.js';
 import { randomUUID } from 'crypto';
 
 export async function GET({ request, url }) {
-	console.log('get');
 	const EN = await getLanguage();
 	const apiKey = await authenticate(request, EN);
 
-	await db.trackRPDandRPM(apiKey, EN);
+	const isLimited = await db.trackRPDandRPM(apiKey, EN);
+	if (isLimited) throw error(429, { message: EN['api:error:too:many:request'] });
 
 	const { page, limit, search, sort, sortDir, offset } = getUrlParams(url);
 	let query = db.snapps.search();
@@ -40,7 +40,7 @@ export async function GET({ request, url }) {
 				headers: {
 					'Content-Type': 'application/json',
 					'cache-control': 'max-age=' + 60 * 60,
-					'Access-Control-Allowed-Origins':"*"
+					'Access-Control-Allowed-Origins': '*'
 				}
 			}
 		);
@@ -53,8 +53,10 @@ export async function POST({ request, fetch }) {
 	const EN = await getLanguage();
 	const apiKey = await authenticate(request, EN);
 
-	await db.trackRPDandRPM(apiKey, EN);
-	await db.trackMaxURLs(apiKey, EN);
+	const isLimited = await db.trackRPDandRPM(apiKey, EN);
+	if (isLimited) throw error(429, { message: EN['api:error:too:many:request'] });
+	const hasReachedMaxLimit = await db.trackMaxURLs(apiKey, EN);
+	if (hasReachedMaxLimit) throw error(401, { message: EN['api:error:too:many:shorturl'] });
 
 	const form = await request.formData();
 	const { user_id } = apiKey;
@@ -107,7 +109,8 @@ export async function PATCH({ request, fetch }) {
 	const EN = await getLanguage();
 	const apiKey = await authenticate(request, EN);
 
-	await db.trackRPDandRPM(apiKey, EN);
+	const isLimited = await db.trackRPDandRPM(apiKey, EN);
+	if (isLimited) throw error(429, { message: EN['api:error:too:many:request'] });
 
 	const form = await request.formData();
 	const id = form.get('id')?.toString();
@@ -171,7 +174,8 @@ export async function DELETE({ request, url }) {
 	const EN = await getLanguage();
 	const apiKey = await authenticate(request, EN);
 
-	await db.trackRPDandRPM(apiKey, EN);
+	const isLimited = await db.trackRPDandRPM(apiKey, EN);
+	if (isLimited) throw error(429, { message: EN['api:error:too:many:request'] });
 
 	const { user_id } = apiKey;
 

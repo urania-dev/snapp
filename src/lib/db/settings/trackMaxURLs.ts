@@ -4,12 +4,12 @@ import { error } from '@sveltejs/kit';
 import type { Database } from '..';
 
 export default async function trackMaxURLs(this: Database, apiKey: DBAPIKey, _EN?: Translation) {
-	if (apiKey.roles.includes('admin') || apiKey.roles.includes('superadmin')) return true;
+	if (apiKey.roles.includes('admin') || apiKey.roles.includes('superadmin')) return false;
 
 	const is_limited = await this.getSetting('settings:app:limits:enabled').then(
 		(res) => res === 'true' || false
 	);
-	if (!is_limited) return true;
+	if (!is_limited) return false;
 
 	const EN = _EN ? _EN : await getLanguage();
 
@@ -28,6 +28,6 @@ export default async function trackMaxURLs(this: Database, apiKey: DBAPIKey, _EN
 	const limit = user_limit?.urls ?? global_limit_urls;
 
 	if (!limit || urls_by_this_user <= limit) {
-		return true;
-	} else throw error(401, { message: EN['api:error:too:many:shorturl'] });
+		return false;
+	} else true;
 }

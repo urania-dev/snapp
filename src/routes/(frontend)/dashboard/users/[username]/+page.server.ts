@@ -110,7 +110,7 @@ export const actions = {
 			emailForm.set('email_footer', EMAIL_FOOTER);
 			emailForm.set('outer_text', OUT_TEXT);
 
-			const send_mail = await fetch('/api/smtp/send', {
+			await fetch('/api/smtp/send', {
 				headers: {
 					authorization: 'Bearer ' + token.id
 				},

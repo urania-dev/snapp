@@ -25,7 +25,7 @@ import isWhiteListed from './users/isWhiteListed';
 import isBlackListed from './users/isBlackListed';
 import isBlackListedEmail from './users/isEmailBlackListed';
 import trackMaxURLs from './settings/trackMaxURLs';
-import trackRPDandRPM from './settings/trackRDPandRPM';
+import trackRPDandRPM from './settings/trackRPDandRPM';
 import hasWhiteList from './snapps/has_whitelist';
 
 export const domainZList = 'settings:app:banlists:website' as const;

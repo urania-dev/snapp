@@ -10,7 +10,6 @@ export default async function checkRPDLimit(this: Database, userId: string, rpdL
 
 	// Check if the user has already made a request on the current date
 	const count = await this.redis.get(key);
-
 	if (count && parseInt(count) >= rpdLimit) {
 		// User has exceeded the RPD limit
 		return false;

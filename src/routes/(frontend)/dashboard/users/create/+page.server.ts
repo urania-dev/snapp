@@ -3,8 +3,6 @@ import type SnappError from '$lib/db/utils/snappError.js';
 import { error, fail, redirect, type NumericRange } from '@sveltejs/kit';
 import { randomUUID } from 'crypto';
 import type { Actions } from './$types';
-import { generateRandomString } from '$lib/utils/randomString';
-import { createTransport, type TransportOptions } from 'nodemailer';
 import { env } from '$env/dynamic/public';
 import getLanguage from '$lib/api/utils/getLanguage';
 
@@ -124,7 +122,7 @@ export const actions: Actions = {
 			const APP_NAME = EN['global:appname'];
 			const EMAIL_OBJECT = EN['emails:invited:object'].replace('{app_name}', APP_NAME);
 			const EMAIL_DESCRIPTION = EN['emails:invited:text']
-				.replace('{url}', `${env.PUBLIC_URL}/auth/recover-password?token=${token}`)
+				.replace('{url}', `${env.PUBLIC_URL}/auth/recover-password?token=${token.id}`)
 				.replace('{username}', user.username);
 			const EMAIL_FOOTER = EN['emails:invited:footer'].replace('{url}', url.origin);
 

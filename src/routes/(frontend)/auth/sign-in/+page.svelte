@@ -12,7 +12,7 @@
 	import type { SubmitFunction } from './$types';
 	import { toast } from 'svelte-sonner';
 	import { signIn } from '@auth/sveltekit/client';
-	import { invalidateAll } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import EyeIcon from 'lucide-svelte/icons/eye';
 	import EyeOffIcon from 'lucide-svelte/icons/eye-off';
 	let show_password = false;
@@ -51,6 +51,7 @@
 					callbackUrl: '/'
 				});
 				await invalidateAll();
+				goto('/');
 			}
 		};
 	};
@@ -59,7 +60,6 @@
 		show_password = !show_password;
 	}
 	function handle_submit_enter(e: KeyboardEvent) {
-		
 		const keyEvent = e as KeyboardEvent;
 		if (keyEvent.code !== 'Enter' && keyEvent.code !== 'NumpadEnter') return;
 		e.preventDefault();
