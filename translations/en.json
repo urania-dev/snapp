@@ -430,5 +430,7 @@
 	"home:migration:description": "Latest versions of Snapp included CSV Export in order to facilitate migration. Simply login and import your urls from dashboard, and continue from where you left.",
 
 	"home:stack:label": "The Stack",
-	"home:stack:description": "The technology involved"
+	"home:stack:description": "The technology involved",
+
+	"snapp:update:db": "<div class='flex flex-col'><h3 class='font-semibold'>Snapp has changed</h3><small>Update your db to import your Snapp from the previous version!</div>"
 }

@@ -2,6 +2,7 @@ import getUrlParams from '$lib/api/utils/getUrlParams';
 import { db } from '$lib/db';
 import { extractDomain } from '$lib/db/snapps/shorten.js';
 import { fail, redirect } from '@sveltejs/kit';
+import { existsSync } from 'fs';
 import { EntityId } from 'redis-om';
 
 export async function load({ locals, url }) {
@@ -9,6 +10,9 @@ export async function load({ locals, url }) {
 	if (!session) throw redirect(302, '/auth/sign-in');
 	let { page, limit, search, sort, sortDir, offset } = getUrlParams(url);
 	let query = db.snapps.search().where('user_id').equals(session.user.id);
+	const filepath = process.cwd() + '/prisma/db.sqlite';
+	const oldDB = existsSync(filepath);
+
 	if (sort && sortDir === 'asc') query.sortAsc(sort);
 	if (sort && sortDir === 'desc') query.sortDesc(sort);
 
@@ -48,6 +52,7 @@ export async function load({ locals, url }) {
 		page,
 		limit,
 		sort,
+		has_sqlite: oldDB,
 		active_columns: _columns?.split(',') ?? ['shortcode', 'created', 'used', 'status'],
 		sortDirection: sortDir,
 		urls: (JSON.parse(JSON.stringify(urls)) as DBSnappEnriched[]) ?? []

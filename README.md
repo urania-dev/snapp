@@ -70,22 +70,22 @@ At the moment the 0.7.test has major changes and need to migrate shortened url w
 Read more and have docker compose in [announcement discussion](https://github.com/urania-dev/snapp/discussions/16).
 
 ```yml
-version: "3"
+version: '3'
 services:
   redis:
     image: redis/redis-stack:latest
     # ports: # you can specify LOCAL_IP OR VPN_IP to make db or redis insight available privately
-      # - (LOCAL_IP or VPN_IP):6379:6379/tcp
-      # - (LOCAL_IP or VPN_IP):8001:8001
+    # - (LOCAL_IP or VPN_IP):6379:6379/tcp
+    # - (LOCAL_IP or VPN_IP):8001:8001
     volumes:
-      - /home/snapp/redis/test:/data:rw 
-      # this make sure to enable persistance through docker restarts 
+      - /home/snapp/redis/test:/data:rw
+      # this make sure to enable persistance through docker restarts
       # and shutdowns or updates -- change it to a folder of your choise
       - /etc/localtime:/etc/localtime:ro
-    networks: 
+    networks:
       - snapp-stack
     environment:
-      REDIS_ARGS: "--save 60 1 --appendonly yes" # Optional: `--requirepass mypassword`
+      REDIS_ARGS: '--save 60 1 --appendonly yes' # Optional: `--requirepass mypassword`
 
   snapp:
     image: uraniadev/snapp:0.7.test
@@ -95,7 +95,7 @@ services:
       - /home/snapp/app/translations:/app/translations:ro
       # - /home/snapp/redis/theme/theme.css:/app/static/custom-theme.css
       # See (Discussion about theming)[https://github.com/urania-dev/snapp/discussions/18]
-    networks: 
+    networks:
       - snapp-stack
     environment:
       AUTH_SECRET: very-secure-and-long-pass-words # random string, generate it with bash: openssl rand -base64 32
@@ -106,19 +106,21 @@ services:
       # ENABLE_LIMITS: false
       # ENABLE_SIGNUP: true
       # ENABLE_HOME: false
-      # DEFAULT_THEME: dark 
+      # DEFAULT_THEME: dark
       # DEFAULT_LANG: en
       # LOCALIZATION_FOLDER: /app/translations
       # MAX_SHORT_URL: 10
       # MAX_USAGES: 0
       # MAX_RPM: 0
       # MAX_RPD: 0
-      # UMAMI_WEBSITE_ID: 
-      # UMAMI_URL: 
-      # VIRUSTOTAL_API_KEY: 
+      # UMAMI_WEBSITE_ID:
+      # UMAMI_URL:
+      # VIRUSTOTAL_API_KEY:
       # PUBLIC_URL: http://host:5173
       # ORIGIN: http://host:5173
-      ## all commented vars are optional. Note that omitting PUBLIC_URL and ORIGIN it expects to be used from http://localhost:3000
+      ## all commented vars are optional.
+      ## Note that omitting PUBLIC_URL and ORIGIN
+      ## app expects to be used from http://localhost:3000
 
 networks:
   snapp-stack: # Snapp Network so Snapp and redis can communicate but redis is isolated from the wan

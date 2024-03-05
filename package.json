@@ -62,7 +62,7 @@
     "chartjs-chart-geo": "^4.2.8",
     "clsx": "^2.1.0",
     "date-fns": "^3.3.1",
-    "dotenv": "^16.4.1",
+    "dotenv": "^16.4.5",
     "highlight.js": "11.9.0",
     "ioredis": "^5.3.2",
     "jsonwebtoken": "^9.0.2",

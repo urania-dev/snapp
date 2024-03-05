@@ -1,5 +1,4 @@
 import { createClient } from 'redis';
-import { env } from '$env/dynamic/private';
 import { Repository } from 'redis-om';
 // schema
 import userSchema from './users';
@@ -28,6 +27,7 @@ import trackMaxURLs from './settings/trackMaxURLs';
 import trackRPDandRPM from './settings/trackRPDandRPM';
 import hasWhiteList from './snapps/has_whitelist';
 import checkRepoInfo from './repoInfo';
+import { env } from '$env/dynamic/private';
 
 export const domainZList = 'settings:app:banlists:website' as const;
 export const usernameZList = 'settings:app:banlists:username' as const;
@@ -96,7 +96,6 @@ export class Database {
 
 	repoInfo = checkRepoInfo;
 }
-
 let password = env.DB_PASS ?? '';
 let host = env.DB_HOST ?? '';
 let port = env.DB_PORT ?? '6379';

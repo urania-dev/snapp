@@ -23,7 +23,7 @@ export async function load({ locals }) {
 }
 
 export const actions = {
-	async default({ request, locals, fetch }) {
+	async default({ request, fetch }) {
 		const form = await request.formData();
 
 		const _snapps_string = form.get('snapps')?.toString().trim();

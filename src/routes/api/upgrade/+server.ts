@@ -45,6 +45,8 @@ export async function GET() {
 
 	const _db = createDbConnection(filepath);
 	const rows = await selectSnapps(_db);
-	if (rows && rows.length > 0) return json(rows);
-	else return json({ message: 'No row found, are you sure?', rows });
+
+	if (rows && rows.length)
+		if (rows && rows.length > 0) return json(rows);
+		else return json({ message: 'No row found, are you sure?', rows });
 }

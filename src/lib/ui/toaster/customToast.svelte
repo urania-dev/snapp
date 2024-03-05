@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { getLocale } from '$lib/i18n';
 	import { createEventDispatcher } from 'svelte';
 
@@ -7,33 +8,58 @@
 	type States = 'error' | 'warning' | 'surface' | 'success' | undefined;
 	export let state: States = 'surface';
 	export let message: string;
+	export let args: { [key: string]: string } = {};
+	export let redirect: string | undefined = undefined;
 	const { t } = getLocale();
+
+	async function handle_click_toast() {
+		dispatch('closeToast');
+	}
 </script>
 
 <div>
-	<button
-		class:error={state === 'error'}
-		class:warning={state === 'warning'}
-		class:success={state === 'success'}
-		class:surface={state === 'surface'}
-		class={`card w-[360px] text-left right-0 left-auto p-4`}
-		on:click={() => dispatch('closeToast')}
-	>
-		{@html $t(message)}
-	</button>
+	{#if redirect}
+		<a href={redirect}>
+			<button
+				class:error={state === 'error'}
+				class:warning={state === 'warning'}
+				class:success={state === 'success'}
+				class:surface={state === 'surface'}
+				class={`card w-[360px] text-left right-0 left-auto p-4 pointer-events-[all]`}
+				on:click={handle_click_toast}
+			>
+				<div class="pointer-events-none">
+					{@html $t(message, args)}
+				</div>
+			</button>
+		</a>
+	{:else}
+		<button
+			class:error={state === 'error'}
+			class:warning={state === 'warning'}
+			class:success={state === 'success'}
+			class:surface={state === 'surface'}
+			class={`card w-[360px] text-left right-0 left-auto p-4 pointer-events-[all]`}
+			on:click={handle_click_toast}
+		>
+			<div class="pointer-events-none">
+				{@html $t(message, args)}
+			</div>
+		</button>
+	{/if}
 </div>
 
 <style lang="postcss">
-	.error {
+	:global(.card.error) {
 		@apply bg-error-600-300-token text-surface-50-900-token;
 	}
-	.warning {
-		@apply bg-warning-600-300-token text-surface-50-900-token;
+	:global(.card.warning) {
+		@apply bg-warning-600-300-token text-surface-900-50-token;
 	}
-	.surface {
+	:global(.card.surface) {
 		@apply bg-surface-600-300-token text-surface-50-900-token;
 	}
-	.success {
+	:global(.card.success) {
 		@apply bg-success-600-300-token text-surface-50-900-token;
 	}
 </style>

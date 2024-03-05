@@ -35,6 +35,7 @@
 	import { longpress } from '$lib/utils/longpress';
 	import { env } from '$env/dynamic/public';
 	import QrCode from '$lib/ui/modals/qr-code.svelte';
+	import { onMount } from 'svelte';
 	const { t } = getLocale();
 
 	export let data, form;
@@ -325,10 +326,25 @@
 		}
 	}
 
+	function handleDBToast() {
+		if (data.has_sqlite)
+			toast.custom(CustomToast, {
+				componentProps: {
+					message: 'snapp:update:db',
+					state: 'warning',
+					redirect: '/dashboard/urls/import'
+				},
+				dismissable: true,
+				duration: Number.POSITIVE_INFINITY
+			});
+	}
+
 	function handle_delete_single() {
 		if ($active_id) active_rows.set([$active_id.id]);
 		setTimeout(() => modalStore.trigger(modal), 50);
 	}
+
+	onMount(handleDBToast);
 </script>
 
 <svelte:head><title>{$t('global:appname')} | {$t('global:pages:dashboard')}</title></svelte:head>

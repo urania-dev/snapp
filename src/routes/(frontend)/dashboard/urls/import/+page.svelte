@@ -14,7 +14,7 @@
 	import ImportedRow from '$lib/ui/row/imported-row.svelte';
 	import { applyAction, enhance } from '$app/forms';
 	import type { SubmitFunction } from './$types';
-	import { invalidateAll } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 
 	export let data, form;
 	let files: FileList | undefined;
