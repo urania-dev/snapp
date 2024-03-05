@@ -63,3 +63,5 @@
   - API now respond to token generated from user settings
   - Some here and there quality of life
   - As for now the test release is not set as uraniadev/snapp:latest but it has to be done manually due to the new database stack and architecture
+- 0.7
+  - Released

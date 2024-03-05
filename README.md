@@ -88,7 +88,7 @@ services:
       REDIS_ARGS: '--save 60 1 --appendonly yes' # Optional: `--requirepass mypassword`
 
   snapp:
-    image: uraniadev/snapp:0.7.test
+    image: uraniadev/snapp:0.7
     ports:
       - 3000:3000
     volumes:
