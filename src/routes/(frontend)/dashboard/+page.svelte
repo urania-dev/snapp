@@ -602,7 +602,9 @@
 												? 'success'
 												: row.status === 'blacklisted'
 													? 'error'
-													: 'surface'}"
+													: row.status === 'disabled'
+														? 'warning'
+														: 'surface'}"
 										>
 											<Small class="font-semibold">
 												{$t('snapps:status:' + row.status).toLocaleLowerCase()}

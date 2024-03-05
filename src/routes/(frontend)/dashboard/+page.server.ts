@@ -41,6 +41,7 @@ export async function load({ locals, url }) {
 					if (await db.blacklisted({ domain: extractDomain(url.original_url as string)! }))
 						url.status = 'blacklisted';
 					url.used = url.used ?? 0;
+					if (url.disabled === true) url.status = 'disabled';
 
 					return url as DBSnapp as DBSnappEnriched;
 				})
