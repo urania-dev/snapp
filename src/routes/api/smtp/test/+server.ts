@@ -12,7 +12,7 @@ export async function GET() {
 
 	if (!host || !pass || !port || !user)
 		return json({
-			message: EN['settings:app:smtp:not:working'],
+			message: EN?.['settings:app:smtp:not:working'],
 			active_smtp: false
 		});
 
@@ -27,7 +27,7 @@ export async function GET() {
 	};
 	const cached = await db.redis.get('cache:smtp:check');
 	if (cached === 'true')
-		return json({ message: EN['settings:app:smtp:working'], active_smtp: true });
+		return json({ message: EN?.['settings:app:smtp:working'], active_smtp: true });
 
 	const transporter = createTransport({ ...smtp } as TransportOptions);
 
@@ -37,7 +37,7 @@ export async function GET() {
 		await db.redis.expire('cache:smtp:check', 60 * 60 * 24);
 		return json(
 			{
-				message: EN['settings:app:smtp:working'],
+				message: EN?.['settings:app:smtp:working'],
 				active_smtp: true
 			},
 			{
@@ -51,7 +51,7 @@ export async function GET() {
 			state: 200,
 			active_smtp: false,
 			error: err,
-			message: EN['settings:app:smtp:not:working']
+			message: EN?.['settings:app:smtp:not:working']
 		});
 	}
 }

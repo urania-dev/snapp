@@ -58,7 +58,7 @@
 	}
 
 	function handle_slugify(this: HTMLInputElement) {
-		this.value = slugify(this.value);
+		shortcode = slugify(this.value);
 	}
 
 	let date_picker_value: DateValue | undefined = today(getLocalTimeZone());

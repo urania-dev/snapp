@@ -1,6 +1,8 @@
 <script>
+	import { env } from '$env/dynamic/public';
+
 	import { getLocale } from '$lib/i18n';
-	import { H1, Lead, Paragraph, Small, Ul } from '$lib/ui/typography';
+	import { H1, Lead, Paragraph, Small } from '$lib/ui/typography';
 
 	import Logo from '$lib/logo/logo.svg?raw';
 	import SkeletonLogo from '$lib/logo/skeleton.svg?raw';
@@ -34,7 +36,15 @@
 	export let data;
 </script>
 
-<svelte:head><title>{$t('global:appname')}</title></svelte:head>
+<svelte:head
+	><title>{$t('global:appname')}</title>{#if env?.PUBLIC_UMAMI_WEBSITE_ID}
+		<script
+			async
+			src="{env?.PUBLIC_UMAMI_URL}/script.js"
+			data-website-id={env?.PUBLIC_UMAMI_WEBSITE_ID}
+		></script>
+	{/if}</svelte:head
+>
 
 <div class="page my-2 p-4">
 	<div class="flex items-center">

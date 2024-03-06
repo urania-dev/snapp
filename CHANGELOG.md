@@ -65,3 +65,7 @@
   - As for now the test release is not set as uraniadev/snapp:latest but it has to be done manually due to the new database stack and architecture
 - 0.7
   - Released
+- 0.7.1
+  - Provided placeholder default for better understanding of missing languages file
+  - Corrected README unnecessarely mounting translation folder
+  - Fixed overlay on Single Snapp dashboard

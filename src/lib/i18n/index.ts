@@ -34,10 +34,11 @@ function translate(
 ) {
 	if (!translationKey) throw new Error('no key provided to $t()');
 
+	if (!localization || !Array.from(Object.entries(localization)).length) return translationKey;
 	let text = localization[translationKey];
 
 	if (!text) return translationKey;
-	
+
 	if (vars !== undefined) {
 		Object.keys(vars).map((k) => {
 			const regex = new RegExp(`{{${k}}}`, 'g');

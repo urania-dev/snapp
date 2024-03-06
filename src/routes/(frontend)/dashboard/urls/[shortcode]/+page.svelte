@@ -333,7 +333,11 @@
 				{$t('snapps:more:edit')}
 			</Small>
 		</a>
-		<a href="/{data.shortcode}" target="_blank" class="btn ms-4 self-center variant-filled-primary flex">
+		<a
+			href="/{data.shortcode}"
+			target="_blank"
+			class="btn ms-4 self-center variant-filled-primary flex"
+		>
 			<LinkIcon class="w-4 h-4" />
 			<Small class="font-semibold">
 				{$t('snapps:visit')}
@@ -399,9 +403,7 @@
 							class="link"
 							data-sveltekit-preload-data={false}
 						>
-							<Paragraph class="font-semibold"
-								>{env.PUBLIC_URL + '/' + data.url.shortcode}</Paragraph
-							>
+							<Paragraph class="font-semibold break-all">{'/' + data.url.shortcode}</Paragraph>
 						</a>
 					</div>
 					<div class="flex flex-col gap-1">

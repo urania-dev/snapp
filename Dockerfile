@@ -13,7 +13,7 @@ RUN npm i
 COPY . /app
 
 # Build the SvelteKit app
-ENV SNAPP_VERSION=0.7.alpha
+ENV SNAPP_VERSION=0.7.1
 
 ENV AUTH_SECRET=lFNiU7T98/44Qlqb4hMUkVcLOpijEI7z722Kxhv4O2Y=
 ENV DB_HOST=100.64.0.21
@@ -27,6 +27,8 @@ ENV DEFAULT_THEME=dark
 ENV DEFAULT_LANG=en 
 ENV LOCALIZATION_FOLDER=/app/translations
 ENV MAX_SHORT_URL=10
+ENV PUBLIC_UMAMI_WEBSITE_ID: ${P_UMAMI_WEB_ID} # this allow creator to enable metrics on public https://snapp.li homepage
+ENV PUBLIC_UMAMI_URL: ${P_UMAMI_WEBSITE_URL} # this allow creator to enable metrics on public https://snapp.li homepage
 ENV MAX_USAGES=0
 ENV MAX_RPM=0
 ENV MAX_RPD=0

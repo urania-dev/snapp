@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync } from 'fs';
+import { existsSync, readdirSync, readFileSync } from 'fs';
 import { resolve } from 'path';
 import { env } from '$env/dynamic/private';
 import { json } from '@sveltejs/kit';
@@ -13,6 +13,7 @@ export async function GET({ url: { searchParams } }) {
 	// Function to load translations from JSON files
 
 	const translations: Translations = {};
+	if (!existsSync(translationsDirectory)) return json({});
 
 	const files = readdirSync(translationsDirectory);
 
