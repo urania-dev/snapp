@@ -106,6 +106,7 @@ services:
       # DB_PASS: # Optional: Requires `--requirepass mypassword` in REDIS_ARGS
       # DB_PORT: 6379
       # DB_IDX: 0
+      # ALLOW_UNSECURE_HTTP: false
       # ENABLE_LIMITS: false
       # ENABLE_SIGNUP: true
       # ENABLE_HOME: false

@@ -286,15 +286,16 @@ services:
 			- snapp-stack
 		environment:
 			REDIS_ARGS: "--save 60 1 --appendonly yes" 
-
+			# Optional: Requires \`--requirepass mypassword\` in REDIS_ARGS
 	snapp:
 		image: uraniadev/snapp:0.7.test
 		ports:
-			- 5173:3000
+			- 3000:3000
 		networks:
 			- snapp-stack
 		environment:
 			DB_HOST: redis
+			# DB_PASS: 
 			AUTH_SECRET: # openssl rand -base64 32
 			
 networks:
