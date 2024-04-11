@@ -183,7 +183,7 @@
 							/>
 						</div>
 						<Small class="mt-1"
-							>{#if data.allow_unsecure_http}{@html $t('snapps:original:url:helper')}{/if}</Small
+							>{#if data.allow_unsecure_http === false}{@html $t('snapps:original:url:helper')}{/if}</Small
 						>
 					</label>
 					<label for="shortcode" class="flex flex-col gap-1">

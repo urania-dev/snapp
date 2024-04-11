@@ -72,4 +72,5 @@
 - 0.7.2
   - Fixed typo
   - Fix on custom theme
+  - Feature Requested: Allow unsecure HTTP url in redirection
   
