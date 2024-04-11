@@ -281,7 +281,7 @@ services:
 		image: redis/redis-stack:latest
 		volumes:
 			- /etc/localtime:/etc/localtime:ro
-			- /home/snapp/redis/data:rw 
+			- /home/snapp/redis:/data:rw 
 		networks:
 			- snapp-stack
 		environment:

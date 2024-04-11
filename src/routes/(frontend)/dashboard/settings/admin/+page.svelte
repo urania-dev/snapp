@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Extralarge from '../../../../../lib/ui/typography/extralarge.svelte';
 	import { invalidate, invalidateAll } from '$app/navigation';
 	import CustomToast from '$lib/ui/toaster/customToast.svelte';
 	import { toast } from 'svelte-sonner';
@@ -23,12 +22,13 @@
 	import { SlideToggle, getModalStore, type ModalSettings } from '@skeletonlabs/skeleton';
 	import Breadcrumbs from '$lib/ui/crumbs/breadcrumbs.svelte';
 	import { getLocale } from '$lib/i18n';
-	import { H3, ExtraLarge, Lead, Paragraph, Small, Large } from '$lib/ui/typography';
+	import { H3, Lead, Paragraph, Small, Large } from '$lib/ui/typography';
 	import type { SubmitFunction } from './$types.js';
 	const { t } = getLocale();
 
 	export let data, form;
 	let is_saving = false;
+	let allow_unsecure_http = data.app_settings.allow_unsecure_http;
 	let enable_signup = data.app_settings.signup.enabled;
 	let enable_limits = data.app_settings.limits.enabled;
 	let disable_home = !data.app_settings.home.enabled;
@@ -95,6 +95,7 @@
 		formData.set('home', disable_home === true ? 'disabled' : 'enabled');
 		formData.set('signup', enable_signup === true ? 'enabled' : 'disabled');
 		formData.set('limits', enable_limits === true ? 'enabled' : 'disabled');
+		formData.set('allowUnsecureHttp', allow_unsecure_http === true ? 'enabled' : 'disabled');
 
 		return async function ({ result }) {
 			await applyAction(result);
@@ -181,6 +182,12 @@
 		is_saving = true;
 		document.forms.namedItem('settings')?.requestSubmit();
 	}
+
+	function handle_allow_unsecure_http() {
+		is_saving = true;
+		document.forms.namedItem('settings')?.requestSubmit();
+	}
+
 	function handle_enable_limits() {
 		is_saving = true;
 		document.forms.namedItem('settings')?.requestSubmit();
@@ -234,7 +241,7 @@
 						>{$t('settings:app:wise')}
 						{$t('settings:app:switch')}
 					</Paragraph>
-					<label for="enable-signup" class="flex flex-col gap-1 mt-4 mb-2">
+					<label for="enable-signup" class="flex flex-col gap-1 mb-2">
 						<div class="flex w-full justify-between items-center">
 							<Paragraph class="font-semibold flex gap-2 items-center">
 								<UsersIcon class="w-4 h-4" />
@@ -255,7 +262,7 @@
 						</div>
 						<Small>{$t('settings:app:sign:up:description')}</Small>
 					</label>
-					<label for="enable-homepage" class="flex flex-col gap-1 mt-4 mb-2">
+					<label for="enable-homepage" class="flex flex-col gap-1 mb-2">
 						<div class="flex w-full justify-between items-center">
 							<Paragraph class="font-semibold flex gap-2 items-center">
 								<HomeIcon class="w-4 h-4" />
@@ -274,7 +281,28 @@
 								/>
 							</div>
 						</div>
-						<Small>{$t('settings:app:home:description')}</Small>
+						<Small>{@html $t('settings:app:home:description')}</Small>
+					</label>
+					<label for="allow-unsecure-http" class="flex flex-col gap-1 mb-2">
+						<div class="flex w-full justify-between items-center">
+							<Paragraph class="font-semibold flex gap-2 items-center">
+								<HomeIcon class="w-4 h-4" />
+								{$t('settings:app:allow:unsecure:http')}
+							</Paragraph>
+							<div class="flex items-center justify-end scale-[.8]">
+								<SlideToggle
+									size="sm"
+									id="allow-unsecure-http"
+									name="allow_unsecure_http"
+									background="bg-surface-300-600-token"
+									active="bg-success-300-600-token"
+									disabled={is_saving}
+									bind:checked={allow_unsecure_http}
+									on:change={handle_allow_unsecure_http}
+								/>
+							</div>
+						</div>
+						<Small>{@html $t('settings:app:allow:unsecure:http:description')}</Small>
 					</label>
 				</div>
 			</div>

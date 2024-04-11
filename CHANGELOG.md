@@ -50,7 +50,7 @@
   - Minor cleaning here and there
 - 0.6.1
   - Added export to CSV for operating user, other users and all snapps on db.
-  - Cleaned README and CHANGELOG 
+  - Cleaned README and CHANGELOG
 - 0.6.2
   - minor clean up of changelog
   - minor clean up of csv auth needed
@@ -69,3 +69,7 @@
   - Provided placeholder default for better understanding of missing languages file
   - Corrected README unnecessarely mounting translation folder
   - Fixed overlay on Single Snapp dashboard
+- 0.7.2
+  - Fixed typo
+  - Fix on custom theme
+  

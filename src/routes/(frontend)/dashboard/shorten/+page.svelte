@@ -83,6 +83,11 @@
 			is_invalid_url = false;
 			is_valid_url = false;
 		} else {
+			if (data.allow_unsecure_http) {
+				is_valid_url = true;
+				is_invalid_url = false;
+				return;
+			}
 			is_valid_url = httpsRegexp.test(original_url);
 			is_invalid_url = !is_valid_url;
 		}
@@ -157,7 +162,7 @@
 					<label for="original_url" class="flex flex-col gap-1">
 						<Paragraph class="font-semibold">{$t('snapps:original:url:label')}</Paragraph>
 						<div
-							class="input-group max-w-sm input-group-divider grid-cols-[auto_1fr_auto]"
+							class="input-group input-group-divider grid-cols-[auto_1fr_auto]"
 							class:variant-glass-success={is_valid_url}
 							class:variant-glass-error={is_invalid_url}
 						>
@@ -177,11 +182,13 @@
 								bind:value={original_url}
 							/>
 						</div>
-						<Small class="mt-1">{@html $t('snapps:original:url:helper')}</Small>
+						<Small class="mt-1"
+							>{#if data.allow_unsecure_http}{@html $t('snapps:original:url:helper')}{/if}</Small
+						>
 					</label>
 					<label for="shortcode" class="flex flex-col gap-1">
 						<Paragraph class="font-semibold">{$t('snapps:shortcode:label')}</Paragraph>
-						<div class="input-group max-w-sm input-group-divider grid-cols-[auto_1fr_auto]">
+						<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
 							<div class="flex items-center w-10" style:padding="0" style:justify-content="center">
 								<LinkIcon strokeWidth="1.5" class="w-5 h-5" />
 							</div>
@@ -319,7 +326,7 @@
 							>{@html $t('snapps:sections:advanced:secret:description')}</Paragraph
 						>
 						<div
-							class="input-group max-w-sm h-10 mt-2 flex-grow-0input-group-divider grid-cols-[auto_1fr_auto]"
+							class="input-group h-10 mt-2 flex-grow-0input-group-divider grid-cols-[auto_1fr_auto]"
 						>
 							<div class="flex items-center w-10" style:padding="0" style:justify-content="center">
 								<KeyIcon strokeWidth="1.5" class="w-5 h-5" />

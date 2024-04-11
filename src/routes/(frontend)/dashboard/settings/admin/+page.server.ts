@@ -66,7 +66,10 @@ export async function load({ locals, depends, fetch }) {
 			},
 			whitelists: {
 				emails: (await db.redis.zCard(whiteEmailZList)) + (await db.redis.zCard(whiteProviderZList))
-			}
+			},
+			allow_unsecure_http: await db
+				.getSetting('settings:app:allow:unsecure:http')
+				.then((res) => res?.toString().toLowerCase() === 'true')
 		},
 		active_smtp,
 		vtapikey: vtapikey !== undefined && vtapikey !== null
@@ -118,12 +121,18 @@ export const actions = {
 		const signup = form.get('signup')?.toString();
 		const home = form.get('home')?.toString();
 		const limits = form.get('limits')?.toString();
+		const allow_unsecure_http = form.get('allowUnsecureHttp')?.toString();
 
 		if (!home || (home !== 'enabled' && home !== 'disabled'))
 			throw error(404, { message: 'settings:not:found' });
 		if (!signup || (signup !== 'enabled' && signup !== 'disabled'))
 			throw error(404, { message: 'settings:not:found' });
 		if (!limits || (limits !== 'enabled' && limits !== 'disabled'))
+			throw error(404, { message: 'settings:not:found' });
+		if (
+			!allow_unsecure_http ||
+			(allow_unsecure_http !== 'enabled' && allow_unsecure_http !== 'disabled')
+		)
 			throw error(404, { message: 'settings:not:found' });
 
 		switch (signup) {
@@ -149,6 +158,14 @@ export const actions = {
 				break;
 			case 'disabled':
 				await db.setSetting('settings:app:home:enabled', 'false');
+				break;
+		}
+		switch (allow_unsecure_http) {
+			case 'enabled':
+				await db.setSetting('settings:app:allow:unsecure:http', 'true');
+				break;
+			case 'disabled':
+				await db.setSetting('settings:app:allow:unsecure:http', 'false');
 				break;
 		}
 

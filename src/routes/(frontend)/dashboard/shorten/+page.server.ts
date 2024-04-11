@@ -13,9 +13,13 @@ export async function load({ locals, parent }) {
 
 	const isAdmin = await db.admin(session.user.id);
 
+	const ALLOW_UNSECURE_HTTP =
+		(await db.getSetting('settings:app:allow:unsecure:http'))?.toString()?.toLowerCase() === 'true';
+	console.log(ALLOW_UNSECURE_HTTP)
 	return {
 		max_urls: user.settings?.max?.urls ?? data.max_urls ?? 0,
 		existing: await db.snapps.search().where('user_id').equal(session.user.id).returnCount(),
+		allow_unsecure_http: ALLOW_UNSECURE_HTTP,
 		isAdmin: (typeof isAdmin === 'boolean' && isAdmin) || false
 	};
 }
@@ -43,7 +47,7 @@ export const actions: Actions = {
 		let expiration: number | undefined;
 
 		if (_expires) expiration = _expires === '-1' ? -1 : Math.ceil(Number(_expires) / 1000);
-		
+
 		let newSnapp: Partial<DBSnapp> = {
 			id: randomUUID(),
 			original_url,
@@ -53,7 +57,7 @@ export const actions: Actions = {
 			notes,
 			user_id: session.user.id
 		};
-		
+
 		const result = await db.shorten(newSnapp, fetch, expiration);
 
 		if (result.status !== 200) {

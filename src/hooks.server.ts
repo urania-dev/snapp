@@ -115,6 +115,7 @@ async function initializeDBIndexes() {
 		await check_and_set('settings:app:smtp:port', env.SMTP_PORT?.toString()?.toLowerCase());
 		await check_and_set('settings:app:smtp:user', env.SMTP_USER?.toString()?.toLowerCase());
 		await check_and_set('settings:app:smtp:from', env.SMTP_FROM?.toString()?.toLowerCase());
+		await check_and_set('settings:app:allow:unsecure:http', env.ALLOW_UNSECURE_HTTP?.toString()?.toLowerCase());
 		await check_and_set('settings:api:key:vt', env.VIRUSTOTAL_API_KEY?.toString()?.toLowerCase());
 		await check_and_set(
 			'settings:api:key:umami:website:id',
