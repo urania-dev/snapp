@@ -70,7 +70,7 @@
   - Corrected README unnecessarely mounting translation folder
   - Fixed overlay on Single Snapp dashboard
 - 0.7.2
-  - Fixed typo
+  - Fixed typo on docker compose in home and in readme
   - Fix on custom theme
   - Feature Requested: Allow unsecure HTTP url in redirection
   
