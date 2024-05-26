@@ -353,7 +353,6 @@
 					}
 				});
 
-			console.log(form?.message);
 			await invalidateAll();
 		};
 	};

@@ -16,7 +16,7 @@ const snappHandler = (async ({ event, resolve }) => {
 	let theme = event.cookies.get('snapp:theme')?.toString();
 	let lang = event.cookies.get('snapp:lang')?.toString();
 	if (!theme || !lang) {
-		const user = session
+		const user = session !== null
 			? await db.users.fetch(session?.user.id).then((user) => user as DBUser)
 			: null;
 

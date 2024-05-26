@@ -55,7 +55,6 @@
 			});
 
 			rows.data.map((snapp) => {
-				console.log({ snapp });
 				const _snapp = {
 					id: snapp.id,
 					created: new Date(snapp.created_at),

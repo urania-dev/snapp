@@ -66,7 +66,6 @@ export default async function updateProfile(
 
 	if (roles && roles.length > 0) {
 		const newRoles = new Set([...roles]);
-		console.log(Array.from(newRoles), updatedProfile.roles)
 		if (
 			Array.from(newRoles) !== updatedProfile.roles &&
 			updatedProfile.roles.includes('superadmin') &&

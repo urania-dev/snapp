@@ -19,7 +19,7 @@
 	"apikey:token": "Token",
 	"apikey:token:generated": "Il token è stato generato",
 	"apikey:token:revoked": "Il token è stato revocato.",
-
+	
 	"auth:email": "Email",
 	"auth:email:exists": "Questa email è già collegata a un account, prova a reimpostare la tua password.",
 	"auth:email:invalid": "Fornisci un indirizzo email valido, per favore.",
@@ -171,6 +171,9 @@
 	"settings:api:key:vt:label": "Chiave API",
 	"settings:api:key:vt:placeholder": "Digita la tua chiave API VT qui...",
 	"settings:api:key:vt:protected": "API Virus Total protetta",
+
+	"settings:app:allow:unsecure:http": "Permetti HTTP non sicuri",
+	"settings:app:allow:unsecure:http:description": "Permetti l'uso di url <b class='text-error-500'>HTTP privi di sicurezza</b> nella creazione di snapps.",
 
 	"settings:app:blacklists:description": "Le blacklist influenzeranno la registrazione e l'aggiornamento dei dettagli dell'utente, mentre il blocco dei domini causerà un errore nella creazione di un URL abbreviato.",
 	"settings:app:blacklists:description:error": "Gli utenti bannati riceveranno un errore generico di sistema durante la registrazione.",

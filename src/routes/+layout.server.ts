@@ -2,12 +2,12 @@ import { env } from '$env/dynamic/private';
 import { db } from '$lib/db/index.js';
 import jsonify from '$lib/utils/jsonify/index.js';
 
-export async function load({ locals, depends, fetch, cookies }) {
+export async function load({ locals, depends, fetch }) {
 	depends('snapp:main');
 	const session = await locals.getSession();
 
 	const user =
-		session && (await db.users.search().where('id').equal(session?.user.id).returnFirst());
+		session !== null && (await db.users.search().where('id').equal(session?.user.id).returnFirst()) || null;
 
 	const theme = locals.theme;
 	const lang = locals.lang;

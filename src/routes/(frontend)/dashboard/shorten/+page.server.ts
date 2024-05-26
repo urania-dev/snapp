@@ -15,7 +15,6 @@ export async function load({ locals, parent }) {
 
 	const ALLOW_UNSECURE_HTTP =
 		(await db.getSetting('settings:app:allow:unsecure:http'))?.toString()?.toLowerCase() === 'true';
-	console.log(ALLOW_UNSECURE_HTTP)
 	return {
 		max_urls: user.settings?.max?.urls ?? data.max_urls ?? 0,
 		existing: await db.snapps.search().where('user_id').equal(session.user.id).returnCount(),

@@ -73,4 +73,7 @@
   - Fixed typo on docker compose in home and in readme
   - Fix on custom theme
   - Feature Requested: Allow unsecure HTTP url in redirection
-  
+- 0.7.3
+  - Added Spanish and Galician languages by [cabaseira](https://github.com/cabaseira)
+  - Minor fix to unsecure HTTP Edit to fix [Issue #26](https://github.com/urania-dev/snapp/issues/26)
+  - Removed some dev console.logs. 

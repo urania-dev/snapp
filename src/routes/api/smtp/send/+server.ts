@@ -70,7 +70,6 @@ export async function POST({ request, url }) {
 				.replace('{OUT_TEXT}', OUT_TEXT)
 		});
 
-		// console.log('Email has been sent', { flag });
 
 		return json({
 			message: 'settings:app:smtp:working',

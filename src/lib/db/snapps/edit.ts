@@ -22,12 +22,14 @@ export default async function edit(
 	if (!user) return new SnappError(404, { message: 'auth:not:authorized' });
 
 	const regex = new RegExp(/^https:\/\/[^\s/$.?#].[^\s]*$/);
-
+	const allow_unsecure_http =
+	(await this.getSetting('settings:app:allow:unsecure:http'))?.toString().toLocaleLowerCase() ===
+	'true';
 	if (!original_url || typeof original_url !== 'string' || original_url.trim() === '')
 		return new SnappError(400, { message: 'snapps:original:url:unset' });
 
 	if (original_url) {
-		if (regex.test(original_url) === false)
+		if (allow_unsecure_http === false && regex.test(original_url) === false)
 			return new SnappError(400, { message: 'snapps:original:url:invalid' });
 		snapp.original_url = original_url;
 	}
