@@ -2,14 +2,12 @@ services:
   snapp:
     image: uraniadev/snapp:0.8
     ports:
-      - 5173:3000
+      - 3000:3000
     environment:
       DATABASE_URL: 'postgresql://root:password@postgres:5432/snappdb'
       TOKEN_SECRET: # openssl rand -base64 32
-      ORIGIN: https://labs.urania.dev
+      ORIGIN: https://example.com
       DATABASE_PROVIDER: postgresql
-      NODE_ENV: production
-      ADMIN_PASSWORD: beppuzzo
     depends_on:
       - postgres
     networks:
