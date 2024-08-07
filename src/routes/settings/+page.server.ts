@@ -73,8 +73,8 @@ export async function load({ locals: { user, session, theme }, fetch, url }) {
 			: 0,
 		rpm: is_admin
 			? await database.settings
-				.get(MAX_REQUESTS_PER_MINUTE)
-				.then((res) => parseInt(res?.value || '0'))
+					.get(MAX_REQUESTS_PER_MINUTE)
+					.then((res) => parseInt(res?.value || '0'))
 			: 0,
 		spu: is_admin
 			? await database.settings.get(MAX_SNAPPS_PER_USER).then((res) => parseInt(res?.value || '0'))
@@ -106,30 +106,30 @@ export async function load({ locals: { user, session, theme }, fetch, url }) {
 			: 0,
 		blacklist_emails: is_admin
 			? await database.watchlist.list(
-				true,
-				limit,
-				offset,
-				query ? { startsWith: query } : NOT_NULL,
-				NOT_NULL
-			)
+					true,
+					limit,
+					offset,
+					query ? { startsWith: query } : NOT_NULL,
+					NOT_NULL
+				)
 			: [],
 		blacklist_domains: is_admin
 			? await database.watchlist.list(
-				true,
-				limit,
-				offset,
-				EQUALS_NULL,
-				query ? { startsWith: query } : NOT_NULL
-			)
+					true,
+					limit,
+					offset,
+					EQUALS_NULL,
+					query ? { startsWith: query } : NOT_NULL
+				)
 			: [],
 		blacklist_usernames: is_admin
 			? await database.watchlist.list(
-				true,
-				limit,
-				offset,
-				query ? { startsWith: query } : NOT_NULL,
-				EQUALS_NULL
-			)
+					true,
+					limit,
+					offset,
+					query ? { startsWith: query } : NOT_NULL,
+					EQUALS_NULL
+				)
 			: [],
 		whitelist_count: is_admin ? await database.watchlist.count(true) : 0,
 		whitelist_count_emails: is_admin ? await database.watchlist.count(true, NOT_NULL, NOT_NULL) : 0,
@@ -141,30 +141,30 @@ export async function load({ locals: { user, session, theme }, fetch, url }) {
 			: 0,
 		whitelist_emails: is_admin
 			? await database.watchlist.list(
-				true,
-				limit,
-				offset,
-				query ? { startsWith: query } : NOT_NULL,
-				NOT_NULL
-			)
+					true,
+					limit,
+					offset,
+					query ? { startsWith: query } : NOT_NULL,
+					NOT_NULL
+				)
 			: [],
 		whitelist_domains: is_admin
 			? await database.watchlist.list(
-				true,
-				limit,
-				offset,
-				EQUALS_NULL,
-				query ? { startsWith: query } : NOT_NULL
-			)
+					true,
+					limit,
+					offset,
+					EQUALS_NULL,
+					query ? { startsWith: query } : NOT_NULL
+				)
 			: [],
 		whitelist_usernames: is_admin
 			? await database.watchlist.list(
-				true,
-				limit,
-				offset,
-				query ? { startsWith: query } : NOT_NULL,
-				EQUALS_NULL
-			)
+					true,
+					limit,
+					offset,
+					query ? { startsWith: query } : NOT_NULL,
+					EQUALS_NULL
+				)
 			: [],
 		vtapistatus: is_admin ? await (await fetch('/api/utils/virus-total-protection')).json() : false,
 		smtp_status: is_admin ? await (await fetch('/api/utils/smtp-server')).json() : false,
@@ -206,7 +206,7 @@ export const actions = {
 			)
 				return fail(400, { message: 'errors.auth.email-invalid' });
 			const [, userError] = await database.users.update(payload as Partial<User>, user.id);
-			if (userError) return fail(400, { message: "errors.auth.email-registered" })
+			if (userError) return fail(400, { message: 'errors.auth.email-registered' });
 		}
 
 		if (table === 'settings') {

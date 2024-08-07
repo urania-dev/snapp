@@ -7,7 +7,7 @@ const config = {
 	compilerOptions: { runes: true },
 	kit: {
 		adapter: adapter({
-			precompress: true,
+			precompress: true
 		}),
 		csrf: {
 			checkOrigin: process.env.NODE_ENV !== 'development'

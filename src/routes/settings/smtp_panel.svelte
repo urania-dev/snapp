@@ -40,7 +40,7 @@
 		</span>
 	</Card>
 	<div class="flex h-full w-full flex-col gap-4 lg:flex-row">
-		<div class="flex h-full w-full flex-col  gap-4">
+		<div class="flex h-full w-full flex-col gap-4">
 			<Card css={{ card: 'h-full items-center flex-row' }}>
 				<small class="w-full text-balance leading-relaxed">{@html $_('admin.helpers.smtp')}</small>
 			</Card>

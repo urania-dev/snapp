@@ -1,0 +1,32 @@
+services:
+  snapp:
+    image: uraniadev/snapp:0.8
+    ports:
+      - 5173:3000
+    environment:
+      DATABASE_URL: 'mysql://root:password@mariadb:3306/snappdb'
+      TOKEN_SECRET: # openssl rand -base64 32
+      ORIGIN: https://labs.urania.dev
+      DATABASE_PROVIDER: mysql
+      NODE_ENV: production
+    depends_on:
+      - mariadb
+    networks:
+      - snapp
+
+  mariadb:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: snappdb
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    networks:
+      - snapp
+
+networks:
+  snapp:
+    external: false
+
+volumes:
+  mariadb-data:

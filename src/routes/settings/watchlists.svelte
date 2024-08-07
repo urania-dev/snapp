@@ -145,13 +145,13 @@
 					</h4>
 					<Card css={{ card: 'p-2' }}>
 						<small class="flex w-full justify-between">
-							<span>{@html $_('admin.labels.domains')}</span>{#key whitelist_count_domains}<span in:fade
-									>{whitelist_count_domains}</span
+							<span>{@html $_('admin.labels.domains')}</span>{#key whitelist_count_domains}<span
+									in:fade>{whitelist_count_domains}</span
 								>{/key}
 						</small>
 						<small class="flex w-full justify-between">
-							<span>{@html $_('admin.labels.emails')}</span>{#key whitelist_count_emails}<span in:fade
-									>{whitelist_count_emails}</span
+							<span>{@html $_('admin.labels.emails')}</span>{#key whitelist_count_emails}<span
+									in:fade>{whitelist_count_emails}</span
 								>{/key}
 						</small>
 						<small class="flex w-full justify-between">
@@ -358,13 +358,13 @@
 					</h4>
 					<Card css={{ card: 'p-2' }}>
 						<small class="flex w-full justify-between">
-							<span>{@html $_('admin.labels.domains')}</span>{#key blacklist_count_domains}<span in:fade
-									>{blacklist_count_domains}</span
+							<span>{@html $_('admin.labels.domains')}</span>{#key blacklist_count_domains}<span
+									in:fade>{blacklist_count_domains}</span
 								>{/key}
 						</small>
 						<small class="flex w-full justify-between">
-							<span>{@html $_('admin.labels.emails')}</span>{#key blacklist_count_emails}<span in:fade
-									>{blacklist_count_emails}</span
+							<span>{@html $_('admin.labels.emails')}</span>{#key blacklist_count_emails}<span
+									in:fade>{blacklist_count_emails}</span
 								>{/key}
 						</small>
 						<small class="flex w-full justify-between">
@@ -649,7 +649,8 @@
 					bind:value={vtapikey}
 				/>
 			</div>
-			<small class="mt-auto leading-relaxed tracking-wide">{@html $_('admin.helpers.vt-api')}</small>
+			<small class="mt-auto leading-relaxed tracking-wide">{@html $_('admin.helpers.vt-api')}</small
+			>
 		</Card>
 	</div>
 </Card>

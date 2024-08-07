@@ -18,12 +18,11 @@ export async function load({ locals: { session, user }, url, params: { username 
 	if (!is_admin) redirect(302, '/dashboard');
 
 	const [ghosting] = await database.users.one(username);
-	if(!ghosting) redirect(302,'/users')
+	if (!ghosting) redirect(302, '/users');
 	const allow_http = database.settings.parse(
 		await database.settings.get(ALLOW_UNSECURE_HTTP),
 		true
 	);
-
 
 	const limit = parseInt(url.searchParams.get('limit')?.toString() || '14');
 	const page = parseInt(url.searchParams.get('page')?.toString() || '1');

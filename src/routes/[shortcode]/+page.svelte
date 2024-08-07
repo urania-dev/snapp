@@ -9,7 +9,7 @@
 	import { invalidateAll } from '$app/navigation';
 	import { toast } from '$lib/svelte-sonner';
 
-	let { data,form } = $props();
+	let { data, form } = $props();
 	let show_password = $state(false);
 
 	const enhanceSubmission: SubmitFunction = () => {

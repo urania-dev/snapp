@@ -692,7 +692,7 @@
 										document.forms.namedItem('save-rows')?.requestSubmit();
 									},
 									input: (e) => {
-										debounce(()=>document.forms.namedItem('save-rows')?.requestSubmit(), 1000)();
+										debounce(() => document.forms.namedItem('save-rows')?.requestSubmit(), 1000)();
 									}
 								}}
 								css={{

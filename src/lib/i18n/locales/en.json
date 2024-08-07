@@ -155,7 +155,7 @@
 		"all": "All",
 		"world": "World",
 		"copy": "Copy",
-		"loading":"Loading"
+		"loading": "Loading"
 	},
 	"metrics": {
 		"filters": "Filters",

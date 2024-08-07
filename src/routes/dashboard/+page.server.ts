@@ -38,9 +38,7 @@ export async function load({ locals: { session, user }, url }) {
 
 	const cols = await database.settings
 		.get('COLUMNS', user.id)
-		.then((res) => (res?.value && (JSON.parse(res.value) as string[])) || [
-			'shortcode',
-		]);
+		.then((res) => (res?.value && (JSON.parse(res.value) as string[])) || ['shortcode']);
 	const [snapps, count] = await database.snapps.get(user.id, query, limit, offset, {
 		[orderBy]: ascending ? 'asc' : 'desc'
 	});

@@ -17,16 +17,24 @@ export const GET = async (event) => {
 	const limits = token.user.role === 'user' ? await rateLimiterCheck(token.key) : null;
 	if (limits?.blocked) return json({ message: 'Too many requests' }, { status: 429 });
 
-	const userId = event.url.searchParams.get('userId')?.toString() || undefined
+	const userId = event.url.searchParams.get('userId')?.toString() || undefined;
 	const limit = parseInt(event.url.searchParams.get('limit')?.toString() || '10');
 	const offset = parseInt(event.url.searchParams.get('offset')?.toString() || '0');
 	const query = event.url.searchParams.get('query')?.toString();
 	const orderBy = event.url.searchParams.get('order-by')?.toString() || undefined;
 	const ascending = event.url.searchParams.get('ascending')?.toString() === 'true' || false;
 
-	const [snapps, count] = await database.snapps.get(token.user.role === 'user' ? token.userId : userId, query, limit, offset, orderBy ? {
-		[orderBy]: ascending
-	} : undefined);
+	const [snapps, count] = await database.snapps.get(
+		token.user.role === 'user' ? token.userId : userId,
+		query,
+		limit,
+		offset,
+		orderBy
+			? {
+					[orderBy]: ascending
+				}
+			: undefined
+	);
 
 	return json({ snapps, total: count, pagination: { limit, offset, query, orderBy, ascending } });
 };
@@ -54,11 +62,12 @@ export const POST = async (event) => {
 		notes?: string;
 		expiration?: Date | null;
 		disabled?: boolean;
-		userId?: string
+		userId?: string;
 	} = await event.request.json();
 
 	if (!original_url) return error(400, { message: 'Missing original url' });
-	if (userId && token.user.role === 'user') return error(403, { message: 'You\'re not allowed to create snapps for someone else' })
+	if (userId && token.user.role === 'user')
+		return error(403, { message: "You're not allowed to create snapps for someone else" });
 
 	const [snapp, err] = await database.snapps.create(
 		{ shortcode, original_url, secret, max_usages, notes, expiration, disabled },
@@ -109,7 +118,8 @@ export const PATCH = async (event) => {
 		where: { id, userId: is_admin ? undefined : token.userId }
 	});
 
-	if (editable?.userId !== token.userId && is_admin === false) return error(403, { message: 'You cannot edit someone else URL.' })
+	if (editable?.userId !== token.userId && is_admin === false)
+		return error(403, { message: 'You cannot edit someone else URL.' });
 
 	if (!editable) return error(404, { message: 'Snapp not found' });
 
@@ -138,13 +148,12 @@ export const PATCH = async (event) => {
 	return json(snapp);
 };
 
-
 export const DELETE = async (event) => {
 	const token = await authenticate_api(event);
 	if (!token) error(403);
 	const limits = token.user.role === 'user' ? await rateLimiterCheck(token.key) : null;
 	if (limits?.blocked) return json({ message: 'Too many requests' }, { status: 429 });
-	const { ids } = Object.fromEntries(event.url.searchParams) // ids is a string of "id, id, id"
+	const { ids } = Object.fromEntries(event.url.searchParams); // ids is a string of "id, id, id"
 
 	const [count, err] = await database.snapps.delete(token.userId, ...ids.split(','));
 	if (!count || err) error(500, { message: 'System error' });

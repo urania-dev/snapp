@@ -85,7 +85,9 @@
 				<h5 class="w-full text-lg font-bold">{@html $_('users.auth.recover-password')}</h5>
 			</Card>
 			<Card>
-				<small class="w-full text-start text-sm">{@html $_('users.auth.helpers.recover-password')}</small>
+				<small class="w-full text-start text-sm"
+					>{@html $_('users.auth.helpers.recover-password')}</small
+				>
 			</Card>
 			<div class="flex w-full gap-4">
 				<Card css={{ card: 'h-10 overflow-clip p-0 flex-row ' }}>

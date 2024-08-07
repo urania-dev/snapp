@@ -24,7 +24,7 @@
 </script>
 
 <svelte:head>
-	<title>{$_('appname')} </title>
+	<title>{$_('appname')}</title>
 	<meta
 		name="description"
 		content="Self-hostable Open Source Url Shortner. Discover more at https://github.com/urania-dev/snapp"

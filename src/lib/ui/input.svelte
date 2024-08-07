@@ -131,7 +131,14 @@
 	input:-webkit-autofill:hover,
 	input:-webkit-autofill:focus,
 	input:-webkit-autofill:active {
-		-webkit-box-shadow: 0 0 0 30px #09363d inset !important;
+		-webkit-box-shadow: 0 0 0 30px #ebedef inset !important;
+		-webkit-text-fill-color: #09363d !important;
+	}
+	:global(html.dark input):-webkit-autofill,
+	:global(html.dark input):-webkit-autofill:hover,
+	:global(html.dark input):-webkit-autofill:focus,
+	:global(html.dark input):-webkit-autofill:active {
+		-webkit-box-shadow: 0 0 0 30px #121416 inset !important;
 		-webkit-text-fill-color: white !important;
 	}
 </style>

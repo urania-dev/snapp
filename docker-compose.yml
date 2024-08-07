@@ -1,0 +1,6 @@
+services:
+  snapp:
+    image: uraniadev/snapp:0.8
+    environment:
+      TOKEN_SECRET: oB15eltUnM5acp7+C4nR3RXMdw/kgfDTxQ6U4LbOiWs=
+      ORIGIN: https://labs.urania.dev

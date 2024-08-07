@@ -86,7 +86,9 @@
   - Removed some dev console.logs.
 
 ---
+
 ### second rebase
+
 ---
 
 - 0.8-beta
@@ -94,5 +96,3 @@
   - Rebase of the project, new code for the same features as before.
   - Prisma comes back again instead of Redis, this should allow me to change the database behind the project and create different images for mysql pg and sqlite
   - fixed long time running bugs as not resettable secrets of usages, api endpoint with form submission protections, and so on.
-  
-  

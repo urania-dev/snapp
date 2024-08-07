@@ -1,13 +1,18 @@
 import { authenticate_api } from '$lib/server/authenticate-api/index.js';
 import { database } from '$lib/server/db/database.js';
 import { rateLimiterCheck } from '$lib/server/ratelimiter';
-import { EMAIL_EXISTS, ENABLED_SIGNUP, USER_DOES_NOT_EXISTS, USER_EXISTS } from '$lib/utils/constants.js';
+import {
+	EMAIL_EXISTS,
+	ENABLED_SIGNUP,
+	USER_DOES_NOT_EXISTS,
+	USER_EXISTS
+} from '$lib/utils/constants.js';
 import { error, json } from '@sveltejs/kit';
 
 export const GET = async (event) => {
 	const token = await authenticate_api(event);
 	if (!token) error(403);
-	if (token.user.role !== 'user') return error(403, "Forbidden")
+	if (token.user.role !== 'user') return error(403, 'Forbidden');
 	const limits = token.user.role === 'user' ? await rateLimiterCheck(token.key) : null;
 	if (limits?.blocked) return json({ message: 'Too many requests' }, { status: 429 });
 
@@ -25,8 +30,8 @@ export const POST = async (event) => {
 	if (!token) error(403);
 	const limits = token.user.role === 'user' ? await rateLimiterCheck(token.key) : null;
 	if (limits?.blocked) return json({ message: 'Too many requests' }, { status: 429 });
-	const is_admin = token.user.role !== 'user' && await database.users.is_admin(token.userId)
-	if (!is_admin) return error(403, 'Forbidden')
+	const is_admin = token.user.role !== 'user' && (await database.users.is_admin(token.userId));
+	if (!is_admin) return error(403, 'Forbidden');
 	const {
 		username,
 		email,
@@ -83,7 +88,7 @@ export const POST = async (event) => {
 export const PATCH = async (event) => {
 	const token = await authenticate_api(event);
 	if (!token) error(403);
-	const is_admin = token.user.role !== 'user' && await database.users.is_admin(token.userId)
+	const is_admin = token.user.role !== 'user' && (await database.users.is_admin(token.userId));
 	const limits = !is_admin ? await rateLimiterCheck(token.key) : null;
 	if (limits?.blocked) return json({ message: 'Too many requests' }, { status: 429 });
 
@@ -92,16 +97,18 @@ export const PATCH = async (event) => {
 		username,
 		email,
 		password,
-		confirm_password, role
+		confirm_password,
+		role
 	}: {
 		id: string;
 		username?: string;
 		email?: string;
 		password?: string;
 		confirm_password?: string;
-		role?: 'user' | 'admin'
+		role?: 'user' | 'admin';
 	} = await event.request.json();
-	if (id !== token.userId && !is_admin) return error(401, { message: 'You\' re not allowed to edit other users' })
+	if (id !== token.userId && !is_admin)
+		return error(401, { message: "You' re not allowed to edit other users" });
 	if (
 		email &&
 		(typeof email !== 'string' ||
@@ -119,7 +126,8 @@ export const PATCH = async (event) => {
 	)
 		return error(400, { message: 'Invalid password provided' });
 	if (
-		password && confirm_password &&
+		password &&
+		confirm_password &&
 		(typeof confirm_password !== 'string' ||
 			!confirm_password.trim().length ||
 			confirm_password !== password)
@@ -133,13 +141,13 @@ export const PATCH = async (event) => {
 		return error(400, { message: 'This username or email is blacklisted' });
 
 	const update = { id, username, email, password, confirm_password, role };
-	if (id !== token.userId && !is_admin) return error(403, "Forbidden")
+	if (id !== token.userId && !is_admin) return error(403, 'Forbidden');
 	const [user, err] = await database.users.update(update, id);
 
 	let message = null;
 	if (err && err === USER_EXISTS) message = 'Username already taken';
 	if (err && err === EMAIL_EXISTS) message = 'Email already associated to an account';
-	if (err && err === USER_DOES_NOT_EXISTS) message = 'User doesn\'t exists';
+	if (err && err === USER_DOES_NOT_EXISTS) message = "User doesn't exists";
 	if (message) return error(500, { message });
 
 	return json(user);
@@ -148,7 +156,7 @@ export const PATCH = async (event) => {
 export const DELETE = async (event) => {
 	const token = await authenticate_api(event);
 	if (!token) error(403);
-	const is_admin = await database.users.is_admin(token.userId)
+	const is_admin = await database.users.is_admin(token.userId);
 	const limits = is_admin ? await rateLimiterCheck(token.key) : null;
 	if (limits?.blocked) return json({ message: 'Too many requests' }, { status: 429 });
 
@@ -162,10 +170,10 @@ export const DELETE = async (event) => {
 		username?: string;
 		email?: string;
 		ignore_admin?: boolean;
-	} = Object.fromEntries(event.url.searchParams)
+	} = Object.fromEntries(event.url.searchParams);
 
-	if (id !== token.userId) return error(403, { message: 'You can\'t edit other users' })
-	if (ignore_admin && !is_admin) return error(403, { message: "You can't erase an admin user" })
+	if (id !== token.userId) return error(403, { message: "You can't edit other users" });
+	if (ignore_admin && !is_admin) return error(403, { message: "You can't erase an admin user" });
 
 	return json({
 		deleted: await database.users.delete(id, username, email, ignore_admin ? ['root'] : undefined)

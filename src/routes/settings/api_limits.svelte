@@ -35,7 +35,7 @@
 	</Card>
 	<div class="flex w-full flex-col gap-4 lg:flex-row">
 		<div class="inline-flex h-full w-full flex-col gap-4">
-			<Card css={{card:'h-full'}}>
+			<Card css={{ card: 'h-full' }}>
 				<Input
 					css={{
 						label: 'inline-flex w-max',
@@ -64,7 +64,7 @@
 			</Card>
 		</div>
 		<div class="inline-flex h-full w-full flex-col gap-4">
-			<Card css={{card:'h-full'}}>
+			<Card css={{ card: 'h-full' }}>
 				<Input
 					css={{
 						group: 'font-mono',
@@ -92,7 +92,7 @@
 			</Card>
 		</div>
 		<div class="inline-flex h-full w-full flex-col gap-4">
-			<Card css={{card:'h-full'}}>
+			<Card css={{ card: 'h-full' }}>
 				<Input
 					css={{
 						group: 'font-mono',

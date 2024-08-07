@@ -43,3 +43,21 @@ services:
 	  ORIGIN: https://example.com
 
 ```
+
+## Migration
+
+The latest versions of Snapp include CSV Export to facilitate migration. Simply log in and import your URLs from the dashboard, and continue from where you left.
+
+## The Stack
+
+The technology involved:
+
+- Svelte Kit
+- Prisma
+- Lucia Auth
+- Tailwind CSS
+- MaxMind
+- Phosphor Icons
+- SwaggerUI
+- AMCharts
+- ChartJS
