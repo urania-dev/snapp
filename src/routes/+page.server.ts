@@ -17,14 +17,13 @@ const code = async (theme: string) =>
 		`services:
   snapp:
     image: uraniadev/snapp:0.8
-	ports: 
-	  - 3000:3000
+    ports: 
+      - 3000:3000
     environment:
-	  DATABASE_URL: "file:./db.sqlite"
-	  TOKEN_SECRET: # openssl rand -base64 32
-	  ORIGIN: https://example.com
+      TOKEN_SECRET: # openssl rand -base64 32
+      ORIGIN: https://example.com
 `,
-		{
+    	{
 			lang: 'yaml',
 			theme: 'github-dark'
 		}
