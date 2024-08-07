@@ -22,6 +22,7 @@ const code = async (theme: string) =>
     environment:
       TOKEN_SECRET: # openssl rand -base64 32
       ORIGIN: https://example.com
+	  
 `,
     	{
 			lang: 'yaml',
