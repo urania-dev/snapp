@@ -1,8 +1,9 @@
-import { browser } from '$app/environment';
-import { signOut } from '@auth/sveltekit/client';
+import { locale, waitLocale } from 'svelte-i18n';
+import '$lib/i18n';
 
 export async function load({ data, fetch }) {
-	if (browser && data.session && data.user === null) await signOut();
-	
+	if (data.lang) locale.set(data.lang);
+	await waitLocale();
+
 	return { ...data, fetch };
 }

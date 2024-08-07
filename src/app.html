@@ -2,17 +2,19 @@
 <html lang="en" class="dark">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
-		<meta
-			name="viewport"
-			content="width=device-width, user-scalable=no,
-		initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Fira+Mono&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+			rel="stylesheet"
 		/>
+		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		%sveltekit.head%
-
-		<link rel="stylesheet" type="text/css" href="%sveltekit.assets%/custom-theme.css" />
 	</head>
-	<body data-sveltekit-preload-data="hover" data-theme="snappTheme">
-		<div style="display: contents" class="h-full overflow-hidden">%sveltekit.body%</div>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">%sveltekit.body%</div>
+		<script src="https://unpkg.com/@phosphor-icons/web"></script>
+		<script src="https://www.amcharts.com/lib/5/geodata/worldLow.js"></script>
 	</body>
 </html>

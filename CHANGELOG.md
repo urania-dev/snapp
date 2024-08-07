@@ -54,6 +54,13 @@
 - 0.6.2
   - minor clean up of changelog
   - minor clean up of csv auth needed
+
+---
+
+### first rebase
+
+---
+
 - 0.7.test
   - Import CSV from previous version, first of all
   - Rebuilt on top of Redis (with RedisInsight UI for a major QOL upgrade) instead of SQLITE, now it doesn't relies on third part libraries and my cron abilities for expiring urls
@@ -76,4 +83,16 @@
 - 0.7.3
   - Added Spanish and Galician languages by [cabaseira](https://github.com/cabaseira)
   - Minor fix to unsecure HTTP Edit to fix [Issue #26](https://github.com/urania-dev/snapp/issues/26)
-  - Removed some dev console.logs. 
+  - Removed some dev console.logs.
+
+---
+### second rebase
+---
+
+- 0.8-beta
+  - on the road to version 1: This is a new rebuilt on top of Svelte5, Tailwind, Prisma. It's a semplification in order to keep it more mantainable in the future.
+  - Rebase of the project, new code for the same features as before.
+  - Prisma comes back again instead of Redis, this should allow me to change the database behind the project and create different images for mysql pg and sqlite
+  - fixed long time running bugs as not resettable secrets of usages, api endpoint with form submission protections, and so on.
+  
+  

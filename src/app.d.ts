@@ -1,47 +1,31 @@
-import '@auth/sveltekit';
-import type { _RedisClient } from '$lib/db';
-
-declare module '@auth/sveltekit' {
-	interface User {
-		/** comment **/
-		id: string;
-	}
-	interface Session {
-		user: {
-			id: string;
-		};
-	}
-}
-declare module '@auth/core/types' {
-	interface User {
-		/** comment **/
-		id: string;
-	}
-	interface Session {
-		user: {
-			id: string;
-		};
-	}
-}
-
 declare global {
-	var _redis: _RedisClient;
+	type Language = 'it' | 'en' | 'es' | 'ga';
+	type MenuItem = {
+		label: string;
+		url: string;
+		visible: boolean;
+		active: boolean;
+		icon: string;
+		css?: string;
+	};
+
+	type SvelteFetch = {
+		(input: RequestInfo | URL, init?: RequestInit): Promise<Response>;
+		(input: string | URL | globalThis.Request, init?: RequestInit): Promise<Response>;
+	};
 
 	namespace App {
-		// interface Error {}
 		interface Locals {
-			theme: 'dark' | 'light' | string;
-			lang: string;
+			user: import('lucia').User | null;
+			session: import('lucia').Session | null;
+			lang: Language;
+			theme: string;
 		}
-		// interface PageData {}
-		// interface PageState {}
-		// interface Platform {}
 	}
-	namespace svelteHTML {
-		interface HTMLAttributes<T> {
-		  'on:long'?: (event: Event) => void
-		}
-	  }
+	var _db: import('$lib/server/db/database').Database;
+	var _prisma: import('@prisma/client').PrismaClient;
+	var _rpd_limiter: import('$lib/server/ratelimiter').SlidingWindowCounter;
+	var _rpm_limiter: import('$lib/server/ratelimiter').SlidingWindowCounter;
 }
 
 export {};

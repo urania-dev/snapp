@@ -1,38 +1,18 @@
-import { env } from '$env/dynamic/private';
-import { db } from '$lib/db/index.js';
-import jsonify from '$lib/utils/jsonify/index.js';
+import { database } from '$lib/server/db/database';
+import { DISABLE_HOME } from '$lib/utils/constants';
 
-export async function load({ locals, depends, fetch }) {
-	depends('snapp:main');
-	const session = await locals.getSession();
-
-	const user =
-		session !== null && (await db.users.search().where('id').equal(session?.user.id).returnFirst()) || null;
-
-	const theme = locals.theme;
-	const lang = locals.lang;
-	const { localization, locales, languages } = (await (
-		await fetch('/api/localization?lang=' + lang, {
-			method: 'GET'
-		})
-	).json()) as {
-		localization: Record<string, string>;
-		locales: string[];
-		languages: { label: string; code: string }[];
-	};
-	const max_urls = await db.getSetting('settings:app:limits:max:urls');
-	const version = env.SNAPP_VERSION;
-	const isAdmin = session ? (await db.admin(session.user.id)) === true : false;
+export async function load({ locals: { lang, session, theme, user }, url }) {
+	const is_authenticated = session !== null;
+	const is_admin = is_authenticated && (await database.users.is_admin(session.userId));
+	const _lang = user ? (await database.settings.get('language', user?.id))?.value || lang : lang;
+	const _theme = user ? (await database.settings.get('theme', user?.id))?.value || theme : theme;
+	const home_disabled = database.settings.parse(await database.settings.get(DISABLE_HOME), true);
 	return {
-		session,
-		theme,
-		lang,
-		localization,
-		locales,
-		languages,
-		appversion: version,
-		max_urls,
-		isAdmin,
-		user: user !== null ? jsonify(user) : null
+		theme: _theme,
+		lang: _lang,
+		pathname: url.pathname,
+		is_authenticated,
+		home_disabled,
+		is_admin
 	};
 }

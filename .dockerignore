@@ -5,7 +5,7 @@ node_modules
 .env
 .env.example
 .git
-./prisma
+./prisma/db.sqlite
 .gitattributes
 .eslintignore
 .eslintrc.cjs

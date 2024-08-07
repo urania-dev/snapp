@@ -1,202 +1,155 @@
-import authenticate from '$lib/api/utils/authenticate.js';
-import getLanguage from '$lib/api/utils/getLanguage.js';
-import getUrlParams from '$lib/api/utils/getUrlParams.js';
-import { db } from '$lib/db/index.js';
-import SnappError from '$lib/db/utils/snappError.js';
-import { error, json, type NumericRange } from '@sveltejs/kit';
-import type { RedisOmError } from 'redis-om';
-import bcrypt from 'bcrypt';
-import { extractDomain } from '$lib/db/snapps/shorten.js';
-import { randomUUID } from 'crypto';
+import { authenticate_api } from '$lib/server/authenticate-api/index.js';
+import { database } from '$lib/server/db/database.js';
+import { prisma } from '$lib/server/prisma/index.js';
+import { rateLimiterCheck } from '$lib/server/ratelimiter/index.js';
+import {
+	ALLOW_UNSECURE_HTTP,
+	MAX_SNAPPS_PER_USER,
+	SNAPP_ORIGIN_URL_BLACKLISTED,
+	SNAPP_ORIGIN_URL_REQUESTED,
+	UNAUTHORIZED
+} from '$lib/utils/constants.js';
+import { error, json } from '@sveltejs/kit';
 
-export async function GET({ request, url }) {
-	const EN = await getLanguage();
-	const apiKey = await authenticate(request, EN);
+export const GET = async (event) => {
+	const token = await authenticate_api(event);
+	if (!token) error(403);
+	const limits = token.user.role === 'user' ? await rateLimiterCheck(token.key) : null;
+	if (limits?.blocked) return json({ message: 'Too many requests' }, { status: 429 });
 
-	const isLimited = await db.trackRPDandRPM(apiKey, EN);
-	if (isLimited) throw error(429, { message: EN['api:error:too:many:request'] });
+	const userId = event.url.searchParams.get('userId')?.toString() || undefined
+	const limit = parseInt(event.url.searchParams.get('limit')?.toString() || '10');
+	const offset = parseInt(event.url.searchParams.get('offset')?.toString() || '0');
+	const query = event.url.searchParams.get('query')?.toString();
+	const orderBy = event.url.searchParams.get('order-by')?.toString() || undefined;
+	const ascending = event.url.searchParams.get('ascending')?.toString() === 'true' || false;
 
-	const { page, limit, search, sort, sortDir, offset } = getUrlParams(url);
-	let query = db.snapps.search();
+	const [snapps, count] = await database.snapps.get(token.user.role === 'user' ? token.userId : userId, query, limit, offset, orderBy ? {
+		[orderBy]: ascending
+	} : undefined);
 
-	if (sort && sortDir === 'asc') query.sortAsc(sort);
-	if (sort && sortDir === 'desc') query.sortDesc(sort);
+	return json({ snapps, total: count, pagination: { limit, offset, query, orderBy, ascending } });
+};
 
-	if (search && search !== '')
-		query.where('shortcode').does.equals(`*${search}*`).or('original_url').equal(`*${search}*`);
+export const POST = async (event) => {
+	const token = await authenticate_api(event);
+	if (!token) error(403);
+	const limits = token.user.role === 'user' ? await rateLimiterCheck(token.key) : null;
+	if (limits?.blocked) return json({ message: 'Too many requests' }, { status: 429 });
 
-	try {
-		const count = await query.returnCount();
-		const urls = await query.return.page(offset, limit).then((urls) =>
-			urls.map((url) => {
-				delete url.secret;
-				return url;
-			})
-		);
-
-		return json(
-			{ count, page, limit, sort, sortDirection: sortDir, data: urls },
-			{
-				headers: {
-					'Content-Type': 'application/json',
-					'cache-control': 'max-age=' + 60 * 60,
-					'Access-Control-Allowed-Origins': '*'
-				}
-			}
-		);
-	} catch (err) {
-		throw error(500, { message: (err as RedisOmError)?.message });
-	}
-}
-
-export async function POST({ request, fetch }) {
-	const EN = await getLanguage();
-	const apiKey = await authenticate(request, EN);
-
-	const isLimited = await db.trackRPDandRPM(apiKey, EN);
-	if (isLimited) throw error(429, { message: EN['api:error:too:many:request'] });
-	const hasReachedMaxLimit = await db.trackMaxURLs(apiKey, EN);
-	if (hasReachedMaxLimit) throw error(401, { message: EN['api:error:too:many:shorturl'] });
-
-	const form = await request.formData();
-	const { user_id } = apiKey;
-	if (
-		user_id !== undefined &&
-		!(apiKey.roles.includes('admin') || apiKey.roles.includes('superadmin'))
-	) {
-		throw error(401, { message: EN['auth:not:authorized'] });
-	}
-
-	let original_url = form.get('original_url')?.toString().trim();
-	let shortcode = form.get('shortcode')?.toString().trim();
-
-	let secret = form.get('secret')?.toString().trim();
-
-	let max_usages = form.get('max_usages')?.toString().trim();
-	const _expires = form.get('ttl')?.toString().trim();
-
-	let notes = form.get('notes')?.toString().trim().replaceAll('  ', ' ');
-	let usages: number | undefined;
-	if (max_usages && typeof max_usages === 'string' && isNaN(Number(max_usages)) === false)
-		usages = Number(max_usages);
-
-	let expiration: number | undefined;
-
-	if (_expires) expiration = _expires === '-1' ? -1 : Math.ceil(Number(_expires) / 1000);
-
-	let newSnapp: Partial<DBSnapp> = {
-		id: randomUUID(),
-		original_url,
+	const {
 		shortcode,
+		original_url,
 		secret,
-		max_usages: usages,
+		max_usages,
 		notes,
-		user_id
-	};
+		expiration,
+		disabled,
+		userId
+	}: {
+		shortcode: string;
+		original_url: string;
+		secret?: string | null;
+		max_usages?: number;
+		notes?: string;
+		expiration?: Date | null;
+		disabled?: boolean;
+		userId?: string
+	} = await event.request.json();
 
-	const create = await db.shorten(newSnapp, fetch, expiration);
+	if (!original_url) return error(400, { message: 'Missing original url' });
+	if (userId && token.user.role === 'user') return error(403, { message: 'You\'re not allowed to create snapps for someone else' })
 
-	if (create.status !== 200) {
-		const {
-			status,
-			data: { message }
-		} = create as SnappError;
-		throw error(status as NumericRange<400, 599>, { message: EN[message] });
-	} else return json(create);
-}
+	const [snapp, err] = await database.snapps.create(
+		{ shortcode, original_url, secret, max_usages, notes, expiration, disabled },
+		userId && token.user.role === 'user' ? token.userId : userId || token.userId,
+		event.fetch
+	);
 
-export async function PATCH({ request, fetch }) {
-	const EN = await getLanguage();
-	const apiKey = await authenticate(request, EN);
+	let message: string | undefined = undefined;
+	if (err === MAX_SNAPPS_PER_USER) message = 'This account reached its limit number of snapps.';
+	if (err === SNAPP_ORIGIN_URL_REQUESTED) message = 'You must provide an Original URL';
+	if (err === SNAPP_ORIGIN_URL_BLACKLISTED) message = 'Original URL is blacklisted';
+	if (err === ALLOW_UNSECURE_HTTP) message = 'The original URL must be a secure https link';
+	if (err === UNAUTHORIZED) message = 'Unauthorized';
+	if (message) return error(400, { message });
 
-	const isLimited = await db.trackRPDandRPM(apiKey, EN);
-	if (isLimited) throw error(429, { message: EN['api:error:too:many:request'] });
+	return json(snapp);
+};
 
-	const form = await request.formData();
-	const id = form.get('id')?.toString();
+export const PATCH = async (event) => {
+	const token = await authenticate_api(event);
+	if (!token) error(403);
+	const limits = token.user.role === 'user' ? await rateLimiterCheck(token.key) : null;
+	if (limits?.blocked) return json({ message: 'Too many requests' }, { status: 429 });
 
-	if (!id) throw error(400, { message: EN['snapps:id:unset'] });
-	let editSnapp = await db.snapps.fetch(id).then(async (res) => {
-		if (!res.created) throw error(404, { message: 'snapps:not:found' });
+	const {
+		id,
+		shortcode,
+		original_url,
+		secret,
+		max_usages,
+		notes,
+		expiration,
+		disabled
+	}: {
+		id: string;
+		shortcode?: string;
+		original_url?: string;
+		secret?: string | null;
+		max_usages?: number;
+		notes?: string | null;
+		expiration?: Date | null;
+		disabled?: boolean;
+	} = await event.request.json();
 
-		res.ttl = Number(await db.redis.ttl('snapps:' + id));
-
-		res.status = 'active';
-
-		if (res.max_usages && res.used && Number(res.max_usages) <= Number(res.used))
-			res.status = 'disabled';
-		if (await db.blacklisted({ domain: extractDomain(res.original_url as string)! }))
-			res.status = 'blacklisted';
-
-		return res as DBSnapp as DBSnappEnriched;
+	if (!id) return error(400, { message: 'Missing Snapp ID' });
+	const is_admin = token.user.role !== 'user';
+	const editable = await prisma.snapp.findFirst({
+		where: { id, userId: is_admin ? undefined : token.userId }
 	});
 
-	let original_url = form.get('original_url')?.toString().trim();
-	let shortcode = form.get('shortcode')?.toString().trim();
+	if (editable?.userId !== token.userId && is_admin === false) return error(403, { message: 'You cannot edit someone else URL.' })
 
-	if (original_url) editSnapp.original_url = original_url;
-	if (shortcode) editSnapp.shortcode = shortcode;
+	if (!editable) return error(404, { message: 'Snapp not found' });
 
-	let secret = form.get('secret')?.toString().trim();
+	const [snapp, err] = await database.snapps.edit(
+		{
+			...editable,
+			shortcode: shortcode || editable.shortcode,
+			original_url: original_url || editable.original_url,
+			secret: secret === null ? null : secret || editable.secret,
+			max_usages: max_usages || editable.max_usages,
+			expiration: expiration === null ? null : expiration || editable.expiration,
+			notes: notes || editable.notes,
+			disabled: disabled || editable.disabled
+		},
+		token.userId,
+		event.fetch
+	);
 
-	let max_usages = form.get('max_usages')?.toString().trim();
-	const _expires = form.get('ttl')?.toString().trim();
+	let message: string | undefined = undefined;
+	if (err === MAX_SNAPPS_PER_USER) message = 'This account reached its limit number of snapps.';
+	if (err === SNAPP_ORIGIN_URL_REQUESTED) message = 'You must provide an Original URL';
+	if (err === SNAPP_ORIGIN_URL_BLACKLISTED) message = 'Original URL is blacklisted';
+	if (err === UNAUTHORIZED) message = 'Unauthorized';
+	if (message) return error(400, { message });
 
-	let notes = form.get('notes')?.toString().trim().replaceAll('  ', ' ');
-	let usages: number | undefined;
-	if (max_usages && typeof max_usages === 'string' && isNaN(Number(max_usages)) === false)
-		usages = Number(max_usages);
+	return json(snapp);
+};
 
-	let expiration: number | undefined = await db.redis.ttl('snapps:' + editSnapp.id);
 
-	if (_expires) expiration = _expires === '-1' ? undefined : Math.ceil(Number(_expires) / 1000);
-	if (secret)
-		editSnapp.secret = await bcrypt
-			.genSalt(10)
-			.then((salt) => bcrypt.hash(secret as string, salt))
-			.then((hash) => hash);
-	if (notes) editSnapp.notes = notes;
-	if (usages) editSnapp.max_usages = usages;
+export const DELETE = async (event) => {
+	const token = await authenticate_api(event);
+	if (!token) error(403);
+	const limits = token.user.role === 'user' ? await rateLimiterCheck(token.key) : null;
+	if (limits?.blocked) return json({ message: 'Too many requests' }, { status: 429 });
+	const { ids } = Object.fromEntries(event.url.searchParams) // ids is a string of "id, id, id"
 
-	const result = await db.edit(editSnapp, fetch, expiration);
+	const [count, err] = await database.snapps.delete(token.userId, ...ids.split(','));
+	if (!count || err) error(500, { message: 'System error' });
 
-	if (result.status !== 200) {
-		const EN = await getLanguage();
-		const {
-			status,
-			data: { message }
-		} = result as SnappError;
-		throw error(status as NumericRange<400, 599>, { message: EN[message] });
-	} else return json(result);
-}
+	return json({ count });
+};
 
-export async function DELETE({ request, url }) {
-	const EN = await getLanguage();
-	const apiKey = await authenticate(request, EN);
-
-	const isLimited = await db.trackRPDandRPM(apiKey, EN);
-	if (isLimited) throw error(429, { message: EN['api:error:too:many:request'] });
-
-	const { user_id } = apiKey;
-
-	let _ids = url.searchParams.get('ids')?.toString();
-	let ids = _ids?.split(',') ?? [];
-
-	const is_admin = await db.admin(user_id);
-	if (!is_admin)
-		await Promise.all(
-			ids.map(async (id) => {
-				const author = await db.authorship({ id, user_id });
-
-				if (author.status === 200 && author.is_author === true) {
-					// pass
-				} else {
-					throw error(401, { message: EN['auth:not:authorized'] });
-				}
-			})
-		);
-
-	await db.snapps.remove(...ids);
-
-	return json({ deleted_ids: ids });
-}
+export const fallback = () => error(405);

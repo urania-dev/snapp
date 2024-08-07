@@ -1,137 +1,75 @@
-// src/hooks.server.js
+import { building } from '$app/environment';
+import { lucia } from '$lib/server/auth';
+import { database } from '$lib/server/db/database';
+import { RPD, RPM } from '$lib/server/ratelimiter';
+import { ENABLE_LIMITS, MAX_REQUESTS_PER_DAY, MAX_REQUESTS_PER_MINUTE } from '$lib/utils/constants';
+import type { Handle } from '@sveltejs/kit';
+import { locale } from 'svelte-i18n';
 
-import { SvelteKitAuth, type Session } from '@auth/sveltekit';
-import CredentialsProvider from '@auth/core/providers/credentials';
-import { sequence } from '@sveltejs/kit/hooks';
-import { type Handle } from '@sveltejs/kit';
-import { db } from '$lib/db';
-import { env } from '$env/dynamic/private';
-import type { JWT } from '@auth/core/jwt';
-import bcrypt from 'bcrypt';
+// INIT DB
+const run_init_functions = async () => {
+	database;
 
-const snappHandler = (async ({ event, resolve }) => {
-	const locals = event.locals;
+	const is_api_limited = database.settings.parse(await database.settings.get(ENABLE_LIMITS), true);
+	const rpd = is_api_limited
+		? parseInt((await database.settings.get(MAX_REQUESTS_PER_DAY))?.value || '0')
+		: 0;
+	const rpm = is_api_limited
+		? parseInt((await database.settings.get(MAX_REQUESTS_PER_MINUTE))?.value || '0')
+		: 0;
 
-	const session = await locals.getSession();
-	let theme = event.cookies.get('snapp:theme')?.toString();
-	let lang = event.cookies.get('snapp:lang')?.toString();
-	if (!theme || !lang) {
-		const user = session !== null
-			? await db.users.fetch(session?.user.id).then((user) => user as DBUser)
-			: null;
+	if (is_api_limited) {
+		RPD.configure(24 * 60 * 60 * 1000, rpd);
+		RPM.configure(60 * 1000, rpm);
+	}
+};
 
-		theme = user?.settings?.theme ?? env.DEFAULT_THEME ?? 'dark';
-		lang = user?.settings?.lang ?? env.DEFAULT_LANG ?? 'en';
+if (!building) await run_init_functions();
+
+export const handle: Handle = async ({ event, resolve }) => {
+	const lang = event.cookies.get('snapp:lang')?.toString() || 'en';
+	const theme = event.cookies.get('snapp:theme')?.toString() || null;
+	if (theme) event.locals.theme = theme;
+
+	if (lang) {
+		locale.set(lang);
+		event.locals.lang = lang as Language;
 	}
 
-	event.locals.theme = theme;
-	event.locals.lang = lang;
+	const sessionId = event.cookies.get(lucia.sessionCookieName);
+	if (!sessionId) {
+		event.locals.user = null;
+		event.locals.session = null;
+		return resolve(event, {
+			transformPageChunk({ html }) {
+				if (theme && theme !== 'dark') return html.replace('class="dark"', 'class=""');
+				return html;
+			}
+		});
+	}
 
+	const { session, user } = await lucia.validateSession(sessionId);
+	if (session && session.fresh) {
+		const sessionCookie = lucia.createSessionCookie(session.id);
+		event.cookies.set(sessionCookie.name, sessionCookie.value, {
+			path: '.',
+			...sessionCookie.attributes
+		});
+	}
+	if (!session) {
+		const sessionCookie = lucia.createBlankSessionCookie();
+		event.cookies.set(sessionCookie.name, sessionCookie.value, {
+			path: '.',
+			...sessionCookie.attributes
+		});
+	}
+
+	event.locals.user = user;
+	event.locals.session = session;
 	return await resolve(event, {
 		transformPageChunk({ html }) {
-			let newHTML = html;
-			if (typeof theme === 'string' && theme === 'light')
-				newHTML = newHTML.replace('dark', 'light');
-			if (typeof lang === 'string' && lang !== 'en') newHTML = newHTML.replace('en', lang);
-			return newHTML;
+			if (theme && theme !== 'dark') return html.replace('class="dark"', 'class=""');
+			return html;
 		}
 	});
-}) satisfies Handle;
-
-const authHandler = SvelteKitAuth({
-	providers: [
-		CredentialsProvider({
-			credentials: {
-				username: { label: 'Username', type: 'text', placeholder: 'jsmith' },
-				password: { label: 'Password', type: 'password' }
-			},
-			async authorize({ username, password }) {
-				try {
-					const user = await db.users
-						.search()
-						.where('username')
-						.equals(username as string)
-						.first();
-
-					if (!user) throw new Error('auth:user:not:found');
-					if (user && (await bcrypt.compare(password as string, user.hash as string)))
-						return {
-							id: user.id as string
-						};
-					else throw new Error('unmatching ssr login');
-				} catch (error) {
-					throw error;
-				}
-			}
-		})
-	],
-	session: { strategy: 'jwt' },
-	callbacks: {
-		jwt(params) {
-			const { token, user } = params;
-			if (user) return { ...token, id: user.id };
-			else return token;
-		},
-		session(params) {
-			let { token, session } = params as { session: Session; token: JWT };
-			if (token) session = { ...session, user: { ...session.user, id: token.id as string } };
-			return session;
-		}
-	},
-	pages: {
-		signIn: '/auth/sign-in'
-	},
-	trustHost: true
-});
-
-async function initializeDBIndexes() {
-	try {
-		await db.users.createIndex();
-		await db.apikeys.createIndex();
-		await db.snapps.createIndex();
-		await db.usages.createIndex();
-
-		await check_and_set(
-			'settings:app:limits:enabled',
-			env.ENABLE_LIMITS?.toString()?.toLowerCase()
-		);
-		await check_and_set(
-			'settings:app:limits:max:urls',
-			env.MAX_SHORT_URL?.toString()?.toLowerCase()
-		);
-		await check_and_set(
-			'settings:app:limits:max:usages',
-			env.MAX_USAGES?.toString()?.toLowerCase()
-		);
-		await check_and_set('settings:app:limits:max:rpm', env.MAX_RPM?.toString()?.toLowerCase());
-		await check_and_set('settings:app:limits:max:rpd', env.MAX_RPD?.toString()?.toLowerCase());
-		await check_and_set(
-			'settings:app:signup:enabled',
-			env.ENABLE_SIGNUP?.toString()?.toLowerCase()
-		);
-		await check_and_set('settings:app:home:enabled', env.ENABLE_HOME?.toString()?.toLowerCase());
-		await check_and_set('settings:app:smtp:host', env.SMTP_HOST?.toString()?.toLowerCase());
-		await check_and_set('settings:app:smtp:pass', env.SMTP_PASSWORD?.toString()?.toLowerCase());
-		await check_and_set('settings:app:smtp:port', env.SMTP_PORT?.toString()?.toLowerCase());
-		await check_and_set('settings:app:smtp:user', env.SMTP_USER?.toString()?.toLowerCase());
-		await check_and_set('settings:app:smtp:from', env.SMTP_FROM?.toString()?.toLowerCase());
-		await check_and_set('settings:app:allow:unsecure:http', env.ALLOW_UNSECURE_HTTP?.toString()?.toLowerCase());
-		await check_and_set('settings:api:key:vt', env.VIRUSTOTAL_API_KEY?.toString()?.toLowerCase());
-		await check_and_set(
-			'settings:api:key:umami:website:id',
-			env.UMAMI_WEBSITE_ID?.toString()?.toLowerCase()
-		);
-		await check_and_set('settings:api:key:umami:url', env.UMAMI_URL?.toString()?.toLowerCase());
-	} catch (err) {
-		console.log(err);
-	}
-}
-
-async function check_and_set(setting: string, value: string | null | undefined) {
-	const exists = await db.getSetting(setting);
-	if (!exists && value) await db.setSetting(setting, value);
-}
-
-initializeDBIndexes();
-
-export const handle = sequence(authHandler, snappHandler);
+};

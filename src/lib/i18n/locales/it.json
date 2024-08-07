@@ -1,0 +1,337 @@
+{
+	"appname": "Snapp",
+	"menu": {
+		"authenticate": "Accesso",
+		"dashboard": "Dashboard",
+		"home": "Home",
+		"metrics": "Metriche",
+		"settings": "Configura",
+		"users": "Utenti"
+	},
+	"admin": {
+		"label": "Pannello Admin",
+		"helpers": {
+			"rpd": "Numero di richieste API al giorno.",
+			"rpm": "Numero di richieste API al minuto.",
+			"spu": "Numero massimo di URL brevi che un utente può creare.",
+			"smtp": "Questo server di posta viene utilizzato per il recupero della password, l&rsquo;invio di inviti al primo accesso e altre comunicazioni generate dalla piattaforma.",
+			"watchlists": "Le liste di controllo influenzano la registrazione e l&rsquo;aggiornamento dei dettagli degli utenti, mentre il blocco dei domini impedirà l&rsquo;accorciamento degli URL.",
+			"add-whitelist": "Consenti un&rsquo;email o un dominio su tutta la piattaforma.",
+			"add-blacklist": "Blocca un&rsquo;email o un dominio su tutta la piattaforma.",
+			"vt-api": "Scansiona il dominio utilizzando l&rsquo;API di VirusTotal. Snapp controlla la reputazione del dominio e blocca qualsiasi sito con un punteggio negativo. I punteggi positivi o neutrali consentiranno il dominio. Le richieste sono memorizzate nella cache per 24 ore."
+		},
+		"labels": {
+			"limits": "Limiti API REST",
+			"smtp": "Server SMTP",
+			"smtp-host": "Server",
+			"smtp-pass": "Password",
+			"smtp-port": "Porta",
+			"smtp-user": "Utente",
+			"smtp-from": "Da",
+			"rpd": "Richieste al Giorno",
+			"rpm": "Richieste al Minuto",
+			"spu": "Snapp per Utente",
+			"blacklist": "Entità Bloccate",
+			"watchlists": "Liste di Controllo",
+			"whitelist": "Entità Consentite",
+			"add-whitelist": "Consenti Entità",
+			"add-blacklist": "Blocca Entità",
+			"blacklisted-items": "{count} elementi nella lista bloccati",
+			"whitelisted-items": "{count} elementi nella lista consentiti",
+			"vt-api": "API VirusTotal",
+			"domains": "Domini",
+			"emails": "Email",
+			"usernames": "Nomi Utente"
+		},
+		"placeholders": {
+			"vt-api": "Inserisci qui la tua chiave VTAPI...",
+			"smtp-pass": "Inserisci qui la tua password SMTP...",
+			"smtp-host": "Inserisci qui il tuo host SMTP...",
+			"smtp-from": "Inserisci qui il tuo indirizzo &rsquo;Da&rsquo; SMTP...",
+			"smtp-user": "Inserisci qui il tuo utente SMTP...",
+			"smtp-port": "Inserisci qui la tua porta SMTP...",
+			"filter-watchlist": "Filtra entità in questa lista..."
+		}
+	},
+	"settings": {
+		"label": {
+			"language": "Lingua",
+			"theme": "Tema",
+			"theme-dark": "Modalità Scura",
+			"theme-light": "Modalità Chiara",
+			"enable-limits": "Abilita Limiti",
+			"enable-signup": "Abilita Registrazioni",
+			"disable-homepage": "Disabilita Homepage",
+			"allow-http": "HTTP Non Sicuro"
+		},
+		"saved": "Le modifiche sono state salvate.",
+		"helpers": {
+			"signups": "Consenti registrazioni esterne dal front-end.",
+			"homepage": "Reindirizza gli utenti al login o al Dashboard.",
+			"limits": "Limitazioni API richieste dalla comunità.",
+			"http": "Consenti URL con HTTP invece di HTTPS."
+		}
+	},
+	"users": {
+		"auth": {
+			"helpers": {
+				"forgot-password": "Inserisci la tua email per avviare il recupero della password.",
+				"recover-password": "Questo invierà un&rsquo;email di reset della password a questo account."
+			},
+			"forgot-password": "Hai dimenticato la password?",
+			"go-to-signup": "Non hai un account? Registrati alla <a class=\"link\" href=\"{url}\">pagina di registrazione</a>.",
+			"go-to-signin": "Hai già un account? Vai alla <a class=\"link\" href=\"{url}\">pagina di login</a>.",
+			"sign-in": "Accedi",
+			"sign-up": "Registrati",
+			"recover-password": "Recupera Password",
+			"reset-email-sent": "Recupero password avviato, un&rsquo;email è stata inviata all&rsquo;indirizzo fornito.",
+			"post-email-message": "Abbiamo inviato un&rsquo;email all&rsquo;indirizzo fornito."
+		},
+		"labels": {
+			"profile": "Profilo Utente",
+			"create": "Invita Utente",
+			"edit": "Modifica Utente",
+			"list": "Elenco degli Utenti Registrati"
+		},
+		"fields": {
+			"email": "Email",
+			"confirm-password": "Conferma Password",
+			"password": "Password",
+			"username": "Nome Utente",
+			"role": "Ruolo",
+			"max-snapps": "Max URL",
+			"notes": "Note"
+		},
+		"helpers": {
+			"invitation": "L&rsquo;utente riceverà un&rsquo;email di invito per impostare la propria password.",
+			"notes": "Le note sono visibili solo agli amministratori nella pagina di panoramica degli utenti.",
+			"admin": "Seleziona il livello di autorizzazione dell&rsquo;utente.",
+			"max-snapps": "Limita il numero di snapp che questo utente può creare.",
+			"password": "La password deve essere lunga almeno otto caratteri, con almeno una lettera maiuscola, una lettera minuscola, un numero e un carattere speciale."
+		},
+		"placeholders": {
+			"username": "Digita il tuo nome utente...",
+			"email": "Digita il tuo indirizzo email...",
+			"password": "Digita la tua password...",
+			"search": "Cerca nome utente o email..."
+		},
+		"actions": {
+			"confirm-delete": "Questa azione eliminerà l&rsquo;utente e il suo contenuto in modo permanente.",
+			"deleted": "L&rsquo;utente è stato eliminato.",
+			"edited": "Le informazioni dell&rsquo;utente sono state salvate.",
+			"created": "L&rsquo;utente è stato creato.",
+			"logout": "Esci"
+		}
+	},
+	"tokens": {
+		"label": "Token API REST",
+		"placeholder": "La tua chiave API apparirà qui...",
+		"helper": "Autorizza le chiamate API con un&rsquo;intestazione Authorization contenente il Token generato. Le chiavi API sono uniche e relative all&rsquo;account utente, condividendo i ruoli del database.",
+		"api-docs": "Consulta la completa <a href=\"{url}\" class=\"link\">documentazione API</a> per i dettagli sull&rsquo;utilizzo e l&rsquo;implementazione.",
+		"generate": "Genera Token",
+		"revoke": "Revoca Token",
+		"copied": "Token copiato negli appunti.",
+		"not-allowed-to-copy": "La clipboard del browser richiede un ambiente HTTPS sicuro.",
+		"not-found": "Token non trovato.",
+		"fields": {
+			"key": "Token",
+			"created": "Creato"
+		}
+	},
+	"globals": {
+		"close": "Chiudi",
+		"confirm": "Conferma",
+		"cancel": "Annulla",
+		"sure-ask": "Sei sicuro?",
+		"continue": "Continua",
+		"total": "Totale",
+		"max-page-reached": "Non ci sono più elementi disponibili.",
+		"save": "Salva",
+		"active": "Attivo",
+		"disabled": "Disabilitato",
+		"back": "Indietro",
+		"start": "Inizio",
+		"end": "Fine",
+		"all": "Tutti",
+		"world": "Mondo",
+		"copy": "Copia",
+		"loading": "Caricamento"
+	},
+	"metrics": {
+		"filters": "Filtri",
+		"origin": "Origine Geografica",
+		"browser": "Browser",
+		"device": "Dispositivo",
+		"os": "Sistema Operativo"
+	},
+	"migrations": {
+		"label": "Migrazione",
+		"import-csv": "Importa da Snapp CSV",
+		"export-csv": "Esporta CSV per SNAPP",
+		"upload": "Carica file",
+		"csv-file-required": "L&rsquo;importazione richiede un file CSV valido di Snapp",
+		"success": "Snapps importati correttamente",
+		"failed": "Importazione fallita",
+		"requires-time": "Tutti gli snapp verranno esportati, questo potrebbe richiedere del tempo."
+	},
+	"snapps": {
+		"label": "Elenco URL",
+		"placeholders": {
+			"original-url": "Incolla il tuo URL originale",
+			"shortcode": "Specifica un codice breve personalizzato",
+			"secret": "Specifica un segreto per proteggere il tuo URL",
+			"search": "Cerca per URL originale o codice breve"
+		},
+		"fields": {
+			"original-url": "URL Originale",
+			"shortcode": "Codice Breve",
+			"has-expiration": "Imposta una scadenza",
+			"has-secret": "Imposta un Segreto",
+			"has-limited-usage": "Ha utilizzi limitati",
+			"secret": "Segreto",
+			"expiration": "Scadenza",
+			"max-usages": "Usi Massimi",
+			"used": "Utilizzati",
+			"created": "Creato",
+			"hit": "Visite",
+			"notes": "Note",
+			"status": "Stato"
+		},
+		"labels": {
+			"edit": "Modifica Snapp",
+			"create": "Accorcia un URL",
+			"url-info": "Informazioni URL",
+			"count": "Totale snapps",
+			"columns": "Colonne",
+			"open-link": "Apri Snapp in una nuova finestra",
+			"details": "Dettagli Snapp"
+		},
+		"helpers": {
+			"create": "Puoi specificare un URL breve personalizzato. Se lasciato vuoto, verrà generato automaticamente",
+			"original-url": "Questo deve essere un link valido <code>https://</code>",
+			"shortcode": "Questo verrà generato se non viene specificato un codice personalizzato",
+			"secret": "Questo URL è protetto da un segreto",
+			"not-secret": "Questo URL è pubblico",
+			"not-max-usages": "Nessun Limite",
+			"provide-secret": "Fornisci la password corretta per continuare",
+			"text-pasted": "L&rsquo;URL originale è stato incollato dagli appunti",
+			"has-secret": "Specifica un Segreto per proteggere l&rsquo;URL da accessi non autorizzati",
+			"expiration": "Specifica una data di scadenza per disabilitare automaticamente il tuo URL",
+			"max-usages": "Specifica un numero limitato di utilizzi per questo snapp. Dopo aver raggiunto il limite, lo snapp sarà disabilitato",
+			"previous-expiration": "Questo Snapp ha già una scadenza impostata, scade {relativeTime}",
+			"previous-secret": "Questo Snapp ha già un segreto impostato",
+			"remove-expiration": "Rimuovi scadenza",
+			"remove-secret": "Rimuovi segreto",
+			"disable-text-1": "Metti in pausa questo snapp. I suoi dati, il codice breve selezionato e i dati di visualizzazione verranno conservati. L&rsquo;utente riceverà un messaggio di disambiguazione che spiega che il reindirizzamento è temporaneamente non disponibile.",
+			"disable-text-2": "Anche quando uno snapp viene utilizzato per il numero di volte impostato, viene disabilitato per impostazione predefinita. Può essere riabilitato da qui.",
+			"copied-to-clipboard": "URL correttamete copiato negli appunti"
+		},
+		"actions": {
+			"created": "L&rsquo;URL è stato accorciato con successo",
+			"edited": "Lo Snapp è stato aggiornato",
+			"deleted": "Lo Snapp è stato eliminato",
+			"confirm-delete": "Questa azione eliminerà lo snapp permanentemente"
+		},
+		"time": {
+			"seconds": "Secondi",
+			"minutes": "Minuti",
+			"hours": "Ore",
+			"days": "Giorni",
+			"weeks": "Settimane",
+			"months": "Mesi",
+			"years": "Anni"
+		}
+	},
+	"errors": {
+		"api": {
+			"token-missing": "Token di autorizzazione richiesto."
+		},
+		"auth": {
+			"email-invalid": "Per favore, fornisci un indirizzo email valido.",
+			"email-registered": "Questa email è già associata a un account. Prova a registrarti o a recuperare la tua password.",
+			"disabled-signups": "Le registrazioni sono disabilitate. Se pensi che sia un errore, contatta l&rsquo;amministratore del servizio.",
+			"password-invalid": "La password fornita non è abbastanza sicura. Per favore, riprova.",
+			"password-unmatch": "La password e la conferma della password non corrispondono.",
+			"username-invalid": "Il nome utente non è valido. Fornisci un nome di almeno tre caratteri per il tuo profilo.",
+			"user-already-exists": "Nome utente già in uso. Prova con un altro.",
+			"user-not-found": "Utente non trovato.",
+			"wrong-credentials": "Credenziali errate.",
+			"reset-token-expired": "Il token di reset per il recupero della password è scaduto."
+		},
+		"snapps": {
+			"unallowed-not-https": "L&rsquo;URL originale deve essere un link HTTPS sicuro.",
+			"original-url-missing": "Deve essere fornito un URL originale per il reindirizzamento.",
+			"original-url-blacklisted": "Questo URL è stato inserito nella blacklist o segnalato dall&rsquo;API VirusTotal.",
+			"missing-secret": "Devi fornire un segreto per accedere a questo URL.",
+			"wrong-credentials": "Il segreto fornito non corrisponde a quello per sbloccare l&rsquo;URL.",
+			"not-found": "Snapp non trovato.",
+			"max-snapps": "Hai raggiunto il limite di snapp che un account può creare.",
+			"disabled": "Questo Snapp è disabilitato, dall&rsquo;utente o dopo aver raggiunto una soglia impostata. Se pensi che sia un errore, contatta l&rsquo;amministratore."
+		},
+		"blacklisted": {
+			"user": "C&rsquo;è stato un problema con il tuo processo di autenticazione. Per favore, contatta l&rsquo;amministratore del servizio.",
+			"domain": "Questo snapp reindirizza a un dominio nella blacklist. Per favore, contatta l&rsquo;amministratore del servizio se pensi che sia un errore."
+		},
+		"generic": "Si è verificato un errore. Se il problema persiste, contatta l&rsquo;amministratore.",
+		"unauthorized": "Non sei autorizzato a fare questo.",
+		"label": "Errore"
+	},
+	"homepage": {
+		"intro": "Se stai cercando una soluzione di accorciamento URL auto-ospitata, Snapp potrebbe essere ciò di cui hai bisogno. È progettato per coloro che apprezzano il controllo sulla gestione delle loro URL e vogliono esplorare varie tecnologie.",
+		"features": {
+			"label": "Le Nostre Features",
+			"ui": {
+				"label": "Interfaccia Intuitiva",
+				"description": "Snapp offre un&rsquo;interfaccia intuitiva per un accorciamento dei link senza problemi. Leggi come iniziare!"
+			},
+			"auth": {
+				"label": "Autenticazione Sicura",
+				"description": "Goditi un&rsquo;esperienza sicura per le tue sessioni utente."
+			},
+			"shortcode": {
+				"label": "URL Brevi Personalizzati",
+				"description": "Crea codici brevi personalizzati per i tuoi link per renderli memorabili e facili da condividere."
+			},
+			"expiration": {
+				"label": "Scadenza degli URL",
+				"description": "Crea codici brevi personalizzati per i tuoi link per renderli memorabili e facili da condividere."
+			},
+			"secrecy": {
+				"label": "URL Protetti",
+				"description": "Aggiungi uno strato extra di protezione con link segreti. Scegli di condividere i link con un pubblico selezionato utilizzando segreti unici."
+			},
+			"analytics": {
+				"label": "Metriche",
+				"description": "Rendi te stesso più potente con analisi dettagliate per ogni link che crei. Snapp raccoglie metriche in modo anonimo, fornendo informazioni sugli impegni dei link e rispettando la privacy dei tuoi utenti."
+			},
+			"umami": {
+				"label": "Integrazione Umami",
+				"description": "Integra la tua istanza di Snapp con la tua istanza <a href={url} class=\"link\">Umami Analytics<a> auto-ospitata o in cloud per metriche avanzate dei tuoi Snapp."
+			},
+			"vtapi": {
+				"label": "Integrazione API VirusTotal",
+				"description": "Metti in sicurezza i link che passano attraverso la tua istanza di Snapp con un controllo sulla reputazione dell&rsquo;<a href={url} class=\"link\">API VirusTotal</a>."
+			},
+			"rest-api": {
+				"label": "REST API",
+				"description": "Funzionalità richieste dalla comunità che abilitano l&rsquo;endpoint API Rest per creare e gestire i tuoi Snapp da remoto. Leggi la completa <a href={url} class=\"link\">documentazione Swagger</a> qui."
+			}
+		},
+		"getting-started": {
+			"label": "Come Iniziare",
+			"claim": "Snapp è una piattaforma open source auto-ospitata",
+			"docker": {
+				"label": "Utilizzare il Container Docker",
+				"helper": "Usa questo docker-compose.yml per eseguire il tuo Snapp."
+			}
+		},
+		"migration": {
+			"label": "Migrazione",
+			"description": "Le ultime versioni di Snapp includono l&rsquo;Export CSV per facilitare la migrazione. Accedi semplicemente e importa i tuoi URL dal pannello di controllo, e continua da dove avevi lasciato."
+		},
+		"stack": {
+			"label": "Lo Stack",
+			"helper": "La tecnologia coinvolta"
+		}
+	}
+}

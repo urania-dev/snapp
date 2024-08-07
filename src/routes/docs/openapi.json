@@ -1,0 +1,608 @@
+{
+	"openapi": "3.0.3",
+	"info": {
+		"title": "Swagger Petstore - OpenAPI 3.0",
+		"description": "If you're seeking a self-hosted URL shortening solution, Snapp might be what you need. It's designed for those who value control over their URL management and want to explore various technologies.",
+		"x-logo": {
+			"url": "https://snapp.li/logo.svg",
+			"backgroundColor": "#1d273b",
+			"altText": "Snapp.li"
+		},
+		"contact": {
+			"email": "m.isaia@urania.dev"
+		},
+		"license": {
+			"name": "MIT",
+			"url": "https://opensource.org/license/mit"
+		},
+		"version": "1.0.11"
+	},
+	"externalDocs": {
+		"description": "Find out more about Swagger",
+		"url": "https://snapps.li"
+	},
+	"servers": [
+		{
+			"url": "https://snapp.li/api",
+			"description": "Rest Api Interface"
+		}
+	],
+	"tags": [
+		{
+			"name": "snapps",
+			"description": "Short URLs entity",
+			"externalDocs": {
+				"description": "Find out more",
+				"url": "https://labs.snapp.li"
+			}
+		},
+		{
+			"name": "users",
+			"description": "Snapp users",
+			"externalDocs": {
+				"description": "Find out more",
+				"url": "https://labs.snapp.li"
+			}
+		}
+	],
+	"paths": {
+		"/snapps": {
+			"get": {
+				"tags": ["snapps"],
+				"summary": "Get snapps",
+				"operationId": "getSnapps",
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "query",
+						"schema": { "type": "string" },
+						"description": "User ID"
+					},
+					{
+						"name": "limit",
+						"in": "query",
+						"schema": { "type": "integer", "default": 10 },
+						"description": "Limit of results"
+					},
+					{
+						"name": "offset",
+						"in": "query",
+						"schema": { "type": "integer", "default": 0 },
+						"description": "Offset for pagination"
+					},
+					{
+						"name": "query",
+						"in": "query",
+						"schema": { "type": "string" },
+						"description": "Search query"
+					},
+					{
+						"name": "order-by",
+						"in": "query",
+						"schema": { "type": "string" },
+						"description": "Order by field"
+					},
+					{
+						"name": "ascending",
+						"in": "query",
+						"schema": { "type": "boolean", "default": false },
+						"description": "Ascending order"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Snapps retrieved successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"snapps": {
+											"type": "array",
+											"items": { "$ref": "#/components/schemas/Snapp" }
+										},
+										"total": { "type": "integer" },
+										"pagination": {
+											"type": "object",
+											"properties": {
+												"limit": { "type": "integer" },
+												"offset": { "type": "integer" },
+												"query": { "type": "string" },
+												"orderBy": { "type": "string" },
+												"ascending": { "type": "boolean" }
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"403": { "description": "Forbidden" },
+					"429": { "description": "Too many requests" }
+				},
+				"security": [{ "bearerAuth": [] }]
+			},
+			"post": {
+				"tags": ["snapps"],
+				"summary": "Create a snapp",
+				"operationId": "createSnapp",
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"shortcode": { "type": "string" },
+									"original_url": { "type": "string" },
+									"secret": { "type": "string" },
+									"max_usages": { "type": "integer" },
+									"notes": { "type": "string" },
+									"expiration": { "type": "string", "format": "date-time" },
+									"disabled": { "type": "boolean" },
+									"userId": { "type": "string" }
+								},
+								"required": ["original_url"]
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": { "description": "Snapp created successfully" },
+					"400": { "description": "Invalid input" },
+					"403": { "description": "Forbidden" },
+					"429": { "description": "Too many requests" }
+				},
+				"security": [{ "bearerAuth": [] }]
+			},
+			"patch": {
+				"tags": ["snapps"],
+				"summary": "Update a snapp",
+				"operationId": "updateSnapp",
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"id": { "type": "string" },
+									"shortcode": { "type": "string" },
+									"original_url": { "type": "string" },
+									"secret": { "type": "string" },
+									"max_usages": { "type": "integer" },
+									"notes": { "type": "string" },
+									"expiration": { "type": "string", "format": "date-time" },
+									"disabled": { "type": "boolean" }
+								},
+								"required": ["id"]
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": { "description": "Snapp updated successfully" },
+					"400": { "description": "Invalid input" },
+					"401": { "description": "Unauthroized" },
+					"404": { "description": "Snapp not found" },
+					"403": { "description": "Forbidden" },
+					"429": { "description": "Too many requests" }
+				},
+				"security": [{ "bearerAuth": [] }]
+			},
+			"delete": {
+				"tags": ["snapps"],
+				"summary": "Delete snapps",
+				"operationId": "deleteSnapps",
+				"parameters": [
+					{
+						"name": "ids",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"description": "Comma-separated list of snapp IDs to delete"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Snapps deleted successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"count": { "type": "integer" }
+									}
+								}
+							}
+						}
+					},
+					"403": { "description": "Forbidden" },
+					"401": { "description": "Unauthroized" },
+					"429": { "description": "Too many requests" },
+					"500": { "description": "System error" }
+				},
+				"security": [{ "bearerAuth": [] }]
+			}
+		},
+		"/snapps/{shortcode}": {
+			"get": {
+				"tags": ["snapps"],
+				"summary": "Get snapp by shortcode",
+				"operationId": "getSnappByShortcode",
+				"parameters": [
+					{
+						"name": "shortcode",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"description": "The shortcode of the snapp"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Snapp retrieved successfully",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/Snapp" }
+							}
+						}
+					},
+					"400": {
+						"description": "Shortcode not found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"message": { "type": "string" }
+									}
+								},
+								"example": { "message": "/snapps/:shortcode - shortcode not found" }
+							}
+						}
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Snapp not found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"message": { "type": "string" }
+									}
+								},
+								"examples": {
+									"notFound": { "value": { "message": "Snapp not found" } }
+								}
+							}
+						}
+					},
+					"429": {
+						"description": "Too many requests",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"message": { "type": "string" }
+									}
+								},
+								"examples": {
+									"rateLimit": { "value": { "message": "Too many requests" } }
+								}
+							}
+						}
+					}
+				},
+				"security": [{ "bearerAuth": [] }]
+			}
+		},
+		"/users": {
+			"get": {
+				"tags": ["users"],
+				"summary": "Get users",
+				"operationId": "getUsers",
+				"parameters": [
+					{
+						"name": "limit",
+						"in": "query",
+						"schema": { "type": "integer", "default": 10 },
+						"description": "Limit of results"
+					},
+					{
+						"name": "offset",
+						"in": "query",
+						"schema": { "type": "integer", "default": 0 },
+						"description": "Offset for pagination"
+					},
+					{
+						"name": "query",
+						"in": "query",
+						"schema": { "type": "string" },
+						"description": "Search query"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Users retrieved successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"users": {
+											"type": "array",
+											"items": { "$ref": "#/components/schemas/User" }
+										},
+										"total": { "type": "integer" },
+										"pagination": {
+											"type": "object",
+											"properties": {
+												"limit": { "type": "integer" },
+												"offset": { "type": "integer" },
+												"query": { "type": "string" }
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"403": { "description": "Forbidden" },
+					"429": { "description": "Too many requests" }
+				},
+				"security": [{ "bearerAuth": [] }]
+			},
+			"post": {
+				"tags": ["users"],
+				"summary": "Create a user",
+				"operationId": "createUser",
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"username": { "type": "string" },
+									"email": { "type": "string" },
+									"password": { "type": "string" },
+									"confirm_password": { "type": "string" }
+								},
+								"required": ["username", "email", "password", "confirm_password"]
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": { "description": "User created successfully" },
+					"400": { "description": "Invalid input" },
+					"403": { "description": "Forbidden" },
+					"429": { "description": "Too many requests" }
+				},
+				"security": [{ "bearerAuth": [] }]
+			},
+			"patch": {
+				"tags": ["users"],
+				"summary": "Update a user",
+				"operationId": "updateUser",
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"id": { "type": "string" },
+									"username": { "type": "string" },
+									"email": { "type": "string" },
+									"password": { "type": "string" },
+									"confirm_password": { "type": "string" },
+									"role": { "type": "string", "enum": ["user", "admin"] }
+								},
+								"required": ["id"]
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": { "description": "User updated successfully" },
+					"400": { "description": "Invalid input" },
+					"404": { "description": "User not found" },
+					"403": { "description": "Forbidden" },
+					"429": { "description": "Too many requests" }
+				},
+				"security": [{ "bearerAuth": [] }]
+			},
+			"delete": {
+				"tags": ["users"],
+				"summary": "Delete a user",
+				"operationId": "deleteUser",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						},
+						"description": "User ID"
+					},
+					{
+						"name": "username",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						},
+						"description": "Username"
+					},
+					{
+						"name": "email",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						},
+						"description": "Email"
+					},
+					{
+						"name": "ignore_admin",
+						"in": "query",
+						"schema": {
+							"type": "boolean",
+							"default": false
+						},
+						"description": "Ignore admin check"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "User deleted successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"deleted": { "type": "integer" }
+									}
+								}
+							}
+						}
+					},
+					"403": { "description": "Forbidden" },
+					"429": { "description": "Too many requests" }
+				},
+				"security": [{ "bearerAuth": [] }]
+			}
+		},
+		"/users/{id}": {
+			"get": {
+				"tags": ["users"],
+				"summary": "Get user by id",
+				"operationId": "getUserById",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"description": "The ID of the user"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "User retrieved successfully",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/User" }
+							}
+						}
+					},
+					"400": {
+						"description": "Shortcode not found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"message": { "type": "string" }
+									}
+								},
+								"example": { "message": "/users/:id - ID not found" }
+							}
+						}
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Snapp not found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"message": { "type": "string" }
+									}
+								},
+								"examples": {
+									"notFound": { "value": { "message": "Snapp not found" } }
+								}
+							}
+						}
+					},
+					"429": {
+						"description": "Too many requests",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"message": { "type": "string" }
+									}
+								},
+								"examples": {
+									"rateLimit": { "value": { "message": "Too many requests" } }
+								}
+							}
+						}
+					}
+				},
+				"security": [{ "bearerAuth": [] }]
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"User": {
+				"type": "object",
+				"properties": {
+					"id": { "type": "string" },
+					"username": { "type": "string" },
+					"password_hash": { "type": "string" },
+					"email": { "type": "string" },
+					"notes": { "type": "string", "nullable": true },
+					"role": { "type": "string" },
+					"createdAt": { "type": "string", "format": "date-time" },
+					"updatedAt": { "type": "string", "format": "date-time" }
+				}
+			},
+			"Snapp": {
+				"type": "object",
+				"properties": {
+					"id": { "type": "string" },
+					"shortcode": { "type": "string" },
+					"original_url": { "type": "string" },
+					"created": { "type": "string", "format": "date-time" },
+					"secret": { "type": "string", "nullable": true },
+					"max_usages": { "type": "integer" },
+					"hit": { "type": "integer" },
+					"used": { "type": "integer" },
+					"notes": { "type": "string", "nullable": true },
+					"expiration": {
+						"type": "string",
+						"format": "date-time",
+						"nullable": true
+					},
+					"disabled": { "type": "boolean" },
+					"userId": { "type": "string" }
+				}
+			}
+		},
+		"securitySchemes": {
+			"bearerAuth": {
+				"type": "http",
+				"scheme": "bearer",
+				"bearerFormat": "JWT"
+			}
+		}
+	}
+}

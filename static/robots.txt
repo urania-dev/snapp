@@ -1,4 +1,3 @@
 User-agent: *
-Disallow: /dashboard/
-Disallow: /auth/
-Disallow: /~/
+Allow: /
+Disallow: /*

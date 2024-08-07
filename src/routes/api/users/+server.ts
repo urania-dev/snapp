@@ -1,162 +1,175 @@
-import authenticate from '$lib/api/utils/authenticate.js';
-import getLanguage from '$lib/api/utils/getLanguage.js';
-import getUrlParams from '$lib/api/utils/getUrlParams.js';
-import { db } from '$lib/db/index.js';
-import type SnappError from '$lib/db/utils/snappError.js';
-import { slugify } from '$lib/utils/slugify/index.js';
-import { error, json, type NumericRange } from '@sveltejs/kit';
+import { authenticate_api } from '$lib/server/authenticate-api/index.js';
+import { database } from '$lib/server/db/database.js';
+import { rateLimiterCheck } from '$lib/server/ratelimiter';
+import { EMAIL_EXISTS, ENABLED_SIGNUP, USER_DOES_NOT_EXISTS, USER_EXISTS } from '$lib/utils/constants.js';
+import { error, json } from '@sveltejs/kit';
 
-import type { RedisOmError } from 'redis-om';
+export const GET = async (event) => {
+	const token = await authenticate_api(event);
+	if (!token) error(403);
+	if (token.user.role !== 'user') return error(403, "Forbidden")
+	const limits = token.user.role === 'user' ? await rateLimiterCheck(token.key) : null;
+	if (limits?.blocked) return json({ message: 'Too many requests' }, { status: 429 });
 
-export async function GET({ request, url }) {
-	const EN = await getLanguage();
+	const limit = parseInt(event.url.searchParams.get('limit')?.toString() || '10');
+	const offset = parseInt(event.url.searchParams.get('offset')?.toString() || '0');
+	const query = event.url.searchParams.get('query')?.toString();
 
-	const apiKey = await authenticate(request, EN);
+	const [users, count] = await database.users.get(query, limit, offset);
 
-	if (!apiKey.roles.includes('admin') || !apiKey.roles.includes('superadmin'))
-		throw error(401, { message: EN['auth:not:authorized'] });
-	
-	const { page, limit, search, sort, sortDir, offset } = getUrlParams(url);
-	let query = db.users.search();
+	return json({ users, total: count, pagination: { query, limit, offset } });
+};
 
-	if (sort && sortDir === 'asc') query.sortAsc(sort);
-	if (sort && sortDir === 'desc') query.sortDesc(sort);
-
-	if (search && search !== '')
-		query
-			.and('username')
-			.equal('*' + search + '*')
-			.or('email')
-			.equal('*' + search + '*');
-
-	interface DBUserEnriched extends DBUser {
-		notes?: string;
-	}
-	try {
-		const count = await query.returnCount();
-		const users = await query.return.page(offset, limit).then((users) =>
-			Promise.all(
-				(users as unknown as DBUserEnriched[]).map(async (user) => {
-					let notes = await db.getSetting(user.id, 'admin:notes');
-					
-					delete user.hash;
-					user.notes = notes;
-					return user;
-				})
-			)
-		);
-
-		return json(
-			{ count, page, limit, sort, sortDirection: sortDir, data: users },
-			{
-				headers: {
-					'Content-Type': 'application/json',
-					'cache-control': 'max-age=' + 60 * 60
-				}
-			}
-		);
-	} catch (err) {
-		throw error(500, { message: (err as RedisOmError)?.message });
-	}
-}
-
-export async function POST({ request }) {
-	const EN = await getLanguage();
-	const apiKey = await authenticate(request, EN);
-	if (!apiKey.roles.includes('admin') || !apiKey.roles.includes('superadmin'))
-		throw error(401, { message: EN['auth:not:authorized'] });
-
-	const form = await request?.formData();
-	const username = form.get('username')?.toString();
-	const email = form.get('email')?.toString();
-	const password = form.get('password')?.toString();
-	const confirmPassword = form.get('confirm_password')?.toString();
-
-	const create = await db.signupUser({ username, email, password, confirmPassword });
-	if (create.status !== 200) {
-		const EN = await getLanguage();
-		const {
-			status,
-			data: { message }
-		} = create as SnappError;
-		throw error(status as NumericRange<400, 599>, { message: EN[message] });
-	} else return json(create);
-}
-
-export async function PATCH({ request }) {
-	const EN = await getLanguage();
-	await authenticate(request, EN);
-	const form = await request?.formData();
-	const id = form.get('id')?.toString();
-	if (!id) throw error(400, { message: EN['api:user:id:unset'] });
-	const apiKey = await authenticate(request);
-	if (
-		apiKey.user_id !== id &&
-		(!apiKey.roles.includes('admin') || !apiKey.roles.includes('superadmin'))
-	)
-		throw error(401, { message: EN['auth:not:authorized'] });
-
-	const username = form.get('username')?.toString()?.trim();
-	const email = form.get('email')?.toString();
-	const password = form.get('password')?.toString();
-	const notes = form.get('notes')?.toString();
-
-	const roles: string[] = form.get('roles')?.toString()?.replaceAll(' ', '')?.split(',') ?? [];
-
-	const update = await db.updateUser({
-		id,
-		username: username ? slugify(username) : undefined,
+export const POST = async (event) => {
+	const token = await authenticate_api(event);
+	if (!token) error(403);
+	const limits = token.user.role === 'user' ? await rateLimiterCheck(token.key) : null;
+	if (limits?.blocked) return json({ message: 'Too many requests' }, { status: 429 });
+	const is_admin = token.user.role !== 'user' && await database.users.is_admin(token.userId)
+	if (!is_admin) return error(403, 'Forbidden')
+	const {
+		username,
 		email,
 		password,
-		roles
+		confirm_password
+	}: {
+		username: string;
+		email: string;
+		password: string;
+		confirm_password: string;
+	} = await event.request.json();
+
+	if (
+		!email ||
+		typeof email !== 'string' ||
+		!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email) ||
+		!email.trim().length
+	)
+		return error(400, { message: 'Invalid email provided' });
+	if (!username || typeof username !== 'string' || !username.trim().length)
+		error(400, { message: 'Invalid username provided' });
+	if (
+		!password ||
+		typeof password !== 'string' ||
+		!password.trim().length ||
+		!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password)
+	)
+		return error(400, { message: 'Invalid password provided' });
+	if (
+		!confirm_password ||
+		typeof confirm_password !== 'string' ||
+		!confirm_password.trim().length ||
+		confirm_password !== password
+	)
+		return error(400, { message: "Password and confirmation password don't match" });
+
+	const enabled_signup = database.settings.parse(await database.settings.get(ENABLED_SIGNUP), true);
+	if (!enabled_signup) return error(401, { message: 'Signup are disabled by administrator' });
+
+	const [email_user, email_provider] = email.split('@');
+	const is_email_allowed = await database.watchlist.check(email_provider, email_user);
+	const is_username_allowed = await database.watchlist.check(null, username);
+	if (!is_email_allowed || !is_username_allowed)
+		return error(400, { message: 'This username or email is blacklisted' });
+
+	const [user, err] = await database.users.create(username, email, password);
+	let message = null;
+	if (err && err === USER_EXISTS) message = 'Username already taken';
+	if (err && err === EMAIL_EXISTS) message = 'Email already associated to an account';
+	if (message) return error(500, { message });
+
+	return json(user);
+};
+export const PATCH = async (event) => {
+	const token = await authenticate_api(event);
+	if (!token) error(403);
+	const is_admin = token.user.role !== 'user' && await database.users.is_admin(token.userId)
+	const limits = !is_admin ? await rateLimiterCheck(token.key) : null;
+	if (limits?.blocked) return json({ message: 'Too many requests' }, { status: 429 });
+
+	const {
+		id,
+		username,
+		email,
+		password,
+		confirm_password, role
+	}: {
+		id: string;
+		username?: string;
+		email?: string;
+		password?: string;
+		confirm_password?: string;
+		role?: 'user' | 'admin'
+	} = await event.request.json();
+	if (id !== token.userId && !is_admin) return error(401, { message: 'You\' re not allowed to edit other users' })
+	if (
+		email &&
+		(typeof email !== 'string' ||
+			!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email) ||
+			!email.trim().length)
+	)
+		return error(400, { message: 'Invalid email provided' });
+	if (username && (typeof username !== 'string' || !username.trim().length))
+		error(400, { message: 'Invalid username provided' });
+	if (
+		password &&
+		(typeof password !== 'string' ||
+			!password.trim().length ||
+			!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password))
+	)
+		return error(400, { message: 'Invalid password provided' });
+	if (
+		password && confirm_password &&
+		(typeof confirm_password !== 'string' ||
+			!confirm_password.trim().length ||
+			confirm_password !== password)
+	)
+		return error(400, { message: "Password and confirmation password don't match" });
+
+	const [email_user, email_provider] = (email && email.split('@')) || [null, null];
+	const is_email_allowed = email && (await database.watchlist.check(email_provider, email_user));
+	const is_username_allowed = username && (await database.watchlist.check(null, username));
+	if ((email && !is_email_allowed) || (username && !is_username_allowed))
+		return error(400, { message: 'This username or email is blacklisted' });
+
+	const update = { id, username, email, password, confirm_password, role };
+	if (id !== token.userId && !is_admin) return error(403, "Forbidden")
+	const [user, err] = await database.users.update(update, id);
+
+	let message = null;
+	if (err && err === USER_EXISTS) message = 'Username already taken';
+	if (err && err === EMAIL_EXISTS) message = 'Email already associated to an account';
+	if (err && err === USER_DOES_NOT_EXISTS) message = 'User doesn\'t exists';
+	if (message) return error(500, { message });
+
+	return json(user);
+};
+
+export const DELETE = async (event) => {
+	const token = await authenticate_api(event);
+	if (!token) error(403);
+	const is_admin = await database.users.is_admin(token.userId)
+	const limits = is_admin ? await rateLimiterCheck(token.key) : null;
+	if (limits?.blocked) return json({ message: 'Too many requests' }, { status: 429 });
+
+	const {
+		id,
+		username,
+		email,
+		ignore_admin = false
+	}: {
+		id?: string;
+		username?: string;
+		email?: string;
+		ignore_admin?: boolean;
+	} = Object.fromEntries(event.url.searchParams)
+
+	if (id !== token.userId) return error(403, { message: 'You can\'t edit other users' })
+	if (ignore_admin && !is_admin) return error(403, { message: "You can't erase an admin user" })
+
+	return json({
+		deleted: await database.users.delete(id, username, email, ignore_admin ? ['root'] : undefined)
 	});
-	if (notes) await db.setSetting(id, notes, 'admin:notes');
+};
 
-	if (update.status !== 200) {
-		const EN = await getLanguage();
-		const {
-			status,
-			data: { message }
-		} = update as SnappError;
-		throw error(status as NumericRange<400, 599>, { message: EN[message] });
-	} else return json({ ...update, notes, message: EN[(update as { message: string }).message] });
-}
-
-export async function DELETE({ request, url }) {
-	const EN = await getLanguage();
-	await authenticate(request, EN);
-
-	const ids =
-		url.searchParams.get('ids')?.toString()?.trim()?.replaceAll(' ', '')?.split(',') ?? [];
-	const id = url.searchParams.get('id')?.toString().trim()?.replaceAll(' ', '') ?? null;
-	const new_owner = url.searchParams.get('new-owner-id')?.toString();
-
-	if ((!ids || ids.length === 0) && !id) throw error(400, { message: EN['api:user:ids:unset'] });
-
-	const apiKey = await authenticate(request);
-
-	if (!apiKey.roles.includes('admin') || !apiKey.roles.includes('superadmin'))
-		throw error(401, { message: EN['auth:not:authorized'] });
-
-	const _ids = Array.from(new Set([...ids, id])).filter((id) => id !== null) as string[];
-	const deleted = await db.deleteUser(..._ids);
-	await Promise.all(
-		_ids.map(async (user) => {
-			let ids = (await db.snapps.search().where('user_id').equals(user).returnAllIds()) ?? [];
-			await db.snapps.remove(...ids);
-		})
-	);
-	if (deleted.status !== 200) {
-		const EN = await getLanguage();
-		const {
-			status,
-			data: { message }
-		} = deleted as SnappError;
-		throw error(status as NumericRange<400, 599>, { message: EN[message] });
-
-		// TODO: Cascade
-	} else if (new_owner && typeof new_owner === 'string') {
-	}
-
-	return json({ ...deleted, message: EN[(deleted as { message: string }).message] });
-}
+export const fallback = () => error(405);
