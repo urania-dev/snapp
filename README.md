@@ -48,15 +48,13 @@ services:
 
 ## Default Admin Authentication
 
-If ENV variables ADMIN_USERNAME and ADMIN_PASSWORD are not set it defaults to the very secure. 
-You can always set a SMTP server and use password recovery process to change it later. (not very secure...)
-
+If ENV variables ADMIN_USERNAME and ADMIN_PASSWORD are not set it defaults to the very secure:
 
 ```
   username: admin
   password: password
-
 ```
+You can always set a SMTP server and use password recovery process to change it later. (not very secure tho...)
 
 ## I18N
 
