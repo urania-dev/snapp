@@ -1,7 +1,7 @@
 {
 	"openapi": "3.0.3",
 	"info": {
-		"title": "Swagger Petstore - OpenAPI 3.0",
+		"title": "Snapp.li",
 		"description": "If you're seeking a self-hosted URL shortening solution, Snapp might be what you need. It's designed for those who value control over their URL management and want to explore various technologies.",
 		"x-logo": {
 			"url": "https://snapp.li/logo.svg",
@@ -15,7 +15,7 @@
 			"name": "MIT",
 			"url": "https://opensource.org/license/mit"
 		},
-		"version": "1.0.11"
+		"version": "0.8"
 	},
 	"externalDocs": {
 		"description": "Find out more about Swagger",
