@@ -43,6 +43,25 @@ services:
       ORIGIN: https://example.com
 ```
 
+**Note**: SQLite database is located in /app/prisma/{DATABASE_URL} if you want to mount it
+
+
+## Default Admin Authentication
+
+If ENV variables ADMIN_USERNAME and ADMIN_PASSWORD are not set it defaults to the very secure. 
+You can always set a SMTP server and use password recovery process to change it later. (not very secure...)
+
+
+```
+  username: admin
+  password: password
+
+```
+
+## I18N
+
+Snapp at his version 0.8 includes from start Italian, English, German, French, Spanish and Galician. This are very amateurish translation with the help of ChatGPT, so errors are to be expected, feel free to open a related issue if any
+
 ## Migration
 
 The latest versions of Snapp include CSV Export to facilitate migration. Simply log in and import your URLs from the dashboard, and continue from where you left.
