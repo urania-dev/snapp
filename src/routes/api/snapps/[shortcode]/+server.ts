@@ -17,7 +17,7 @@ export const GET = async (event) => {
 	if (!shortcode) return error(404, { message: '/snapp/:shortcode - shortcode not found' });
 
 	const [snapp, err] = await database.snapps.one(shortcode);
-	console.log(err);
+
 	const is_admin = await database.users.is_admin(token.userId);
 	if (snapp?.userId !== token.userId && !is_admin) return error(404, 'Snapp not found');
 	if (!snapp || err) return error(404, 'Snapp not found');
