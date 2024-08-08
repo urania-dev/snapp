@@ -13,6 +13,8 @@ export const GET = async (event) => {
 	const token = await authenticate_api(event);
 	if (!token) error(403);
 	if (token.user.role === 'user') return error(403, 'Forbidden');
+	const is_admin = token.user.role !== 'user' && (await database.users.is_admin(token.userId));
+	if (!is_admin) return error(403, 'Forbidden');
 
 	const limit = parseInt(event.url.searchParams.get('limit')?.toString() || '10');
 	const offset = parseInt(event.url.searchParams.get('offset')?.toString() || '0');
@@ -154,7 +156,7 @@ export const PATCH = async (event) => {
 export const DELETE = async (event) => {
 	const token = await authenticate_api(event);
 	if (!token) error(403);
-	const is_admin = await database.users.is_admin(token.userId);
+	const is_admin = token.user.role !== 'user' && await database.users.is_admin(token.userId);
 	const limits = is_admin ? await rateLimiterCheck(token.key) : null;
 	if (limits?.blocked) return json({ message: 'Too many requests' }, { status: 429 });
 
@@ -170,7 +172,7 @@ export const DELETE = async (event) => {
 		ignore_admin?: boolean;
 	} = Object.fromEntries(event.url.searchParams);
 
-	if (id !== token.userId) return error(403, { message: "You can't edit other users" });
+	if (id !== token.userId) return error(403, { message: "You can't delete other users" });
 	if (ignore_admin && !is_admin) return error(403, { message: "You can't erase an admin user" });
 
 	return json({
