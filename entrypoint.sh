@@ -2,7 +2,6 @@
 
 : ${DATABASE_PROVIDER:="sqlite"}
 
-
 # Determine which schema to use
 case "$DATABASE_PROVIDER" in
   "mysql")
