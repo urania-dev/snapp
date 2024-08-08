@@ -10,7 +10,7 @@ export const GET = async (event) => {
 	if (limits?.blocked) return json({ message: 'Too many requests' }, { status: 429 });
 
 	const id = event.params.id;
-	if (token.userId !== id && token.user.role !== 'admin') return error(403, 'Forbidden');
+	if (token.userId !== id && token.user.role === 'user') return error(403, 'Forbidden');
 
 	const user = await prisma.user.findFirst({ where: { id } });
 

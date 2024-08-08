@@ -12,9 +12,7 @@ import { error, json } from '@sveltejs/kit';
 export const GET = async (event) => {
 	const token = await authenticate_api(event);
 	if (!token) error(403);
-	if (token.user.role !== 'user') return error(403, 'Forbidden');
-	const limits = token.user.role === 'user' ? await rateLimiterCheck(token.key) : null;
-	if (limits?.blocked) return json({ message: 'Too many requests' }, { status: 429 });
+	if (token.user.role === 'user') return error(403, 'Forbidden');
 
 	const limit = parseInt(event.url.searchParams.get('limit')?.toString() || '10');
 	const offset = parseInt(event.url.searchParams.get('offset')?.toString() || '0');
