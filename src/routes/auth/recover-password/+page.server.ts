@@ -3,7 +3,7 @@ import { isWithinExpirationDate } from 'oslo';
 import { hash } from '@node-rs/argon2';
 import { sha256 } from 'oslo/crypto';
 import { encodeHex } from 'oslo/encoding';
-import { prisma } from '$lib/server/prisma/index.js';
+import { prisma } from '$lib/server/prisma';
 import { lucia } from '$lib/server/auth.js';
 
 export const actions = {

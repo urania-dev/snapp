@@ -1,6 +1,6 @@
 import { authenticate_api } from '$lib/server/authenticate-api/index.js';
 import { database } from '$lib/server/db/database.js';
-import { prisma } from '$lib/server/prisma/index.js';
+import { prisma } from '$lib/server/prisma';
 import { rateLimiterCheck } from '$lib/server/ratelimiter/index.js';
 import {
 	ALLOW_UNSECURE_HTTP,

@@ -3,7 +3,6 @@
 	import Card from '$lib/ui/card.svelte';
 	import Icon from '$lib/ui/icon.svelte';
 	import { cn } from '$lib/utils/cn';
-	import type { Snapp } from '@prisma/client';
 	import { _ } from 'svelte-i18n';
 	import papa from 'papaparse';
 	import { intlFormatDistance } from 'date-fns';

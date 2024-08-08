@@ -1,6 +1,10 @@
 import { PrismaClient } from '@prisma/client';
 
-if (!globalThis._prisma) globalThis._prisma = new PrismaClient();
-const prisma = globalThis._prisma;
+const selectAdapter = () => {
+	if (!globalThis._prisma) globalThis._prisma = new PrismaClient();
+	return globalThis._prisma;
+};
+
+const prisma = selectAdapter();
 
 export { prisma };

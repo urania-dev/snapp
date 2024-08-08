@@ -9,7 +9,7 @@
 	import type { MouseEventHandler } from 'svelte/elements';
 	import { fade, fly } from 'svelte/transition';
 	let show_vt_apikey = $state(false);
-	import type { Setting, Watchlist } from '@prisma/client';
+
 	import type { User } from 'lucia';
 	import { applyAction, enhance } from '$app/forms';
 	import type { SubmitFunction } from './$types';

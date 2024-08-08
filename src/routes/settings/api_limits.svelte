@@ -8,7 +8,6 @@
 		MAX_SNAPPS_PER_USER
 	} from '$lib/utils/constants';
 	import { debounce } from '$lib/utils/debounce';
-	import type { Setting } from '@prisma/client';
 	import type { User } from 'lucia';
 	import { _ } from 'svelte-i18n';
 

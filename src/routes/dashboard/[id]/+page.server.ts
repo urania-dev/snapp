@@ -1,5 +1,5 @@
 import { database } from '$lib/server/db/database.js';
-import { prisma } from '$lib/server/prisma/index.js';
+import { prisma } from '$lib/server/prisma';
 import { fail, redirect } from '@sveltejs/kit';
 
 export const load = async ({ locals: { session, user }, request, params: { id }, url }) => {

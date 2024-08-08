@@ -26,6 +26,54 @@ declare global {
 	var _prisma: import('@prisma/client').PrismaClient;
 	var _rpd_limiter: import('$lib/server/ratelimiter').SlidingWindowCounter;
 	var _rpm_limiter: import('$lib/server/ratelimiter').SlidingWindowCounter;
+
+	type Setting = {
+		id: string;
+		field: string;
+		value: string;
+		userId: string | null;
+		created: Date;
+	};
+
+	type Snapp = {
+		id: string;
+		shortcode: string;
+		original_url: string;
+		created: Date;
+		secret: string | null;
+		max_usages: number;
+		hit: number;
+		used: number;
+		notes: string | null;
+		expiration: Date | null;
+		disabled: boolean;
+		userId: string;
+	};
+
+	type User = {
+		id: string;
+		username: string;
+		password_hash: string;
+		email: string;
+		notes: string | null;
+		role: string;
+		createdAt: Date;
+		updatedAt: Date;
+	};
+
+	type Token = {
+		key: string;
+		userId: string;
+		created: Date;
+	};
+
+	type Watchlist = {
+		id: string;
+		created: Date;
+		username: string | null;
+		domain: string | null;
+		allowed: boolean;
+	};
 }
 
 export {};

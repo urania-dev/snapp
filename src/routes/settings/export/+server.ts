@@ -1,5 +1,4 @@
-import { prisma } from '$lib/server/prisma/index.js';
-import type { Snapp } from '@prisma/client';
+import { prisma } from '$lib/server/prisma';
 import { error, json } from '@sveltejs/kit';
 import Papa from 'papaparse';
 export const GET = async ({ locals: { session, user } }) => {

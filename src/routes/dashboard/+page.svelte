@@ -4,7 +4,6 @@
 	import Icon from '$lib/ui/icon.svelte';
 	import Input from '$lib/ui/input.svelte';
 	import { outside } from '$lib/utils/outside';
-	import type { Prisma, Snapp } from '@prisma/client';
 	import { _ } from 'svelte-i18n';
 	import { fade, fly } from 'svelte/transition';
 	import { onDestroy, onMount } from 'svelte';
@@ -194,9 +193,9 @@
 	});
 
 	const orderBy = queryParam('order-by', {
-		encode: (str: keyof Prisma.SnappOrderByWithRelationInput) => str as string,
-		decode: (str: string | null) => str as keyof Prisma.SnappOrderByWithRelationInput | null,
-		defaultValue: undefined as keyof Prisma.SnappOrderByWithRelationInput | undefined
+		encode: (str: string) => str as string,
+		decode: (str: string | null) => str as string | null,
+		defaultValue: undefined as string | undefined
 	});
 
 	const ascending = queryParam('ascending', {

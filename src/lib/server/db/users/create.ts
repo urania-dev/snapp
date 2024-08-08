@@ -2,7 +2,6 @@ import { EMAIL_EXISTS, USER_EXISTS } from '$lib/utils/constants';
 import { prisma } from '$lib/server/prisma';
 import { generateId } from 'lucia';
 import { hash } from '@node-rs/argon2';
-import type { User } from '@prisma/client';
 import type { Cookies } from '@sveltejs/kit';
 import { lucia } from '$lib/server/auth';
 import { database } from '../database';

@@ -12,7 +12,6 @@ import {
 	USER_DOES_NOT_EXISTS,
 	USER_EXISTS
 } from '$lib/utils/constants.js';
-import type { User } from '@prisma/client';
 import { fail, redirect } from '@sveltejs/kit';
 import { generateId } from 'lucia';
 import { createTransport, type Transport, type TransportOptions } from 'nodemailer';

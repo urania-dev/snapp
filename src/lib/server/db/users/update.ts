@@ -1,5 +1,4 @@
 import { prisma } from '$lib/server/prisma';
-import type { User } from '@prisma/client';
 import { database } from '../database';
 import { EMAIL_EXISTS, USER_DOES_NOT_EXISTS, USER_EXISTS } from '$lib/utils/constants';
 

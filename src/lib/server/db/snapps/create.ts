@@ -7,7 +7,6 @@ import {
 	SNAPP_ORIGIN_URL_REQUESTED
 } from '$lib/utils/constants';
 import { hash } from '@node-rs/argon2';
-import type { Snapp } from '@prisma/client';
 import { generateId } from 'lucia';
 import { database } from '../database';
 

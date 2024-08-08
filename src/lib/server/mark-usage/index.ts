@@ -1,5 +1,4 @@
 import { SNAPP_DISABLED, UMAMI_URL, UMAMI_WEBSITE_ID } from '$lib/utils/constants';
-import type { Snapp } from '@prisma/client';
 import { database } from '../db/database';
 import UAParser from 'ua-parser-js';
 import { getLocation } from '../get-location';

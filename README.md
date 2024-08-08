@@ -45,7 +45,6 @@ services:
 
 **Note**: SQLite database is located in /app/prisma/{DATABASE_URL} if you want to mount it
 
-
 ## Default Admin Authentication
 
 If ENV variables ADMIN_USERNAME and ADMIN_PASSWORD are not set it defaults to the very secure:
@@ -54,6 +53,7 @@ If ENV variables ADMIN_USERNAME and ADMIN_PASSWORD are not set it defaults to th
   username: admin
   password: password
 ```
+
 You can always set a SMTP server and use password recovery process to change it later. (not very secure tho...)
 
 ## I18N

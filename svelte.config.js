@@ -11,7 +11,7 @@ const config = {
 		}),
 		csrf: {
 			checkOrigin: process.env.NODE_ENV !== 'development'
-		}
+		},
 	},
 
 	extensions: ['.svelte']

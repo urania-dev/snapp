@@ -6,7 +6,6 @@
 	import Card from '$lib/ui/card.svelte';
 	import Input from '$lib/ui/input.svelte';
 	import type { MouseEventHandler } from 'svelte/elements';
-	import type { Token } from '@prisma/client';
 	import { browser } from '$app/environment';
 	import Icon from '$lib/ui/icon.svelte';
 

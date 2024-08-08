@@ -7,7 +7,6 @@ import {
 	SNAPP_ORIGIN_URL_REQUESTED,
 	UNAUTHORIZED
 } from '$lib/utils/constants.js';
-import type { Prisma } from '@prisma/client';
 
 import { fail, redirect } from '@sveltejs/kit';
 
@@ -26,9 +25,7 @@ export async function load({ locals: { session, user }, url, params: { username 
 
 	const limit = parseInt(url.searchParams.get('limit')?.toString() || '14');
 	const page = parseInt(url.searchParams.get('page')?.toString() || '1');
-	const orderBy =
-		url.searchParams.get('order-by')?.toString() ||
-		('created' as keyof Prisma.SnappOrderByWithRelationInput);
+	const orderBy = url.searchParams.get('order-by')?.toString() || 'created';
 	const ascending =
 		url.searchParams.get('ascending')?.toString()?.toLowerCase() === 'false' || false;
 	const offset = (page - 1) * limit;

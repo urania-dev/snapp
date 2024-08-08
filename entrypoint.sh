@@ -1,32 +1,27 @@
 #!/bin/sh
-rm prisma/schema.prisma
-rm prisma/migrations -rf
 
 : ${DATABASE_PROVIDER:="sqlite"}
+
 
 # Determine which schema to use
 case "$DATABASE_PROVIDER" in
   "mysql")
-    cp prisma/schema.mysql.prisma prisma/schema.prisma
+    npx prisma generate --schema prisma/mysql/schema.prisma
+    npx prisma migrate deploy --schema prisma/mysql/schema.prisma
     ;;
   "sqlite")
-    cp prisma/schema.sqlite.prisma prisma/schema.prisma
+    npx prisma generate --schema prisma/sqlite/schema.prisma
+    npx prisma migrate deploy --schema prisma/sqlite/schema.prisma
     ;;
   "postgres")
-    cp prisma/schema.pg.prisma prisma/schema.prisma
+    npx prisma generate --schema prisma/postgres/schema.prisma
+    npx prisma migrate deploy --schema prisma/postgres/schema.prisma
     ;;
   *)
     echo "Unsupported DATABASE_PROVIDER: $DATABASE_PROVIDER"
     exit 1
     ;;
 esac
-
-# Generate Prisma client and suppress output
-npx prisma generate > /dev/null 2>&1
-
-# Apply existing migrations and suppress output
-npx prisma migrate dev -n init > /dev/null 2>&1 
-npx prisma migrate deploy  > /dev/null 2>&1 
 
 # Welcome message with formatting
 echo "-------------------------------------------"

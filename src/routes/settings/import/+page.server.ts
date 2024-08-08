@@ -1,5 +1,4 @@
 import { database } from '$lib/server/db/database.js';
-import type { Snapp } from '@prisma/client';
 import { fail, redirect } from '@sveltejs/kit';
 
 export function load({ locals: { session, user } }) {

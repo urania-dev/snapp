@@ -1,15 +1,11 @@
 import { prisma } from '$lib/server/prisma';
-import type { Prisma } from '@prisma/client';
 
 export const get_snapp = async (
 	userId?: string,
 	query?: string,
 	limit: number = 10,
 	offset: number = 0,
-	orderBy:
-		| Prisma.SnappOrderByWithRelationInput
-		| Prisma.SnappOrderByWithRelationInput[]
-		| undefined = undefined
+	orderBy: { [key: string]: { ascending: boolean } } | undefined = undefined
 ) => {
 	await prisma.snapp.deleteMany({ where: { expiration: { lte: new Date() } } });
 	const snapps = await prisma.snapp

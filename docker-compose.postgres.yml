@@ -4,19 +4,25 @@ services:
     ports:
       - 3000:3000
     environment:
-      DATABASE_URL: 'postgresql://root:password@postgres:5432/snappdb'
+      DATABASE_URL: 'postgresql://postgres:password@postgres:5432/snappdb'
       TOKEN_SECRET: # openssl rand -base64 32
       ORIGIN: https://example.com
       DATABASE_PROVIDER: postgres
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     networks:
       - snapp
 
   postgres:
     image: postgres:latest
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -d snappdb -U postgres']
+      interval: 10s
+      timeout: 5s
+      retries: 5
     environment:
-      POSTGRES_USER: root
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: snappdb
     volumes:

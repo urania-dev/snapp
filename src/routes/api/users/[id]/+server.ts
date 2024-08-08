@@ -1,5 +1,5 @@
 import { authenticate_api } from '$lib/server/authenticate-api/index.js';
-import { prisma } from '$lib/server/prisma/index.js';
+import { prisma } from '$lib/server/prisma';
 import { rateLimiterCheck } from '$lib/server/ratelimiter';
 import { error, json } from '@sveltejs/kit';
 
