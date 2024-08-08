@@ -139,7 +139,7 @@ export const PATCH = async (event) => {
 	const is_username_allowed = username && (await database.watchlist.check(null, username));
 	if ((email && !is_email_allowed) || (username && !is_username_allowed))
 		return error(400, { message: 'This username or email is blacklisted' });
-	if (!is_admin && role && role !== 'user') return error(403, { message: "Forbidden role change" })
+	if (!is_admin && role && role !== 'user') return error(403, { message: 'Forbidden role change' });
 	const update = { id, username, email, password, confirm_password, role };
 	if (id !== token.userId && !is_admin) return error(403, 'Forbidden');
 	const [user, err] = await database.users.update(update, id);
@@ -156,7 +156,7 @@ export const PATCH = async (event) => {
 export const DELETE = async (event) => {
 	const token = await authenticate_api(event);
 	if (!token) error(403);
-	const is_admin = token.user.role !== 'user' && await database.users.is_admin(token.userId);
+	const is_admin = token.user.role !== 'user' && (await database.users.is_admin(token.userId));
 	const limits = is_admin ? await rateLimiterCheck(token.key) : null;
 	if (limits?.blocked) return json({ message: 'Too many requests' }, { status: 429 });
 

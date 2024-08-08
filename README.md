@@ -33,15 +33,14 @@ For the 0.8 version, youâ€™ll need to migrate URLs using the CSV Exporter. Hereâ
 ```yml
 services:
   snapp:
-   image: uraniadev/snapp:0.8
-   ports:
-    - 3000:3000
-   environment:
-    DATABASE_URL: "file:./db.sqlite"
-    DATABASE_PROVIDER: sqlite # mysql | sqlite | pg
-    TOKEN_SECRET: # openssl rand -base64 32
-    ORIGIN: https://example.com
-
+    image: uraniadev/snapp:0.8
+    ports:
+      - 3000:3000
+    environment:
+      DATABASE_URL: 'file:./db.sqlite'
+      DATABASE_PROVIDER: sqlite # mysql | sqlite | pg
+      TOKEN_SECRET: # openssl rand -base64 32
+      ORIGIN: https://example.com
 ```
 
 ## Migration

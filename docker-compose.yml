@@ -2,7 +2,7 @@ services:
   snapp:
     image: uraniadev/snapp:0.8
     ports:
-     - 3000:3000
+      - 3000:3000
     environment:
       TOKEN_SECRET: # openssl rand -base64 32
       ORIGIN: https://example.com

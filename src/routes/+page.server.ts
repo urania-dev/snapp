@@ -24,7 +24,7 @@ const code = async (theme: string) =>
       ORIGIN: https://example.com
 	  
 `,
-    	{
+		{
 			lang: 'yaml',
 			theme: 'github-dark'
 		}
