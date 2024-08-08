@@ -4,7 +4,7 @@ services:
     ports:
       - 3000:3000
     environment:
-      DATABASE_URL: 'mysql://root:password@mariadb:3306/snappdb'
+      DATABASE_MYSQL_URL: 'mysql://root:password@mariadb:3306/snappdb'
       TOKEN_SECRET: # openssl rand -base64 32
       ORIGIN: https://example.com
       DATABASE_PROVIDER: mysql

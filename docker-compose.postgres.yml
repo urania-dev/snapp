@@ -4,7 +4,7 @@ services:
     ports:
       - 3000:3000
     environment:
-      DATABASE_URL: 'postgresql://postgres:password@postgres:5432/snappdb'
+      DATABASE_POSTGRES_URL: 'postgresql://postgres:password@postgres:5432/snappdb'
       TOKEN_SECRET: # openssl rand -base64 32
       ORIGIN: https://example.com
       DATABASE_PROVIDER: postgres
