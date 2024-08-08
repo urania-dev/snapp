@@ -7,7 +7,7 @@ services:
       DATABASE_URL: 'postgresql://root:password@postgres:5432/snappdb'
       TOKEN_SECRET: # openssl rand -base64 32
       ORIGIN: https://example.com
-      DATABASE_PROVIDER: postgresql
+      DATABASE_PROVIDER: postgres
     depends_on:
       - postgres
     networks:

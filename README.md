@@ -38,7 +38,7 @@ services:
       - 3000:3000
     environment:
       DATABASE_URL: 'file:./db.sqlite'
-      DATABASE_PROVIDER: sqlite # mysql | sqlite | pg
+      DATABASE_PROVIDER: sqlite # mysql | sqlite | postgres
       TOKEN_SECRET: # openssl rand -base64 32
       ORIGIN: https://example.com
 ```
