@@ -14,7 +14,8 @@ COPY . .
 ENV DATABASE_URL=file:./db.sqlite
 RUN npx prisma generate
 RUN npx prisma migrate dev -n init
-RUN npm run build --production
+RUN npm run build 
+
 # Copy the entrypoint script
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
