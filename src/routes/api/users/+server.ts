@@ -137,7 +137,7 @@ export const PATCH = async (event) => {
 	const is_username_allowed = username && (await database.watchlist.check(null, username));
 	if ((email && !is_email_allowed) || (username && !is_username_allowed))
 		return error(400, { message: 'This username or email is blacklisted' });
-
+	if (!is_admin && role && role !== 'user') return error(403, { message: "Forbidden role change" })
 	const update = { id, username, email, password, confirm_password, role };
 	if (id !== token.userId && !is_admin) return error(403, 'Forbidden');
 	const [user, err] = await database.users.update(update, id);
