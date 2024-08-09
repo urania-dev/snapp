@@ -20,7 +20,7 @@ This latest version supports multiple architectures, including ARM and ARM64 pla
 - **Usage Analytics:** Access detailed, anonymous analytics for your links. Snapp provides insights into link engagements.
 - **Extended Metrics:** Integrate Snapp with your self-hosted or cloud-based Umami Analytics for advanced metrics.
 - **URL Reputation Check:** Ensure the safety of links with VirusTotal API reputation checks.
-- **REST API:** Community-requested REST API endpoints enable remote management of your Snapp instance. Find all Swagger Docs [here](https://snapp.li/dashboard/docs).
+- **REST API:** Community-requested REST API endpoints enable remote management of your Snapp instance. Find all Swagger Docs [here](https://snapp.li/docs).
 
 ## Getting Started
 
@@ -45,22 +45,22 @@ services:
 
 **Note**: SQLite database is located in /app/prisma/{DATABASE_URL} if you want to mount it
 
-***Update8.1***: In order to make it actually work it ended up requiring better specification of schemas for Prisma Clients, 
+**_Update8.1_**: In order to make it actually work it ended up requiring better specification of schemas for Prisma Clients,
 the combinations are:
 
 ```yml
-  DATABASE_PROVIDER: sqlite 
-  DATABASE_URL: file:./db.sqlite
+DATABASE_PROVIDER: sqlite
+DATABASE_URL: file:./db.sqlite
 ```
 
 ```yml
-  DATABASE_PROVIDER: mysql
-  DATABASE_MYSQL_URL: mysql://root:password@mariadb:3306/snappdb
+DATABASE_PROVIDER: mysql
+DATABASE_MYSQL_URL: mysql://root:password@mariadb:3306/snappdb
 ```
 
 ```yml
-  DATABASE_PROVIDER: postgres
-  DATABASE_MYSQL_URL: postgres://postgres:password@postgres:5432/snappdb
+DATABASE_PROVIDER: postgres
+DATABASE_MYSQL_URL: postgres://root:password@postgres:5432/snappdb
 ```
 
 ## Default Admin Authentication
