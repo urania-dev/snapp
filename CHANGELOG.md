@@ -96,3 +96,7 @@
   - Rebase of the project, new code for the same features as before.
   - Prisma comes back again instead of Redis, this should allow me to change the database behind the project and create different images for mysql pg and sqlite
   - fixed long time running bugs as not resettable secrets of usages, api endpoint with form submission protections, and so on.
+- 0.8.1
+  - Fixed database declination and instantiation.
+  - Fixed some labels mishaps in auth process
+  - Fixed some scrolling prevented from mobile

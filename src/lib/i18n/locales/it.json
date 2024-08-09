@@ -76,7 +76,8 @@
 		"auth": {
 			"helpers": {
 				"forgot-password": "Inserisci la tua email per avviare il recupero della password.",
-				"recover-password": "Questo invierà un&rsquo;email di reset della password a questo account."
+				"recover-password": "Questo invierà un&rsquo;email di reset della password a questo account.",
+				"set-new-password":"Imposta una password per il tuo account."
 			},
 			"forgot-password": "Hai dimenticato la password?",
 			"go-to-signup": "Non hai un account? Registrati alla <a class=\"link\" href=\"{url}\">pagina di registrazione</a>.",

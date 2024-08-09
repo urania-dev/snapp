@@ -76,7 +76,8 @@
 		"auth": {
 			"helpers": {
 				"forgot-password": "Geben Sie Ihre E-Mail-Adresse ein, um die Passwortwiederherstellung zu starten.",
-				"recover-password": "Dies löst eine E-Mail zur Passwortzurücksetzung an dieses Konto aus."
+				"recover-password": "Dies löst eine E-Mail zur Passwortzurücksetzung an dieses Konto aus.",
+				"set-new-password": "Richten Sie ein Passwort für Ihr Konto ein."
 			},
 			"forgot-password": "Passwort vergessen?",
 			"go-to-signup": "Haben Sie kein Konto? Registrieren Sie sich auf der <a class=\"link\" href=\"{url}\">Registrierungsseite</a>.",

@@ -9,13 +9,15 @@ async function createPasswordResetToken(userId: string): Promise<string> {
 
 	const tokenId = generateIdFromEntropySize(25); // 40 character
 	const tokenHash = encodeHex(await sha256(new TextEncoder().encode(tokenId)));
+	const expiresAt = createDate(new TimeSpan(2, 'h'))
 	await prisma.password_reset.create({
 		data: {
 			token_hash: tokenHash,
 			userId: userId,
-			expiresAt: createDate(new TimeSpan(2, 'h'))
+			expiresAt
 		}
 	});
+
 	return tokenId;
 }
 

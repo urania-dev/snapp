@@ -23,7 +23,7 @@ export const actions = {
 
 		let message = null;
 		if (!user) message = 'errors.auth.user-not-found';
-		if (message) return fail(500, { message });
+		if (!user || message) return fail(500, { message });
 
 		try {
 			const smtp = {

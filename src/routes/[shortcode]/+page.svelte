@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Card from '$lib/ui/card.svelte';
+	import Icon from '$lib/ui/icon.svelte';
 	import { cn } from '$lib/utils/cn';
 	import { _ } from 'svelte-i18n';
 	import logo from '$lib/utils/logo.svg?raw';
@@ -60,6 +61,13 @@
 							}
 						}}
 					/>
+					<button
+						class="flex h-10 w-full gap-2 items-center rounded border-none justify-between bg-slate-500/25 p-2 px-4 text-start outline-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50"
+						type="submit">
+						<span>{$_('globals.confirm')}</span>
+						<Icon ph="arrow-right" />
+						</button
+					>
 				</form>
 			</Card>
 		</div>

@@ -76,7 +76,8 @@
 		"auth": {
 			"helpers": {
 				"forgot-password": "Introduce o teu correo electrónico para comezar a recuperación de contrasinal.",
-				"recover-password": "Isto enviará un correo electrónico de restablecemento de contrasinal a esta conta."
+				"recover-password": "Isto enviará un correo electrónico de restablecemento de contrasinal a esta conta.",
+				"set-new-password": "Configura un contrasinal para a túa conta."
 			},
 			"forgot-password": "¿Esqueciches a túa contrasinal?",
 			"go-to-signup": "¿Non tes unha conta? Rexístrate na <a class=\"link\" href=\"{url}\">páxina de rexistro</a>.",

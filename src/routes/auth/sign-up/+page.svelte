@@ -83,8 +83,7 @@
 						actions={{
 							right: handle_password
 						}}
-					/>
-					<small>{$_('users.helpers.password')} </small></Card
+					/></Card
 				>
 				<Card css={{ card: 'w-full' }}>
 					<Input
@@ -98,6 +97,8 @@
 						}}
 					/>
 				</Card>
+
+				<small>{$_('users.helpers.password')} </small>
 				<Card css={{ card: 'p-0 bg-transparent border-transparent border-0' }}>
 					<button
 						type="submit"

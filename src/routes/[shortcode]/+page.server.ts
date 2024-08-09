@@ -28,10 +28,10 @@ export const load = async ({
 
 		const { secret } = redirection;
 		const data = await parent();
-		if (!secret) {
+		if (secret === null) {
 			if (user === null || (user && user.id !== redirection.userId))
 				await markUsage(redirection, request, url, null, fetch);
-			redirect(302, redirection.original_url);
+			throw redirect(302, redirection.original_url);
 		} else return { ...data, shortcode, has_secret: true };
 	} else error(404, { message: 'errors.snapps.not-found' });
 };
@@ -60,23 +60,13 @@ export const actions = {
 			if (validPassword) {
 				if (!user || user.id !== snapp.userId) await markUsage(snapp, request, url, null, fetch);
 				return { url: snapp.original_url };
-			} else {
-				await markUsage(
-					snapp,
-					request,
-					url,
-					{
-						short_code: snapp.shortcode,
-						message: 'Attempt secret'
-					},
-					fetch
-				);
+			} else
 				return fail(401, {
 					message: 'errors.snapps.wrong-credentials',
 					short_code: null,
 					success: false
 				});
-			}
+
 		} else
 			return fail(400, {
 				message: 'errors.snapps.missing-secret',

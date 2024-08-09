@@ -173,7 +173,7 @@
 						<Card css={{ card: 'items-center text-balance w-full leading-relaxed gap-4 p-2' }}>
 							<Switch
 								name="status"
-								label={$_('snapps.fields.status')}
+								label="{$_('snapps.fields.status')}: {active === true ? $_("globals.active") : $_("globals.disabled")}"
 								helper={$_('snapps.helpers.disable-text-1')}
 								actions={{ toggle: handle_disable }}
 								bind:value={active}

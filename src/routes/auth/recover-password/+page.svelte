@@ -49,7 +49,7 @@
 			</span>
 			{$_('appname')}
 		</h2>
-		<p class="w-full text-balance text-sm">{$_('users.auth.helpers.forgot-password')}</p>
+		<p class="w-full text-balance text-sm">{$_('users.auth.helpers.set-new-password')}</p>
 		<form class="flex w-full flex-col gap-4" method="post" use:enhance={enhanceRecover}>
 			<Card css={{ card: 'w-full' }}>
 				<Input
@@ -75,6 +75,7 @@
 					}}
 				/>
 			</Card>
+			<small>{$_('users.helpers.password')}</small>
 			<button
 				type="submit"
 				class="flex h-10 w-full items-center rounded border-none bg-slate-500/25 p-2 px-4 text-start outline-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50"
