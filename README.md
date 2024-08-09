@@ -33,7 +33,7 @@ For the 0.8 version, youâ€™ll need to migrate URLs using the CSV Exporter. Hereâ
 ```yml
 services:
   snapp:
-    image: uraniadev/snapp:0.8
+    image: uraniadev/snapp:latest
     ports:
       - 3000:3000
     environment:

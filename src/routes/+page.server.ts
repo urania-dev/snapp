@@ -16,7 +16,7 @@ const code = async (theme: string) =>
 	await shiki.codeToHtml(
 		`services:
   snapp:
-    image: uraniadev/snapp:0.8
+    image: uraniadev/snapp:latest
     ports: 
       - 3000:3000
     environment:
