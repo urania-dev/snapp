@@ -45,6 +45,24 @@ services:
 
 **Note**: SQLite database is located in /app/prisma/{DATABASE_URL} if you want to mount it
 
+***Update8.1***: In order to make it actually work it ended up requiring better specification of schemas for Prisma Clients, 
+the combinations are:
+
+```yml
+  DATABASE_PROVIDER: sqlite 
+  DATABASE_URL: file:./db.sqlite
+```
+
+```yml
+  DATABASE_PROVIDER: mysql
+  DATABASE_MYSQL_URL: mysql://root:password@mariadb:3306/snappdb
+```
+
+```yml
+  DATABASE_PROVIDER: postgres
+  DATABASE_MYSQL_URL: postgres://postgres:password@postgres:5432/snappdb
+```
+
 ## Default Admin Authentication
 
 If ENV variables ADMIN_USERNAME and ADMIN_PASSWORD are not set it defaults to the very secure:
