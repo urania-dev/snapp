@@ -294,7 +294,7 @@
 		<div class="flex w-full" style:height={innerWidth < 1024 ? 'calc(100% - 4rem)' : 'h-full'}>
 			<Card css={{ card: 'h-full gap-4' }}>
 				<div class="flex w-full items-center gap-4">
-					<Card css={{ card: 'flex-row justify-between gap-4 p-2' }}>
+					<Card css={{ card: 'md:flex-row justify-between gap-4 p-2' }}>
 						<h4 class="whitespace-nowrap ps-2 text-lg font-semibold">{$_('snapps.label')}</h4>
 						<button
 							onclick={(e) => {
@@ -302,10 +302,10 @@
 								show_snapp_panel = true;
 								snapp_action = 'create';
 							}}
-							class="flex h-12 w-max items-center gap-2 rounded border border-slate-500/50 p-0 px-4 text-sm font-semibold transition-all hover:bg-slate-500 hover:text-neutral-50 md:h-8 md:w-max md:justify-center lg:px-2"
+							class="flex h-12 w-full items-center gap-2 rounded border border-slate-500/50 p-0 px-4 text-sm font-semibold transition-all hover:bg-slate-500 hover:text-neutral-50 md:h-8 md:w-max md:justify-center lg:px-2"
 						>
 							<Icon ph="plus" />
-							<span class="ps-3 md:p-0">{$_('snapps.labels.create')}</span>
+							<small class="ps-3 md:p-0">{$_('snapps.labels.create')}</small>
 						</button>
 					</Card>
 				</div>

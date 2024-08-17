@@ -53,8 +53,10 @@
 		const original_url = e.clipboardData?.getData('text/plain');
 		if (original_url && !data.allow_http && !original_url.startsWith('https://'))
 			return toast.info($_('errors.snapps.unallowed-not-https'));
-		else if (show_snapp_panel) _snapp.original_url = original_url;
-		toast.info($_('snapps.helpers.text-pasted'));
+		else if (show_snapp_panel && document.activeElement?.id !== 'original-url') {
+			_snapp.original_url = original_url;
+			toast.info($_('snapps.helpers.text-pasted'));
+		}
 	};
 
 	let has_secret = $state<boolean>(false);
@@ -269,6 +271,7 @@
 		toast.info($_('snapps.helpers.copied-to-clipboard'));
 	};
 	let limitValue = $state<number>(data.limit);
+	let original_url_field = $state<HTMLInputElement>();
 </script>
 
 <svelte:window bind:innerWidth />
@@ -333,8 +336,8 @@
 		</h2>
 		<div class="flex w-full" style:height={innerWidth < 1024 ? 'calc(100% - 4rem)' : 'h-full'}>
 			<Card css={{ card: 'h-full gap-4' }}>
-				<div class="flex w-full items-center gap-4">
-					<Card css={{ card: 'flex-row justify-between gap-4 p-2' }}>
+				<div class="flex flex-col w-full items-center gap-4">
+					<Card css={{ card: 'md:flex-row justify-between gap-4 p-2' }}>
 						<h4 class="whitespace-nowrap ps-2 text-lg font-semibold">{$_('snapps.label')}</h4>
 						<button
 							onclick={(e) => {
@@ -342,10 +345,10 @@
 								show_snapp_panel = true;
 								snapp_action = 'create';
 							}}
-							class="flex h-12 w-max items-center gap-2 rounded border border-slate-500/50 p-0 px-4 text-sm font-semibold transition-all hover:bg-slate-500 hover:text-neutral-50 md:h-8 md:w-max md:justify-center lg:px-2"
+							class="flex h-12 w-full items-center gap-2 rounded border border-slate-500/50 p-0 px-4 text-sm font-semibold transition-all hover:bg-slate-500 hover:text-neutral-50 md:h-8 md:w-max md:justify-center lg:px-2"
 						>
 							<Icon ph="plus" />
-							<span class="ps-3 md:p-0">{$_('snapps.labels.create')}</span>
+							<small class="text-sm ps-3 leading-none md:p-0">{$_('snapps.labels.create')}</small>
 						</button>
 					</Card>
 				</div>
@@ -780,6 +783,7 @@
 		<Card css={{ card: 'p-2 items-start gap-4' }}>
 			<div class="flex w-full flex-col gap-2">
 				<Input
+					bind:element={original_url_field}
 					icons={{ left: 'globe', right: 'clipboard' }}
 					name="original-url"
 					actions={{

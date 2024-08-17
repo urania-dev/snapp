@@ -102,4 +102,6 @@
   - Fixed some scrolling prevented from mobile
 - 0.8.2
   - Fixed SQLite initialization, and .dockerignore fle
+  - Fixed Duplication on pasting
   - Fixed typos in homepage
+  - Fixed scrollbars on chrome (sorry, FF user here, i haven't noticed before.)
