@@ -5,7 +5,7 @@ export const get_snapp = async (
 	query?: string,
 	limit: number = 10,
 	offset: number = 0,
-	orderBy: { [key: string]: { ascending: boolean } } | undefined = undefined
+	orderBy: { [key: string]: 'asc'|'desc' } | undefined = undefined
 ) => {
 	await prisma.snapp.deleteMany({ where: { expiration: { lte: new Date() } } });
 	const snapps = await prisma.snapp

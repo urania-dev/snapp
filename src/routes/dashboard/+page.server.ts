@@ -7,6 +7,7 @@ import {
 	SNAPP_ORIGIN_URL_REQUESTED,
 	UNAUTHORIZED
 } from '$lib/utils/constants.js';
+import type { Prisma } from '@prisma/client';
 
 import { fail, redirect } from '@sveltejs/kit';
 
