@@ -11,7 +11,7 @@ RUN npm install --legacy-peer-deps
 
 # Copy the rest of the application code
 COPY . .
-ENV DATABASE_URL=file:./db.sqlite
+ENV DATABASE_URL=file:./database/db.sqlite
 RUN npx prisma generate --schema prisma/sqlite/schema.prisma
 RUN npx prisma migrate dev -n init --schema prisma/sqlite/schema.prisma
 RUN npx prisma migrate deploy --schema prisma/sqlite/schema.prisma

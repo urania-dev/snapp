@@ -100,3 +100,6 @@
   - Fixed database declination and instantiation.
   - Fixed some labels mishaps in auth process
   - Fixed some scrolling prevented from mobile
+- 0.8.2
+  - Fixed SQLite initialization, and .dockerignore fle
+  - Fixed typos in homepage
