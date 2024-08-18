@@ -18,7 +18,7 @@ export const load = async ({ locals: { session, user }, request, params: { id },
 	if (!snapp || err) redirect(302, '/dashboard');
 	const metrics = await getTimelineValue(snapp.id, start, end);
 	const totalVisits = await prisma.usages.count({ where: { snappId: snapp.id } });
-	return { snapp, metrics, start, end, totalVisits };
+	return { snapp, metrics, start, end, totalVisits, origin:url.origin };
 };
 
 export const actions = {

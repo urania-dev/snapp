@@ -18,7 +18,9 @@ import {
 	SMTP_PASS,
 	SMTP_STATUS,
 	NOT_NULL,
-	EQUALS_NULL
+	EQUALS_NULL,
+	UMAMI_WEBSITE_ID,
+	UMAMI_URL
 } from '$lib/utils/constants.js';
 import { fail, redirect } from '@sveltejs/kit';
 import type { User } from 'lucia';
@@ -79,6 +81,12 @@ export async function load({ locals: { user, session, theme }, fetch, url }) {
 		spu: is_admin
 			? await database.settings.get(MAX_SNAPPS_PER_USER).then((res) => parseInt(res?.value || '0'))
 			: 0,
+		umami_website_id: is_admin
+			? await database.settings.get(UMAMI_WEBSITE_ID).then((res) => res?.value)
+			: undefined,
+		umami_url: is_admin
+			? await database.settings.get(UMAMI_URL).then((res) => res?.value)
+			: undefined,
 		smtp_host: is_admin
 			? await database.settings.get(SMTP_HOST).then((res) => res?.value)
 			: undefined,

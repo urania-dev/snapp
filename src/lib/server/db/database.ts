@@ -1,5 +1,6 @@
-import { ENABLED_SIGNUP, INITIALIZED_DB, USER_EXISTS } from '$lib/utils/constants';
+import { ENABLED_SIGNUP, INITIALIZED_DB, UMAMI_URL, UMAMI_WEBSITE_ID, USER_EXISTS } from '$lib/utils/constants';
 import { env } from '$env/dynamic/private';
+import { env as publicEnv } from '$env/dynamic/public';
 import { parse_db_setting } from '$lib/server/db/helpers/parse_db_setting';
 import { create_user } from './users/create';
 import { set_setting } from './settings/set';
@@ -101,8 +102,19 @@ export class Database {
 		);
 		await this.settings.set(ENABLED_SIGNUP, 'false');
 
-		if (error && error === USER_EXISTS) return console.log(USER_EXISTS);
-		else await this.settings.set(INITIALIZED_DB, 'true');
+		if (error && error === USER_EXISTS) console.log("ADMIN Already exists. Skipped creation");
+
+		const ENV_UMAMI_URL = publicEnv.PUBLIC_UMAMI_URL
+		const ENV_UMAMI_WEBSITE_ID = publicEnv.PUBLIC_UMAMI_WEBSITE_ID
+
+		if (ENV_UMAMI_URL !== undefined && ENV_UMAMI_WEBSITE_ID !== undefined) {
+			await this.settings.set(UMAMI_URL, ENV_UMAMI_URL)
+			await this.settings.set(UMAMI_WEBSITE_ID, ENV_UMAMI_WEBSITE_ID)
+			console.log("UMAMI Integration: configuration added to the database.")
+		}
+
+
+		await this.settings.set(INITIALIZED_DB, 'true');
 	};
 }
 

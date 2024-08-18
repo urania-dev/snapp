@@ -105,3 +105,7 @@
   - Fixed Duplication on pasting
   - Fixed typos in homepage
   - Fixed scrollbars on chrome (sorry, FF user here, i haven't noticed before.)
+- 0.8.3
+  - Restored Forgotten Umami Integration in settings, added to .env.example
+  - Restore QRCode Creation and download 
+  - Fixed some minor UI Issues

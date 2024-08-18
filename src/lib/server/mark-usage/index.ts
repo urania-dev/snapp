@@ -48,9 +48,8 @@ async function markUsage(
 	const location = await getLocation(real_ip);
 	if (location) ({ city, country, region } = location);
 
-	const umamiURL = await database.settings.get(UMAMI_URL);
-	const websiteID = await database.settings.get(UMAMI_WEBSITE_ID);
-
+	const umamiURL = (await database.settings.get(UMAMI_URL))?.value;
+	const websiteID = (await database.settings.get(UMAMI_WEBSITE_ID))?.value;
 	if (umamiURL && websiteID) {
 		let data = {
 			payload: {
@@ -66,17 +65,6 @@ async function markUsage(
 			},
 			type: 'event'
 		};
-
-		if (eventData !== null) {
-			data = {
-				...data,
-				payload: {
-					...data.payload,
-					name: 'Invalid secret on /' + snapp.shortcode,
-					data: eventData
-				}
-			};
-		}
 
 		await fetch(`${umamiURL}/api/send`, {
 			method: 'POST',

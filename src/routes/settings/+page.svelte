@@ -16,6 +16,7 @@
 	import Card from '$lib/ui/card.svelte';
 	import { env } from '$env/dynamic/public';
 	import Migration from './migration.svelte';
+	import UmamiIntegration from './umami_integration.svelte';
 
 	let { data, form } = $props();
 
@@ -92,6 +93,13 @@
 				bind:allow_http={data.allow_http}
 				{save_this}
 			/>
+			<UmamiIntegration
+				{save_this}
+				umami_url={data.umami_url}
+				umami_website_id={data.umami_website_id}
+				is_admin={data.is_admin}
+				role={data.user.role}
+			/>
 			<Migration></Migration>
 			<SmtpPanel
 				bind:smtp_from={data.smtp_from}
@@ -131,12 +139,12 @@
 			/>
 		{/if}
 
-		<Card css={{ card: 'flex-row gap-4' }}>
-			<Card css={{ card: 'flex-row gap-6' }}>
+		<Card css={{ card: 'md:flex-row gap-4' }}>
+			<Card css={{ card: 'md:flex-row gap-6' }}>
 				<a
 					href="https://github.com/urania-dev/snapp"
 					target="_blank"
-					class="group flex items-center gap-2"
+					class="group flex items-center gap-2 md:max-w-max w-full"
 				>
 					<Icon ph="github-logo"></Icon>
 					<small class="pt-0.5 transition-all group-hover:text-pink-500">Github</small>
@@ -144,7 +152,7 @@
 				<a
 					href="https://hub.docker.com/r/uraniadev/snapp"
 					target="_blank"
-					class=" group flex items-center gap-2"
+					class=" group flex items-center gap-2 md:max-w-max w-full"
 				>
 					<Icon ph="shipping-container"></Icon>
 					<small class="pt-0.5 transition-all group-hover:text-pink-600">Docker Hub</small>
@@ -152,7 +160,7 @@
 				<a
 					href="https://opensource.org/license/mit"
 					target="_blank"
-					class="group ms-auto flex items-center gap-2"
+					class="group ms-auto flex items-center md:max-w-max gap-2 w-full"
 				>
 					<Icon ph="keyhole"></Icon>
 					<small class="pt-0.5 transition-all group-hover:text-pink-500"
@@ -160,7 +168,7 @@
 					>
 				</a>
 			</Card>
-			<Card css={{ card: 'flex-row max-w-max' }}>
+			<Card css={{ card: 'flex-row md:max-w-max w-full' }}>
 				<small class="font-bold">
 					version: {env.PUBLIC_SNAPP_VERSION}
 				</small>

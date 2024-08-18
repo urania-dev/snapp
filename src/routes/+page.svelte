@@ -1,4 +1,5 @@
 <script>
+	import { env } from '$env/dynamic/public';
 	import Card from '$lib/ui/card.svelte';
 	import Icon from '$lib/ui/icon.svelte';
 	import logo from '$lib/utils/logo.svg?raw';
@@ -7,6 +8,16 @@
 
 	let { data } = $props();
 </script>
+
+<svelte:head>
+	{#if env.PUBLIC_UMAMI_URL}
+		<script
+			async
+			src="{env.PUBLIC_UMAMI_URL}/script.js"
+			data-website-id={env.PUBLIC_UMAMI_WEBSITE_ID}
+		></script>
+	{/if}
+</svelte:head>
 
 <div class="flex w-full flex-col p-4 pb-8">
 	<div class="mx-auto flex h-full w-full max-w-5xl flex-col gap-4">

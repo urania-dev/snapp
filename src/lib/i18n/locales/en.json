@@ -77,7 +77,7 @@
 			"helpers": {
 				"forgot-password": "Enter your email to start password recovery.",
 				"recover-password": "This will trigger a password reset email to this account.",
-				"set-new-password":"Set up a password for your account."
+				"set-new-password": "Set up a password for your account."
 			},
 			"forgot-password": "Forgot your password?",
 			"go-to-signup": "Don't have an account? Register at the <a class=\"link\" href=\"{url}\">signup page</a>.",
@@ -150,6 +150,8 @@
 		"save": "Save",
 		"active": "Active",
 		"disabled": "Disabled",
+		"download": "Download",
+		"share": "Share",
 		"back": "Back",
 		"start": "Start",
 		"end": "End",
