@@ -9,7 +9,6 @@ async function markUsage(
 	snapp: Snapp,
 	request: Request,
 	url: URL,
-	eventData: any = null,
 	fetch: SvelteFetch
 ) {
 	const headers = Object.fromEntries(request.headers);

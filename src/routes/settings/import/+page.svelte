@@ -46,12 +46,15 @@
 		});
 
 		if (old_snapps.data.length)
-			import_list = old_snapps.data.map((snapp) => ({
-				userId: data.user.id,
-				shortcode: snapp.shortcode,
-				original_url: snapp.original_url,
-				created: snapp.created
-			}));
+			import_list = old_snapps.data
+				.filter((snapp) => snapp.original_url && snapp.original_url?.trim() !== '')
+				.map((snapp) => ({
+					userId: data.user.id,
+					shortcode: snapp.shortcode,
+					original_url: snapp.original_url,
+					created: snapp.created,
+					hit: snapp.used
+				}));
 	}
 
 	function getRelativeDate(date: Date) {

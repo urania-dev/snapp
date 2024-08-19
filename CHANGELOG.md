@@ -109,3 +109,6 @@
   - Restored Forgotten Umami Integration in settings, added to .env.example
   - Restore QRCode Creation and download 
   - Fixed some minor UI Issues
+- 0.8.4
+  - Re-added snapp select and bulk delete
+  - Fixed some inconsistencies during import, now it import creation date and visits

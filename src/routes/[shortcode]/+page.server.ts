@@ -30,7 +30,7 @@ export const load = async ({
 		const data = await parent();
 		if (secret === null) {
 			if (user === null || (user && user.id !== redirection.userId))
-				await markUsage(redirection, request, url, null, fetch);
+				await markUsage(redirection, request, url, fetch);
 			throw redirect(302, redirection.original_url);
 		} else return { ...data, shortcode, has_secret: true };
 	} else error(404, { message: 'errors.snapps.not-found' });
@@ -58,7 +58,7 @@ export const actions = {
 			});
 
 			if (validPassword) {
-				if (!user || user.id !== snapp.userId) await markUsage(snapp, request, url, null, fetch);
+				if (!user || user.id !== snapp.userId) await markUsage(snapp, request, url, fetch);
 				return { url: snapp.original_url };
 			} else
 				return fail(401, {

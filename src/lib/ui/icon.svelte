@@ -8,7 +8,7 @@
 		css
 	}: {
 		ph: string;
-		style?: 'regular' | 'bold' | 'thin' | 'duotone';
+		style?: 'regular' | 'bold' | 'thin' | 'duotone'|'fill';
 		size?: number;
 		css?: { [key: string]: string };
 	} = $props();

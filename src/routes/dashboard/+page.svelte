@@ -21,7 +21,7 @@
 	import { queryParam } from 'sveltekit-search-params';
 	import { page } from '$app/stores';
 	let { data, form } = $props();
-	let snapp_action = $state<'create' | 'edit' | 'delete'>();
+	let snapp_action = $state<'create' | 'edit' | 'delete' | 'delete-all'>();
 
 	let show_snapp_panel = $state(false);
 	let show_secret = $state(false);
@@ -140,6 +140,16 @@
 		if (idx) document.forms.namedItem(idx)?.requestSubmit();
 	};
 
+	const enhanceDeleteAction: SubmitFunction = ({ formData, cancel }) => {
+		if (!selected.length) return cancel();
+		formData.set('ids', JSON.stringify(selected));
+		return async ({ result }) => {
+			await applyAction(result);
+			await invalidateAll();
+			if (form?.message) toast.info($_(form.message));
+			if (form?.success === true) close_and_reset_panel();
+		};
+	};
 	const enhanceSnappAction: SubmitFunction = ({ formData, cancel }) => {
 		if (ttl) _snapp.expiration = new Date(new Date().getTime() + ttl * 1000);
 		if (_snapp) formData.set('snapp', JSON.stringify(_snapp));
@@ -170,6 +180,7 @@
 		has_expiration = false;
 		has_limited_usage = false;
 		_snapp = snapp_initial_value;
+		selected = [];
 	};
 
 	const open_edit_panel: MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -272,6 +283,26 @@
 	};
 	let limitValue = $state<number>(data.limit);
 	let original_url_field = $state<HTMLInputElement>();
+
+	let selected = $state<string[]>([]);
+
+	const handle_select_this: MouseEventHandler<HTMLButtonElement> = (e) => {
+		const idx = e.currentTarget.dataset.idx;
+		if (!idx) return;
+		if (idx === 'all') {
+			if (selected.length === data.snapps.length) {
+				selected.splice(0, selected.length);
+			} else {
+				selected = [];
+				for (let snapp of data.snapps) {
+					selected.push(snapp.id);
+				}
+			}
+		} else if (selected.includes(idx)) {
+			const index = selected.findIndex((i) => i === idx);
+			selected.splice(index, 1);
+		} else selected.push(idx);
+	};
 </script>
 
 <svelte:window bind:innerWidth />
@@ -288,6 +319,13 @@
 	id="save-columns"
 	hidden
 	use:enhance={enhanceSaveColumn}
+	method="post"
+></form>
+<form
+	action="?/delete-all"
+	id="delete-all"
+	hidden
+	use:enhance={enhanceDeleteAction}
 	method="post"
 ></form>
 <form action="?/delete" id="delete" hidden use:enhance={enhanceSnappAction} method="post"></form>
@@ -339,17 +377,32 @@
 				<div class="flex flex-col w-full items-center gap-4">
 					<Card css={{ card: 'md:flex-row justify-between gap-4 p-2' }}>
 						<h4 class="whitespace-nowrap ps-2 text-lg font-semibold">{$_('snapps.label')}</h4>
-						<button
-							onclick={(e) => {
-								e.stopPropagation();
-								show_snapp_panel = true;
-								snapp_action = 'create';
-							}}
-							class="flex h-12 w-full items-center gap-2 rounded border border-slate-500/50 p-0 px-4 text-sm font-semibold transition-all hover:bg-slate-500 hover:text-neutral-50 md:h-8 md:w-max md:justify-center lg:px-2"
-						>
-							<Icon ph="plus" />
-							<small class="text-sm ps-3 leading-none md:p-0">{$_('snapps.labels.create')}</small>
-						</button>
+						{#if !selected.length}
+							<button
+								in:fade
+								onclick={(e) => {
+									e.stopPropagation();
+									show_snapp_panel = true;
+									snapp_action = 'create';
+								}}
+								class="flex h-12 w-full items-center gap-2 rounded border border-slate-500/50 p-0 px-4 text-sm font-semibold transition-all hover:bg-slate-500 hover:text-neutral-50 md:h-8 md:w-max md:justify-center lg:px-2"
+							>
+								<Icon ph="plus" />
+								<small class="text-sm ps-3 leading-none md:p-0">{$_('snapps.labels.create')}</small>
+							</button>{:else}
+							<button
+								in:fade
+								onclick={(e) => {
+									e.stopPropagation();
+									show_confirm_panel = true;
+									snapp_action = 'delete-all';
+								}}
+								class="flex h-12 w-full items-center gap-2 rounded border border-red-500/50 p-0 px-4 text-sm font-semibold transition-all hover:bg-red-500/25 hover:text-neutral-50 md:h-8 md:w-max md:justify-center lg:px-2"
+							>
+								<Icon ph="trash" />
+								<small class="text-sm ps-3 leading-none md:p-0">{$_('globals.delete')}</small>
+							</button>
+						{/if}
 					</Card>
 				</div>
 				<Card
@@ -361,6 +414,21 @@
 						<table class="w-full table-auto text-sm">
 							<thead>
 								<tr class="table-row h-10">
+									<th class="px-2 table-cell" style:width="1.5rem">
+										<button
+											class="flex h-5 w-5 items-center justify-center rounded border border-slate-500/50 bg-neutral-50 dark:bg-neutral-950"
+											onclick={handle_select_this}
+											data-idx="all"
+										>
+											{#if selected.length === data.snapps.length}
+												<Icon ph="check" size={14} />
+											{:else if selected.length === 0}
+												&nbsp;
+											{:else}
+												<Icon ph="circle" size={4} style="fill" />
+											{/if}
+										</button>
+									</th>
 									{#if columns.includes('original_url')}
 										<th class="table-cell px-2">
 											<button
@@ -533,6 +601,19 @@
 									<tr
 										class="h-14 w-full border border-slate-500/25 bg-slate-500/5 p-4 transition-all hover:bg-slate-500/15 md:h-12"
 									>
+										<th class="px-2 table-cell" style:width="1.5rem">
+											<button
+												class="flex h-5 w-5 items-center justify-center rounded border border-slate-500/50 bg-neutral-50 dark:bg-neutral-950"
+												onclick={handle_select_this}
+												data-idx={snapp.id}
+											>
+												{#if selected.includes(snapp.id)}
+													<Icon ph="check" size={14} />
+												{:else}
+													&nbsp;
+												{/if}
+											</button>
+										</th>
 										{#if columns.includes('original_url')}
 											<td
 												class="table-cell w-52 max-w-52 overflow-hidden text-ellipsis whitespace-nowrap px-2 align-middle"
@@ -653,6 +734,9 @@
 										class="h-14 w-full border border-slate-500/25 bg-slate-500/5 p-4 transition-all hover:bg-slate-500/15 md:h-10"
 									>
 										{#key columns.length}
+											<td class="table-cell whitespace-nowrap px-2 text-center align-middle"
+												>&nbsp;</td
+											>
 											{#each { length: columns.length + 1 } as _, idx}
 												<td class="table-cell whitespace-nowrap px-2 text-center align-middle"
 													>&nbsp;</td
@@ -1069,7 +1153,7 @@
 					</small>
 				</button>
 				<button
-					data-idx="delete"
+					data-idx={snapp_action}
 					onclick={handle_save}
 					class="flex h-8 w-full items-center justify-center gap-2 rounded border-none bg-red-500/25 outline-none transition-all hover:bg-red-500/50 focus:bg-red-500/50"
 					><Icon ph="trash" size={16} /><small class="pt-0.5 font-semibold">

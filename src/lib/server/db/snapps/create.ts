@@ -25,7 +25,7 @@ export const create_snapp = async (snapp: Partial<Snapp>, userId: string, fetch:
 		if (api_limited && count >= max_snapps) return [null, MAX_SNAPPS_PER_USER] as [null, string];
 	}
 
-	let { original_url, shortcode, notes, secret, expiration, max_usages } = snapp;
+	let { original_url, hit, shortcode, created, notes, secret, expiration, max_usages } = snapp;
 
 	if (!original_url || typeof original_url !== 'string' || original_url.trim() === '')
 		return [null, SNAPP_ORIGIN_URL_REQUESTED] as [null, string];
@@ -44,12 +44,12 @@ export const create_snapp = async (snapp: Partial<Snapp>, userId: string, fetch:
 	const exists = await prisma.snapp.count({ where: { shortcode: { startsWith: shortcode } } });
 	const password_hash = secret
 		? await hash(secret, {
-				// recommended minimum parameters
-				memoryCost: 19456,
-				timeCost: 2,
-				outputLen: 32,
-				parallelism: 1
-			})
+			// recommended minimum parameters
+			memoryCost: 19456,
+			timeCost: 2,
+			outputLen: 32,
+			parallelism: 1
+		})
 		: null;
 
 	const new_snapp = await prisma.snapp.create({
@@ -60,7 +60,9 @@ export const create_snapp = async (snapp: Partial<Snapp>, userId: string, fetch:
 			notes,
 			secret: password_hash,
 			expiration,
-			max_usages
+			max_usages,
+			created,
+			hit
 		}
 	});
 

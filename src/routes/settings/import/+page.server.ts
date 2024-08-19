@@ -22,7 +22,7 @@ export const actions = {
 		const snapps = JSON.parse(snapp_string) as Partial<Snapp>[];
 
 		for (let snapp of snapps) {
-			if (!snapp.original_url) return fail(400, { message: 'errors.snapps.orginal-url-missing' });
+			if (!snapp.original_url) return fail(400, { message: 'errors.snapps.original-url-missing' });
 			const [, err] = await database.snapps.create({ ...snapp }, user.id, fetch);
 			if (err) return fail(400, { message: 'migrations.failed' });
 		}

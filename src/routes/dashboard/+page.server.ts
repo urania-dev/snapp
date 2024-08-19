@@ -95,9 +95,25 @@ export const actions = {
 
 		const [count, err] = await database.snapps.delete(user.id, id);
 		let message: string | undefined = undefined;
-		if (err === SNAPP_NOT_FOUND) message = 'errors.snapps.max-snapps';
+		if (err === SNAPP_NOT_FOUND) message = 'errors.snapps.not-found';
 		if (err === UNAUTHORIZED) message = 'errors.unauthorized';
 		if (message) return fail(400, { message });
+
+		return { message: 'snapps.actions.deleted', success: true };
+	},
+	'delete-all': async ({ locals: { session, user }, request, fetch }) => {
+		if (!session || !user) redirect(302, '/');
+
+		const form = await request.formData();
+		const ids  = form.get('ids')?.toString() && JSON.parse(form.get('ids')!.toString());
+		for (let id of ids) {
+			let message: string | undefined = undefined;
+			const [count, err] = await database.snapps.delete(user.id, id);
+			console.log(id)
+			if (err === SNAPP_NOT_FOUND) message = 'errors.snapps.not-found';
+			if (err === UNAUTHORIZED) message = 'errors.unauthorized';
+			if (message) return fail(400, { message });
+		}
 
 		return { message: 'snapps.actions.deleted', success: true };
 	},
