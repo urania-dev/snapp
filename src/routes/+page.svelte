@@ -10,11 +10,11 @@
 </script>
 
 <svelte:head>
-	{#if env.PUBLIC_UMAMI_URL}
+	{#if data.UMAMI_WEBSITE_ID}
 		<script
 			async
-			src="{env.PUBLIC_UMAMI_URL}/script.js"
-			data-website-id={env.PUBLIC_UMAMI_WEBSITE_ID}
+			src="{data.UMAMI_WEBSITE_URL}/script.js"
+			data-website-id={data.UMAMI_WEBSITE_ID}
 		></script>
 	{/if}
 </svelte:head>
@@ -143,7 +143,9 @@
 								{@html $_('homepage.features.rest-api.label', { values: { url: '/docs' } })}
 							</h4>
 							<small class="text-sm text-balance tracking-wide leading-relaxed"
-								>{@html $_('homepage.features.rest-api.description')}</small
+								>{@html $_('homepage.features.rest-api.description', {
+									values: { url: '/docs' }
+								})}</small
 							>
 						</Card>
 					</div>

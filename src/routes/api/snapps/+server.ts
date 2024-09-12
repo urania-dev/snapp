@@ -31,7 +31,7 @@ export const GET = async (event) => {
 		offset,
 		orderBy
 			? {
-					[orderBy]: ascending
+					[orderBy]: ascending ? 'asc' : 'desc'
 				}
 			: undefined
 	);

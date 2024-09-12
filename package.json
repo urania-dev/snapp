@@ -46,7 +46,7 @@
 		"@lucia-auth/adapter-prisma": "^4.0.1",
 		"@node-rs/argon2": "^1.8.3",
 		"@prisma/client": "5.18.0",
-		"@sveltejs/adapter-node": "^5.2.0",
+		"@sveltejs/adapter-node": "^5.2.2",
 		"@types/jsonwebtoken": "^9.0.6",
 		"@types/ua-parser-js": "^0.7.39",
 		"chart.js": "^4.4.3",

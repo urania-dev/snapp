@@ -112,3 +112,8 @@
 - 0.8.4
   - Re-added snapp select and bulk delete
   - Fixed some inconsistencies during import, now it import creation date and visits
+- 0.8.5
+  - Fixed api errors on ordering and filtering
+  - Fixed Docs url not working in homepage
+  - Fixed Base url to ORIGIN instead of official snapp.li API REST Endpoint
+  - Fixed UMAMI not linking

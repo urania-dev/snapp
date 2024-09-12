@@ -1,3 +1,4 @@
+import { env } from '$env/dynamic/private';
 import { database } from '$lib/server/db/database';
 import { DISABLE_HOME } from '$lib/utils/constants';
 
@@ -11,6 +12,7 @@ export async function load({ locals: { lang, session, theme, user }, url }) {
 		theme: _theme,
 		lang: _lang,
 		pathname: url.pathname,
+		origin: env.origin || url.origin,
 		is_authenticated,
 		home_disabled,
 		is_admin

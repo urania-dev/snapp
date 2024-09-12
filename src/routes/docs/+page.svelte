@@ -5,13 +5,15 @@
 	import SwaggerUI from 'swagger-ui';
 	import { _ } from 'svelte-i18n';
 
+	let { data } = $props();
 	onMount(async () => {
 		SwaggerUI({
-			spec: swaggerJson,
+			spec: JSON.parse(JSON.stringify(swaggerJson).replaceAll('https://snapp.li', data.origin)),
 			dom_id: '#swagger-ui-container'
 		});
 	});
-	let { data } = $props();
+
+	console.log(data.origin)
 
 	let theme = $derived(data);
 </script>

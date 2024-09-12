@@ -1,0 +1,14 @@
+# .dockerignore
+.vscode
+node_modules
+.env
+.env.example
+.git
+prisma/sqlite/database/db.sqlite
+.gitattributes
+.eslintignore
+.eslintrc.cjs
+.prettierrc
+.prettierignore
+README.md
+Dockerfile
