@@ -1,4 +1,4 @@
-import { extractDomain } from '$lib/server/extract-domain';
+import { extractDomain } from '$lib/i18n/locales/extract-domain';
 import { prisma } from '$lib/server/prisma';
 import { SNAPP_NOT_FOUND, VIRUSTOTAL_API_KEY } from '$lib/utils/constants';
 import { database } from '../database';
