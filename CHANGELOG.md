@@ -119,4 +119,6 @@
   - Fixed UMAMI not linking
 - 0.8.6
   - Restored ENV Configuration for initial setup
+- 0.8.6.1
+  - Found a typo in email for password recovery
   

@@ -53,7 +53,7 @@ export const actions = {
 				to: user.email,
 				subject: 'Snapp: Password Recovery',
 				html: html
-					.replaceAll('{APP_NAME}', APPNAME)
+					.replaceAll('{APPNAME}', APPNAME)
 					.replaceAll('{ORIGIN_URL}', ORIGIN_URL)
 					.replaceAll('{LOGO_URL}', LOGO_URL)
 					.replaceAll('{NAME}', NAME)
