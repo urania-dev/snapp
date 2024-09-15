@@ -104,7 +104,7 @@ ENABLE_SIGNUP=false
 VTAPI_KEY= # VIRUSTOTAL API KEY
 SMTP_HOST= # host smtp.example.com
 SMTP_USER= # info@example.com
-SMTP_PASS= # openssl rand -base64 32
+SMTP_PASS= # account password
 SMTP_FROM= # no-reply@example.com
 SMTP_PORT= # 465
 ```

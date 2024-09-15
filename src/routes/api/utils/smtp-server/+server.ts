@@ -39,17 +39,18 @@ export const GET = async () => {
 		await database.settings.set(SMTP_STATUS, 'true');
 		if (!expiration) expiration = new Date();
 		expiration.setDate(expiration.getDate() + 7) && expiration.setHours(0, 0, 0, 0);
-
+		console.log(response)
 		return json(
 			{ active: true },
 			{
 				headers: {
 					'cache-control':
-						'max-age=' + Math.floor(Math.abs(new Date().getTime() - expiration.getTime()) / 1000)
+					'max-age=' + Math.floor(Math.abs(new Date().getTime() - expiration.getTime()) / 1000)
 				}
 			}
 		);
 	} catch (error) {
+		console.log(error)
 		return json({ active: false, error: (error as Error).message });
 	}
 };
