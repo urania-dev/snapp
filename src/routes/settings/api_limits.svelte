@@ -8,20 +8,18 @@
 		MAX_SNAPPS_PER_USER
 	} from '$lib/utils/constants';
 	import { debounce } from '$lib/utils/debounce';
-	import type { User } from 'lucia';
 	import { _ } from 'svelte-i18n';
 
 	let {
 		rpd = $bindable(),
 		rpm = $bindable(),
 		spu = $bindable(),
-
 		save_this
 	}: {
-		save_this(field: keyof User | keyof Setting | string, value: string, table?: string): void;
-		rpd: number;
-		rpm: number;
-		spu: number;
+		save_this(...args: any): void;
+		rpd?:  number ;
+		rpm?:  number ;
+		spu?:  number ;
 	} = $props();
 </script>
 

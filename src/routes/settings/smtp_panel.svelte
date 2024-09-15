@@ -7,6 +7,7 @@
 	import { SMTP_HOST, SMTP_PASS, SMTP_PORT, SMTP_USER, SMTP_FROM } from '$lib/utils/constants';
 	import type { User } from 'lucia';
 	import { debounce } from '$lib/utils/debounce';
+	import { toast } from '$lib/svelte-sonner';
 	let show_smtp_pass = $state(false);
 	let handle_show_smtp_pass: MouseEventHandler<HTMLButtonElement> = (e) => {
 		e.preventDefault();
@@ -20,41 +21,41 @@
 		smtp_pass = $bindable(),
 		smtp_from = $bindable(),
 		smtp_status = $bindable(),
-		save_this
+		save_this,
+		fetch
 	}: {
-		smtp_host: string | undefined;
-		smtp_port: string | undefined;
-		smtp_user: string | undefined;
-		smtp_pass: string | undefined;
-		smtp_from: string | undefined;
+		smtp_host: string | undefined | null | number;
+		smtp_port: string | undefined | null | number;
+		smtp_user: string | undefined | null | number;
+		smtp_pass: string | undefined | null | number;
+		smtp_from: string | undefined | null | number;
 		smtp_status: { active: boolean };
-		save_this(field: keyof User | string, value: string, table?: string): void;
+		save_this(...args: any): void;
+		fetch: SvelteFetch;
 	} = $props();
+
+	let test_sent = $state(false);
 </script>
 
 <Card css={{ card: 'gap-4' }}>
 	<Card css={{ card: 'flex-row justify-between py-2' }}>
 		<h4 class="text-lg font-semibold">{@html $_('admin.labels.smtp')}</h4>
-		<span class="flex items-center">
+		<span class="flex items-center gap-4">
+			{#if smtp_status.active === true}
+				<div title="Active" class="h-4 w-4 rounded-full bg-green-500"></div>
+			{:else}
+				<div title="Error" class="h-4 w-4 rounded-full bg-red-500"></div>
+			{/if}
 			<Icon ph="crown" size={24}></Icon>
 		</span>
 	</Card>
+	<Card css={{ card: 'h-full items-center flex-row' }}>
+		<small class="w-full text-balance leading-relaxed">{@html $_('admin.helpers.smtp')}</small>
+	</Card>
 	<div class="flex h-full w-full flex-col gap-4 lg:flex-row">
 		<div class="flex h-full w-full flex-col gap-4">
-			<Card css={{ card: 'h-full items-center flex-row' }}>
-				<small class="w-full text-balance leading-relaxed">{@html $_('admin.helpers.smtp')}</small>
-			</Card>
-		</div>
-		<div class="inline-flex h-full w-full flex-col gap-4">
 			<Card>
 				<div class="relative flex w-full gap-3">
-					<div class="absolute right-2 top-0.5 grid h-4 w-4 place-content-center">
-						{#if smtp_status.active === true}
-							<div title="Active" class="h-4 w-4 rounded-full bg-green-500"></div>
-						{:else}
-							<div title="Error" class="h-4 w-4 rounded-full bg-red-500"></div>
-						{/if}
-					</div>
 					<Input
 						css={{
 							label: 'inline-flex w-max',
@@ -81,9 +82,7 @@
 				</div>
 			</Card>
 		</div>
-	</div>
-	<div class="flex h-full w-full flex-col gap-4 lg:flex-row">
-		<div class="flex h-full w-full flex-col gap-4">
+		<div class="inline-flex h-full w-full flex-col gap-4">
 			<Card>
 				<Input
 					css={{
@@ -110,7 +109,9 @@
 				/>
 			</Card>
 		</div>
-		<div class="inline-flex h-full w-full flex-col gap-4">
+	</div>
+	<div class="flex h-full w-full flex-col gap-4 lg:flex-row">
+		<div class="flex h-full w-full flex-col gap-4">
 			<Card>
 				<Input
 					css={{
@@ -137,9 +138,7 @@
 				/>
 			</Card>
 		</div>
-	</div>
-	<div class="flex h-full w-full flex-col gap-4 lg:flex-row">
-		<div class="flex h-full w-full flex-col gap-4">
+		<div class="inline-flex h-full w-full flex-col gap-4">
 			<Card>
 				<Input
 					css={{
@@ -170,7 +169,9 @@
 				/>
 			</Card>
 		</div>
-		<div class="inline-flex h-full w-full flex-col gap-4">
+	</div>
+	<div class="flex h-full w-full flex-col gap-4 lg:flex-row">
+		<div class="flex h-full w-full flex-col gap-4">
 			<Card>
 				<Input
 					css={{
@@ -195,6 +196,29 @@
 					name={SMTP_FROM}
 					label={$_('admin.labels.smtp-from')}
 				/>
+			</Card>
+		</div>
+		<div class="inline-flex h-full w-full flex-col gap-4">
+			<Card css={{ card: 'h-full' }}>
+				<button
+					disabled={!smtp_status || test_sent}
+					onclick={async () => {
+						try {
+							const res = await (
+								await fetch('/api/utils/smtp-send-test', { credentials: 'include' })
+							).json();
+							smtp_status = res
+						} catch (error) {
+							console.log(error);
+						}
+						toast.info($_('users.auth.post-email-message'));
+					}}
+					class="mt-auto justify-between font-semibold flex h-10 w-full items-center gap-2 rounded bg-slate-500/25 px-4 text-sm transition-all hover:bg-slate-500/50"
+				>
+					<span>{$_('admin.labels.smtp-test')}</span>
+					<Icon ph="envelope" />
+				</button>
+				<span class="text-xs">{$_('admin.helpers.smtp-test')}</span>
 			</Card>
 		</div>
 	</div>

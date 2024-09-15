@@ -1,7 +1,6 @@
 import { database } from '$lib/server/db/database';
 import { SMTP_STATUS, SMTP_PORT, SMTP_HOST, SMTP_USER, SMTP_PASS } from '$lib/utils/constants';
 import { error, json } from '@sveltejs/kit';
-
 import { createTransport, type Transport, type TransportOptions } from 'nodemailer';
 
 export const GET = async () => {

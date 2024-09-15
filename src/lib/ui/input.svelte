@@ -18,7 +18,7 @@
 		placeholder
 	}: {
 		name: string;
-		label?: string;
+		label?: string | number | null;
 		type?: HTMLInputElement['type'];
 		icons?: { left?: string; right?: string };
 		actions?: {

@@ -18,7 +18,7 @@
 </script>
 
 <Card css={{ card: 'gap-4' }}>
-	<Card css={{ card: 'flex-row justify-between py-2' }}>
+	<Card css={{ card: 'flex-row justify-between py-2 w-full' }}>
 		<h4 class="text-lg font-semibold">{@html $_('migrations.label')}</h4>
 		<span class="flex items-center">
 			<Icon ph="crown" size={24}></Icon>

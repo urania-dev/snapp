@@ -25,7 +25,7 @@
 		save_this
 	}: {
 		username: string;
-		role: string;
+		role: 'user' | 'admin' | 'root';
 		email: string;
 		is_admin: boolean;
 		active_field: string | undefined;

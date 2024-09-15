@@ -13,7 +13,7 @@
 		token = $bindable(),
 		lang = $bindable(),
 		code
-	}: { code: string; token: (Token & { jwt: string | undefined }) | null; lang: string } = $props();
+	}: { code: string; token: (Token & { jwt: string }) | null; lang: string } = $props();
 
 	let show_apikey = $state(false);
 

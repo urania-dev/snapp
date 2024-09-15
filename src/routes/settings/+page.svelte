@@ -20,12 +20,14 @@
 
 	let { data, form } = $props();
 
-	let active_field = $state<keyof User | string>();
+	let { fetch } = $derived(data);
+
+	let active_field = $state<string>();
 
 	let edit_field_value = $state<string>();
 	let edit_field_table = $state<string>();
 
-	function save_this(field: keyof User | string, value: string, table = 'user') {
+	function save_this(field: string, value: string, table = 'user' as string) {
 		active_field = field;
 		edit_field_table = table;
 		edit_field_value = value;
@@ -109,7 +111,9 @@
 				bind:smtp_user={data.smtp_user}
 				bind:smtp_status={data.smtp_status}
 				{save_this}
+				{fetch}
 			></SmtpPanel>
+
 			{#if data.enable_limits}
 				<div class="flex w-full" transition:fly={{ y: 25 }}>
 					<ApiLimits bind:rpd={data.rpd} bind:rpm={data.rpm} bind:spu={data.spu} {save_this} />
