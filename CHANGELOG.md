@@ -117,3 +117,6 @@
   - Fixed Docs url not working in homepage
   - Fixed Base url to ORIGIN instead of official snapp.li API REST Endpoint
   - Fixed UMAMI not linking
+- 0.8.6
+  - Restored ENV Configuration for initial setup
+  

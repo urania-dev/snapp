@@ -1,4 +1,4 @@
-import { ENABLED_SIGNUP, INITIALIZED_DB, UMAMI_URL, UMAMI_WEBSITE_ID, USER_EXISTS } from '$lib/utils/constants';
+import { DISABLE_HOME, ENABLED_SIGNUP, INITIALIZED_DB, SMTP_FROM, SMTP_HOST, SMTP_PASS, SMTP_PORT, SMTP_USER, UMAMI_URL, UMAMI_WEBSITE_ID, USER_EXISTS, VIRUSTOTAL_API_KEY } from '$lib/utils/constants';
 import { env } from '$env/dynamic/private';
 import { env as publicEnv } from '$env/dynamic/public';
 import { parse_db_setting } from '$lib/server/db/helpers/parse_db_setting';
@@ -100,7 +100,8 @@ export class Database {
 			undefined,
 			'root'
 		);
-		await this.settings.set(ENABLED_SIGNUP, 'false');
+		const ENV_ENABLE_SIGNUP = env.ENABLE_SIGNUP || 'false'
+		await this.settings.set(ENABLED_SIGNUP, ENV_ENABLE_SIGNUP);
 
 		if (error && error === USER_EXISTS) console.log("ADMIN Already exists. Skipped creation");
 
@@ -113,6 +114,25 @@ export class Database {
 			console.log("UMAMI Integration: configuration added to the database.")
 		}
 
+		const ENV_DISABLE_HOME = env.DISABLE_HOME || 'false'
+		await this.settings.set(DISABLE_HOME, ENV_DISABLE_HOME);
+		if (ENV_DISABLE_HOME && ENV_DISABLE_HOME === 'true') console.log("Disable Home: configuration added to the database.")
+
+		let ENV_SMTP_HOST = env.SMTP_HOST || null
+		let ENV_SMTP_PORT = env.SMTP_PORT || null
+		let ENV_SMTP_USER = env.SMTP_USER || null
+		let ENV_SMTP_PASS = env.SMTP_PASS || null
+		let ENV_SMTP_FROM = env.SMTP_FROM || null
+		let ENV_VTAPIKEY = env.VTAPI_KEY || null
+
+		if (ENV_SMTP_HOST) await this.settings.set(SMTP_HOST, ENV_SMTP_HOST);
+		if (ENV_SMTP_PORT) await this.settings.set(SMTP_PORT, ENV_SMTP_PORT);
+		if (ENV_SMTP_USER) await this.settings.set(SMTP_USER, ENV_SMTP_USER);
+		if (ENV_SMTP_PASS) await this.settings.set(SMTP_PASS, ENV_SMTP_PASS);
+		if (ENV_SMTP_FROM) await this.settings.set(SMTP_FROM, ENV_SMTP_FROM);
+		if (ENV_VTAPIKEY) await this.settings.set(VIRUSTOTAL_API_KEY, ENV_VTAPIKEY);
+		if (ENV_VTAPIKEY) console.log("VirusTotal API Key: configuration added to the database.")
+		if (ENV_SMTP_HOST) console.log("SMPT Setup: configuration added to the database.")
 
 		await this.settings.set(INITIALIZED_DB, 'true');
 	};
