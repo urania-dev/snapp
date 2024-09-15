@@ -82,7 +82,7 @@ Snapp at his version 0.8 includes from start Italian, English, German, French, S
 
 The latest versions of Snapp include CSV Export to facilitate migration. Simply log in and import your URLs from the dashboard, and continue from where you left.
 
-### ENV Variables
+## ENV Variables
 
 Some configuration moved from envs variable to settings page in-app, thou there are some ENV that could be set as default on first launch:
 
