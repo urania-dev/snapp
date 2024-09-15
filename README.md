@@ -82,6 +82,25 @@ Snapp at his version 0.8 includes from start Italian, English, German, French, S
 
 The latest versions of Snapp include CSV Export to facilitate migration. Simply log in and import your URLs from the dashboard, and continue from where you left.
 
+### ENV Variables
+
+Some configuration moved from envs variable to settings page in-app, thou there are some ENV that could be set as default on first launch:
+
+```
+DATABASE_URL= # "file:./db.sqlite" 
+DATABASE_POSTGRES_URL= # "postgresql://root:password@postgres:5432/snappdb"
+DATABASE_MYSQL_URL= # "mysql://root:password@mariadb:3306/snappdb" 
+DATABASE_PROVIDER= # sqlite | postgres | mysql
+TOKEN_SECRET= # openssl rand -base64 32
+ORIGIN=https://example.com # to avoid CROSS ORIGIN on Form Submission
+ADMIN_USERNAME= # must be specified on first launch as it initiate the database
+ADMIN_EMAIL= # must be specified on first launch as it initiate the database
+ADMIN_PASSWORD= # must be specified on first launch as it initiate the database
+PORT=3000 # app port
+PUBLIC_UMAMI_WEBSITE_ID= # uuid
+PUBLIC_UMAMI_WEBSITE_URL= # https://umami.example.com/script.js
+```
+
 ## The Stack
 
 The technology involved:
