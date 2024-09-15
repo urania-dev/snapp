@@ -100,6 +100,7 @@ export class Database {
 			undefined,
 			'root'
 		);
+		
 		const ENV_ENABLE_SIGNUP = env.ENABLE_SIGNUP || 'false'
 		await this.settings.set(ENABLED_SIGNUP, ENV_ENABLE_SIGNUP);
 
