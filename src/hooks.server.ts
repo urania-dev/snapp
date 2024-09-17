@@ -1,4 +1,5 @@
 import { building } from '$app/environment';
+import { env } from '$env/dynamic/private';
 import { lucia } from '$lib/server/auth';
 import { database } from '$lib/server/db/database';
 import { RPD, RPM } from '$lib/server/ratelimiter';
@@ -28,7 +29,7 @@ if (!building) await run_init_functions();
 
 export const handle: Handle = async ({ event, resolve }) => {
 	const lang = event.cookies.get('snapp:lang')?.toString() || 'en';
-	const theme = event.cookies.get('snapp:theme')?.toString() || null;
+	const theme = event.cookies.get('snapp:theme')?.toString() || env.DEFAULT_THEME || 'dark';
 	if (theme) event.locals.theme = theme;
 
 	if (lang) {

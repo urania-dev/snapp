@@ -12,6 +12,9 @@ const config = {
 		csrf: {
 			checkOrigin: process.env.NODE_ENV !== 'development'
 		},
+		alias:{
+			'$smtp':"./smtp.config.cjs"
+		}
 	},
 
 	extensions: ['.svelte']

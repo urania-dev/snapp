@@ -11,21 +11,19 @@ import {
 	MAX_REQUESTS_PER_MINUTE,
 	MAX_SNAPPS_PER_USER,
 	VIRUSTOTAL_API_KEY,
-	SMTP_HOST,
-	SMTP_PORT,
-	SMTP_USER,
 	SMTP_FROM,
-	SMTP_PASS,
 	SMTP_STATUS,
 	NOT_NULL,
 	EQUALS_NULL,
 	UMAMI_WEBSITE_ID,
 	UMAMI_URL
 } from '$lib/utils/constants.js';
+import { join } from 'path'
 import { fail, redirect } from '@sveltejs/kit';
 import type { User } from 'lucia';
 import { createTransport, type Transport, type TransportOptions } from 'nodemailer';
-
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 import * as shiki from 'shiki';
 
 export async function load({ locals: { user, session, theme }, fetch, url }) {
@@ -57,7 +55,9 @@ export async function load({ locals: { user, session, theme }, fetch, url }) {
 	const enable_limits = is_admin
 		? database.settings.parse(await database.settings.get(ENABLE_LIMITS), true)
 		: false;
-
+	const configPath = join(process.cwd(), 'smtp.config.cjs');
+	let smtpConfig = require(configPath) as (_database: typeof database) => Promise<any>;
+	const smtp = await smtpConfig(database)
 	return {
 		user,
 		enabled_signup,
@@ -75,8 +75,8 @@ export async function load({ locals: { user, session, theme }, fetch, url }) {
 			: 0,
 		rpm: is_admin
 			? await database.settings
-					.get(MAX_REQUESTS_PER_MINUTE)
-					.then((res) => parseInt(res?.value || '0'))
+				.get(MAX_REQUESTS_PER_MINUTE)
+				.then((res) => parseInt(res?.value || '0'))
 			: 0,
 		spu: is_admin
 			? await database.settings.get(MAX_SNAPPS_PER_USER).then((res) => parseInt(res?.value || '0'))
@@ -88,19 +88,22 @@ export async function load({ locals: { user, session, theme }, fetch, url }) {
 			? await database.settings.get(UMAMI_URL).then((res) => res?.value)
 			: undefined,
 		smtp_host: is_admin
-			? await database.settings.get(SMTP_HOST).then((res) => res?.value)
+			? smtp?.host
 			: undefined,
 		smtp_port: is_admin
-			? await database.settings.get(SMTP_PORT).then((res) => res?.value)
+			? smtp?.port
 			: undefined,
 		smtp_user: is_admin
-			? await database.settings.get(SMTP_USER).then((res) => res?.value)
+			? smtp?.auth.user
 			: undefined,
 		smtp_pass: is_admin
-			? await database.settings.get(SMTP_PASS).then((res) => res?.value)
+			? smtp?.auth.pass
 			: undefined,
 		smtp_from: is_admin
 			? await database.settings.get(SMTP_FROM).then((res) => res?.value)
+			: undefined,
+		smtp_ssl: is_admin
+			? smtp?.secure
 			: undefined,
 		blacklist_count: is_admin ? await database.watchlist.count(false) : 0,
 		blacklist_count_emails: is_admin
@@ -114,30 +117,30 @@ export async function load({ locals: { user, session, theme }, fetch, url }) {
 			: 0,
 		blacklist_emails: is_admin
 			? await database.watchlist.list(
-					true,
-					limit,
-					offset,
-					query ? { startsWith: query } : NOT_NULL,
-					NOT_NULL
-				)
+				true,
+				limit,
+				offset,
+				query ? { startsWith: query } : NOT_NULL,
+				NOT_NULL
+			)
 			: [],
 		blacklist_domains: is_admin
 			? await database.watchlist.list(
-					true,
-					limit,
-					offset,
-					EQUALS_NULL,
-					query ? { startsWith: query } : NOT_NULL
-				)
+				true,
+				limit,
+				offset,
+				EQUALS_NULL,
+				query ? { startsWith: query } : NOT_NULL
+			)
 			: [],
 		blacklist_usernames: is_admin
 			? await database.watchlist.list(
-					true,
-					limit,
-					offset,
-					query ? { startsWith: query } : NOT_NULL,
-					EQUALS_NULL
-				)
+				true,
+				limit,
+				offset,
+				query ? { startsWith: query } : NOT_NULL,
+				EQUALS_NULL
+			)
 			: [],
 		whitelist_count: is_admin ? await database.watchlist.count(true) : 0,
 		whitelist_count_emails: is_admin ? await database.watchlist.count(true, NOT_NULL, NOT_NULL) : 0,
@@ -149,30 +152,30 @@ export async function load({ locals: { user, session, theme }, fetch, url }) {
 			: 0,
 		whitelist_emails: is_admin
 			? await database.watchlist.list(
-					true,
-					limit,
-					offset,
-					query ? { startsWith: query } : NOT_NULL,
-					NOT_NULL
-				)
+				true,
+				limit,
+				offset,
+				query ? { startsWith: query } : NOT_NULL,
+				NOT_NULL
+			)
 			: [],
 		whitelist_domains: is_admin
 			? await database.watchlist.list(
-					true,
-					limit,
-					offset,
-					EQUALS_NULL,
-					query ? { startsWith: query } : NOT_NULL
-				)
+				true,
+				limit,
+				offset,
+				EQUALS_NULL,
+				query ? { startsWith: query } : NOT_NULL
+			)
 			: [],
 		whitelist_usernames: is_admin
 			? await database.watchlist.list(
-					true,
-					limit,
-					offset,
-					query ? { startsWith: query } : NOT_NULL,
-					EQUALS_NULL
-				)
+				true,
+				limit,
+				offset,
+				query ? { startsWith: query } : NOT_NULL,
+				EQUALS_NULL
+			)
 			: [],
 		vtapistatus: is_admin ? await (await fetch('/api/utils/virus-total-protection')).json() : false,
 		smtp_status: is_admin ? await (await fetch('/api/utils/smtp-server')).json() : false,
@@ -204,7 +207,6 @@ export const actions = {
 		if (!field || !value || typeof field !== 'string' || typeof value !== 'string')
 			return fail(400, { message: 'errors.settings.invalid-field-value-touple' });
 		const payload = { [field]: value };
-
 		if (table === 'user') {
 			if (
 				field === 'email' &&
@@ -300,15 +302,9 @@ export const actions = {
 		if (!session || !user) redirect(302, '/');
 
 		try {
-			const smtp = {
-				host: await database.settings.get(SMTP_HOST).then((res) => res?.value),
-				port: await database.settings.get(SMTP_PORT).then((res) => res?.value),
-				secure: true,
-				auth: {
-					user: await database.settings.get(SMTP_USER).then((res) => res?.value),
-					pass: await database.settings.get(SMTP_PASS).then((res) => res?.value)
-				}
-			};
+			const configPath = join(process.cwd(), 'smtp.config.cjs');
+			let smtpConfig = require(configPath) as (_database: typeof database) => Promise<TransportOptions>;
+			const smtp = await smtpConfig(database)
 
 			const from = await database.settings.get(SMTP_FROM).then((res) => res?.value);
 			const transporter = createTransport<Transport>({ ...smtp } as TransportOptions);

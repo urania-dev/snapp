@@ -107,7 +107,7 @@
   - Fixed scrollbars on chrome (sorry, FF user here, i haven't noticed before.)
 - 0.8.3
   - Restored Forgotten Umami Integration in settings, added to .env.example
-  - Restore QRCode Creation and download 
+  - Restore QRCode Creation and download
   - Fixed some minor UI Issues
 - 0.8.4
   - Re-added snapp select and bulk delete
@@ -121,4 +121,9 @@
   - Restored ENV Configuration for initial setup
 - 0.8.6.1
   - Found a typo in email for password recovery
-  
+  - Some cleaning here and there
+  - Added test mail button
+- 0.8.6.2
+  - Added more deep SMTP configuration via external file, see README for more
+- 0.8.6.3
+  - Fixed password regex

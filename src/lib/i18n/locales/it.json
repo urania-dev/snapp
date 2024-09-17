@@ -16,6 +16,7 @@
 			"spu": "Numero massimo di URL brevi che un utente può creare.",
 			"smtp": "Questo server di posta viene utilizzato per il recupero della password, l&rsquo;invio di inviti al primo accesso e altre comunicazioni generate dalla piattaforma.",
 			"smtp-test": "Invia un messaggio di prova alla mail dell&rsquo;admin per verificare il funzionamento dell&rsquo;app",
+			"smtp-ssl": " Se vero, la connessione utilizzerà TLS quando si collega al server. Se falso (l'impostazione predefinita), TLS verrà utilizzato se il server supporta l'estensione STARTTLS. Nella maggior parte dei casi, imposta questo valore su vero se ti stai collegando alla porta 465. Per la porta 587 o 25, mantienilo su falso.",
 			"watchlists": "Le liste di controllo influenzano la registrazione e l&rsquo;aggiornamento dei dettagli degli utenti, mentre il blocco dei domini impedirà l&rsquo;accorciamento degli URL.",
 			"add-whitelist": "Consenti un&rsquo;email o un dominio su tutta la piattaforma.",
 			"add-blacklist": "Blocca un&rsquo;email o un dominio su tutta la piattaforma.",

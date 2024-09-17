@@ -13,7 +13,7 @@ export const GET = async (event) => {
 	const token = await authenticate_api(event);
 	if (!token) error(403);
 	if (token.user.role === 'user') return error(403, 'Forbidden');
-	const is_admin = token.user.role !== 'user' && (await database.users.is_admin(token.userId));
+	const is_admin = (await database.users.is_admin(token.userId));
 	if (!is_admin) return error(403, 'Forbidden');
 
 	const limit = parseInt(event.url.searchParams.get('limit')?.toString() || '10');
@@ -57,7 +57,7 @@ export const POST = async (event) => {
 		!password ||
 		typeof password !== 'string' ||
 		!password.trim().length ||
-		!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password)
+		!/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d])([^\s]){8,}$/.test(password.trim())
 	)
 		return error(400, { message: 'Invalid password provided' });
 	if (
@@ -122,7 +122,7 @@ export const PATCH = async (event) => {
 		password &&
 		(typeof password !== 'string' ||
 			!password.trim().length ||
-			!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password))
+			!/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d])([^\s]){8,}$/.test(password.trim()))
 	)
 		return error(400, { message: 'Invalid password provided' });
 	if (

@@ -94,7 +94,6 @@
 		e.preventDefault();
 		e.stopPropagation();
 		show_zoomed_qrcode = !show_zoomed_qrcode;
-		console.log(show_zoomed_qrcode);
 	};
 
 	let fullUrlToSnapp = $derived($page.url.origin + '/' + data.snapp.shortcode);

@@ -3,7 +3,9 @@ import { database } from '$lib/server/db/database';
 import { SMTP_FROM, SMTP_HOST, SMTP_PASS, SMTP_PORT, SMTP_USER } from '$lib/utils/constants.js';
 import { fail, redirect } from '@sveltejs/kit';
 import { createTransport, type Transport, type TransportOptions } from 'nodemailer';
-
+import { join } from 'path'
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 export function load({ locals: { session } }) {
 	if (session) redirect(302, '/');
 }
@@ -26,17 +28,10 @@ export const actions = {
 		if (!user || message) return fail(500, { message });
 
 		try {
-			const smtp = {
-				host: await database.settings.get(SMTP_HOST).then((res) => res?.value),
-				port: await database.settings.get(SMTP_PORT).then((res) => res?.value),
-				secure: true,
-				auth: {
-					user: await database.settings.get(SMTP_USER).then((res) => res?.value),
-					pass: await database.settings.get(SMTP_PASS).then((res) => res?.value)
-				}
-			};
-
-			const from = await database.settings.get(SMTP_FROM).then((res) => res?.value);
+			const configPath = join(process.cwd(), 'smtp.config.cjs');
+			let smtpConfig = require(configPath) as (_database: typeof database) => Promise<any>;
+			const smtp = await smtpConfig(database)
+			const from = await database.settings.get(SMTP_FROM).then((res) => res?.value) || smtp.auth.user;
 			const transporter = createTransport<Transport>({ ...smtp } as TransportOptions);
 
 			const html = String((await import('$lib/emails/reset_password.html?raw')).default);

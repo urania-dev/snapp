@@ -16,6 +16,7 @@
 			"spu": "Maximale Anzahl an kurzen URLs, die ein Benutzer erstellen kann.",
 			"smtp": "Dieser Mailserver wird für die Passwortwiederherstellung, das Versenden von ersten Zugangseinladungen und andere von der Plattform generierte Kommunikationen verwendet.",
 			"smtp-test": "Sende eine Testnachricht an die E-Mail des Administrators, um die Funktionalität der App zu überprüfen",
+			"smtp-ssl": "Wenn wahr, wird die Verbindung TLS verwenden, wenn sie sich mit dem Server verbindet. Wenn falsch (die Standardeinstellung), wird TLS verwendet, wenn der Server die STARTTLS-Erweiterung unterstützt. In den meisten Fällen setzen Sie diesen Wert auf wahr, wenn Sie sich mit Port 465 verbinden. Für Port 587 oder 25 lassen Sie es auf falsch",
 			"watchlists": "Watchlists beeinflussen die Benutzerregistrierung und Detailaktualisierungen, während das Sperren von Domains das Kürzen von URLs verhindert.",
 			"add-whitelist": "Erlaube eine E-Mail oder Domain auf der gesamten Plattform.",
 			"add-blacklist": "Blockiere eine E-Mail oder Domain auf der gesamten Plattform.",

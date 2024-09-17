@@ -16,6 +16,7 @@
 			"spu": "Número máximo de URLs curtas que un usuario pode crear.",
 			"smtp": "Este servidor de correo electrónico utilízase para a recuperación de contrasinais, o envío de invitacións de acceso inicial e outras comunicacións xeradas pola plataforma.",
 			"smtp-test": "Enviar unha mensaxe de proba ao correo do administrador para verificar o funcionamento da aplicación",
+			"smtp-ssl": "Se é verdadeiro, a conexión usará TLS ao conectarse ao servidor. Se é falso (por defecto), TLS usarase se o servidor admite a extensión STARTTLS. Na maioría dos casos, establece este valor en verdadeiro se te estás a conectar ao porto 465. Para o porto 587 ou 25, manteno falso.",
 			"watchlists": "As listas de vixilancia afectan á inscrición de usuarios e actualizacións de detalles, mentres que bloquear dominios impedirá o acurtamento de URLs.",
 			"add-whitelist": "Permitir un correo electrónico ou dominio a través da plataforma.",
 			"add-blacklist": "Bloquear un correo electrónico ou dominio a través da plataforma.",

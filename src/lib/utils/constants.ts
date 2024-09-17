@@ -18,6 +18,7 @@ export const SMTP_USER = 'SMTP_USER' as const;
 export const SMTP_PASS = 'SMTP_PASS' as const;
 export const SMTP_FROM = 'SMTP_FROM' as const;
 export const SMTP_PORT = 'SMTP_PORT' as const;
+export const SMTP_SSL = 'SMTP_SSL' as const;
 export const SMTP_STATUS = 'SMTP_STATUS' as const;
 
 export const SNAPP_ORIGIN_URL_REQUESTED = 'SNAPP_ORIGIN_URL_REQUESTED' as const;

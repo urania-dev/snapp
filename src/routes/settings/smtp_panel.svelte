@@ -4,7 +4,15 @@
 	import type { MouseEventHandler } from 'svelte/elements';
 	import { _ } from 'svelte-i18n';
 	import Input from '$lib/ui/input.svelte';
-	import { SMTP_HOST, SMTP_PASS, SMTP_PORT, SMTP_USER, SMTP_FROM } from '$lib/utils/constants';
+	import Switch from '$lib/ui/switch.svelte';
+	import {
+		SMTP_HOST,
+		SMTP_PASS,
+		SMTP_PORT,
+		SMTP_USER,
+		SMTP_FROM,
+		SMTP_SSL
+	} from '$lib/utils/constants';
 	import type { User } from 'lucia';
 	import { debounce } from '$lib/utils/debounce';
 	import { toast } from '$lib/svelte-sonner';
@@ -20,15 +28,17 @@
 		smtp_user = $bindable(),
 		smtp_pass = $bindable(),
 		smtp_from = $bindable(),
+		smtp_ssl = $bindable(),
 		smtp_status = $bindable(),
 		save_this,
 		fetch
 	}: {
-		smtp_host: string | undefined | null | number;
-		smtp_port: string | undefined | null | number;
-		smtp_user: string | undefined | null | number;
-		smtp_pass: string | undefined | null | number;
-		smtp_from: string | undefined | null | number;
+		smtp_host: string | undefined;
+		smtp_port: string | undefined;
+		smtp_user: string | undefined;
+		smtp_pass: string | undefined;
+		smtp_from: string | undefined;
+		smtp_ssl: boolean | undefined;
 		smtp_status: { active: boolean };
 		save_this(...args: any): void;
 		fetch: SvelteFetch;
@@ -49,9 +59,30 @@
 			<Icon ph="crown" size={24}></Icon>
 		</span>
 	</Card>
-	<Card css={{ card: 'h-full items-center flex-row' }}>
-		<small class="w-full text-balance leading-relaxed">{@html $_('admin.helpers.smtp')}</small>
-	</Card>
+
+	<div class="flex h-full w-full flex-col gap-4 lg:flex-row">
+		<div class="flex h-full w-full flex-col gap-4">
+			<Card css={{ card: 'h-full items-center flex-row' }}>
+				<small class="w-full text-balance leading-relaxed">{@html $_('admin.helpers.smtp')}</small>
+			</Card>
+		</div>
+		<div class="inline-flex h-full w-full flex-col gap-4">
+			<Card css={{ card: 'h-full' }}>
+				<Switch
+					bind:value={smtp_ssl}
+					label={'SSL'}
+					helper={$_('admin.helpers.smtp-ssl')}
+					idx={SMTP_SSL}
+					actions={{
+						toggle: (e) => {
+							const field = e.currentTarget.dataset.idx;
+							if (field) save_this(field, String(!smtp_ssl), 'settings');
+						}
+					}}
+				></Switch>
+			</Card>
+		</div>
+	</div>
 	<div class="flex h-full w-full flex-col gap-4 lg:flex-row">
 		<div class="flex h-full w-full flex-col gap-4">
 			<Card>
@@ -111,7 +142,7 @@
 		</div>
 	</div>
 	<div class="flex h-full w-full flex-col gap-4 lg:flex-row">
-		<div class="flex h-full w-full flex-col gap-4">
+		<div class="inline-flex h-full w-full flex-col gap-4">
 			<Card>
 				<Input
 					css={{
@@ -138,39 +169,38 @@
 				/>
 			</Card>
 		</div>
-		<div class="inline-flex h-full w-full flex-col gap-4">
-			<Card>
-				<Input
-					css={{
-						label: 'inline-flex w-max',
-						input: 'text-sm'
-					}}
-					icons={{
-						left: 'key',
-						right: show_smtp_pass === true ? 'eye' : 'eye-closed'
-					}}
-					actions={{
-						right: handle_show_smtp_pass,
-						change: (e) => {
-							e.preventDefault();
-							save_this(SMTP_PASS, e.currentTarget.value, 'settings');
-						},
-						input: (e) => {
-							const element = e.currentTarget;
-							debounce(() => {
-								element.blur();
-							}, 1000)();
-						}
-					}}
-					type={show_smtp_pass ? 'text' : 'password'}
-					bind:value={smtp_pass}
-					name={SMTP_PASS}
-					label={$_('admin.labels.smtp-pass')}
-				/>
-			</Card>
-		</div>
+
+		<Card>
+			<Input
+				css={{
+					label: 'inline-flex w-max',
+					input: 'text-sm'
+				}}
+				icons={{
+					left: 'key',
+					right: show_smtp_pass === true ? 'eye' : 'eye-closed'
+				}}
+				actions={{
+					right: handle_show_smtp_pass,
+					change: (e) => {
+						e.preventDefault();
+						save_this(SMTP_PASS, e.currentTarget.value, 'settings');
+					},
+					input: (e) => {
+						const element = e.currentTarget;
+						debounce(() => {
+							element.blur();
+						}, 1000)();
+					}
+				}}
+				type={show_smtp_pass ? 'text' : 'password'}
+				bind:value={smtp_pass}
+				name={SMTP_PASS}
+				label={$_('admin.labels.smtp-pass')}
+			/>
+		</Card>
 	</div>
-	<div class="flex h-full w-full flex-col gap-4 lg:flex-row">
+	<div class="inline-flex h-full w-full gap-4">
 		<div class="flex h-full w-full flex-col gap-4">
 			<Card>
 				<Input
@@ -198,7 +228,7 @@
 				/>
 			</Card>
 		</div>
-		<div class="inline-flex h-full w-full flex-col gap-4">
+		<div class="flex h-full w-full flex-col gap-4">
 			<Card css={{ card: 'h-full' }}>
 				<button
 					disabled={!smtp_status || test_sent}
@@ -207,7 +237,7 @@
 							const res = await (
 								await fetch('/api/utils/smtp-send-test', { credentials: 'include' })
 							).json();
-							smtp_status = res
+							smtp_status = res;
 						} catch (error) {
 							console.log(error);
 						}

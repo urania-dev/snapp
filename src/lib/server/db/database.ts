@@ -1,4 +1,4 @@
-import { DISABLE_HOME, ENABLED_SIGNUP, INITIALIZED_DB, SMTP_FROM, SMTP_HOST, SMTP_PASS, SMTP_PORT, SMTP_USER, UMAMI_URL, UMAMI_WEBSITE_ID, USER_EXISTS, VIRUSTOTAL_API_KEY } from '$lib/utils/constants';
+import { DISABLE_HOME, ENABLED_SIGNUP, INITIALIZED_DB, SMTP_FROM, SMTP_HOST, SMTP_PASS, SMTP_PORT, SMTP_SSL, SMTP_USER, UMAMI_URL, UMAMI_WEBSITE_ID, USER_EXISTS, VIRUSTOTAL_API_KEY } from '$lib/utils/constants';
 import { env } from '$env/dynamic/private';
 import { env as publicEnv } from '$env/dynamic/public';
 import { parse_db_setting } from '$lib/server/db/helpers/parse_db_setting';
@@ -124,6 +124,7 @@ export class Database {
 		let ENV_SMTP_USER = env.SMTP_USER || null
 		let ENV_SMTP_PASS = env.SMTP_PASS || null
 		let ENV_SMTP_FROM = env.SMTP_FROM || null
+		let ENV_SMTP_SSL = env.SMTP_SSL || true
 		let ENV_VTAPIKEY = env.VTAPI_KEY || null
 
 		if (ENV_SMTP_HOST) await this.settings.set(SMTP_HOST, ENV_SMTP_HOST);
@@ -131,6 +132,7 @@ export class Database {
 		if (ENV_SMTP_USER) await this.settings.set(SMTP_USER, ENV_SMTP_USER);
 		if (ENV_SMTP_PASS) await this.settings.set(SMTP_PASS, ENV_SMTP_PASS);
 		if (ENV_SMTP_FROM) await this.settings.set(SMTP_FROM, ENV_SMTP_FROM);
+		if (ENV_SMTP_SSL) await this.settings.set(SMTP_SSL, ENV_SMTP_SSL?.toString());
 		if (ENV_VTAPIKEY) await this.settings.set(VIRUSTOTAL_API_KEY, ENV_VTAPIKEY);
 		if (ENV_VTAPIKEY) console.log("VirusTotal API Key: configuration added to the database.")
 		if (ENV_SMTP_HOST) console.log("SMPT Setup: configuration added to the database.")

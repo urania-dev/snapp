@@ -15,7 +15,7 @@ import {
 import { fail, redirect } from '@sveltejs/kit';
 import { generateId } from 'lucia';
 import { createTransport, type Transport, type TransportOptions } from 'nodemailer';
-
+import { join } from 'path'
 export async function load({ locals: { session, user }, url }) {
 	if (!user || !session) redirect(302, '/auth/sign-in');
 
@@ -38,8 +38,8 @@ export async function load({ locals: { session, user }, url }) {
 				...u,
 				max: enabled_limits
 					? await database.settings
-							.get(MAX_SNAPPS_PER_USER, u.id)
-							.then((res) => (res?.value !== undefined && parseInt(res.value)) || defaultMaxSnapp)
+						.get(MAX_SNAPPS_PER_USER, u.id)
+						.then((res) => (res?.value !== undefined && parseInt(res.value)) || defaultMaxSnapp)
 					: 0
 			};
 		})
@@ -113,15 +113,9 @@ export const actions = {
 		if (!has_smtp) return { message: 'users.actions.created' };
 
 		try {
-			const smtp = {
-				host: await database.settings.get(SMTP_HOST).then((res) => res?.value),
-				port: await database.settings.get(SMTP_PORT).then((res) => res?.value),
-				secure: true,
-				auth: {
-					user: await database.settings.get(SMTP_USER).then((res) => res?.value),
-					pass: await database.settings.get(SMTP_PASS).then((res) => res?.value)
-				}
-			};
+			const configPath = join(process.cwd(), 'smtp.config.cjs');
+			let smtpConfig = require(configPath) as (_db:typeof database) => Promise<any>;
+			const smtp = await smtpConfig(database)
 
 			const from = await database.settings.get(SMTP_FROM).then((res) => res?.value);
 			const transporter = createTransport<Transport>({ ...smtp } as TransportOptions);

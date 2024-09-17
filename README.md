@@ -87,9 +87,9 @@ The latest versions of Snapp include CSV Export to facilitate migration. Simply 
 Some configuration moved from envs variable to settings page in-app, thou there are some ENV that could be set as default on first launch:
 
 ```
-DATABASE_URL= # "file:./db.sqlite" 
+DATABASE_URL= # "file:./db.sqlite"
 DATABASE_POSTGRES_URL= # "postgresql://root:password@postgres:5432/snappdb"
-DATABASE_MYSQL_URL= # "mysql://root:password@mariadb:3306/snappdb" 
+DATABASE_MYSQL_URL= # "mysql://root:password@mariadb:3306/snappdb"
 DATABASE_PROVIDER= # sqlite | postgres | mysql
 TOKEN_SECRET= # openssl rand -base64 32
 ORIGIN=https://example.com # to avoid CROSS ORIGIN on Form Submission
@@ -107,7 +107,42 @@ SMTP_USER= # info@example.com
 SMTP_PASS= # account password
 SMTP_FROM= # no-reply@example.com
 SMTP_PORT= # 465
+SMTP_SSL=true# true
+
 ```
+
+## SMTP Configuration
+
+If you find yourself limited by the UI configuration for your SMTP Server should be enough to change `smtp.config.cjs` file
+
+```yml
+services:
+  snapp:
+    image: uraniadev/snapp:latest
+    ports:
+      - 3000:3000
+    volumes:
+      - ./smtp.config.cjs:/app/smtp.config.cjs
+```
+
+The file should export a promise that returns a Nodemailer's TransportOptions type, the original one requires the promise to pick up config from db.
+
+```js
+module.exports = async () => ({
+	host: 'smtp.example.com',
+	port: '587',
+	secure: false,
+	auth: {
+		user: 'username',
+		pass: 'password'
+	},
+  tls:{
+    ...
+  }
+});
+```
+
+This could lead to trouble, so test carefully.
 
 ## The Stack
 

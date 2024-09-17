@@ -18,7 +18,7 @@
 		placeholder
 	}: {
 		name: string;
-		label?: string | number | null;
+		label?: string;
 		type?: HTMLInputElement['type'];
 		icons?: { left?: string; right?: string };
 		actions?: {
@@ -31,7 +31,7 @@
 		};
 		css?: { [key: string]: string };
 		placeholder?: string;
-		value?: string | number | null;
+		value?: any;
 		date?: DateValue | null;
 		element?: HTMLInputElement | HTMLTextAreaElement;
 		disabled?: boolean;

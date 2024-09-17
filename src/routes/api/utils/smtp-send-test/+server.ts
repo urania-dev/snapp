@@ -1,23 +1,19 @@
 import { env } from '$env/dynamic/private';
 import { database } from '$lib/server/db/database';
+import { join } from 'path'
 import { SMTP_STATUS, SMTP_PORT, SMTP_HOST, SMTP_USER, SMTP_PASS, SMTP_FROM } from '$lib/utils/constants';
+
 import { error, json } from '@sveltejs/kit';
 
 import { createTransport, type Transport, type TransportOptions } from 'nodemailer';
-
-export const GET = async ({ locals: { session,user }, url }) => {
-
-    const smtp = {
-        host: await database.settings.get(SMTP_HOST).then((res) => res?.value),
-        port: await database.settings.get(SMTP_PORT).then((res) => res?.value),
-        secure: true,
-        auth: {
-            user: await database.settings.get(SMTP_USER).then((res) => res?.value),
-            pass: await database.settings.get(SMTP_PASS).then((res) => res?.value)
-        }
-    };
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+export const GET = async ({ locals: { session, user }, url }) => {
 
     try {
+        const configPath = join(process.cwd(), 'smtp.config.cjs');
+        let smtpConfig = require(configPath) as (_database:typeof database) => Promise<any>;
+        const smtp = await smtpConfig(database)
         const transporter = createTransport<Transport>({ ...smtp } as TransportOptions);
         const response = await transporter.verify();
         await database.settings.set(SMTP_STATUS, 'true');
@@ -26,7 +22,7 @@ export const GET = async ({ locals: { session,user }, url }) => {
         const APPNAME = env.APPNAME || 'Snapp.li';
         const ORIGIN_URL = env.ORIGIN;
         const LOGO_URL = url.origin + '/logo.svg';
-        const FROM = await database.settings.get(SMTP_FROM).then((res) => res?.value)
+        const FROM = await database.settings.get(SMTP_FROM).then((res) => res?.value) || smtp.auth.user
         const flag = await transporter.sendMail({
             from: APPNAME + ' <' + FROM + '>',
             to: user?.email,
@@ -36,7 +32,7 @@ export const GET = async ({ locals: { session,user }, url }) => {
                 .replaceAll('{ORIGIN_URL}', ORIGIN_URL)
                 .replaceAll('{LOGO_URL}', LOGO_URL)
         });
-            
+
         return json(
             { active: true },
         );

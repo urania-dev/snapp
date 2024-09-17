@@ -1,8 +1,10 @@
 import { database } from '$lib/server/db/database';
-import { SMTP_STATUS, SMTP_PORT, SMTP_HOST, SMTP_USER, SMTP_PASS } from '$lib/utils/constants';
+import { SMTP_STATUS, SMTP_PORT, SMTP_HOST, SMTP_USER, SMTP_PASS, SMTP_SSL } from '$lib/utils/constants';
 import { error, json } from '@sveltejs/kit';
 import { createTransport, type Transport, type TransportOptions } from 'nodemailer';
-
+import { join } from 'path'
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 export const GET = async () => {
 	const weekAgo = new Date();
 	weekAgo.setDate(weekAgo.getDate() - 7);
@@ -22,17 +24,12 @@ export const GET = async () => {
 			}
 		);
 
-	const smtp = {
-		host: await database.settings.get(SMTP_HOST).then((res) => res?.value),
-		port: await database.settings.get(SMTP_PORT).then((res) => res?.value),
-		secure: true,
-		auth: {
-			user: await database.settings.get(SMTP_USER).then((res) => res?.value),
-			pass: await database.settings.get(SMTP_PASS).then((res) => res?.value)
-		}
-	};
+
 
 	try {
+		const configPath = join(process.cwd(), 'smtp.config.cjs');
+		let smtpConfig = require(configPath) as (_database:typeof database) => Promise<TransportOptions>;
+		const smtp = await smtpConfig(database)
 		const transporter = createTransport<Transport>({ ...smtp } as TransportOptions);
 		const response = await transporter.verify();
 		await database.settings.set(SMTP_STATUS, 'true');

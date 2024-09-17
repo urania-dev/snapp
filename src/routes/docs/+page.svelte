@@ -13,7 +13,6 @@
 		});
 	});
 
-	console.log(data.origin)
 
 	let theme = $derived(data);
 </script>

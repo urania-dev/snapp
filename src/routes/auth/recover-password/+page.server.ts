@@ -15,7 +15,7 @@ export const actions = {
 			!password ||
 			typeof password !== 'string' ||
 			!password.trim().length ||
-			!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password)
+			!/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d])([^\s]){8,}$/.test(password.trim())
 		)
 			return fail(400, { message: 'errors.auth.password-invalid' });
 		if (

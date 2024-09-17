@@ -41,13 +41,13 @@
 
 		return async function ({ result }) {
 			await applyAction(result);
-			await invalidateAll();
 			if (form?.message) toast.info($_(form?.message));
 			setTimeout(() => {
 				active_field = undefined;
 				edit_field_table = undefined;
 				edit_field_value = undefined;
 			}, 250);
+			await invalidateAll();
 		};
 	};
 </script>
@@ -109,6 +109,7 @@
 				bind:smtp_pass={data.smtp_pass}
 				bind:smtp_port={data.smtp_port}
 				bind:smtp_user={data.smtp_user}
+				bind:smtp_ssl={data.smtp_ssl}
 				bind:smtp_status={data.smtp_status}
 				{save_this}
 				{fetch}

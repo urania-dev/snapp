@@ -109,7 +109,6 @@ export const actions = {
 		for (let id of ids) {
 			let message: string | undefined = undefined;
 			const [count, err] = await database.snapps.delete(user.id, id);
-			console.log(id)
 			if (err === SNAPP_NOT_FOUND) message = 'errors.snapps.not-found';
 			if (err === UNAUTHORIZED) message = 'errors.unauthorized';
 			if (message) return fail(400, { message });
