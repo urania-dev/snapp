@@ -39,7 +39,9 @@
 </script>
 
 <label for={name} class={cn('flex w-full flex-col gap-2', css?.['field'])}>
-	<span class={cn('px-1 text-sm font-semibold tracking-wider', css?.['label'])}>{label}</span>
+	<span class={cn('px-1 text-left text-sm font-semibold tracking-wider w-full', css?.['label'])}
+		>{label}</span
+	>
 	<div
 		class={cn(
 			'group flex items-center gap-0 rounded border border-slate-500/50 focus-within:border-pink-500 focus-within:border-slate-500/75',

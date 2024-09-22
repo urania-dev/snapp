@@ -1,0 +1,344 @@
+{
+	"appname": "Snapp",
+	"menu": {
+		"authenticate": "认证",
+		"dashboard": "仪表板",
+		"home": "首页",
+		"metrics": "指标",
+		"settings": "设置",
+		"users": "用户"
+	},
+	"admin": {
+		"label": "管理员面板",
+		"helpers": {
+			"rpd": "每天的API请求数量。",
+			"rpm": "每分钟的API请求数量。",
+			"spu": "用户可以创建的最大短网址数量。",
+			"smtp": "此邮件服务器用于密码恢复、发送首次访问邀请和平台生成的其他通信内容。",
+			"smtp-test": "向管理员的邮箱地址发送测试消息以验证应用程序的功能",
+			"smtp-ssl": "如果为真，则连接将使用TLS连接到服务器。如果为假（默认），则在服务器支持STARTTLS扩展时使用TLS。在大多数情况下，如果您连接到端口465，请将此值设置为真。对于端口587或25，请保持为假",
+			"watchlists": "观察列表影响用户注册和详情更新，封禁域名将阻止该域名的网址缩短。",
+			"add-whitelist": "在平台上允许邮箱地址或域名。",
+			"add-blacklist": "在平台上阻止邮箱地址或域名。",
+			"vt-api": "使用VirusTotal API扫描域名。Snapp检查域名声誉，并阻止任何负面评分的网站。正面或中性评分将允许该域名。请求缓存24小时。"
+		},
+		"labels": {
+			"limits": "API REST限制",
+			"smtp": "SMTP服务器",
+			"smtp-host": "服务器",
+			"smtp-pass": "密码",
+			"smtp-port": "端口",
+			"smtp-user": "用户",
+			"smtp-from": "发件人",
+			"smtp-test": "发送测试电子邮件",
+			"rpd": "每日请求数",
+			"rpm": "每分钟请求数",
+			"spu": "每位用户短网址数量",
+			"blacklist": "被阻止的实体",
+			"watchlists": "观察列表",
+			"whitelist": "允许的实体",
+			"add-whitelist": "允许实体",
+			"add-blacklist": "阻止实体",
+			"blacklisted-items": "{count} 项在阻止列表中",
+			"whitelisted-items": "{count} 项在允许列表中",
+			"vt-api": "VirusTotal API",
+			"domains": "域名",
+			"emails": "邮箱地址",
+			"usernames": "用户名"
+		},
+		"placeholders": {
+			"vt-api": "在此输入您的VTAPI密钥...",
+			"smtp-pass": "在此输入您的SMTP密码...",
+			"smtp-host": "在此输入您的SMTP主机...",
+			"smtp-from": "在此输入您的SMTP发件人地址...",
+			"smtp-user": "在此输入您的SMTP用户名...",
+			"smtp-port": "在此输入您的SMTP端口...",
+			"filter-watchlist": "在此列表中过滤实体..."
+		}
+	},
+	"settings": {
+		"label": {
+			"language": "语言",
+			"theme": "主题",
+			"theme-dark": "深色模式",
+			"theme-light": "浅色模式",
+			"enable-limits": "启用限制",
+			"enable-signup": "启用注册",
+			"disable-homepage": "禁用主页",
+			"allow-http": "允许不安全的HTTP"
+		},
+		"saved": "更改已保存。",
+		"helpers": {
+			"signups": "开放注册。",
+			"homepage": "将用户重定向到登录页面或仪表板。",
+			"limits": "社区请求的API限制。",
+			"http": "允许使用HTTP而不是HTTPS的网址。"
+		}
+	},
+	"users": {
+		"auth": {
+			"helpers": {
+				"forgot-password": "输入您的邮箱地址以开始密码恢复。",
+				"recover-password": "发送密码重置邮件到此账户。",
+				"set-new-password": "为您的账户设置密码。"
+			},
+			"forgot-password": "忘记密码？",
+			"go-to-signup": "没有账户？请前往 <a class=\"link\" href=\"{url}\">注册页面</a> 注册。",
+			"go-to-signin": "已有账户？请前往 <a class=\"link\" href=\"{url}\">登录页面</a> 登录。",
+			"sign-in": "登录",
+			"sign-up": "注册",
+			"recover-password": "恢复密码",
+			"reset-email-sent": "密码恢复已开始，一封电子邮件已发送到提供的邮箱地址。",
+			"post-email-message": "我们已向您提供的邮箱地址发送了一封电子邮件。"
+		},
+		"labels": {
+			"profile": "用户资料",
+			"create": "邀请用户",
+			"edit": "编辑用户",
+			"list": "注册用户列表"
+		},
+		"fields": {
+			"email": "邮箱地址",
+			"confirm-password": "确认密码",
+			"password": "密码",
+			"username": "用户名",
+			"role": "角色",
+			"max-snapps": "最大短网址数量",
+			"notes": "备注"
+		},
+		"helpers": {
+			"invitation": "用户将收到一封电子邮件邀请以设置他们的密码。",
+			"notes": "备注仅在用户概览页面对管理员可见。",
+			"admin": "选择用户授权级别。",
+			"max-snapps": "限制此用户可以创建的短网址数量。",
+			"password": "密码必须至少八个字符，并包含至少一个大写字母、一个小写字母、一个数字和一个特殊字符。"
+		},
+		"placeholders": {
+			"username": "输入您的用户名...",
+			"email": "输入您的邮箱地址...",
+			"password": "输入您的密码...",
+			"search": "搜索用户名或邮箱地址..."
+		},
+		"actions": {
+			"confirm-delete": "此操作将永久删除用户及其内容。",
+			"deleted": "用户已被删除。",
+			"edited": "用户信息已保存。",
+			"created": "用户已创建。",
+			"logout": "退出登录"
+		}
+	},
+	"tokens": {
+		"label": "API REST令牌",
+		"placeholder": "您的API密钥将在此显示...",
+		"helper": "使用包含令牌的授权标头来授权API调用。API密钥是唯一的，并与用户账户关联，共享数据库角色。",
+		"api-docs": "请参考完整的 <a href=\"{url}\" class=\"link\">API文档</a> 以获取使用和实现细节。",
+		"generate": "生成令牌",
+		"revoke": "撤销令牌",
+		"copied": "令牌已复制到剪贴板。",
+		"not-allowed-to-copy": "浏览器剪贴板需要安全的HTTPS环境。",
+		"not-found": "未找到令牌。",
+		"fields": {
+			"key": "令牌",
+			"created": "创建时间"
+		}
+	},
+	"globals": {
+		"close": "关闭",
+		"confirm": "确认",
+		"cancel": "取消",
+		"sure-ask": "是否确定？",
+		"continue": "继续",
+		"delete": "删除",
+		"total": "总计",
+		"max-page-reached": "没有更多项目。",
+		"save": "保存",
+		"active": "激活",
+		"disabled": "禁用",
+		"download": "下载",
+		"share": "分享",
+		"back": "返回",
+		"start": "开始",
+		"end": "结束",
+		"all": "全部",
+		"world": "全球",
+		"copy": "复制",
+		"loading": "加载中"
+	},
+	"metrics": {
+		"filters": "过滤器",
+		"origin": "地理位置",
+		"browser": "浏览器",
+		"device": "设备",
+		"os": "操作系统"
+	},
+	"migrations": {
+		"label": "迁移",
+		"import-csv": "从Snapp CSV文件导入",
+		"export-csv": "导出为Snapp CSV文件",
+		"upload": "上传文件",
+		"csv-file-required": "导入需要有效的Snapp CSV文件",
+		"success": "成功导入Snapps数据",
+		"failed": "导入失败",
+		"requires-time": "所有Snapps将被导出。此操作可能需要一些时间。"
+	},
+	"snapps": {
+		"label": "短网址列表",
+		"placeholders": {
+			"original-url": "粘贴您的原始网址",
+			"shortcode": "使用自定义短码",
+			"secret": "使用密码保护您的网址",
+			"search": "按原始网址或短码搜索"
+		},
+		"fields": {
+			"original-url": "原始网址",
+			"shortcode": "短码",
+			"has-expiration": "设置过期时间",
+			"has-secret": "设置密码",
+			"has-limited-usage": "设置使用次数限制",
+			"secret": "密码",
+			"expiration": "过期时间",
+			"max-usages": "最大使用次数",
+			"used": "已使用",
+			"created": "创建时间",
+			"hit": "访问量",
+			"notes": "备注",
+			"status": "状态"
+		},
+		"labels": {
+			"edit": "编辑短网址",
+			"create": "缩短网址",
+			"url-info": "网址信息",
+			"count": "短网址总数",
+			"columns": "列",
+			"open-link": "在新窗口中打开短网址",
+			"details": "短网址详情"
+		},
+		"helpers": {
+			"create": "您可以指定自定义短网址。留空将自动生成。",
+			"original-url": "必须是有效的 <code>https://</code> 链接",
+			"shortcode": "如果未指定短码，将自动生成",
+			"secret": "此网址受密码保护",
+			"not-secret": "此网址是公开的",
+			"not-max-usages": "无限制",
+			"provide-secret": "请提供正确的密码以继续",
+			"text-pasted": "原始网址已从剪贴板粘贴",
+			"has-secret": "指定一个密码以保护该网址免受未授权访问",
+			"expiration": "指定过期日期以自动禁用您的网址",
+			"max-usages": "指定此短网址的使用次数限制。达到限制后，该短网址将被禁用。",
+			"previous-expiration": "此短网址已设置过期，过期时间为{relativeTime}",
+			"previous-secret": "此短网址已设置密码",
+			"remove-expiration": "移除过期设置",
+			"remove-secret": "移除密码",
+			"disable-text-1": "暂停此短网址。其数据、所选短码和显示数据将被保留。用户将收到一条重定向暂时不可用的说明消息。",
+			"disable-text-2": "当短网址达到设定的使用次数时，它将默认被禁用。可以从这里重新启用。",
+			"copied-to-clipboard": "网址已成功复制到剪贴板"
+		},
+		"actions": {
+			"created": "网址已成功缩短",
+			"edited": "短网址已更新",
+			"deleted": "短网址已删除",
+			"confirm-delete": "此操作将永久删除短网址。"
+		},
+		"time": {
+			"seconds": "秒",
+			"minutes": "分种",
+			"hours": "小时",
+			"days": "天",
+			"weeks": "周",
+			"months": "月",
+			"years": "年"
+		}
+	},
+	"errors": {
+		"api": {
+			"token-missing": "需要授权令牌。"
+		},
+		"auth": {
+			"email-invalid": "请提供有效的邮箱地址。",
+			"email-registered": "此邮箱地址已与账户关联。请尝试注册或恢复您的密码。",
+			"disabled-signups": "注册已禁用。如果您认为这是一个错误，请联系服务管理员。",
+			"password-invalid": "提供的密码不够安全。请再试一次。",
+			"password-unmatch": "密码和确认密码不匹配。",
+			"username-invalid": "用户名无效。请提供至少三个字符的名称作为您的个人资料。",
+			"user-already-exists": "用户名已被占用。请尝试其他名称。",
+			"user-not-found": "未找到用户。",
+			"wrong-credentials": "凭据不正确。",
+			"reset-token-expired": "密码恢复重置令牌已过期。"
+		},
+		"snapps": {
+			"unallowed-not-https": "原始网址必须是安全的HTTPS链接",
+			"original-url-missing": "必须提供原始网址以进行重定向",
+			"original-url-blacklisted": "此网址已被列入黑名单或被VirusTotal API标记",
+			"missing-secret": "您必须提供一个密码以访问此网址",
+			"wrong-credentials": "解锁密码不符",
+			"not-found": "短网址未找到",
+			"max-snapps": "您已达到账户可以创建的短网址数量限制",
+			"disabled": "此短网址已被所有者禁用或在达到设定阈值后禁用。如果您认为这是一个错误，请联系管理员"
+		},
+		"blacklisted": {
+			"user": "您的认证过程出现问题。请联系服务管理员。",
+			"domain": "此短网址重定向到一个被列入黑名单的域名。如果您认为这是一个错误，请联系服务管理员。"
+		},
+		"generic": "发生错误。如果问题持续存在，请联系管理员。",
+		"unauthorized": "您无权执行此操作。",
+		"label": "错误"
+	},
+	"homepage": {
+		"intro": "Snapp是一个自托管的网址缩短解决方案，专为那些重视网址管理控制并希望探索各种技术的用户设计。如果您正在寻找这样的工具，Snapp可能正是您所需要的。",
+		"features": {
+			"label": "我们的特点",
+			"ui": {
+				"label": "用户友好的界面",
+				"description": "Snapp提供了一个用户友好的界面，以实现无缝的链接缩短。阅读如何开始！"
+			},
+			"auth": {
+				"label": "安全认证",
+				"description": "享受安全的用户会话体验。"
+			},
+			"shortcode": {
+				"label": "自定义短网址",
+				"description": "为您的链接创建个性化的短代码，使其易于记忆和分享。"
+			},
+			"expiration": {
+				"label": "设置网址过期",
+				"description": "为您的链接创建个性化的短代码，使其易于记忆和分享。"
+			},
+			"secrecy": {
+				"label": "受保护的网址",
+				"description": "通过私密链接添加额外的保护。选择使用独特的密码来向特定的受众分享链接。"
+			},
+			"analytics": {
+				"label": "分析",
+				"description": "为您创建的每个链接提供详细的分析。Snapp匿名收集指标，提供关于链接互动的见解，同时尊重用户隐私。"
+			},
+			"umami": {
+				"label": "Umami集成",
+				"description": "将您的Snapp实例与自托管或云 <a href={url} class=\"link\">Umami分析<a> 实例集成，以获取您短网址的高级指标。"
+			},
+			"vtapi": {
+				"label": "VirusTotal API集成",
+				"description": "通过VirusTotal API声誉检查来确保通过Snapp实例传递的链接安全。"
+			},
+			"rest-api": {
+				"label": "REST API",
+				"description": "社区请求功能，使得API Rest接口能够远程创建和管理你的Snapp。参见完整的 <a href={url} class=\"link\">Swagger文档</a>"
+			}
+		},
+		"getting-started": {
+			"label": "开始使用",
+			"claim": "Snapp是一个可自托管的开源平台",
+			"docker": {
+				"label": "使用Docker容器",
+				"helper": "使用此docker-compose.yml来运行您的Snapp"
+			}
+		},
+		"migration": {
+			"label": "迁移",
+			"description": "最新版本的Snapp包含CSV导出功能以便于迁移。只需登录并从仪表板导入您的网址便可继续您之前的工作。"
+		},
+		"stack": {
+			"label": "技术栈",
+			"helper": "涉及的技术"
+		}
+	}
+}

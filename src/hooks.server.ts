@@ -28,7 +28,7 @@ const run_init_functions = async () => {
 if (!building) await run_init_functions();
 
 export const handle: Handle = async ({ event, resolve }) => {
-	const lang = event.cookies.get('snapp:lang')?.toString() || 'en';
+	const lang = event.cookies.get('snapp:lang')?.toString() || 'en-US';
 	const theme = event.cookies.get('snapp:theme')?.toString() || env.DEFAULT_THEME || 'dark';
 	if (theme) event.locals.theme = theme;
 

@@ -73,8 +73,11 @@
 		document.forms.namedItem('reset-password')?.requestSubmit();
 		modal_is_open = false;
 	};
+
+	let innerWidth = $state<number>(0);
 </script>
 
+<svelte:window bind:innerWidth />
 {#if modal_is_open}
 	<div
 		class="fixed inset-0 z-20 grid h-screen w-screen place-content-center bg-neutral-950/75"
@@ -224,6 +227,7 @@
 
 				<Card css={{ card: 'flex-col items-start' }}>
 					<Select
+						disabled={innerWidth <= 767 || false}
 						icons={{ left: 'translate' }}
 						placeholder={language_placeholder}
 						name="language"

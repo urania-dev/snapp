@@ -1,9 +1,7 @@
 <script lang="ts">
 	import type { FormEventHandler, MouseEventHandler } from 'svelte/elements';
-	import Icon from './icon.svelte';
 	import { cn } from '$lib/svelte-sonner/internal';
 	import Input from './input.svelte';
-	import { locales } from 'svelte-i18n';
 	import { outside } from '$lib/utils/outside';
 
 	let {
@@ -40,7 +38,8 @@
 	let element = $state<HTMLInputElement | HTMLTextAreaElement>();
 	let show_panel = $state(false);
 
-	const handle_select_panel: MouseEventHandler<HTMLButtonElement> = (e) => {
+	const handle_select_panel: MouseEventHandler<HTMLElement> = (e) => {
+		e.preventDefault();
 		e.stopPropagation();
 		show_panel = !show_panel;
 		if (show_panel) element?.focus();
@@ -53,30 +52,66 @@
 		if (show_panel) show_panel = false;
 	}}
 >
-	<Input
-		{label}
-		css={{ input: 'capitalize' }}
-		{placeholder}
-		{name}
-		{disabled}
-		icons={{ ...icons, right: locked ? '' : show_panel ? 'caret-up' : 'caret-down' }}
-		actions={{
-			right: handle_select_panel,
-			input: (e) => {
-				e.stopPropagation();
-				actions?.query?.(e);
-			},
-			focus: (e) => {
-				e.stopPropagation();
-				show_panel = true;
-			}
-		}}
-		bind:element
-		{value}
-	/>
+	{#if disabled}
+		<div
+			class="h-max w-full"
+			onclick={handle_select_panel}
+			onkeydown={() => {}}
+			tabindex="-1"
+			role="button"
+		>
+			<Input
+				{label}
+				css={{
+					input: 'capitalize',
+					field: 'pointer-events-none'
+				}}
+				{placeholder}
+				{name}
+				{disabled}
+				icons={{ ...icons, right: locked ? '' : show_panel ? 'caret-up' : 'caret-down' }}
+				actions={{
+					right: handle_select_panel,
+					input: (e) => {
+						e.stopPropagation();
+						actions?.query?.(e);
+					},
+					focus: (e) => {
+						e.stopPropagation();
+						show_panel = true;
+						e.currentTarget.focus();
+					}
+				}}
+				bind:element
+				{value}
+			/>
+		</div>
+	{:else}
+		<Input
+			{label}
+			css={{ input: 'capitalize' }}
+			{placeholder}
+			{name}
+			{disabled}
+			icons={{ ...icons, right: locked ? '' : show_panel ? 'caret-up' : 'caret-down' }}
+			actions={{
+				right: handle_select_panel,
+				input: (e) => {
+					e.stopPropagation();
+					actions?.query?.(e);
+				},
+				focus: (e) => {
+					e.stopPropagation();
+					show_panel = true;
+					e.currentTarget.focus();
+				}
+			}}
+			bind:element
+			{value}
+		/>
+	{/if}
 	{#if show_panel === true && locked === false}
 		<div
-			use:outside={() => (show_panel = false)}
 			class={cn(
 				'oveflow-clip absolute bottom-0 left-0 top-[calc(100%_+_0.5rem)] z-50 flex w-full flex-col overflow-y-scroll rounded border border-slate-500/50 bg-neutral-50 dark:bg-neutral-950',
 				items.length === 1

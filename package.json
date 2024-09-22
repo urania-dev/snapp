@@ -1,7 +1,12 @@
 {
 	"name": "snapp",
-	"version": "0.8.6.3",
-	"private": true,
+	"version": "0.8.6.4",
+	"author": {
+		"name": "Urania",
+		"email": "m.isaia@urania.dev",
+		"url": "https://github.com/urania-dev/snapp"
+	},
+	"license": "MIT",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",

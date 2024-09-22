@@ -127,3 +127,6 @@
   - Added more deep SMTP configuration via external file, see README for more
 - 0.8.6.3
   - Fixed password regex
+- 0.8.6.4
+  - Disabled combo-box in language choosing for better UI from mobile
+  - Added Chinese language by [xja](https://github.com/xja) [see more...](https://github.com/urania-dev/snapp/issues/48)
