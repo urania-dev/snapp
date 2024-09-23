@@ -313,7 +313,7 @@
 			},
 			"umami": {
 				"label": "Umami-Integration",
-				"description": "Integrieren Sie Ihre Snapp-Instanz mit Ihrer selbst gehosteten oder Cloud-<a href={url} class=\"link\">Umami Analytics<a>-Instanz für erweiterte Metriken Ihrer Snapps."
+				"description": "Integrieren Sie Ihre Snapp-Instanz mit Ihrer selbst gehosteten oder Cloud-<a href={url} class=\"link\">Umami Analytics</a>-Instanz für erweiterte Metriken Ihrer Snapps."
 			},
 			"vtapi": {
 				"label": "VirusTotal API-Integration",

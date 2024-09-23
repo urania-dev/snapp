@@ -313,7 +313,7 @@
 			},
 			"umami": {
 				"label": "Integrazione Umami",
-				"description": "Integra la tua istanza di Snapp con la tua istanza <a href={url} class=\"link\">Umami Analytics<a> auto-ospitata o in cloud per metriche avanzate dei tuoi Snapp."
+				"description": "Integra la tua istanza di Snapp con la tua istanza <a href={url} class=\"link\">Umami Analytics</a> auto-ospitata o in cloud per metriche avanzate dei tuoi Snapp."
 			},
 			"vtapi": {
 				"label": "Integrazione API VirusTotal",
