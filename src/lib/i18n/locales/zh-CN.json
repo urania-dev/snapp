@@ -313,7 +313,7 @@
 			},
 			"umami": {
 				"label": "Umami集成",
-				"description": "将您的Snapp实例与自托管或云 <a href={url} class=\"link\">Umami分析<a> 实例集成，以获取您短网址的高级指标。"
+				"description": "将您的Snapp实例与自托管或云 <a href={url} class=\"link\">Umami分析</a> 实例集成，以获取您短网址的高级指标。"
 			},
 			"vtapi": {
 				"label": "VirusTotal API集成",

@@ -313,7 +313,7 @@
 			},
 			"umami": {
 				"label": "Umami Integration",
-				"description": "Integrate your Snapp Instance with your self-hosted or cloud <a href={url} class=\"link\">Umami Analytics<a> instance for advanced metrics of your Snapps."
+				"description": "Integrate your Snapp Instance with your self-hosted or cloud <a href={url} class=\"link\">Umami Analytics</a> instance for advanced metrics of your Snapps."
 			},
 			"vtapi": {
 				"label": "VirusTotal API Integration",
