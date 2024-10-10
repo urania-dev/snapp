@@ -119,7 +119,7 @@
 <div class="flex h-full w-full flex-col overflow-clip p-4 lg:h-full">
 	<div class="mx-auto flex min-h-full w-full max-w-5xl flex-col gap-4 overflow-clip lg:h-full">
 		<h2 class="flex items-center gap-2 text-2xl font-bold">
-			<Icon ph="users" style="duotone" size={36} />
+			<Icon ph="users" size={36} />
 			<span>{$_('menu.users')}</span>
 		</h2>
 		<div

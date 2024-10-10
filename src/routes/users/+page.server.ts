@@ -16,6 +16,9 @@ import { fail, redirect } from '@sveltejs/kit';
 import { generateId } from 'lucia';
 import { createTransport, type Transport, type TransportOptions } from 'nodemailer';
 import { join } from 'path'
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+
 export async function load({ locals: { session, user }, url }) {
 	if (!user || !session) redirect(302, '/auth/sign-in');
 
@@ -54,8 +57,8 @@ export const actions = {
 		const form = await request.formData();
 		const id = form.get('id')?.toString();
 		if (!id) return fail(400, { message: 'errors.generic' });
-		await database.users.delete(id);
-		return { message: 'users.actions.deleted' };
+		const [u, err] = await database.users.delete(id);
+		return { message: err ? err : 'users.actions.deleted' };
 	},
 	edit: async ({ locals: { session }, request }) => {
 		if (!session) redirect(302, '/');
@@ -110,11 +113,11 @@ export const actions = {
 			await database.settings.set(MAX_SNAPPS_PER_USER, _user.max.toString(), created.id);
 
 		const has_smtp = (await (await fetch('/api/utils/smtp-server')).json()).active as boolean;
-		if (!has_smtp) return { message: 'users.actions.created' };
+		if (!has_smtp || !_user.email) return { message: 'users.actions.created' };
 
 		try {
 			const configPath = join(process.cwd(), 'smtp.config.cjs');
-			let smtpConfig = require(configPath) as (_db:typeof database) => Promise<any>;
+			let smtpConfig = require(configPath) as (_db: typeof database) => Promise<any>;
 			const smtp = await smtpConfig(database)
 
 			const from = await database.settings.get(SMTP_FROM).then((res) => res?.value);
@@ -132,14 +135,15 @@ export const actions = {
 			const flag = await transporter.sendMail({
 				from: APPNAME + ' <' + from + '>',
 				to: created.email,
-				subject: 'Snapp: Welcome',
+				subject: 'Snapp: Password Recovery',
 				html: html
-					.replaceAll('{APP_NAME}', APPNAME)
+					.replaceAll('{APPNAME}', APPNAME)
 					.replaceAll('{ORIGIN_URL}', ORIGIN_URL)
 					.replaceAll('{LOGO_URL}', LOGO_URL)
 					.replaceAll('{NAME}', NAME)
 					.replaceAll('{URL}', URL)
 			});
+
 
 			return { message: 'users.actions.created' };
 		} catch (error) {

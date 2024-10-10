@@ -106,7 +106,6 @@
 					<div class="flex h-full w-full shrink-0 flex-col items-center justify-center">
 						<div class="flex rounded-full bg-slate-500/25 p-10">
 							<Icon
-								style="duotone"
 								css={{ icon: 'text-pink-500/50' }}
 								ph="magnifying-glass"
 								size={128}

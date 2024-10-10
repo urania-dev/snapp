@@ -286,7 +286,7 @@
 <div class="flex h-full w-full flex-col overflow-hidden p-4">
 	<div class="mx-auto flex h-full w-full max-w-5xl flex-col gap-4">
 		<h2 class="flex h-8 items-center gap-2 text-lg font-bold">
-			<Icon ph="user" style="duotone" size={36} />
+			<Icon ph="user" size={36} />
 			<span>
 				{data.ghosting.username}'s {$_('menu.dashboard')}
 			</span>
@@ -598,7 +598,7 @@
 														onclick={handle_copy_snapp_to_clipboard}
 														in:fly|global={{ delay: 75 * 4, y: 24 }}
 														class="flex h-10 w-10 items-center justify-center rounded border-none bg-slate-500/25 p-0 text-start outline-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50 md:h-8 md:w-8"
-														><Icon style="duotone" ph="copy"></Icon>
+														><Icon  ph="copy"></Icon>
 													</button>
 												{/if}
 											</div>
@@ -624,7 +624,7 @@
 						<div class="flex h-full w-full shrink-0 flex-col items-center justify-center">
 							<div class="flex rounded-full bg-slate-500/25 p-10">
 								<Icon
-									style="duotone"
+									
 									css={{ icon: 'text-pink-500/50' }}
 									ph="magnifying-glass"
 									size={128}

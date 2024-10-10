@@ -56,7 +56,7 @@
 <div class="flex w-full h-max lg:h-unset flex-col lg:overflow-clip p-4">
 	<div class="mx-auto flex lg:min-h-full w-full max-w-5xl flex-col gap-4 overflow-clip">
 		<h2 class="flex items-center gap-2 text-2xl font-bold">
-			<Icon ph="presentation-chart" style="duotone" size={36} />
+			<Icon ph="presentation-chart" size={36} />
 			<span>{$_('menu.metrics')}</span>
 		</h2>
 		<div class="flex w-full flex-col gap-4 lg:flex-row">

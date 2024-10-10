@@ -20,12 +20,14 @@
 				data-sveltekit-preload-data
 			>
 				<Icon
-					css={{ icon: 'text-2xl w-max' }}
+					css={{ icon: cn('text-2xl w-max', item.active ? 'text-slate-800' : '') }}
 					ph={item.icon}
 					size={24}
-					style={item.active ? 'duotone' : 'regular'}
 				></Icon>
-				<span class="w-full text-center text-xxs">{item.label}</span>
+				<span
+					class="w-full text-center text-xxs {item.active ? 'text-slate-800 text-xxs' : 'text-xxs'}"
+					>{item.label}</span
+				>
 			</a>
 		{/if}
 	{/each}
