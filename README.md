@@ -43,7 +43,7 @@ services:
       ORIGIN: https://example.com
 ```
 
-**Note**: SQLite database is located in /app/prisma/{DATABASE_URL} if you want to mount it
+**Note**: SQLite database is located in /app/prisma/sqlite/{DATABASE_URL} if you want to mount it
 
 **_Update8.1_**: In order to make it actually work it ended up requiring better specification of schemas for Prisma Clients,
 the combinations are:
