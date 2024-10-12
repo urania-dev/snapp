@@ -130,3 +130,7 @@
 - 0.8.6.4
   - Disabled combo-box in language choosing for better UI from mobile
   - Added Chinese language by [xja](https://github.com/xja) [see more...](https://github.com/urania-dev/snapp/issues/48)
+- 0.8.6.5, 0.8.6.6
+  - Update on README for better understanding of db.sqlite location path [see more...](https://github.com/urania-dev/snapp/issues/50)
+  - Fixing SMTP and invitation email [see more..](https://github.com/urania-dev/snapp/issues/51)
+  - Fixed incomplete flow on the URL dashboard [see more...](https://github.com/urania-dev/snapp/issues/52)

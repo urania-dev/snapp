@@ -89,7 +89,7 @@ export const actions = {
 				html: html
 					.replaceAll('{APP_NAME}', APPNAME)
 					.replaceAll('{ORIGIN_URL}', ORIGIN_URL)
-					.replaceAll('{LOGO_URL}', LOGO_URL)
+					.replaceAll('{LOGO}', LOGO_URL)
 					.replaceAll('{NAME}', NAME)
 					.replaceAll('{URL}', URL)
 			});

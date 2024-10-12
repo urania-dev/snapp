@@ -5,10 +5,6 @@ import {
 	ENABLE_LIMITS,
 	MAX_SNAPPS_PER_USER,
 	SMTP_FROM,
-	SMTP_HOST,
-	SMTP_PASS,
-	SMTP_PORT,
-	SMTP_USER,
 	USER_DOES_NOT_EXISTS,
 	USER_EXISTS
 } from '$lib/utils/constants.js';
@@ -127,19 +123,19 @@ export const actions = {
 
 			const APPNAME = env.APPNAME || 'Snapp.li';
 			const ORIGIN_URL = env.ORIGIN;
-			const LOGO_URL = url.origin + '/logo.svg';
 			const NAME = created.username;
 			const TOKEN = await database.users.reset_token(created.id);
 			const URL = url.origin + '/auth/recover-password?token=' + TOKEN;
-
+			const LOGO_URL = url.origin + '/logo.svg';
+			
 			const flag = await transporter.sendMail({
 				from: APPNAME + ' <' + from + '>',
 				to: created.email,
-				subject: 'Snapp: Password Recovery',
+				subject: 'Snapp: Invite to Subscribe',
 				html: html
-					.replaceAll('{APPNAME}', APPNAME)
+					.replaceAll('{APP_NAME}', APPNAME)
 					.replaceAll('{ORIGIN_URL}', ORIGIN_URL)
-					.replaceAll('{LOGO_URL}', LOGO_URL)
+					.replaceAll('{LOGO}', LOGO_URL)
 					.replaceAll('{NAME}', NAME)
 					.replaceAll('{URL}', URL)
 			});

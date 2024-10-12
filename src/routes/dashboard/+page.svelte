@@ -695,8 +695,10 @@
 												<button
 													data-idx={snapp.id}
 													onclick={(e) => {
+														_snapp.id = undefined;
 														e.stopPropagation();
 														_snapp.id = snapp.id;
+														snapp_action = 'delete';
 														show_confirm_panel = true;
 													}}
 													in:fly|global={{ delay: 75, y: 24 }}
@@ -750,11 +752,7 @@
 					{:else}
 						<div class="flex h-full w-full shrink-0 flex-col items-center justify-center">
 							<div class="flex rounded-full bg-slate-500/25 p-10">
-								<Icon
-									css={{ icon: 'text-pink-500/50' }}
-									ph="magnifying-glass"
-									size={128}
-								></Icon>
+								<Icon css={{ icon: 'text-pink-500/50' }} ph="magnifying-glass" size={128}></Icon>
 							</div>
 						</div>
 					{/if}
