@@ -134,3 +134,5 @@
   - Update on README for better understanding of db.sqlite location path [see more...](https://github.com/urania-dev/snapp/issues/50)
   - Fixing SMTP and invitation email [see more..](https://github.com/urania-dev/snapp/issues/51)
   - Fixed incomplete flow on the URL dashboard [see more...](https://github.com/urania-dev/snapp/issues/52)
+- 0.8.6.7
+  - Fixed entrypoint.sh typo [see more...](https://github.com/urania-dev/snapp/issues/53)

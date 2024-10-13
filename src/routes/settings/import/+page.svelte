@@ -38,6 +38,7 @@
 			original_url: string;
 			has_secret: boolean;
 			shortcode: string;
+			notes:string
 			used: number;
 		}>(await file.text(), {
 			delimiter: ',',
@@ -53,6 +54,7 @@
 					shortcode: snapp.shortcode,
 					original_url: snapp.original_url,
 					created: snapp.created,
+					notes:snapp.notes,
 					hit: snapp.used
 				}));
 	}

@@ -11,7 +11,7 @@ RUN npm install --legacy-peer-deps
 
 # Copy the rest of the application code
 COPY . .
-ENV DATABASE_URL=file:./database/db.sqlite
+ENV DATABASE_URL=file:./db.sqlite
 RUN npx prisma generate --schema prisma/sqlite/schema.prisma
 RUN npx prisma migrate dev -n init --schema prisma/sqlite/schema.prisma
 RUN npx prisma migrate deploy --schema prisma/sqlite/schema.prisma
@@ -25,7 +25,7 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 
 ENV APPNAME="Snapp.li"
-ENV PUBLIC_SNAPP_VERSION="0.8.6.6"
+ENV PUBLIC_SNAPP_VERSION="0.8.6.7"
 # Expose the port the app runs on
 EXPOSE 3000
 

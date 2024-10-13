@@ -9,7 +9,7 @@ case "$DATABASE_PROVIDER" in
     npx prisma migrate deploy --schema prisma/mysql/schema.prisma
     ;;
   "sqlite")
-    rm prisma/sqlite/database/db.sqlite
+    rm prisma/sqlite/db.sqlite
     npx prisma generate --schema prisma/sqlite/schema.prisma
     npx prisma migrate deploy --schema prisma/sqlite/schema.prisma
     ;;
