@@ -139,4 +139,4 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
 # project
-prisma/sqlite/database/db.sqlite
+prisma/sqlite/**/*.sqlite
