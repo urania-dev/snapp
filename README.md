@@ -109,8 +109,17 @@ SMTP_PASS= # account password
 SMTP_FROM= # no-reply@example.com
 SMTP_PORT= # 465
 SMTP_SSL=true# true
-
+KC_REALM= #  https://keycloak.domain.com/realms/realm-name
+KC_USERINFO_URL=
+KC_CLIENT_ID= #
+KC_CLIENT_SECRET= #
+KC_REDIRECTION_URI= # snappdomain.com/auth/oauth/callback
 ```
+## Keycloak OIDC
+
+As requested Snapp can now integrate Keycloak OIDC compatible SSO. It requires env variables KC_ 
+Users are checked on email, unregistered user will rejected if sugn ups are disabled. it requires ['email', 'profile'] scopes.
+Registered callback URI at /auth/oauth/callback
 
 ## SMTP Configuration
 

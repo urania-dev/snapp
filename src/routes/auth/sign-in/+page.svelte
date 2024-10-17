@@ -5,7 +5,7 @@
 	import type { MouseEventHandler } from 'svelte/elements';
 	import { applyAction, enhance } from '$app/forms';
 	import type { SubmitFunction } from './$types.js';
-	import { invalidateAll } from '$app/navigation';
+	import { invalidateAll, goto } from '$app/navigation';
 	import { toast } from '$lib/svelte-sonner';
 	import Icon from '$lib/ui/icon.svelte';
 	import Card from '$lib/ui/card.svelte';
@@ -86,6 +86,14 @@
 				<span class="text-sm w-full">{$_('users.auth.sign-in')}</span>
 				<Icon css={{ icon: 'ms-auto' }} ph="arrow-right"></Icon>
 			</button>
+			<a
+				data-sveltekit-preload-data="false"
+				href="/auth/oauth/"
+				class="flex h-10 w-full items-center rounded border-none bg-slate-500/25 p-2 px-4 text-start outline-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50"
+			>
+				<span class="text-sm w-full">OAuth 2.0 &mdash; OICD</span>
+				<Icon css={{ icon: 'ms-auto' }} ph="arrow-right"></Icon>
+			</a>
 			<p class="text-balance px-4 text-sm">
 				{@html $_('users.auth.go-to-signup', { values: { url: '/auth/sign-up' } })}
 			</p>

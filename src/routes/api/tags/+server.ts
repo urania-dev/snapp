@@ -51,12 +51,11 @@ export const POST = async (event) => {
     } = await event.request.json();
 
     if (!name) return error(400, { message: 'Missing tag name' });
-    if (!userId) return error(400, { message: 'Missing userId' })
     if (userId && token.user.role === 'user')
         return error(403, { message: "You're not allowed to create tags for someone else" });
 
     const tag = await database.tags.create(
-        userId, name, slug, notes
+        userId || token.userId, name, slug, notes
     );
 
 

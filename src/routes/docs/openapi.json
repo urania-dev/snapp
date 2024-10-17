@@ -315,7 +315,7 @@
 		},
 		"/tags": {
 			"get": {
-				"tags": ["taags"],
+				"tags": ["tags"],
 				"summary": "Get tags",
 				"operationId": "getTags",
 				"parameters": [
@@ -358,15 +358,15 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Tagd retrieved successfully",
+						"description": "Tag retrieved successfully",
 						"content": {
 							"application/json": {
 								"schema": {
 									"type": "object",
 									"properties": {
-										"snapps": {
+										"tags": {
 											"type": "array",
-											"items": { "$ref": "#/components/schemas/Tag" }
+											"items": { "$ref": "#/components/schemas/Tags" }
 										},
 										"total": { "type": "integer" },
 										"pagination": {
@@ -481,6 +481,84 @@
 					"401": { "description": "Unauthroized" },
 					"429": { "description": "Too many requests" },
 					"500": { "description": "System error" }
+				},
+				"security": [{ "bearerAuth": [] }]
+			}
+		},
+		"/tags/{slug}": {
+			"get": {
+				"tags": ["tags"],
+				"summary": "Get tags by slug",
+				"operationId": "getTagBySlug",
+				"parameters": [
+					{
+						"name": "slug",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"description": "The slug of the tag"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Tag retrieved successfully",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/Tag" }
+							}
+						}
+					},
+					"400": {
+						"description": "Shortcode not found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"message": { "type": "string" }
+									}
+								},
+								"example": { "message": "/snapps/:shortcode - shortcode not found" }
+							}
+						}
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Snapp not found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"message": { "type": "string" }
+									}
+								},
+								"examples": {
+									"notFound": { "value": { "message": "Snapp not found" } }
+								}
+							}
+						}
+					},
+					"429": {
+						"description": "Too many requests",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"message": { "type": "string" }
+									}
+								},
+								"examples": {
+									"rateLimit": { "value": { "message": "Too many requests" } }
+								}
+							}
+						}
+					}
 				},
 				"security": [{ "bearerAuth": [] }]
 			}
@@ -755,6 +833,20 @@
 					"updatedAt": { "type": "string", "format": "date-time" }
 				}
 			},
+			"Tags": {
+				"type": "object",
+				"properties": {
+					"id": { "type": "string" },
+					"name": { "type": "string" },
+					"slug": { "type": "string" },
+					"notes": { "type": "string", "nullable": true },
+					"_count": {
+						"users": { "type": "number" },
+						"snapps": { "type": "number" }
+					}
+				},
+				"required": ["id", "name", "slug"]
+			},
 			"Tag": {
 				"type": "object",
 				"properties": {
@@ -764,11 +856,7 @@
 					"notes": { "type": "string", "nullable": true },
 					"snapps": {
 						"type": "array",
-						"items": { "$ref": "#/definitions/Snapp" }
-					},
-					"users": {
-						"type": "array",
-						"items": { "$ref": "#/definitions/User" }
+						"items": { "$ref": "#/components/schemas/Snapp" }
 					}
 				},
 				"required": ["id", "name", "slug"]
@@ -794,7 +882,7 @@
 					"userId": { "type": "string" },
 					"tags": {
 						"type": "array",
-						"items": { "$ref": "#/components/schemas/Tag" }
+						"items": { "$ref": "#/components/schemas/Tags" }
 					}
 				}
 			}

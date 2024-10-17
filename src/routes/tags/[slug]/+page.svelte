@@ -205,7 +205,7 @@
 	</div>
 {/if}
 
-<div class="flex min-h-full w-full flex-col p-4 shrink-0">
+<div class="flex w-full grow flex-col p-4 shrink-0">
 	<div class="mx-auto flex h-full w-full max-w-5xl flex-col gap-4">
 		<a class="flex gap-2 font-semibold uppercase tracking-wider" href="/tags"
 			><Icon ph="arrow-left" /><small class="text-sm">{$_('globals.back')}</small></a
@@ -216,8 +216,8 @@
 				{data.tag.name}
 			</h2>
 		</div>
-		<div class="flex w-full" style:height={innerWidth < 1024 ? 'calc(100% - 5rem)' : 'shrink-0'}>
-			<Card css={{ card: 'h-full grow shrink-0 gap-4' }}>
+		<div class="flex grow w-full">
+			<Card css={{ card: 'gap-4' }}>
 				<div class="flex w-full items-center gap-4">
 					<Card css={{ card: 'md:flex-row justify-between gap-4 p-2' }}>
 						<h4 class="whitespace-nowrap ps-2 text-lg font-semibold">{$_('snapps.label')}</h4>
@@ -239,7 +239,7 @@
 				</div>
 				<Card
 					css={{
-						card: 'p-2 items-start w-full overflow-clip overflow-x-scroll shrink-0 h-max'
+						card: 'p-2 items-start w-full grow overflow-clip overflow-x-scroll shrink-0'
 					}}
 				>
 					{#if snapps.length}

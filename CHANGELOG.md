@@ -145,3 +145,6 @@
   - Introducing Multi Factors Authentication (Enabled via UI / ENV) [link to discussion](https://github.com/urania-dev/snapp/discussions/57)
   - Various fixes found around
   - update .dockerignore and .gitignore [see more...](https://github.com/urania-dev/snapp/pull/58)
+- 0.8.7.1
+  - Fixes in Tags API
+  - Keycloak OIDC integration

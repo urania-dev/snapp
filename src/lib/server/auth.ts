@@ -1,7 +1,9 @@
 import { Lucia } from 'lucia';
-
+import { env } from '$env/dynamic/private';
+import { OAuth2Client } from 'oslo/oauth2';
 import { PrismaAdapter } from '@lucia-auth/adapter-prisma';
 import { prisma } from '$lib/server/prisma';
+import { Keycloak } from 'arctic';
 
 const adapter = new PrismaAdapter(prisma.session, prisma.user);
 
@@ -57,3 +59,8 @@ declare module 'lucia' {
 		Lucia: typeof lucia;
 	}
 }
+
+
+
+export const oauth = new Keycloak(env.KC_REALM, env.KC_CLIENT_ID, env.KC_CLIENT_SECRET, env.KC_REDIRECTION_URI);
+
