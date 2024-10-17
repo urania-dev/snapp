@@ -31,7 +31,7 @@ export const load = async ({
 		if (secret === null) {
 			if (user === null || (user && user.id !== redirection.userId))
 				await markUsage(redirection, request, url, fetch);
-			throw redirect(302, redirection.original_url);
+			throw redirect(302, encodeURIComponent(redirection.original_url));
 		} else return { ...data, shortcode, has_secret: true };
 	} else error(404, { message: 'errors.snapps.not-found' });
 };
