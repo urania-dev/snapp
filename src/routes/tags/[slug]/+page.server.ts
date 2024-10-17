@@ -103,7 +103,6 @@ export const actions = {
         if (!session || !user) redirect(302, '/');
         const form = await request.formData();
         const cols = form.get('rows')?.toString();
-        console.log(cols)
         if (cols) await database.settings.set('SNAPP_IN_TAGS_ROWS', cols, user.id);
     }
 }
