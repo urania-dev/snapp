@@ -5,13 +5,13 @@ ALTER TABLE "sessions" ADD COLUMN     "two_factor_verified" BOOLEAN NOT NULL DEF
 ALTER TABLE "users" ADD COLUMN     "two_factor_secret" TEXT;
 
 -- CreateTable
-CREATE TABLE "prefixes" (
+CREATE TABLE "tags" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "slug" TEXT NOT NULL,
     "notes" TEXT,
 
-    CONSTRAINT "prefixes_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "tags_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -27,13 +27,13 @@ CREATE TABLE "_user_tags" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "prefixes_name_key" ON "prefixes"("name");
+CREATE UNIQUE INDEX "tags_name_key" ON "tags"("name");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "prefixes_slug_key" ON "prefixes"("slug");
+CREATE UNIQUE INDEX "tags_slug_key" ON "tags"("slug");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "prefixes_notes_key" ON "prefixes"("notes");
+CREATE UNIQUE INDEX "tags_notes_key" ON "tags"("notes");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_snapp_tags_AB_unique" ON "_snapp_tags"("A", "B");
@@ -51,10 +51,10 @@ CREATE INDEX "_user_tags_B_index" ON "_user_tags"("B");
 ALTER TABLE "_snapp_tags" ADD CONSTRAINT "_snapp_tags_A_fkey" FOREIGN KEY ("A") REFERENCES "snapps"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "_snapp_tags" ADD CONSTRAINT "_snapp_tags_B_fkey" FOREIGN KEY ("B") REFERENCES "prefixes"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "_snapp_tags" ADD CONSTRAINT "_snapp_tags_B_fkey" FOREIGN KEY ("B") REFERENCES "tags"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "_user_tags" ADD CONSTRAINT "_user_tags_A_fkey" FOREIGN KEY ("A") REFERENCES "prefixes"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "_user_tags" ADD CONSTRAINT "_user_tags_A_fkey" FOREIGN KEY ("A") REFERENCES "tags"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_user_tags" ADD CONSTRAINT "_user_tags_B_fkey" FOREIGN KEY ("B") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;

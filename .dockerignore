@@ -4,7 +4,8 @@ node_modules
 .env
 .env.example
 .git
-prisma/sqlite/database/db.sqlite
+prisma/sqlite/db.sqlite
+prisma/sqlite/db.sqlite-journal
 .gitattributes
 .eslintignore
 .eslintrc.cjs

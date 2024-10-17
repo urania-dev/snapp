@@ -26,7 +26,7 @@ This latest version supports multiple architectures, including ARM and ARM64 pla
 
 Snapp is an open-source platform you can host yourself.
 
-### Testing Version 0.8
+## Always backup before attempting any update
 
 For the 0.8 version, you’ll need to migrate URLs using the CSV Exporter. Here’s a sample configuration:
 
@@ -80,7 +80,8 @@ Snapp at his version 0.8 includes from start Italian, English, German, French, S
 
 ## Migration
 
-The latest versions of Snapp include CSV Export to facilitate migration. Simply log in and import your URLs from the dashboard, and continue from where you left.
+The latest versions of Snapp include CSV Export to facilitate migration. Simply log in and import your URLs from the dashboard, and continue from where you left. 
+
 
 ## ENV Variables
 

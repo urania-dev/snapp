@@ -12,3 +12,4 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 src/lib/server/geo-db/geolite-2-city.mmdb
 prisma/sqlite/db.sqlite
+prisma/sqlite/db.sqlite-journal

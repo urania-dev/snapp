@@ -6,7 +6,6 @@ import { verifyTOTP } from "@oslojs/otp";
 import { getServerSideSettings } from '$lib/server/server-wide-settings/index.js';
 
 import { ENABLED_MFA } from '$lib/utils/constants';
-import { Argon2id } from 'oslo/password';
 import { getMFAThrottler } from '$lib/server/ratelimiter/mfa.throttler.js';
 import crypto from 'node:crypto'
 export const load = async ({ }) => {

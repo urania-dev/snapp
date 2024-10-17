@@ -146,5 +146,5 @@ model Tag {
   snapps Snapp[] @relation("snapp_tags")
   users  User[]  @relation("user_tags")
 
-  @@map("prefixes")
+  @@map("tags")
 }
