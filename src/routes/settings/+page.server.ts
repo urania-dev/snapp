@@ -16,7 +16,8 @@ import {
 	NOT_NULL,
 	EQUALS_NULL,
 	UMAMI_WEBSITE_ID,
-	UMAMI_URL
+	UMAMI_URL,
+	ENABLED_MFA
 } from '$lib/utils/constants.js';
 import { join } from 'path'
 import { fail, redirect } from '@sveltejs/kit';
@@ -25,6 +26,7 @@ import { createTransport, type Transport, type TransportOptions } from 'nodemail
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 import * as shiki from 'shiki';
+import { getServerSideSettings } from '$lib/server/server-wide-settings/index.js';
 
 export async function load({ locals: { user, session, theme }, fetch, url }) {
 	if (!session || !user) redirect(302, '/auth/sign-in');
@@ -43,6 +45,9 @@ export async function load({ locals: { user, session, theme }, fetch, url }) {
 		0;
 
 	const is_admin = await database.users.is_admin(user.id);
+	const enabled_mfa = is_admin
+		? database.settings.parse(await database.settings.get(ENABLED_MFA), true)
+		: false;
 	const enabled_signup = is_admin
 		? database.settings.parse(await database.settings.get(ENABLED_SIGNUP), true)
 		: false;
@@ -60,6 +65,7 @@ export async function load({ locals: { user, session, theme }, fetch, url }) {
 	const smtp = await smtpConfig(database)
 	return {
 		user,
+		enabled_mfa,
 		enabled_signup,
 		disable_home,
 		enable_limits,
@@ -234,7 +240,10 @@ export const actions = {
 			if (field.toLowerCase().startsWith('smtp')) await database.settings.delete(SMTP_STATUS);
 
 			await database.settings.set(field, value);
-
+			if (field === ENABLED_MFA) {
+				const settings = getServerSideSettings()
+				settings.set(ENABLED_MFA, value === 'true')
+			}
 			if (
 				field === MAX_REQUESTS_PER_DAY ||
 				field === MAX_REQUESTS_PER_MINUTE ||
@@ -297,8 +306,20 @@ export const actions = {
 		if (!id) return fail(400);
 		await database.watchlist.delete(id);
 	},
+	'reset-mfa': async ({ cookies, locals: { user, session } }) => {
+		if (!session || !user) redirect(302, '/');
+
+		await database.users.update_two_factor_secret(user.id, session.id, true)
+		await lucia.invalidateSession(session.id)
+		const _session = await lucia.createSession(user.id, { two_factor_verified: false })
+		const sessionCookie = lucia.createSessionCookie(_session.id);
+		cookies.set(sessionCookie.name, sessionCookie.value, {
+			path: '.',
+			...sessionCookie.attributes
+		});
+
+	},
 	'reset-password': async ({ locals: { session, user }, url, request }) => {
-		const form = await request.formData();
 		if (!session || !user) redirect(302, '/');
 
 		try {

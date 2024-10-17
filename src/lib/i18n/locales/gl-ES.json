@@ -6,7 +6,8 @@
 		"home": "Inicio",
 		"metrics": "Métricas",
 		"settings": "Configuración",
-		"users": "Usuarios"
+		"users": "Usuarios",
+		"tags": "Tags"
 	},
 	"admin": {
 		"label": "Panel de Admin",
@@ -78,10 +79,18 @@
 	"users": {
 		"auth": {
 			"helpers": {
+				"reset-mfa": "Isto desvinculará o teu perfil do autenticador actual. Solicitaráselle que escanee un novo código QR.",
+				"only-once-mfa": "Isto só se solicitará unha vez. Garda a imaxe para volver vincular a túa conta co autenticador ou desvincúlala do teu perfil.",
+				"mfa": "Activa a autenticación de dous factores cun contrasinal de uso único baseado no tempo (TOTP). Os usuarios rexistrarán un autenticador da súa elección e usarano para acceder á súa conta.",
 				"forgot-password": "Introduce o teu correo electrónico para comezar a recuperación de contrasinal.",
 				"recover-password": "Isto enviará un correo electrónico de restablecemento de contrasinal a esta conta.",
-				"set-new-password": "Configura un contrasinal para a túa conta."
+				"set-new-password": "Configura un contrasinal para a túa conta.",
+				"set-new-authenticator": "Configurar un novo autenticador para esta conta."
 			},
+			"reset-mfa": "Restablecer MFA",
+			"enable-mfa": "Activar MFA",
+			"otp": "Contrasinal de uso único",
+			"insert-otp": "Insira o teu contrasinal de uso único",
 			"forgot-password": "¿Esqueciches a túa contrasinal?",
 			"go-to-signup": "¿Non tes unha conta? Rexístrate na <a class=\"link\" href=\"{url}\">páxina de rexistro</a>.",
 			"go-to-signin": "¿Xa tes unha conta? Vai á <a class=\"link\" href=\"{url}\">páxina de inicio de sesión</a>.",
@@ -92,6 +101,7 @@
 			"post-email-message": "Enviamos un correo electrónico á dirección que proporcionaches."
 		},
 		"labels": {
+			"mfa": "Autenticación de Múltiples Factores",
 			"profile": "Perfil de Usuario",
 			"create": "Invitar Usuario",
 			"edit": "Editar Usuario",
@@ -143,6 +153,7 @@
 		}
 	},
 	"globals": {
+		"count": "Cantidade",
 		"close": "Pechar",
 		"confirm": "Confirmar",
 		"cancel": "Cancelar",
@@ -249,11 +260,40 @@
 			"years": "Anos"
 		}
 	},
+	"tags": {
+		"labels": {
+		  "create": "Crear unha etiqueta",
+		  "edit": "Editar etiqueta",
+		  "name": "Nome da etiqueta",
+		  "slug": "Slug",
+		  "notes": "Notas",
+		  "search": "Buscar por shortcode",
+		  "users": "Usuarios",
+		  "user": "Usuario",
+		  "manage-users": "Xestionar usuarios",
+		  "snapps": "Snapps"
+		},
+		"helpers": {
+		  "creation": "A etiqueta asignarase ao usuario permitindo que prefixe os seus snapps cando os prefixos estean habilitados",
+		  "notes": "As notas serán visibles para todos os que teñan acceso a este prefixo",
+		  "created": "A etiqueta foi gardada",
+		  "confirm-delete": "Isto eliminará a etiqueta e todas as relacións con esta etiqueta. Os snapps quedarán intactos",
+		  "deleted": "A(s) etiqueta(s) foron eliminadas"
+		},
+		"placeholders": {
+		  "search": "Buscar por nome da etiqueta"
+		},
+		"errors": {
+		  "name-invalid": "Por favor, proporciona un nome de etiqueta válido."
+		}
+	  },
 	"errors": {
 		"api": {
 			"token-missing": "Requírese un token de autorización."
 		},
 		"auth": {
+			"too-many-requests-mfa": "Fixeches demasiados intentos. Agarda {TIME} minutos.",
+			"invalid-otp": "O contrasinal de uso único introducido non é válido",
 			"email-invalid": "Por favor, proporciona unha dirección de correo electrónico válida.",
 			"email-registered": "Este correo electrónico xa está asociado cunha conta. Intenta rexistrarte ou recuperar a túa contrasinal.",
 			"disabled-signups": "Os rexistros están desactivados. Se crees que isto é un erro, contacta co administrador do servizo.",

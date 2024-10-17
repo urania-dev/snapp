@@ -153,6 +153,7 @@
 	const enhanceSnappAction: SubmitFunction = ({ formData, cancel }) => {
 		if (ttl) _snapp.expiration = new Date(new Date().getTime() + ttl * 1000);
 		if (_snapp) formData.set('snapp', JSON.stringify(_snapp));
+		if (creationTags) formData.set('tags', JSON.stringify(creationTags));
 		else return cancel();
 		return async ({ result }) => {
 			await applyAction(result);
@@ -192,12 +193,14 @@
 		const snapp = data.snapps.find((s) => s.id === idx);
 		if (!snapp) return;
 		_snapp = snapp;
+		creationTags = snapp.tags.map((t) => t.id);
 		has_secret = snapp.secret === null ? false : true;
 		has_expiration = snapp.expiration !== null ? true : false;
 		has_limited_usage = (snapp.max_usages && snapp.max_usages > 0) || false;
 		show_snapp_panel = true;
 	};
 
+	const tagQuery = queryParam('tag-query');
 	const query = queryParam('query');
 	const limit = queryParam('limit', {
 		defaultValue: data.limit as number | undefined,
@@ -272,13 +275,14 @@
 		e.stopPropagation();
 		e.preventDefault();
 		const idx = e.currentTarget.dataset.idx;
+		const prefix = e.currentTarget.dataset.prefix;
 		if (!secure_context) {
 			toast.error($_('tokens.not-allowed-to-copy'));
 			return;
 		}
 
-		if (idx && navigator.clipboard)
-			await navigator.clipboard.writeText($page.url.origin + '/' + idx);
+		const withPrefix = $page.url.origin + '/' + (data.tagsAsPrefix ? prefix + '/' + idx : idx);
+		if (idx && navigator.clipboard) await navigator.clipboard.writeText(withPrefix);
 		toast.info($_('snapps.helpers.copied-to-clipboard'));
 	};
 	let limitValue = $state<number>(data.limit);
@@ -302,6 +306,29 @@
 			const index = selected.findIndex((i) => i === idx);
 			selected.splice(index, 1);
 		} else selected.push(idx);
+	};
+
+	let tagToAdd = $state<string>();
+	let tagAction = $state<string>();
+
+	let creationTags = $state<string[]>([]);
+
+	const handle_tag: MouseEventHandler<HTMLButtonElement> = (e) => {
+		e.preventDefault();
+		e.stopPropagation();
+		const idx = e.currentTarget.dataset.idx;
+		const action = e.currentTarget.dataset.action;
+		if (idx) {
+			tagToAdd = idx;
+			tagAction = action;
+			if (tagAction === 'connect') {
+				if (data.tagsAsPrefix === true) creationTags = [];
+				creationTags.push(tagToAdd);
+			}
+			if (tagAction === 'disconnect') {
+				creationTags = creationTags.filter((t) => t !== tagToAdd);
+			}
+		}
 	};
 </script>
 
@@ -366,15 +393,15 @@
 {/if}
 <div class="flex h-full w-full flex-col overflow-hidden p-4">
 	<div class="mx-auto flex h-full w-full max-w-5xl flex-col gap-4">
-		<h2 class="flex h-8 items-center gap-2 text-2xl font-bold">
+		<div class="flex h-8 items-center gap-2">
 			<Icon ph="squares-four" size={36} />
-			<span>
+			<h2 class="text-2xl font-bold">
 				{$_('menu.dashboard')}
-			</span>
-		</h2>
-		<div class="flex w-full" style:height={innerWidth < 1024 ? 'calc(100% - 4rem)' : 'h-full'}>
+			</h2>
+		</div>
+		<div class="flex w-full" style:height={innerWidth < 1024 ? 'calc(100% - 3rem)' : 'h-full'}>
 			<Card css={{ card: 'h-full gap-4' }}>
-				<div class="flex flex-col w-full items-center gap-4">
+				<div class="flex  flex-col w-full items-center gap-4">
 					<Card css={{ card: 'md:flex-row justify-between gap-4 p-2' }}>
 						<h4 class="whitespace-nowrap ps-2 text-lg font-semibold">{$_('snapps.label')}</h4>
 						{#if !selected.length}
@@ -705,6 +732,7 @@
 													class="flex h-10 w-10 items-center justify-center rounded border-none bg-slate-500/25 p-0 text-start outline-none transition-all hover:bg-red-500/50 focus:bg-red-500/50 md:h-8 md:w-8"
 													><Icon ph="trash"></Icon>
 												</button>
+
 												<button
 													data-idx={snapp.id}
 													onclick={open_edit_panel}
@@ -720,6 +748,7 @@
 												</a>
 												{#if secure_context}
 													<button
+														data-prefix={snapp.tags?.[0]?.slug}
 														data-idx={snapp.shortcode}
 														onclick={handle_copy_snapp_to_clipboard}
 														in:fly|global={{ delay: 75 * 4, y: 24 }}
@@ -1098,7 +1127,51 @@
 				</Card>
 			</div>
 		{/if}
-
+		<div class="flex h-full grow w-full" in:fly={{ y: 25 }}>
+			<div class="flex h-full flex-col w-full gap-4 overflow-y-scroll">
+				<Card css={{ card: 'p-2 gap-2 flex h-full' }}>
+					<span class="px-1 text-left text-sm font-semibold tracking-wider w-full"
+						>{$_('menu.tags')}</span
+					>
+					<div class="flex w-full gap-2">
+						<Input
+							name="search"
+							placeholder={$_('tags.placeholders.search')}
+							css={{
+								field: 'max-h-10 p-0 flex-row ',
+								input: 'text-sm max-h-10',
+								group: 'max-h-10 min-h-10',
+								label: 'hidden'
+							}}
+							icons={{ left: 'magnifying-glass' }}
+							bind:value={$tagQuery}
+						/>
+					</div>
+					{#each data.tags as tag}
+						<Card css={{ card: 'h-10 p-0 items-center flex-row' }}>
+							<button
+								data-action={creationTags.includes(tag.id) ? 'disconnect' : 'connect'}
+								data-idx={tag.id}
+								class="flex items-center leading-none w-full gap-2 p-2 h-max"
+								onclick={handle_tag}
+							>
+								<div class="flex gap-2 items-center w-full">
+									{#if creationTags.includes(tag.id)}
+										<Icon ph="tag-simple" style="fill" />
+									{:else}
+										<Icon ph="tag-simple" />
+									{/if}
+									<small class="text-sm leading-none">{tag.name}</small>
+								</div>
+							</button>
+						</Card>
+					{/each}
+					{#each { length: Math.max(0, 3 - data.tags.length) } as tag}
+						<Card css={{ card: 'h-10 p-0 px-4 items-center flex-row' }}></Card>
+					{/each}
+				</Card>
+			</div>
+		</div>
 		<Card css={{ card: 'flex-row min-h-52 p-2' }}>
 			<Input
 				name="notes"

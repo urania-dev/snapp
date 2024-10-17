@@ -53,12 +53,12 @@
 		content="Self-hostable Open Source Url Shortner. Discover more at https://github.com/urania-dev/snapp"
 	/>
 </svelte:head>
-<div class="flex w-full h-max lg:h-unset flex-col lg:overflow-clip p-4">
-	<div class="mx-auto flex lg:min-h-full w-full max-w-5xl flex-col gap-4 overflow-clip">
-		<h2 class="flex items-center gap-2 text-2xl font-bold">
+<div class="flex w-full md:grow flex-col p-4">
+	<div class="mx-auto flex h-full w-full max-w-5xl flex-col gap-4">
+		<div class="flex h-8 items-center gap-2">
 			<Icon ph="presentation-chart" size={36} />
-			<span>{$_('menu.metrics')}</span>
-		</h2>
+			<h2 class="text-2xl font-bold">{$_('menu.metrics')}</h2>
+		</div>
 		<div class="flex w-full flex-col gap-4 lg:flex-row">
 			{#key [data.start, data.end]}
 				<Card css={{ card: 'flex-row w-full' }}>
@@ -167,7 +167,7 @@
 			</Card>
 		</div>
 
-		<Card css={{ card: 'w-full aspect-[4/2] lg:aspect-[4/1.5] mb-4' }}>
+		<Card css={{ card: 'w-full aspect-[4/2] lg:aspect-[4/1.5] h-full' }}>
 			<Map theme={data.theme} data={dataset}></Map>
 		</Card>
 	</div>

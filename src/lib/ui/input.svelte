@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { FormEventHandler, MouseEventHandler } from 'svelte/elements';
+	import type { FormEventHandler, KeyboardEventHandler, MouseEventHandler } from 'svelte/elements';
 	import Icon from './icon.svelte';
 	import { cn } from '$lib/svelte-sonner/internal';
 	import type { DateValue } from '@internationalized/date';
@@ -12,6 +12,7 @@
 		actions,
 		disabled,
 		css,
+		pattern,
 		value = $bindable(),
 		element = $bindable(),
 		date = $bindable(),
@@ -20,7 +21,7 @@
 		name: string;
 		label?: string;
 		type?: HTMLInputElement['type'];
-		icons?: { left?: string; right?: string };
+		icons?: { left?: string; right?: string, sizeLeft?:number };
 		actions?: {
 			left?: MouseEventHandler<HTMLButtonElement>;
 			right?: MouseEventHandler<HTMLButtonElement>;
@@ -28,9 +29,11 @@
 			blur?: FormEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 			change?: FormEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 			input?: FormEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+			keydown?: KeyboardEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 		};
 		css?: { [key: string]: string };
 		placeholder?: string;
+		pattern?: HTMLInputElement['pattern'];
 		value?: any;
 		date?: DateValue | null;
 		element?: HTMLInputElement | HTMLTextAreaElement;
@@ -55,7 +58,7 @@
 				class="flex w-full max-w-max items-center gap-2 px-2"
 				onclick={(e) => actions?.left?.(e) || element?.focus()}
 			>
-				<Icon ph={icons.left} css={css ? { icon: css?.['icon-left'] } : undefined}></Icon>
+				<Icon ph={icons.left} css={css ? { icon: css?.['icon-left'] } : undefined} size={icons.sizeLeft}></Icon>
 			</button>
 		{/if}
 		{#if type !== 'textarea' && type !== 'date'}
@@ -65,15 +68,17 @@
 				{placeholder}
 				{disabled}
 				class={cn(
-					'flex h-full w-full items-center border-0 border-none border-transparent bg-transparent px-2 text-sm outline-none placeholder:text-sm',
+					'flex h-full w-full items-center border-0 border-none border-transparent bg-transparent px-2 text-sm outline-none placeholder:text-inherit',
 					css?.['input']
 				)}
 				onchange={(e) => actions?.change?.(e)}
 				oninput={(e) => actions?.input?.(e)}
 				onblur={(e) => actions?.blur?.(e)}
 				onfocus={(e) => actions?.focus?.(e)}
+				onkeydown={(e) => actions?.keydown?.(e)}
 				id={name}
 				style:appearance="textfield"
+				{pattern}
 				bind:value
 				{type}
 			/>

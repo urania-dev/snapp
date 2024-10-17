@@ -4,7 +4,7 @@ import Papa from 'papaparse';
 export const GET = async ({ locals: { session, user } }) => {
 	if (!session || !user) throw error(401);
 
-	const snapps = await prisma.snapp.findMany();
+	const snapps = await prisma.snapp.findMany({ include: { tags: true, user: true } });
 	let csv: string;
 
 	try {

@@ -26,6 +26,7 @@ declare global {
 	var _prisma: import('@prisma/client').PrismaClient;
 	var _rpd_limiter: import('$lib/server/ratelimiter').SlidingWindowCounter;
 	var _rpm_limiter: import('$lib/server/ratelimiter').SlidingWindowCounter;
+	var _mfa_limiter: import('$lib/server/ratelimiter').SlidingWindowCounter;
 
 	type Setting = {
 		id: string;
@@ -59,21 +60,13 @@ declare global {
 		role: string;
 		createdAt: Date;
 		updatedAt: Date;
+		two_factor_secret: string | null
 	};
 
-	type Token = {
-		key: string;
-		userId: string;
-		created: Date;
-	};
+	type Token = import('@prisma/client').Token;
 
-	type Watchlist = {
-		id: string;
-		created: Date;
-		username: string | null;
-		domain: string | null;
-		allowed: boolean;
-	};
+	type Tag = import('@prisma/client').Tag;
+
 }
 
-export {};
+export { };

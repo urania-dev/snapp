@@ -31,6 +31,13 @@ import { get_one_snapp } from './snapps/get_one';
 import { delete_snapp } from './snapps/delete';
 import { get_one_by_id } from './users/get_one_by_id';
 import { get_one_snapp_by_id } from './snapps/get_one_by_id';
+import { validate_otp } from './users/validate_otp';
+import { update_two_factor_secret } from './users/update_mfa';
+import { get_tags } from './tags/get_tags';
+import { create_tag } from './tags/create';
+import { edit_tag } from './tags/edit';
+import { delete_tag } from './tags/delete';
+import { get_one_tag } from './tags/get_one';
 
 export class Database {
 	constructor() {
@@ -49,7 +56,9 @@ export class Database {
 	// USERS
 	public users = {
 		create: create_user,
-		authenticate,
+		authenticate: authenticate,
+		validate_otp: validate_otp,
+		update_two_factor_secret: update_two_factor_secret,
 		update: update_user,
 		get: get_users,
 		one: get_one,
@@ -69,6 +78,15 @@ export class Database {
 		one: get_one_snapp,
 		validate: validate
 	};
+
+	//TAGS 
+	public tags = {
+		get: get_tags,
+		one: get_one_tag,
+		create: create_tag,
+		edit: edit_tag,
+		delete: delete_tag
+	}
 
 	public tokens = {
 		get: get_token,
@@ -100,7 +118,7 @@ export class Database {
 			undefined,
 			'root'
 		);
-		
+
 		const ENV_ENABLE_SIGNUP = env.ENABLE_SIGNUP || 'false'
 		await this.settings.set(ENABLED_SIGNUP, ENV_ENABLE_SIGNUP);
 

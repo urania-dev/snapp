@@ -50,10 +50,12 @@
 			)
 	);
 
+	let resetMFA_is_open = $state(false);
 	let modal_is_open = $state(false);
 	const close_modal: MouseEventHandler<HTMLButtonElement> = (e) => {
 		e?.stopPropagation();
 		modal_is_open = false;
+		resetMFA_is_open = false;
 	};
 	const open_modal: MouseEventHandler<HTMLButtonElement> = (e) => {
 		e?.stopPropagation();
@@ -67,6 +69,14 @@
 			if (form?.message) toast.error($_(form?.message));
 		};
 	};
+
+	const enhanceResetMFA: SubmitFunction = ({ formData, cancel }) => {
+		return async ({ result }) => {
+			await applyAction(result);
+			await invalidateAll();
+			if (form?.message) toast.error($_(form?.message));
+		};
+	};
 	let { form } = $derived($page);
 
 	const handle_reset_password: MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -74,6 +84,14 @@
 		modal_is_open = false;
 	};
 
+	const open_reset_mfa: MouseEventHandler<HTMLButtonElement> = (e) => {
+		e.stopPropagation();
+		e.preventDefault();
+		resetMFA_is_open = true;
+	};
+	const handle_reset_mfa: MouseEventHandler<HTMLButtonElement> = (e) => {
+		document.forms.namedItem('reset-mfa')?.requestSubmit();
+	};
 	let innerWidth = $state<number>(0);
 </script>
 
@@ -115,10 +133,45 @@
 		</Card>
 	</div>
 {/if}
+{#if resetMFA_is_open}
+	<div
+		class="fixed inset-0 z-20 grid h-screen w-screen place-content-center bg-neutral-950/75"
+		transition:fade
+	>
+		<Card outside={close_modal} css={{ card: 'bg-neutral-950 gap-4' }}>
+			<Card css={{ card: 'py-2' }}>
+				<h5 class="w-full text-lg font-bold">{@html $_('users.auth.reset-mfa')}</h5>
+			</Card>
+			<Card>
+				<small class="w-full text-start text-sm">{@html $_('users.auth.helpers.reset-mfa')}</small>
+			</Card>
+			<div class="flex w-full gap-4">
+				<Card css={{ card: 'h-10 overflow-clip p-0 flex-row ' }}>
+					<button
+						class="flex h-10 w-full items-center gap-2 bg-slate-500/25 p-2 text-sm leading-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50"
+						onclick={close_modal}
+					>
+						<Icon ph="x"></Icon>
+						<span>{@html $_('globals.cancel')}</span>
+					</button>
+				</Card>
+				<Card css={{ card: 'h-10  overflow-clip p-0 flex-row ' }}>
+					<button
+						class="flex h-10 w-full items-center gap-2 bg-red-500/25 p-2 text-sm leading-none transition-all hover:bg-red-500/75 hover:text-neutral-50"
+						onclick={handle_reset_mfa}
+					>
+						<Icon ph="check-circle"></Icon>
+						<span>{@html $_('globals.confirm')}</span>
+					</button>
+				</Card>
+			</div>
+		</Card>
+	</div>
+{/if}
 
 <Card css={{ card: 'gap-4' }}>
 	<div class="flex w-full gap-4">
-		<Card css={{ card: 'flex flex-row items-center justify-between py-2' }}>
+		<Card css={{ card: 'flex flex-row h-12 md:h-10 items-center justify-between py-2' }}>
 			<h4 class="text-lg font-semibold">{@html $_('users.labels.profile')}</h4>
 			{#if is_admin === true}
 				<span class="flex items-center">
@@ -129,12 +182,12 @@
 				</span>
 			{/if}
 		</Card>
-		<Card css={{ card: 'flex-row  h-full p-0 max-w-max border-none' }}>
+		<Card css={{ card: 'flex-row h-12  md:h-10 h-full p-0 max-w-max border-none' }}>
 			<form action="?/signout" method="post" use:enhance class="contents">
 				<button
-					class="flex h-full w-full items-center justify-center gap-2 rounded bg-pink-700/50 p-2 px-4 transition-all hover:bg-pink-700/75 hover:text-neutral-50 focus:bg-pink-700/75"
+					class="flex h-12  md:h-10 w-full items-center justify-center gap-2 rounded bg-pink-700/50 p-2 px-4 transition-all hover:bg-pink-700/75 hover:text-neutral-50 focus:bg-pink-700/75"
 				>
-					<Icon ph="sign-out"></Icon>
+					<Icon ph="sign-out" size={24}></Icon>
 					<small class="text-sm font-semibold">{@html $_('users.actions.logout')}</small>
 				</button>
 			</form>
@@ -166,27 +219,52 @@
 					value={username}
 				/>
 			</Card>
-			<Card css={{ card: 'flex-col items-start' }}>
-				<Input
-					name="email"
-					label={$_('users.fields.email')}
-					icons={{
-						left: 'envelope',
-						right: (active_field === 'email' && 'floppy-disk') || undefined
-					}}
-					value={email}
-					css={{ 'icon-right': 'animate-pulse' }}
-					actions={{
-						input: (e) => {
-							const element = e.currentTarget;
-							debounce(() => element.blur(), 1000)();
-						},
-						blur: (e) => {
-							if (e.currentTarget.value !== email) save_this('email', e.currentTarget.value);
-						}
-					}}
-				/>
-			</Card>
+			<div class="flex gap-4">
+				<Card css={{ card: 'flex-col items-center gap-4' }}>
+					<Input
+						name="email"
+						label={$_('users.fields.email')}
+						icons={{
+							left: 'envelope',
+							right: (active_field === 'email' && 'floppy-disk') || undefined
+						}}
+						value={email}
+						css={{ 'icon-right': 'animate-pulse' }}
+						actions={{
+							input: (e) => {
+								const element = e.currentTarget;
+								debounce(() => element.blur(), 1000)();
+							},
+							blur: (e) => {
+								if (e.currentTarget.value !== email) save_this('email', e.currentTarget.value);
+							}
+						}}
+					/>
+				</Card>
+
+				<Card css={{ card: 'flex-col items-start' }}>
+					<Select
+						disabled={innerWidth <= 767 || false}
+						icons={{ left: 'translate' }}
+						placeholder={language_placeholder}
+						name="language"
+						actions={{
+							query: (e) => {
+								search_language = e.currentTarget.value;
+							},
+							select: (e) => {
+								const idx = e.currentTarget.dataset.idx;
+								if (!idx) return;
+								save_this('language', idx, 'settings');
+								$locale = idx;
+							}
+						}}
+						label={$_('settings.label.language')}
+						items={languages}
+						value={language_placeholder}
+					></Select>
+				</Card>
+			</div>
 		</div>
 
 		<div class="inline-flex w-full flex-col gap-4">
@@ -225,27 +303,24 @@
 					>
 				</Card>
 
-				<Card css={{ card: 'flex-col items-start' }}>
-					<Select
-						disabled={innerWidth <= 767 || false}
-						icons={{ left: 'translate' }}
-						placeholder={language_placeholder}
-						name="language"
-						actions={{
-							query: (e) => {
-								search_language = e.currentTarget.value;
-							},
-							select: (e) => {
-								const idx = e.currentTarget.dataset.idx;
-								if (!idx) return;
-								save_this('language', idx, 'settings');
-								$locale = idx;
-							}
-						}}
-						label={$_('settings.label.language')}
-						items={languages}
-						value={language_placeholder}
-					></Select>
+				<Card>
+					<small class="w-full text-sm font-semibold tracking-wider"
+						>{@html $_('users.auth.reset-mfa')}</small
+					>
+					<form
+						action="?/reset-mfa"
+						id="reset-mfa"
+						hidden
+						method="post"
+						use:enhance={enhanceResetMFA}
+					></form>
+					<button
+						onclick={open_reset_mfa}
+						class="flex h-10 w-full items-center justify-center rounded border border-slate-500/50 px-2 hover:bg-red-500 hover:text-neutral-50"
+					>
+						<span class="w-full text-start text-sm">{@html $_('globals.delete')}</span>
+						<Icon ph="lock"></Icon></button
+					>
 				</Card>
 			</div>
 		</div>

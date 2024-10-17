@@ -17,6 +17,7 @@
 	import { env } from '$env/dynamic/public';
 	import Migration from './migration.svelte';
 	import UmamiIntegration from './umami_integration.svelte';
+	import Mfa from './mfa.svelte';
 
 	let { data, form } = $props();
 
@@ -67,8 +68,8 @@
 	hidden
 ></form>
 
-<div class="flex h-max w-full flex-col p-4 pb-8">
-	<div class="mx-auto flex h-max w-full max-w-5xl flex-col gap-4">
+<div class="flex md:grow h-max w-full flex-col p-4 pb-8">
+	<div class="mx-auto lg:h-full grow flex h-max w-full max-w-5xl flex-col gap-4">
 		<h2 class="flex items-center gap-2 text-2xl font-bold">
 			<Icon ph="gear" size={36} />
 			{$_('menu.settings')}
@@ -95,6 +96,7 @@
 				bind:allow_http={data.allow_http}
 				{save_this}
 			/>
+			<Mfa {save_this} enabled_mfa={data.enabled_mfa} />
 			<UmamiIntegration
 				{save_this}
 				umami_url={data.umami_url}

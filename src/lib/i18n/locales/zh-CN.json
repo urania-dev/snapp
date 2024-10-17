@@ -6,7 +6,8 @@
 		"home": "首页",
 		"metrics": "指标",
 		"settings": "设置",
-		"users": "用户"
+		"users": "用户",
+		"tags": "标签"
 	},
 	"admin": {
 		"label": "管理员面板",
@@ -78,10 +79,18 @@
 	"users": {
 		"auth": {
 			"helpers": {
+				"reset-mfa": "这将取消您的个人资料与当前身份验证器的链接。您将收到一个新的二维码提示。",
+				"only-once-mfa": "这只会提示一次。保存图片以重新链接您的账户到验证器，或从您的个人资料中取消链接。",
+				"mfa": "启用基于时间的一次性密码 (TOTP) 的双因素身份验证。用户将注册一个自己选择的身份验证器，并使用它访问他们的帐户。",
 				"forgot-password": "输入您的邮箱地址以开始密码恢复。",
 				"recover-password": "发送密码重置邮件到此账户。",
-				"set-new-password": "为您的账户设置密码。"
+				"set-new-password": "为您的账户设置密码。",
+				"set-new-authenticator": "为此账户设置新的身份验证器。"
 			},
+			"reset-mfa": "重置 MFA",
+			"enable-mfa": "启用 MFA",
+			"otp": "一次性密码",
+			"insert-otp": "输入您的一次性密码",
 			"forgot-password": "忘记密码？",
 			"go-to-signup": "没有账户？请前往 <a class=\"link\" href=\"{url}\">注册页面</a> 注册。",
 			"go-to-signin": "已有账户？请前往 <a class=\"link\" href=\"{url}\">登录页面</a> 登录。",
@@ -92,6 +101,7 @@
 			"post-email-message": "我们已向您提供的邮箱地址发送了一封电子邮件。"
 		},
 		"labels": {
+			"mfa": "多因素身份验证",
 			"profile": "用户资料",
 			"create": "邀请用户",
 			"edit": "编辑用户",
@@ -143,6 +153,7 @@
 		}
 	},
 	"globals": {
+		"count": "数量",
 		"close": "关闭",
 		"confirm": "确认",
 		"cancel": "取消",
@@ -249,11 +260,40 @@
 			"years": "年"
 		}
 	},
+	"tags": {
+		"labels": {
+			"create": "创建标签",
+			"edit": "编辑标签",
+			"name": "标签名称",
+			"slug": "Slug",
+			"notes": "备注",
+			"search": "按短码搜索",
+			"users": "用户",
+			"user": "用户",
+			"manage-users": "管理用户",
+			"snapps": "Snapps"
+		},
+		"helpers": {
+			"creation": "标签将被分配给用户，允许其在启用前缀时为其 snapps 添加前缀",
+			"notes": "备注对所有有权访问此前缀的人可见",
+			"created": "标签已保存",
+			"confirm-delete": "这将删除标签及其相关的所有连接。Snapps 不会受到影响",
+			"deleted": "标签已删除"
+		},
+		"placeholders": {
+			"search": "按标签名称搜索"
+		},
+		"errors": {
+			"name-invalid": "请提供有效的标签名称。"
+		}
+	},
 	"errors": {
 		"api": {
 			"token-missing": "需要授权令牌。"
 		},
 		"auth": {
+			"too-many-requests-mfa": "您尝试次数过多。请等待 {TIME} 分钟。",
+			"invalid-otp": "输入的一次性密码无效",
 			"email-invalid": "请提供有效的邮箱地址。",
 			"email-registered": "此邮箱地址已与账户关联。请尝试注册或恢复您的密码。",
 			"disabled-signups": "注册已禁用。如果您认为这是一个错误，请联系服务管理员。",

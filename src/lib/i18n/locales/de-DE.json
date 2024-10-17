@@ -6,7 +6,8 @@
 		"home": "Start",
 		"metrics": "Metriken",
 		"settings": "Einst.",
-		"users": "Benutzer"
+		"users": "Benutzer",
+		"tags": "Tags"
 	},
 	"admin": {
 		"label": "Admin-Panel",
@@ -78,10 +79,18 @@
 	"users": {
 		"auth": {
 			"helpers": {
+				"only-once-mfa": "Dies wird nur einmal abgefragt. Speichern Sie das Bild, um Ihr Konto mit dem Authentifikator zu verknüpfen, oder trennen Sie es von Ihrem Profil.",
+				"reset-mfa": "Dies wird Ihr Profil vom aktuellen Authentifikator trennen. Sie werden aufgefordert, einen neuen QR-Code zu scannen.",
+				"mfa": "Aktivieren Sie die Zwei-Faktor-Authentifizierung mit einem zeitbasierten Einmalpasswort (TOTP). Benutzer registrieren einen Authentifikator ihrer Wahl und verwenden ihn, um auf ihr Konto zuzugreifen.",
 				"forgot-password": "Geben Sie Ihre E-Mail-Adresse ein, um die Passwortwiederherstellung zu starten.",
 				"recover-password": "Dies löst eine E-Mail zur Passwortzurücksetzung an dieses Konto aus.",
+				"set-new-authenticator": "Richten Sie einen neuen Authentifikator für dieses Konto ein.",
 				"set-new-password": "Richten Sie ein Passwort für Ihr Konto ein."
 			},
+			"reset-mfa": "MFA zurücksetzen",
+			"enable-mfa": "MFA aktivieren",
+			"otp": "Einmalpasswort",
+			"insert-otp": "Geben Sie Ihr Einmalpasswort ein",
 			"forgot-password": "Passwort vergessen?",
 			"go-to-signup": "Haben Sie kein Konto? Registrieren Sie sich auf der <a class=\"link\" href=\"{url}\">Registrierungsseite</a>.",
 			"go-to-signin": "Haben Sie bereits ein Konto? Gehen Sie zur <a class=\"link\" href=\"{url}\">Anmeldeseite</a>.",
@@ -92,6 +101,7 @@
 			"post-email-message": "Wir haben eine E-Mail an die angegebene Adresse gesendet."
 		},
 		"labels": {
+			"mfa": "Mehrfaktor-Authentifizierung",
 			"profile": "Benutzerprofil",
 			"create": "Benutzer einladen",
 			"edit": "Benutzer bearbeiten",
@@ -143,6 +153,7 @@
 		}
 	},
 	"globals": {
+		"count": "Anzahl",
 		"close": "Schließen",
 		"confirm": "Bestätigen",
 		"cancel": "Abbrechen",
@@ -249,11 +260,40 @@
 			"years": "Jahre"
 		}
 	},
+	"tags": {
+		"labels": {
+			"create": "Erstelle ein Tag",
+			"edit": "Tag bearbeiten",
+			"name": "Tag-Name",
+			"slug": "Slug",
+			"notes": "Notizen",
+			"search": "Suche nach Shortcode",
+			"users": "Benutzer",
+			"user": "Benutzer",
+			"manage-users": "Benutzer verwalten",
+			"snapps": "Snapps"
+		},
+		"helpers": {
+			"creation": "Das Tag wird dem Benutzer zugewiesen und erlaubt ihm, seine Snapps zu präfixieren, wenn Präfixe aktiviert sind",
+			"notes": "Notizen sind für alle sichtbar, die Zugriff auf dieses Präfix haben",
+			"created": "Das Tag wurde gespeichert",
+			"confirm-delete": "Dies wird das Tag und alle zugehörigen Verbindungen löschen. Snapps bleiben unberührt",
+			"deleted": "Das/die Tag(s) wurden gelöscht"
+		},
+		"placeholders": {
+			"search": "Suche nach Tag-Namen"
+		},
+		"errors": {
+			"name-invalid": "Bitte geben Sie einen gültigen Tag-Namen an."
+		}
+	},
 	"errors": {
 		"api": {
 			"token-missing": "Autorisierungstoken erforderlich."
 		},
 		"auth": {
+			"too-many-requests-mfa": "Sie haben zu viele Versuche unternommen. Warten Sie {TIME} Minuten.",
+			"invalid-otp": "Das eingegebene Einmalpasswort ist ungültig",
 			"email-invalid": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
 			"email-registered": "Diese E-Mail-Adresse ist bereits mit einem Konto verknüpft. Versuchen Sie, sich anzumelden oder Ihr Passwort wiederherzustellen.",
 			"disabled-signups": "Registrierungen sind deaktiviert. Wenn Sie denken, dass dies ein Fehler ist, kontaktieren Sie bitte den Dienstadministrator.",

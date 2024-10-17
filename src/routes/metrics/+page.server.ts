@@ -13,11 +13,12 @@ export const load = async ({ locals: { session, user }, request, url }) => {
 	let device = url.searchParams.get('device')?.toString() || undefined;
 
 	const is_admin = await database.users.is_admin(user.id);
-
-	let start = startString ? new Date(startString) : new Date();
-	let end = endString ? new Date(endString) : new Date();
+	const base = new Date()
+	let start = startString ? new Date(startString) : new Date(base)
+	let end = endString ? new Date(endString) : new Date(base)
 
 	if (!startString || !endString) start.setTime(end.getTime() - 7 * 24 * 60 * 60 * 1000);
+	if (start === end) start.setTime(end.getTime() - 7 * 24 * 60 * 60 * 1000);
 
 	if (country?.toLowerCase() === 'world') country = undefined;
 	if (browser?.toLowerCase() === 'all') browser = undefined;

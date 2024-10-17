@@ -6,7 +6,8 @@
 		"home": "Home",
 		"metrics": "Metrics",
 		"settings": "Settings",
-		"users": "Users"
+		"users": "Users",
+		"tags": "Tags"
 	},
 	"admin": {
 		"label": "Admin Panel",
@@ -78,10 +79,18 @@
 	"users": {
 		"auth": {
 			"helpers": {
+				"only-once-mfa": "This will be prompted just once, now. Save the image to relink your account to authenticator, or unlink it from your profile.",
+				"reset-mfa": "This will unlink your profile from the current authenticator. You will be prompted with a new QR code.",
+				"mfa": "Enable Two-Factor Authentication with a Time-based One-Time Password (TOTP). Users will register an authenticator of their choice and use it to access their account.",
 				"forgot-password": "Enter your email to start password recovery.",
 				"recover-password": "This will trigger a password reset email to this account.",
-				"set-new-password": "Set up a password for your account."
+				"set-new-password": "Set up a password for your account.",
+				"set-new-authenticator": "Set up a new authenticator for this account."
 			},
+			"reset-mfa": "Reset MFA",
+			"enable-mfa": "Enable MFA",
+			"otp": "One time password",
+			"insert-otp": "Insert your one-time password",
 			"forgot-password": "Forgot your password?",
 			"go-to-signup": "Don't have an account? Register at the <a class=\"link\" href=\"{url}\">signup page</a>.",
 			"go-to-signin": "Already have an account? Go to the <a class=\"link\" href=\"{url}\">login page</a>.",
@@ -95,7 +104,8 @@
 			"profile": "User Profile",
 			"create": "Invite User",
 			"edit": "Edit User",
-			"list": "List of Registered Users"
+			"list": "List of Registered Users",
+			"mfa": "Multiple Factors Authentication"
 		},
 		"fields": {
 			"email": "Email",
@@ -144,6 +154,7 @@
 	},
 	"globals": {
 		"close": "Close",
+		"count": "Count",
 		"confirm": "Confirm",
 		"cancel": "Cancel",
 		"sure-ask": "Are you sure?",
@@ -249,11 +260,40 @@
 			"years": "Years"
 		}
 	},
+	"tags": {
+		"labels": {
+			"create": "Create a tag",
+			"edit": "Edit tag",
+			"name": "Tag name",
+			"slug": "Slug",
+			"notes": "Notes",
+			"search": "Search by shortcode",
+			"users": "Users",
+			"user": "User",
+			"manage-users": "Manage Users",
+			"snapps": "Snapps"
+		},
+		"helpers": {
+			"creation": "The tag will be assigned to user allowing him to prefix his snapps when prefixes are enabled",
+			"notes": "Notes will be visible to everyone who has access to this prefix",
+			"created": "The tag has been saved",
+			"confirm-delete": "This will delete the tag and all the relation to this tag. Snapps will be left untouched",
+			"deleted": "The tag(s) have been deleted"
+		},
+		"placeholders": {
+			"search": "Search by tag name"
+		},
+		"errors": {
+			"name-invalid": "Please provide a valid tag name."
+		}
+	},
 	"errors": {
 		"api": {
 			"token-missing": "Authorization token required."
 		},
 		"auth": {
+			"too-many-requests-mfa": "You made to many attempt. Wait for {TIME} minutes.",
+			"invalid-otp": "The one-time password entered is not valid",
 			"email-invalid": "Please provide a valid email address.",
 			"email-registered": "This email is already associated with an account. Try signing up or recovering your password.",
 			"disabled-signups": "Signups are disabled. If you think this is a mistake, please contact the service administrator.",
@@ -278,6 +318,9 @@
 		"blacklisted": {
 			"user": "There was an issue with your authentication process. Please contact the service administrator.",
 			"domain": "This snapp redirects to a blacklisted domain. Please contact the service administrator if you think this is a mistake."
+		},
+		"tags": {
+			"as-prefix": "This instance use tags as prefix, please prepend your url with the currect tag among those assigned to your profile."
 		},
 		"generic": "An error occurred. If this persists, contact the administrator.",
 		"unauthorized": "You are not allowed to do this",

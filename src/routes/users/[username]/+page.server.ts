@@ -22,19 +22,19 @@ export async function load({ locals: { session, user }, url, params: { username 
 		await database.settings.get(ALLOW_UNSECURE_HTTP),
 		true
 	);
-
+	
 	const limit = parseInt(url.searchParams.get('limit')?.toString() || '14');
 	const page = parseInt(url.searchParams.get('page')?.toString() || '1');
 	const orderBy = url.searchParams.get('order-by')?.toString() || 'created';
 	const ascending =
-		url.searchParams.get('ascending')?.toString()?.toLowerCase() === 'false' || false;
+	url.searchParams.get('ascending')?.toString()?.toLowerCase() === 'false' || false;
 	const offset = (page - 1) * limit;
-
+	
 	const query = url.searchParams.get('query')?.toString();
-
+	
 	const cols = await database.settings
-		.get('COLUMNS', user.id)
-		.then((res) => (res?.value && (JSON.parse(res.value) as string[])) || []);
+	.get('COLUMNS', user.id)
+	.then((res) => (res?.value && (JSON.parse(res.value) as string[])) || []);
 	const [snapps, count] = await database.snapps.get(ghosting.id, query, limit, offset, {
 		[orderBy]: ascending ? 'asc' : 'desc'
 	});

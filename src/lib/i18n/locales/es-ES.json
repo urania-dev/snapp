@@ -6,7 +6,8 @@
 		"home": "Inicio",
 		"metrics": "Métricas",
 		"settings": "Configurar",
-		"users": "Usuarios"
+		"users": "Usuarios",
+		"tags":"Tags"
 	},
 	"admin": {
 		"label": "Admin Panel",
@@ -78,10 +79,18 @@
 	"users": {
 		"auth": {
 			"helpers": {
+				"only-once-mfa": "Esto se te pedirá solo una vez. Guarda la imagen para volver a vincular tu cuenta con el autenticador o desvincúlala de tu perfil.",
+				"reset-mfa": "Esto desvinculará tu perfil del autenticador actual. Se te pedirá que escanees un nuevo código QR.",
+				"mfa": "Habilita la autenticación de dos factores con una contraseña de un solo uso basada en el tiempo (TOTP). Los usuarios registrarán un autenticador de su elección y lo utilizarán para acceder a su cuenta.",
 				"forgot-password": "Introduce tu correo electrónico para comenzar la recuperación de contraseña.",
 				"recover-password": "Esto enviará un correo electrónico de restablecimiento de contraseña a esta cuenta.",
-				"set-new-password": "Configure una contraseña para su cuenta."
+				"set-new-password": "Configure una contraseña para su cuenta.",
+				"set-new-authenticator": "Configura un nuevo autenticador para esta cuenta."
 			},
+			"enable-mfa": "Habilitar MFA",
+			"reset-mfa": "Restablecer MFA",
+			"otp": "Contraseña de un solo uso",
+			"insert-otp": "Introduce tu contraseña de un solo uso",
 			"forgot-password": "¿Olvidaste tu contraseña?",
 			"go-to-signup": "¿No tienes una cuenta? Regístrate en la <a class=\"link\" href=\"{url}\">página de registro</a>.",
 			"go-to-signin": "¿Ya tienes una cuenta? Ve a la <a class=\"link\" href=\"{url}\">página de inicio de sesión</a>.",
@@ -92,6 +101,7 @@
 			"post-email-message": "Hemos enviado un correo electrónico a la dirección que proporcionaste."
 		},
 		"labels": {
+			"mfa": "Autenticación de Múltiples Factores",
 			"profile": "Perfil de Usuario",
 			"create": "Invitar Usuario",
 			"edit": "Editar Usuario",
@@ -143,6 +153,7 @@
 		}
 	},
 	"globals": {
+		"count": "Cantidad",
 		"close": "Cerrar",
 		"confirm": "Confirmar",
 		"cancel": "Cancelar",
@@ -249,11 +260,40 @@
 			"years": "Años"
 		}
 	},
+	"tags": {
+		"labels": {
+			"create": "Crear una etiqueta",
+			"edit": "Editar etiqueta",
+			"name": "Nombre de etiqueta",
+			"slug": "Slug",
+			"notes": "Notas",
+			"search": "Buscar por shortcode",
+			"users": "Usuarios",
+			"user": "Usuario",
+			"manage-users": "Gestionar usuarios",
+			"snapps": "Snapps"
+		},
+		"helpers": {
+			"creation": "La etiqueta se asignará al usuario permitiéndole prefijar sus snapps cuando los prefijos estén habilitados",
+			"notes": "Las notas serán visibles para todos los que tengan acceso a este prefijo",
+			"created": "La etiqueta ha sido guardada",
+			"confirm-delete": "Esto eliminará la etiqueta y todas las relaciones con esta etiqueta. Los snapps no se verán afectados",
+			"deleted": "La(s) etiqueta(s) han sido eliminadas"
+		},
+		"placeholders": {
+			"search": "Buscar por nombre de etiqueta"
+		},
+		"errors": {
+			"name-invalid": "Por favor, proporcione un nombre de etiqueta válido."
+		}
+	},
 	"errors": {
 		"api": {
 			"token-missing": "Se requiere un token de autorización."
 		},
 		"auth": {
+			"too-many-requests-mfa": "Has realizado demasiados intentos. Espera {TIME} minutos.",
+			"invalid-otp": "La contraseña de un solo uso ingresada no es válida",
 			"email-invalid": "Por favor, proporciona una dirección de correo electrónico válida.",
 			"email-registered": "Este correo electrónico ya está asociado con una cuenta. Intenta registrarte o recuperar tu contraseña.",
 			"disabled-signups": "Los registros están desactivados. Si crees que esto es un error, contacta al administrador del servicio.",

@@ -6,7 +6,8 @@
 		"home": "Accueil",
 		"metrics": "Stats",
 		"settings": "Param.",
-		"users": "Util."
+		"users": "Util.",
+		"tags": "Tags"
 	},
 	"admin": {
 		"label": "Panneau d'administration",
@@ -78,10 +79,18 @@
 	"users": {
 		"auth": {
 			"helpers": {
+				"reset-mfa": "Cela dissociera votre profil de l'authentificateur actuel. Vous serez invité à scanner un nouveau QR code.",
+				"only-once-mfa": "Cela vous sera demandé une seule fois. Enregistrez l'image pour relier votre compte à l'authentificateur ou le dissocier de votre profil.",
+				"mfa": "Activez l'authentification à deux facteurs avec un mot de passe à usage unique basé sur le temps (TOTP). Les utilisateurs enregistreront un authentificateur de leur choix et l'utiliseront pour accéder à leur compte.",
 				"forgot-password": "Entrez votre e-mail pour commencer la récupération de mot de passe.",
 				"recover-password": "Cela déclenchera un e-mail de réinitialisation de mot de passe pour ce compte.",
-				"set-new-password": "Configurez un mot de passe pour votre compte."
+				"set-new-password": "Configurez un mot de passe pour votre compte.",
+				"set-new-authenticator": "Configurer un nouvel authentificateur pour ce compte."
 			},
+			"reset-mfa": "Réinitialiser MFA",
+			"enable-mfa": "Activer MFA",
+			"otp": "Mot de passe à usage unique",
+			"insert-otp": "Entrez votre mot de passe à usage unique",
 			"forgot-password": "Mot de passe oublié ?",
 			"go-to-signup": "Vous n'avez pas de compte ? Inscrivez-vous sur la <a class=\"link\" href=\"{url}\">page d'inscription</a>.",
 			"go-to-signin": "Vous avez déjà un compte ? Allez sur la <a class=\"link\" href=\"{url}\">page de connexion</a>.",
@@ -92,6 +101,7 @@
 			"post-email-message": "Nous avons envoyé un e-mail à l'adresse que vous avez fournie."
 		},
 		"labels": {
+			"mfa": "Authentification Multi-facteurs",
 			"profile": "Profil utilisateur",
 			"create": "Inviter un utilisateur",
 			"edit": "Modifier l'utilisateur",
@@ -143,6 +153,7 @@
 		}
 	},
 	"globals": {
+		"count": "Nombre",
 		"close": "Fermer",
 		"confirm": "Confirmer",
 		"cancel": "Annuler",
@@ -249,11 +260,40 @@
 			"years": "Années"
 		}
 	},
+	"tags": {
+		"labels": {
+			"create": "Créer une étiquette",
+			"edit": "Modifier l'étiquette",
+			"name": "Nom de l'étiquette",
+			"slug": "Slug",
+			"notes": "Notes",
+			"search": "Rechercher par shortcode",
+			"users": "Utilisateurs",
+			"user": "Utilisateur",
+			"manage-users": "Gérer les utilisateurs",
+			"snapps": "Snapps"
+		},
+		"helpers": {
+			"creation": "L'étiquette sera assignée à l'utilisateur lui permettant de préfixer ses snapps lorsque les préfixes sont activés",
+			"notes": "Les notes seront visibles pour tous ceux qui ont accès à ce préfixe",
+			"created": "L'étiquette a été enregistrée",
+			"confirm-delete": "Cela supprimera l'étiquette et toutes les relations associées à cette étiquette. Les snapps resteront intacts",
+			"deleted": "L'étiquette a été supprimée"
+		},
+		"placeholders": {
+			"search": "Rechercher par nom d'étiquette"
+		},
+		"errors": {
+			"name-invalid": "Veuillez fournir un nom d'étiquette valide."
+		}
+	},
 	"errors": {
 		"api": {
 			"token-missing": "Jeton d'autorisation requis."
 		},
 		"auth": {
+			"too-many-requests-mfa": "Vous avez fait trop de tentatives. Attendez {TIME} minutes.",
+			"invalid-otp": "Le mot de passe à usage unique saisi n'est pas valide",
 			"email-invalid": "Veuillez fournir une adresse e-mail valide.",
 			"email-registered": "Cet e-mail est déjà associé à un compte. Essayez de vous inscrire ou de récupérer votre mot de passe.",
 			"disabled-signups": "Les inscriptions sont désactivées. Si vous pensez qu'il s'agit d'une erreur, veuillez contacter l'administrateur du service.",

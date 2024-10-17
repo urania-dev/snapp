@@ -14,18 +14,19 @@
 				href={item.url}
 				class={cn(
 					'flex aspect-square h-20 md:shrink-0 w-full flex-col items-center justify-center gap-2 bg-slate-500/25 p-0 text-xxs font-bold uppercase outline-none transition-all hover:bg-slate-500/50 focus-visible:bg-slate-500/50 md:h-[unset] md:w-full lg:w-20',
-					item.active === true ? 'bg-slate-500/100 text-neutral-50 hover:bg-slate-500' : '',
+					item.active === true ? 'bg-slate-500/100 text-neutral-50 hover:bg-slate-500 dark:bg-slate-600' : '',
 					item.css
 				)}
 				data-sveltekit-preload-data
 			>
 				<Icon
-					css={{ icon: cn('text-2xl w-max', item.active ? 'text-slate-800' : '') }}
+					css={{ icon: cn('text-2xl w-max', item.active ? 'text-slate-100' : '') }}
 					ph={item.icon}
+					style={item.active ? 'fill' : 'regular'}
 					size={24}
 				></Icon>
 				<span
-					class="w-full text-center text-xxs {item.active ? 'text-slate-800 text-xxs' : 'text-xxs'}"
+					class="w-full text-center text-xxs {item.active ? 'text-slate-100 text-xxs' : 'text-xxs'}"
 					>{item.label}</span
 				>
 			</a>

@@ -9,7 +9,7 @@ import type { User } from 'lucia';
 type ERROR = typeof USER_DOES_NOT_EXISTS | typeof PASSWORD_IS_INVALID;
 
 const authenticate = async (cookies: Cookies, username: string, password: string) => {
-	const exists = await prisma.user.findFirst({ where: { username } });
+	const exists = await prisma.user.findFirst({ where: { username }, });
 	if (exists === null) return [null, USER_DOES_NOT_EXISTS] as [null, ERROR];
 	const validPassword = await verify(exists.password_hash, password, {
 		memoryCost: 19456,
@@ -20,14 +20,13 @@ const authenticate = async (cookies: Cookies, username: string, password: string
 	if (!validPassword) return [null, PASSWORD_IS_INVALID] as [null, ERROR];
 	await prisma.user.update({ where: { id: exists.id }, data: {} }); // updatedAt // last login
 
-	const session = await lucia.createSession(exists.id, {});
+	const session = await lucia.createSession(exists.id, { two_factor_verified: false });
 	const sessionCookie = lucia.createSessionCookie(session.id);
 	cookies.set(sessionCookie.name, sessionCookie.value, {
 		path: '.',
 		...sessionCookie.attributes
 	});
-
-	return [exists, null] as [User, null];
+	return [{ ...exists, setupTwoFactor: exists.two_factor_secret !== null }, null] as [User, null];
 };
 
 export { authenticate };

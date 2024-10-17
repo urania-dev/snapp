@@ -2,7 +2,9 @@ import { database } from '$lib/server/db/database.js';
 import { markUsage } from '$lib/server/mark-usage/index.js';
 import { error, fail, redirect } from '@sveltejs/kit';
 import { verify } from '@node-rs/argon2';
-import { SNAPP_DISABLED } from '$lib/utils/constants.js';
+import { SNAPP_DISABLED, TAGS_AS_PREFIX } from '$lib/utils/constants.js';
+import { getServerSideSettings } from '$lib/server/server-wide-settings/index.js';
+
 
 export const load = async ({
 	locals: { user },
@@ -12,6 +14,9 @@ export const load = async ({
 	request,
 	params: { shortcode }
 }) => {
+	const settings = getServerSideSettings()
+	const tagsAsPrefix = settings.get(TAGS_AS_PREFIX)
+	if (tagsAsPrefix) throw error(400, { message: 'errors.tags.as-prefix' })
 	if (!shortcode) error(404, { message: 'errors.snapps.not-found' });
 
 	const [redirection, err] = await database.snapps.one(shortcode);

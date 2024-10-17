@@ -291,7 +291,7 @@
 				{data.ghosting.username}'s {$_('menu.dashboard')}
 			</span>
 		</h2>
-		<div class="flex w-full" style:height={innerWidth < 1024 ? 'calc(100% - 4rem)' : 'h-full'}>
+		<div class="flex w-full h-full">
 			<Card css={{ card: 'h-full gap-4' }}>
 				<div class="flex w-full items-center gap-4">
 					<Card css={{ card: 'md:flex-row justify-between gap-4 p-2' }}>

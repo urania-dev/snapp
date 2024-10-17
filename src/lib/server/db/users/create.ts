@@ -25,11 +25,11 @@ const create_user = async (
 	});
 
 	const { password_hash: __, ...user } = await prisma.user.create({
-		data: { id: generateId(8), username, email, password_hash, role }
+		data: { id: generateId(8), username, email, password_hash, role, two_factor_secret: null }
 	});
 
 	if (cookies) {
-		const session = await lucia.createSession(user.id, {});
+		const session = await lucia.createSession(user.id, { two_factor_verified: false });
 		const sessionCookie = lucia.createSessionCookie(session.id);
 		cookies.set(sessionCookie.name, sessionCookie.value, {
 			path: '.',

@@ -8,18 +8,20 @@
 		css
 	}: {
 		ph: string;
-		style?: 'regular' | 'bold' | 'thin' | 'duotone'|'fill';
+		style?: 'regular' | 'bold' | 'thin' | 'duotone' | 'fill';
 		size?: number;
 		css?: { [key: string]: string };
 	} = $props();
 </script>
 
-<i
-	class={cn(
-		style !== 'regular' ? `ph-${style}` : 'ph',
-		`ph-${icon}`,
-		`inline-flex aspect-square w-${size / 4} h-${size / 4}`,
-		css?.['icon']
-	)}
-	style:font-size={size ? `${size}px` : undefined}
-></i>
+<div class="inline-flex justify-center items-center">
+	<i
+		class={cn(
+			style !== 'regular' ? `ph-${style}` : 'ph',
+			`ph-${icon}`,
+
+			css?.['icon']
+		)}
+		style:font-size={size ? `${size}px` : undefined}
+	></i>
+</div>

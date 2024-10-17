@@ -6,7 +6,8 @@
 		"home": "Home",
 		"metrics": "Metriche",
 		"settings": "Configura",
-		"users": "Utenti"
+		"users": "Utenti",
+		"tags": "Tags"
 	},
 	"admin": {
 		"label": "Pannello Admin",
@@ -78,10 +79,17 @@
 	"users": {
 		"auth": {
 			"helpers": {
+				"reset-mfa": "Questo scollegherà il tuo profilo dall'autenticatore attuale. Ti verrà richiesto un nuovo codice QR.",
+				"only-once-mfa": "Questo verrà richiesto solo una volta. Salva l'immagine per ricollegare il tuo account all'autenticatore o scollegarlo dal tuo profilo.",
+				"mfa": "Abilita l'autenticazione a due fattori con una password monouso basata sul tempo (TOTP). Gli utenti registreranno un autenticatore a loro scelta e lo utilizzeranno per accedere al proprio account.",
 				"forgot-password": "Inserisci la tua email per avviare il recupero della password.",
 				"recover-password": "Questo invierà un&rsquo;email di reset della password a questo account.",
-				"set-new-password": "Imposta una password per il tuo account."
+				"set-new-password": "Imposta una password per il tuo account.",
+				"set-new-authenticator": "Imposta un nuovo autenticatore per questo account."
 			},
+			"reset-mfa": "Reimposta MFA",
+			"enable-mfa": "Abilita MFA",
+			"otp": "Codice monouso",
 			"forgot-password": "Hai dimenticato la password?",
 			"go-to-signup": "Non hai un account? Registrati alla <a class=\"link\" href=\"{url}\">pagina di registrazione</a>.",
 			"go-to-signin": "Hai già un account? Vai alla <a class=\"link\" href=\"{url}\">pagina di login</a>.",
@@ -89,9 +97,11 @@
 			"sign-up": "Registrati",
 			"recover-password": "Recupera Password",
 			"reset-email-sent": "Recupero password avviato, un&rsquo;email è stata inviata all&rsquo;indirizzo fornito.",
-			"post-email-message": "Abbiamo inviato un&rsquo;email all&rsquo;indirizzo fornito."
+			"post-email-message": "Abbiamo inviato un&rsquo;email all&rsquo;indirizzo fornito.",
+			"insert-otp": "Inserisci il tuo codice monouso"
 		},
 		"labels": {
+			"mfa": "Autenticazione a più fattori",
 			"profile": "Profilo Utente",
 			"create": "Invita Utente",
 			"edit": "Modifica Utente",
@@ -143,6 +153,7 @@
 		}
 	},
 	"globals": {
+		"count": "Q.tà",
 		"close": "Chiudi",
 		"confirm": "Conferma",
 		"cancel": "Annulla",
@@ -249,11 +260,40 @@
 			"years": "Anni"
 		}
 	},
+	"tags": {
+		"labels": {
+		  "create": "Crea un tag",
+		  "edit": "Modifica tag",
+		  "name": "Nome del tag",
+		  "slug": "Slug",
+		  "notes": "Note",
+		  "search": "Cerca per shortcode",
+		  "users": "Utenti",
+		  "user": "Utente",
+		  "manage-users": "Gestisci utenti",
+		  "snapps": "Snapps"
+		},
+		"helpers": {
+		  "creation": "Il tag sarà assegnato all'utente permettendogli di prefissare i suoi snapps quando i prefissi sono abilitati",
+		  "notes": "Le note saranno visibili a tutti coloro che hanno accesso a questo prefisso",
+		  "created": "Il tag è stato salvato",
+		  "confirm-delete": "Questo eliminerà il tag e tutte le relazioni a esso associate. Gli snapps rimarranno intatti",
+		  "deleted": "Il/i tag sono stati eliminati"
+		},
+		"placeholders": {
+		  "search": "Cerca per nome del tag"
+		},
+		"errors": {
+		  "name-invalid": "Per favore, fornisci un nome valido per il tag."
+		}
+	  },
 	"errors": {
 		"api": {
 			"token-missing": "Token di autorizzazione richiesto."
 		},
 		"auth": {
+			"too-many-requests-mfa": "Hai effettuato troppi tentativi. Attendi {TIME} minuti.",
+			"invaild-otp": "Il codice monouso inserito non è valido",
 			"email-invalid": "Per favore, fornisci un indirizzo email valido.",
 			"email-registered": "Questa email è già associata a un account. Prova a registrarti o a recuperare la tua password.",
 			"disabled-signups": "Le registrazioni sono disabilitate. Se pensi che sia un errore, contatta l&rsquo;amministratore del servizio.",

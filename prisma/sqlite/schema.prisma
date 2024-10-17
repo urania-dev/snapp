@@ -11,27 +11,30 @@ datasource db {
 }
 
 model User {
-  id            String    @id
-  sessions      Session[]
-  username      String    @unique
-  password_hash String
-  email         String    @unique
-  settings      Setting[]
-  notes         String?
-  role          String    @default("user")
-  token         Token[]
-  snapps        Snapp[]
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  usages        Usages[]
+  id                String    @id
+  sessions          Session[]
+  username          String    @unique
+  password_hash     String
+  email             String    @unique
+  settings          Setting[]
+  notes             String?
+  role              String    @default("user")
+  token             Token[]
+  snapps            Snapp[]
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  usages            Usages[]
+  two_factor_secret String?
+  tags              Tag[]     @relation("user_tags")
 
   @@map("users")
 }
 
 model Session {
-  id        String   @id
-  userId    String
-  expiresAt DateTime
+  id                  String   @id
+  userId              String
+  expiresAt           DateTime
+  two_factor_verified Boolean  @default(false)
 
   user User @relation(references: [id], fields: [userId], onDelete: Cascade)
 
@@ -104,6 +107,7 @@ model Snapp {
   userId String
   user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   usages Usages[]
+  tags   Tag[]    @relation("snapp_tags")
 
   @@index(shortcode)
   @@index([created])
@@ -112,23 +116,34 @@ model Snapp {
 }
 
 model Usages {
-  id            String   @id @default(cuid())
-  timestamp     DateTime @default(now())
-  snappId      String
+  id          String   @id @default(cuid())
+  timestamp   DateTime @default(now())
+  snappId     String
   snappUserId String
-  language      String?
-  user_agent    String?
-  referrer      String?
-  device        String?
-  country       String?
-  region        String?
-  city          String?
-  os            String?
-  browser       String?
-  cpu           String?
+  language    String?
+  user_agent  String?
+  referrer    String?
+  device      String?
+  country     String?
+  region      String?
+  city        String?
+  os          String?
+  browser     String?
+  cpu         String?
 
   user  User  @relation(fields: [snappUserId], references: [id], onDelete: Cascade)
   snapp Snapp @relation(fields: [snappId], references: [id], onDelete: Cascade)
 
   @@map("usages")
+}
+
+model Tag {
+  id     String  @id @default(cuid())
+  name   String  @unique
+  slug   String  @unique
+  notes  String?
+  snapps Snapp[] @relation("snapp_tags")
+  users  User[]  @relation("user_tags")
+
+  @@map("tags")
 }

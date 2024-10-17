@@ -1,10 +1,13 @@
 import { database } from '$lib/server/db/database.js';
+import { prisma } from '$lib/server/prisma/index.js';
+import { getServerSideSettings } from '$lib/server/server-wide-settings/index.js';
 import {
 	ALLOW_UNSECURE_HTTP,
 	MAX_SNAPPS_PER_USER,
 	SNAPP_NOT_FOUND,
 	SNAPP_ORIGIN_URL_BLACKLISTED,
 	SNAPP_ORIGIN_URL_REQUESTED,
+	TAGS_AS_PREFIX,
 	UNAUTHORIZED
 } from '$lib/utils/constants.js';
 import type { Prisma } from '@prisma/client';
@@ -42,7 +45,14 @@ export async function load({ locals: { session, user }, url }) {
 	const [snapps, count] = await database.snapps.get(user.id, query, limit, offset, {
 		[orderBy]: ascending ? 'asc' : 'desc'
 	});
-	return { allow_http, snapps: snapps, count, offset, page, limit, cols, protocol: url.protocol };
+	const settings = getServerSideSettings()
+	const tagsAsPrefix = settings.get(TAGS_AS_PREFIX)
+
+
+	const tagQuery = url.searchParams.get('tag-query')?.toString();
+	const [tags, countTag] = await database.tags.get(user.id, tagQuery, 3, 0, { name: 'asc' })
+
+	return { allow_http, snapps: snapps, count, offset, page, limit, cols, protocol: url.protocol, tagsAsPrefix, tags, countTag };
 }
 
 export const actions = {
@@ -60,13 +70,24 @@ export const actions = {
 			fetch
 		);
 
+
 		let message: string | undefined = undefined;
-		if (err === MAX_SNAPPS_PER_USER) message = 'errors.snapps.max-snapps';
-		if (err === SNAPP_ORIGIN_URL_REQUESTED) message = 'errors.snapps.original-url-missing';
-		if (err === SNAPP_ORIGIN_URL_BLACKLISTED) message = 'errors.snapps.original-url-blacklisted';
-		if (err === ALLOW_UNSECURE_HTTP) message = 'errors.snapps.unallowed-not-https';
+		if (!snapp || err === MAX_SNAPPS_PER_USER) message = 'errors.snapps.max-snapps';
+		if (!snapp || err === SNAPP_ORIGIN_URL_REQUESTED) message = 'errors.snapps.original-url-missing';
+		if (!snapp || err === SNAPP_ORIGIN_URL_BLACKLISTED) message = 'errors.snapps.original-url-blacklisted';
+		if (!snapp || err === ALLOW_UNSECURE_HTTP) message = 'errors.snapps.unallowed-not-https';
 		if (message) return fail(400, { message });
-		else return { message: 'snapps.actions.created', success: true };
+
+		const tagsString = form.get('tags')?.toString() || "[]"
+		const tags = JSON.parse(tagsString) as string[]
+
+		await prisma.snapp.update({ where: { id: snapp!.id }, data: { tags: { set: [] } } })
+
+		for (let tag of tags) {
+			await prisma.tag.update({ where: { id: tag }, data: { snapps: { connect: { id: snapp!.id } } } })
+		}
+
+		return { message: 'snapps.actions.created', success: true };
 	},
 	edit: async ({ locals: { session, user }, request, fetch }) => {
 		if (!session) redirect(302, '/');
@@ -85,7 +106,19 @@ export const actions = {
 		if (err === UNAUTHORIZED) message = 'errors.unauthorized';
 		if (err === ALLOW_UNSECURE_HTTP) message = 'errors.snapps.unallowed-not-https';
 		if (message) return fail(400, { message });
-		else return { message: 'snapps.actions.edited', success: true };
+
+
+		const tagsString = form.get('tags')?.toString() || "[]"
+		const tags = JSON.parse(tagsString) as string[]
+
+		await prisma.snapp.update({ where: { id: snapp!.id }, data: { tags: { set: [] } } })
+
+		for (let tag of tags) {
+			await prisma.tag.update({ where: { id: tag }, data: { snapps: { connect: { id: snapp!.id } } } })
+		}
+
+		return { message: 'snapps.actions.edited', success: true };
+
 	},
 	delete: async ({ locals: { session, user }, request, fetch }) => {
 		if (!session || !user) redirect(302, '/');
@@ -105,7 +138,7 @@ export const actions = {
 		if (!session || !user) redirect(302, '/');
 
 		const form = await request.formData();
-		const ids  = form.get('ids')?.toString() && JSON.parse(form.get('ids')!.toString());
+		const ids = form.get('ids')?.toString() && JSON.parse(form.get('ids')!.toString());
 		for (let id of ids) {
 			let message: string | undefined = undefined;
 			const [count, err] = await database.snapps.delete(user.id, id);

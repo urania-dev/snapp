@@ -12,8 +12,8 @@
 		data,
 		total_count,
 		label,
-		start = new Date(),
-		end = new Date(start.getTime() - 7 * 24 * 60 * 60 * 1000)
+		end,
+		start
 	}: {
 		css?: { [key: string]: string };
 		data: { labels: string[]; dataset: any[] };
@@ -23,7 +23,6 @@
 		end: Date;
 	} = $props();
 	let element = $state<HTMLCanvasElement>();
-
 	onMount(() => {
 		if (!element) return;
 		new Chart(element, {
@@ -68,25 +67,33 @@
 	let clientHeight = $state(0);
 	const _start = new CalendarDate(start.getFullYear(), start.getMonth() + 1, start.getDate());
 	const _end = new CalendarDate(end.getFullYear(), end.getMonth() + 1, end.getDate());
+	const startParam = queryParam<DateValue>(
+		'start',
+		{
+			defaultValue: _start,
+			encode: (value) => value.toString(),
+			decode: (value) => {
+				if (!value) return null;
+				const date = new Date(value);
+				return new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate());
+			}
+		},
+		{ showDefaults: false }
+	);
 
-	const startParam = queryParam<DateValue>('start', {
-		defaultValue: undefined,
-		encode: (value) => value.toString(),
-		decode: (value) => {
-			if (!value) return null;
-			const date = new Date(value);
-			return new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate());
-		}
-	});
-	const endParam = queryParam<DateValue>('end', {
-		defaultValue: undefined,
-		encode: (value) => value.toString(),
-		decode: (value) => {
-			if (!value) return null;
-			const date = new Date(value);
-			return new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate());
-		}
-	});
+	const endParam = queryParam<DateValue>(
+		'end',
+		{
+			defaultValue: _end,
+			encode: (value) => value.toString(),
+			decode: (value) => {
+				if (!value) return null;
+				const date = new Date(value);
+				return new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate());
+			}
+		},
+		{ showDefaults: false }
+	);
 </script>
 
 <div class="relative flex h-full w-full flex-col">

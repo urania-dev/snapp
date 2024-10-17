@@ -140,6 +140,10 @@
 									"notes": { "type": "string" },
 									"expiration": { "type": "string", "format": "date-time" },
 									"disabled": { "type": "boolean" },
+									"tags": {
+										"type": "array",
+										"items": { "type": "string" }
+									},
 									"userId": { "type": "string" }
 								},
 								"required": ["original_url"]
@@ -173,7 +177,11 @@
 									"max_usages": { "type": "integer" },
 									"notes": { "type": "string" },
 									"expiration": { "type": "string", "format": "date-time" },
-									"disabled": { "type": "boolean" }
+									"disabled": { "type": "boolean" },
+									"tags": {
+										"type": "array",
+										"items": { "type": "string" }
+									}
 								},
 								"required": ["id"]
 							}
@@ -301,6 +309,178 @@
 							}
 						}
 					}
+				},
+				"security": [{ "bearerAuth": [] }]
+			}
+		},
+		"/tags": {
+			"get": {
+				"tags": ["taags"],
+				"summary": "Get tags",
+				"operationId": "getTags",
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "query",
+						"schema": { "type": "string" },
+						"description": "User ID"
+					},
+					{
+						"name": "limit",
+						"in": "query",
+						"schema": { "type": "integer", "default": 10 },
+						"description": "Limit of results"
+					},
+					{
+						"name": "offset",
+						"in": "query",
+						"schema": { "type": "integer", "default": 0 },
+						"description": "Offset for pagination"
+					},
+					{
+						"name": "query",
+						"in": "query",
+						"schema": { "type": "string" },
+						"description": "Search query"
+					},
+					{
+						"name": "order-by",
+						"in": "query",
+						"schema": { "type": "string" },
+						"description": "Order by field"
+					},
+					{
+						"name": "ascending",
+						"in": "query",
+						"schema": { "type": "boolean", "default": false },
+						"description": "Ascending order"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Tagd retrieved successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"snapps": {
+											"type": "array",
+											"items": { "$ref": "#/components/schemas/Tag" }
+										},
+										"total": { "type": "integer" },
+										"pagination": {
+											"type": "object",
+											"properties": {
+												"limit": { "type": "integer" },
+												"offset": { "type": "integer" },
+												"query": { "type": "string" },
+												"orderBy": { "type": "string" },
+												"ascending": { "type": "boolean" }
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"403": { "description": "Forbidden" },
+					"429": { "description": "Too many requests" }
+				},
+				"security": [{ "bearerAuth": [] }]
+			},
+			"post": {
+				"tags": ["tags"],
+				"summary": "Create a tag",
+				"operationId": "createTag",
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"name": { "type": "string" },
+									"slug": { "type": "string" },
+									"notes": { "type": "string", "nullable": true }
+								},
+								"required": ["name", "slug"]
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": { "description": "Tag created successfully" },
+					"400": { "description": "Invalid input" },
+					"403": { "description": "Forbidden" },
+					"429": { "description": "Too many requests" }
+				},
+				"security": [{ "bearerAuth": [] }]
+			},
+			"patch": {
+				"tags": ["tags"],
+				"summary": "Update a tag",
+				"operationId": "updateTag",
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"id": { "type": "string" },
+									"name": { "type": "string" },
+									"slug": { "type": "string" },
+									"notes": { "type": "string", "nullable": true }
+								},
+								"required": ["id"]
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": { "description": "Tag updated successfully" },
+					"400": { "description": "Invalid input" },
+					"401": { "description": "Unauthroized" },
+					"404": { "description": "Tag not found" },
+					"403": { "description": "Forbidden" },
+					"429": { "description": "Too many requests" }
+				},
+				"security": [{ "bearerAuth": [] }]
+			},
+			"delete": {
+				"tags": ["tags"],
+				"summary": "Delete tags",
+				"operationId": "deleteTags",
+				"parameters": [
+					{
+						"name": "ids",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"description": "Comma-separated list of tags IDs to delete"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Tags deleted successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"count": { "type": "integer" }
+									}
+								}
+							}
+						}
+					},
+					"403": { "description": "Forbidden" },
+					"401": { "description": "Unauthroized" },
+					"429": { "description": "Too many requests" },
+					"500": { "description": "System error" }
 				},
 				"security": [{ "bearerAuth": [] }]
 			}
@@ -575,6 +755,24 @@
 					"updatedAt": { "type": "string", "format": "date-time" }
 				}
 			},
+			"Tag": {
+				"type": "object",
+				"properties": {
+					"id": { "type": "string" },
+					"name": { "type": "string" },
+					"slug": { "type": "string" },
+					"notes": { "type": "string", "nullable": true },
+					"snapps": {
+						"type": "array",
+						"items": { "$ref": "#/definitions/Snapp" }
+					},
+					"users": {
+						"type": "array",
+						"items": { "$ref": "#/definitions/User" }
+					}
+				},
+				"required": ["id", "name", "slug"]
+			},
 			"Snapp": {
 				"type": "object",
 				"properties": {
@@ -593,7 +791,11 @@
 						"nullable": true
 					},
 					"disabled": { "type": "boolean" },
-					"userId": { "type": "string" }
+					"userId": { "type": "string" },
+					"tags": {
+						"type": "array",
+						"items": { "$ref": "#/components/schemas/Tag" }
+					}
 				}
 			}
 		},

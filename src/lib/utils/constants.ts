@@ -4,6 +4,8 @@ export const EMAIL_EXISTS = 'EMAIL_EXISTS' as const;
 export const USER_EXISTS = 'USER_EXISTS' as const;
 export const USER_DOES_NOT_EXISTS = 'USER_DOES_NOT_EXISTS' as const;
 export const PASSWORD_IS_INVALID = 'PASSWORD_IS_INVALID' as const;
+export const TAGS_AS_PREFIX = 'TAGS_AS_PREFIX' as const;
+export const ENABLED_MFA = 'ENABLED_MFA' as const;
 export const ENABLE_LIMITS = 'ENABLE_LIMITS' as const;
 export const ENABLED_SIGNUP = 'ENABLED_SIGNUP' as const;
 export const DISABLE_HOME = 'DISABLE_HOME' as const;
@@ -21,6 +23,7 @@ export const SMTP_PORT = 'SMTP_PORT' as const;
 export const SMTP_SSL = 'SMTP_SSL' as const;
 export const SMTP_STATUS = 'SMTP_STATUS' as const;
 
+export const SNAPP_VIOLATES_APP_PATH = 'SNAPP_VIOLATES_APP_PATH' as const
 export const SNAPP_ORIGIN_URL_REQUESTED = 'SNAPP_ORIGIN_URL_REQUESTED' as const;
 export const SNAPP_ORIGIN_URL_BLACKLISTED = 'SNAPP_ORIGIN_URL_BLACKLISTED' as const;
 export const SNAPP_NOT_FOUND = 'SNAPP_NOT_FOUND' as const;

@@ -17,6 +17,8 @@
 	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
 	import { outside } from '$lib/utils/outside';
+	import { queryParam } from 'sveltekit-search-params';
+	import { debounce } from '$lib/utils/debounce';
 
 	let { data, form } = $props();
 	let active = $state(!data.snapp.disabled);
@@ -43,7 +45,7 @@
 		return rel;
 	}
 
-	let show_tab = $state<'details' | 'notes'>('details');
+	let show_tab = $state<'details' | 'notes' | 'tags'>('tags');
 
 	const get_dates = () => {
 		let dataset: number[] = [];
@@ -53,7 +55,7 @@
 			Math.floor((data.end.getTime() - data.start.getTime()) / 1000 / 60 / 60 / 24)
 		);
 
-		const date = data.start;
+		const date = new Date(data.start);
 
 		for (let i = 0; i <= days; i++) {
 			const dateString = date.toISOString().split('T')[0];
@@ -96,9 +98,60 @@
 		show_zoomed_qrcode = !show_zoomed_qrcode;
 	};
 
-	let fullUrlToSnapp = $derived($page.url.origin + '/' + data.snapp.shortcode);
+	let fullUrlToSnapp = $derived(
+		$page.url.origin + '/' + data.tagsAsPrefix
+			? data.snapp.tags[0]?.name + '/' + data.snapp.shortcode
+			: data.snapp.shortcode
+	);
 
 	let can_share = $derived(browser === true && window?.navigator?.share);
+	let tagToAdd = $state<string>();
+	let tagAction = $state<string>();
+	const handle_tag: MouseEventHandler<HTMLButtonElement> = (e) => {
+		const idx = e.currentTarget.dataset.idx;
+		const action = e.currentTarget.dataset.action;
+		if (idx) {
+			tagToAdd = idx;
+			tagAction = action;
+			document.forms.namedItem('handle-tag')?.requestSubmit();
+		}
+	};
+
+	const enhanceTagAction: SubmitFunction = ({ formData }) => {
+		if (tagToAdd) formData.set('id', tagToAdd);
+		if (tagAction) formData.set('action', tagAction);
+
+		return async ({ result }) => {
+			await applyAction(result);
+			await invalidateAll();
+			if (form?.message) toast.info($_(form.message));
+		};
+	};
+
+	const query = queryParam('query');
+	const limit = queryParam('limit', {
+		defaultValue: data.limit as number | undefined,
+		decode: (val: string | null) => (val ? parseInt(val) : null),
+		encode: (val: number) => val.toString()
+	});
+
+	const pageParam = queryParam('page', {
+		defaultValue: 1,
+		encode: (number) => number.toString(),
+		decode: (stringedNumber) => (stringedNumber && parseInt(stringedNumber)) || null
+	});
+
+	const max_pages = $derived(Math.ceil(data.countTag / ($limit || data.limit)));
+	const enhanceRows: SubmitFunction = ({ formData }) => {
+		formData.set('rows', limitValue.toString());
+		return async ({ result }) => {
+			await applyAction(result);
+			await invalidateAll();
+			if (form?.message) toast.info($_(form.message));
+			$limit = limitValue;
+		};
+	};
+	let limitValue = $state<number>(data.limit);
 </script>
 
 <form action="?/disable" id="disable-snapp" hidden method="post" use:enhance={enhanceAction}></form>
@@ -139,7 +192,7 @@
 											a.download = 'qrcode-' + data.snapp.shortcode + '.png';
 											a.click();
 										}}
-										class="flex h-10 flex-row w-full items-center gap-2 rounded border-none bg-slate-500/25 p-0 px-4 text-start font-semibold outline-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50 md:h-8"
+										class="flex h-10 flex-row w-full items-center gap-2 rounded border-none bg-slate-500/25 p-0 px-4 text-start font-semibold outline-none transition-all hover:bg-slate-500/85 focus:bg-slate-500/85 md:h-8"
 										><Icon ph="download" />
 										<small class="text-sm">{$_('globals.download')}</small></button
 									>
@@ -172,7 +225,7 @@
 													console.log(err);
 												}
 											}}
-											class="flex h-10 flex-row w-full max-w-none items-center gap-2 rounded border-none bg-slate-500/25 p-0 px-4 text-start font-semibold outline-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50 md:h-8"
+											class="flex h-10 flex-row w-full max-w-none items-center gap-2 rounded border-none bg-slate-500/25 p-0 px-4 text-start font-semibold outline-none transition-all hover:bg-slate-500/85 focus:bg-slate-500/85 md:h-8"
 											><Icon ph="share-network" />
 											<small class="text-sm">{$_('globals.share')}</small></button
 										>{/if}
@@ -185,24 +238,31 @@
 		</div>
 	</div>
 {/if}
-<div class={cn('flex w-full flex-col p-4 pb-8', show_tab === 'notes' ? 'h-full' : '')}>
+<div class={cn('flex w-full flex-col grow p-4', show_tab === 'notes' ? 'h-full' : '')}>
 	<div class="mx-auto flex h-full w-full max-w-5xl flex-col gap-4">
 		<a class="flex gap-2 font-semibold uppercase tracking-wider" href="/dashboard"
 			><Icon ph="arrow-left" /><small class="text-sm">{$_('globals.back')}</small></a
 		>
 		<div class="flex w-full flex-col justify-between gap-4 lg:flex-row lg:items-center">
-			<h2 class="flex w-full items-center gap-2 text-lg font-bold">
+			<div class="flex w-full leading-none items-center gap-2">
 				<Icon ph="link-simple" size={36} />
-				<span>
-					{data.snapp.shortcode}
-				</span>
-			</h2>
+
+				{#if data.tagsAsPrefix}
+					<h2 class="text-lg font-bold">{data.snapp.tags?.[0]?.slug || 'no-path'}</h2>
+					<span class="flex"><Icon ph="circle" style="fill" size={8} /></span>
+					<h2 class="text-lg font-bold">{data.snapp.shortcode}</h2>
+				{:else}
+					<h2 class="text-lg font-bold">
+						{data.snapp.shortcode}
+					</h2>
+				{/if}
+			</div>
 			<div class="flex w-full flex-col gap-4 lg:max-w-max lg:flex-row">
 				{#if secure_context}
 					<button
 						data-idx={data.snapp.shortcode}
 						onclick={handle_copy_snapp_to_clipboard}
-						class="flex h-10 flex-row items-center justify-between gap-2 rounded border-none bg-slate-500/25 p-0 px-4 text-start font-semibold outline-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50 md:h-8"
+						class="flex h-10 flex-row items-center justify-between gap-2 rounded border-none bg-slate-500/25 p-0 px-4 text-start font-semibold outline-none transition-all hover:bg-slate-500/85 focus:bg-slate-500/85 md:h-8"
 					>
 						<small class="text-sm">{$_('globals.copy')}</small>
 						<Icon ph="copy"></Icon>
@@ -211,7 +271,9 @@
 				<Card css={{ card: 'lg:h-8 h-10 items-center lg:max-w-max gap-4 p-0' }}>
 					<a
 						class="flex w-full items-center justify-between gap-4 p-2 px-4 hover:text-pink-500 lg:p-1 lg:px-4"
-						href="/{data.snapp.shortcode}"
+						href="/{data.tagsAsPrefix
+							? data.snapp.tags?.[0]?.slug + '/' + data.snapp.shortcode
+							: data.snapp.shortcode}"
 						target="_blank"
 						data-sveltekit-preload-data={false}
 					>
@@ -235,32 +297,39 @@
 				></Chart>
 			</Card>
 		{/key}
-		<Card css={{ card: 'flex-row p-2' }}>
+		<Card css={{ card: 'flex-row w-full h-16 md:h-14 shrink-0 overflow-x-scroll p-2' }}>
 			<button
 				onclick={() => (show_tab = 'details')}
 				class={cn(
-					'flex h-10 w-full max-w-max items-center gap-2 rounded p-2 text-sm leading-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50 md:h-8',
-					show_tab === 'details' ? 'bg-slate-500/50' : 'bg-slate-500/25 '
+					'flex h-10 w-full  max-w-max min-w-max items-center gap-2 rounded p-2 text-sm leading-none transition-all hover:bg-slate-500/85 focus:bg-slate-500/85 md:h-8',
+					show_tab === 'details' ? 'bg-slate-500/85' : 'bg-slate-500/25 '
 				)}>{$_('snapps.labels.details')}</button
 			>
 			<button
 				onclick={() => (show_tab = 'notes')}
 				class={cn(
-					'flex h-10 w-full max-w-max items-center gap-2 rounded p-2 text-sm leading-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50 md:h-8',
-					show_tab === 'notes' ? 'bg-slate-500/50' : 'bg-slate-500/25 '
+					'flex h-10 w-full max-w-max min-w-max items-center gap-2 rounded p-2 text-sm leading-none transition-all hover:bg-slate-500/85 focus:bg-slate-500/85 md:h-8',
+					show_tab === 'notes' ? 'bg-slate-500/85' : 'bg-slate-500/25 '
 				)}>{$_('snapps.fields.notes')}</button
 			>
 			<button
 				class={cn(
-					'flex h-10 w-full max-w-max items-center gap-2 rounded p-2 text-sm bg-slate-500/25 leading-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50 md:h-8'
+					'flex h-10 w-full max-w-max min-w-max items-center gap-2 rounded p-2 text-sm bg-slate-500/25 leading-none transition-all hover:bg-slate-500/85 focus:bg-slate-500/85 md:h-8'
 				)}
 				onclick={handle_show_zoomed_qrcode}>QR Code</button
+			>
+			<button
+				class={cn(
+					'flex h-10 w-full max-w-max min-w-max items-center gap-2 rounded p-2 text-sm bg-slate-500/25 leading-none transition-all hover:bg-slate-500/85 focus:bg-slate-500/85 md:h-8',
+					show_tab === 'tags' ? 'bg-slate-500/85' : 'bg-slate-500/25 '
+				)}
+				onclick={() => (show_tab = 'tags')}>{$_('menu.tags')}</button
 			>
 			<a
 				href="/dashboard/{data.snapp.id}/edit"
 				class={cn(
-					'flex h-10 w-full max-w-max items-center gap-2 rounded p-2 text-sm leading-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50 md:h-8',
-					show_tab === 'notes' ? 'bg-slate-500/50' : 'bg-slate-500/25 '
+					'flex h-10 w-full max-w-max min-w-max items-center gap-2 rounded p-2 text-sm leading-none transition-all hover:bg-slate-500/85 focus:bg-slate-500/85 md:h-8',
+					show_tab === 'notes' ? 'bg-slate-500/85' : 'bg-slate-500/25 '
 				)}
 				>{$_('snapps.labels.edit')}
 			</a>
@@ -408,6 +477,142 @@
 						disabled
 						value={data.snapp.notes}
 					/>
+				</Card>
+			</div>
+		{/if}
+
+		{#if show_tab === 'tags'}
+			<div class="flex h-full grow w-full" in:fly={{ y: 25 }}>
+				<Card css={{ card: 'flex w-full h-full' }}>
+					<div class="flex h-full flex-col w-full gap-4 overflow-y-scroll">
+						<Card css={{ card: 'p-2 gap-4 flex h-full' }}>
+							{#each data.tags as tag}
+								<Card css={{ card: 'h-10 p-0 px-4 items-center flex-row' }}>
+									<div class="flex gap-4 items-center">
+										<form
+											hidden
+											id="handle-tag"
+											method="post"
+											action="?/handle-tag"
+											use:enhance={enhanceTagAction}
+										></form>
+										<button
+											data-action={data.snapp.tags.map((t) => t.id).includes(tag.id)
+												? 'disconnect'
+												: 'connect'}
+											data-idx={tag.id}
+											class="flex items-center w-max p-0 h-max"
+											onclick={handle_tag}
+										>
+											{#if data.snapp.tags.map((t) => t.id).includes(tag.id)}
+												<Icon ph="tag-simple" style="fill" />
+											{:else}
+												<Icon ph="tag-simple" />
+											{/if}
+										</button>
+										<small class="text-sm">{tag.name}</small>
+									</div>
+									<div class="flex gap-8 items-center ms-auto">
+										<div class="flex gap-2 md:gap-4 items-center">
+											<span class="md:min-w-[6ch] text-end">{tag._count.users}</span>
+											<Icon ph="users-three" />
+										</div>
+										<div class="flex gap-2 md:gap-4 items-center">
+											<span class="md:min-w-[6ch] text-end">{tag._count.snapps}</span>
+											<Icon ph="link-simple" />
+										</div>
+									</div>
+								</Card>
+							{/each}
+							{#each { length: Math.max(0, ($limit || 0) - data.tags.length) } as tag}
+								<Card css={{ card: 'h-10 p-0 px-4 items-center flex-row' }}></Card>
+							{/each}
+						</Card>
+						<div class="mt-auto flex w-full flex-col gap-2 md:flex-row">
+							<Card css={{ card: 'w-full p-2 h-full md:flex-row justify-between' }}>
+								<div class="flex w-full gap-2">
+									<form
+										method="post"
+										action="?/save-rows"
+										use:enhance={enhanceRows}
+										id="save-rows"
+										hidden
+									></form>
+									<Input
+										name="limit"
+										icons={{ left: 'rows' }}
+										actions={{
+											change: (e) => {
+												document.forms.namedItem('save-rows')?.requestSubmit();
+											},
+											input: (e) => {
+												debounce(
+													() => document.forms.namedItem('save-rows')?.requestSubmit(),
+													1000
+												)();
+											}
+										}}
+										css={{
+											field: 'max-h-10 md:max-h-8 p-0 flex-row max-w-max',
+											input: 'text-sm max-h-10 md:max-h-8 w-full text-center',
+											group: 'max-h-10 min-h-10 md:max-h-8 md:min-h-8 w-20',
+											label: 'hidden'
+										}}
+										bind:value={limitValue}
+									/>
+									<Input
+										name="search"
+										placeholder={$_('tags.placeholders.search')}
+										css={{
+											field: 'max-h-10 md:max-h-8 p-0 flex-row md:max-w-[19rem]',
+											input: 'text-sm max-h-10 md:max-h-8',
+											group: 'max-h-10 min-h-10 md:max-h-8 md:min-h-8',
+											label: 'hidden'
+										}}
+										icons={{ left: 'magnifying-glass' }}
+										bind:value={$query}
+									/>
+								</div>
+								<div
+									class="flex w-full items-center justify-start gap-4 p-0 font-semibold md:justify-end"
+								>
+									<div
+										class="flex w-full items-center justify-start gap-2 p-0 font-semibold md:justify-end"
+									>
+										<button
+											onclick={() => ($pageParam = Math.max(1, ($pageParam || 1) - 1))}
+											class="flex h-10 w-10 shrink-0 items-center justify-center rounded border-none bg-slate-500/25 outline-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50 md:h-8 md:w-8"
+										>
+											<Icon ph="arrow-left" />
+										</button>
+
+										<button
+											onclick={() => {
+												if ($pageParam && max_pages === Number($pageParam))
+													toast.info($_('globals.max-page-reached'));
+												$pageParam = Math.min(max_pages, Number($pageParam) + 1);
+											}}
+											class="flex h-10 w-10 shrink-0 items-center justify-center rounded border-none bg-slate-500/25 outline-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50 md:h-8 md:w-8"
+										>
+											<Icon ph="arrow-right" />
+										</button>
+									</div>
+									<div
+										class="flex w-full items-center justify-end gap-2 p-0 font-semibold md:max-w-max"
+									>
+										<small>
+											{$_('globals.total')}
+											{$_('menu.tags')}
+										</small>
+										<small>:</small><small
+											class="flex aspect-square h-8 min-w-8 shrink-0 items-center justify-center rounded bg-slate-500/15 p-2"
+											>{data.countTag}</small
+										>
+									</div>
+								</div>
+							</Card>
+						</div>
+					</div>
 				</Card>
 			</div>
 		{/if}

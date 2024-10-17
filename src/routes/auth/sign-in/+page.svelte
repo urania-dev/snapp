@@ -83,7 +83,7 @@
 				type="submit"
 				class="flex h-10 w-full items-center rounded border-none bg-slate-500/25 p-2 px-4 text-start outline-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50"
 			>
-				<span>{$_('users.auth.sign-in')}</span>
+				<span class="text-sm w-full">{$_('users.auth.sign-in')}</span>
 				<Icon css={{ icon: 'ms-auto' }} ph="arrow-right"></Icon>
 			</button>
 			<p class="text-balance px-4 text-sm">

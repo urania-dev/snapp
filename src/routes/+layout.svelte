@@ -37,6 +37,13 @@
 			visible: data.is_authenticated
 		},
 		{
+			label: $_('menu.tags'),
+			url: '/tags',
+			active: data.pathname.startsWith('/tags'),
+			icon: 'tag-simple',
+			visible: data.is_authenticated
+		},
+		{
 			label: $_('menu.settings'),
 			url: '/settings',
 			active: data.pathname.startsWith('/settings'),
@@ -44,6 +51,7 @@
 			css: 'md:m-0 md:mt-auto',
 			visible: data.is_authenticated
 		},
+	
 		{
 			label: $_('menu.authenticate'),
 			url: '/auth/sign-in',
@@ -54,19 +62,19 @@
 		}
 	]);
 
-	const sidebardPages = ['/', '/metrics', '/docs', '/auth'];
+	const sidebardPages = ['/', '/metrics', '/docs', '/auth', '/tags'];
 </script>
 
 <Toaster theme={(data.theme || 'dark') as 'dark' | 'light'} />
 
 <div class="flex w-screen" style:height="100dvh">
-	{#if sidebardPages.includes(data.pathname) || data.pathname.startsWith('/dashboard') || data.pathname.startsWith('/users') || data.pathname.startsWith('/settings')}
+	{#if sidebardPages.includes(data.pathname) || data.pathname.startsWith('/dashboard') ||data.pathname.startsWith('/tags') || data.pathname.startsWith('/users') || data.pathname.startsWith('/settings')}
 		<Sidenav {menu_items}></Sidenav>
 	{/if}
 	{#key data.pathname}
 		<div class="flex h-full w-full flex-col overflow-hidden overflow-y-scroll" in:fade>
 			{@render children?.()}
-			<div class="flex h-16 w-full shrink-0 md:hidden md:h-0">&nbsp;</div>
+			<div class="flex h-20 w-full shrink-0 md:hidden md:h-0">&nbsp;</div>
 		</div>
 	{/key}
 </div>

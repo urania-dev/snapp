@@ -20,8 +20,14 @@ export const lucia = new Lucia(adapter, {
 			role: attributes.role,
 			createdAt: attributes.createdAt,
 			updatedAt: attributes.updatedAt,
-			notes: attributes.notes
+			notes: attributes.notes,
+			setupTwoFactor: typeof attributes.two_factor_secret === 'string'
 		};
+	},
+	getSessionAttributes: (attributes) => {
+		return {
+			twoFactorVerified: attributes.two_factor_verified
+		}
 	}
 });
 
@@ -29,6 +35,7 @@ declare module 'lucia' {
 	interface Register {
 		Lucia: typeof lucia;
 		DatabaseUserAttributes: DatabaseUserAttributes;
+		DatabaseSessionAttributes: DatabaseSessionAttributes
 	}
 }
 
@@ -39,6 +46,10 @@ interface DatabaseUserAttributes {
 	updatedAt: Date;
 	createdAt: Date;
 	notes: string;
+	two_factor_secret: string | null
+}
+interface DatabaseSessionAttributes {
+	two_factor_verified: boolean
 }
 
 declare module 'lucia' {

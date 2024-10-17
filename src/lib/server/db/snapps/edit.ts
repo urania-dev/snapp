@@ -11,7 +11,7 @@ import { hash } from '@node-rs/argon2';
 import { generateId } from 'lucia';
 import { database } from '../database';
 
-export const edit_snapp = async (snapp: Snapp, userId: string, fetch: SvelteFetch) => {
+export const edit_snapp = async (snapp: Snapp & { tags: string[] }, userId: string, fetch: SvelteFetch) => {
 	const is_admin = await database.users.is_admin(userId);
 
 	let {
@@ -23,7 +23,8 @@ export const edit_snapp = async (snapp: Snapp, userId: string, fetch: SvelteFetc
 		secret,
 		expiration,
 		max_usages,
-		disabled
+		disabled,
+		tags
 	} = snapp;
 	if (!is_admin && snappUserId !== userId) return [null, UNAUTHORIZED] as [null, string];
 	if (!original_url || typeof original_url !== 'string' || original_url.trim() === '')
@@ -47,12 +48,12 @@ export const edit_snapp = async (snapp: Snapp, userId: string, fetch: SvelteFetc
 	const password_hash =
 		secret !== null && secret !== 'this-snapp-has-secret'
 			? await hash(secret, {
-					// recommended minimum parameters
-					memoryCost: 19456,
-					timeCost: 2,
-					outputLen: 32,
-					parallelism: 1
-				})
+				// recommended minimum parameters
+				memoryCost: 19456,
+				timeCost: 2,
+				outputLen: 32,
+				parallelism: 1
+			})
 			: secret === null
 				? null
 				: undefined;
@@ -67,7 +68,19 @@ export const edit_snapp = async (snapp: Snapp, userId: string, fetch: SvelteFetc
 			secret: password_hash,
 			expiration,
 			max_usages: max_usages || -1,
-			disabled
+			disabled,
+			tags: {
+				connectOrCreate: tags?.map(t => (
+					{
+						where: {
+							slug: t,
+						},
+						create: {
+							name: t,
+							slug: t
+						}
+					}))
+			}
 		}
 	});
 

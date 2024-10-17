@@ -136,3 +136,10 @@
   - Fixed incomplete flow on the URL dashboard [see more...](https://github.com/urania-dev/snapp/issues/52)
 - 0.8.6.7
   - Fixed entrypoint.sh typo [see more...](https://github.com/urania-dev/snapp/issues/53)
+- 0.8.7
+  - Introducing tags with two options [link to discussion](https://github.com/urania-dev/snapp/discussions/56)
+    - Regular: user can assign multiple tags to own snapp and browse tags panel being able to see others people tags
+    - Path as Prefix: disable domain.com/[shortcode] and prefers domain.com/[tag]/[shortcode]
+    - Path as prefix wouldn't not work as disambiguation for shortcodes
+    - Path as prefix would be enable only by ENV VAR TAGS_AS_PREFIX due to the different behaviour of the app
+  - Introducing Multi Factors Authentication (Enabled via UI / ENV) [link to discussion](https://github.com/urania-dev/snapp/discussions/57)

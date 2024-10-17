@@ -6,6 +6,8 @@ export const load = async ({ locals: { session, user }, url, params: { username,
 	if (!session || !user) redirect(302, '/auth/sign-in');
 	if (!id) redirect(302, '/users/' + username);
 
+	const [exists] = await database.users.one(username)
+	if (exists === null) redirect(302, '/users')
 	const is_admin = await database.users.is_admin(user.id);
 	if (!is_admin) redirect(302, '/');
 	const startString = url.searchParams.get('start')?.toString() || undefined;

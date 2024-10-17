@@ -1,4 +1,3 @@
-import { database } from '../db/database';
 
 class SlidingWindowCounter {
 	private windowSize: number; // in milliseconds
@@ -86,7 +85,7 @@ class SlidingWindowCounter {
 }
 
 function getRateLimiterInstance(
-	instanceKey: '_rpd_limiter' | '_rpm_limiter'
+	instanceKey: '_rpd_limiter' | '_rpm_limiter' | "_mfa_limiter"
 ): SlidingWindowCounter {
 	if (!globalThis[instanceKey]) globalThis[instanceKey] = new SlidingWindowCounter();
 
@@ -111,5 +110,7 @@ const rateLimiterCheck = async (token: string) => {
 
 	return { blocked: false, remainingTime: 0 };
 };
+
+
 
 export { RPD, RPM, rateLimiterCheck };

@@ -116,16 +116,13 @@
 <form action="?/create" id="create" hidden method="post" use:enhance={enhanceUserAction}></form>
 <form action="?/edit" id="edit" hidden method="post" use:enhance={enhanceUserAction}></form>
 
-<div class="flex h-full w-full flex-col overflow-clip p-4 lg:h-full">
-	<div class="mx-auto flex min-h-full w-full max-w-5xl flex-col gap-4 overflow-clip lg:h-full">
-		<h2 class="flex items-center gap-2 text-2xl font-bold">
+<div class="flex h-full w-full flex-col overflow-hidden p-4">
+	<div class="mx-auto flex h-full w-full max-w-5xl flex-col gap-4">
+		<h2 class="flex h-8 items-center gap-2 text-2xl font-bold">
 			<Icon ph="users" size={36} />
 			<span>{$_('menu.users')}</span>
 		</h2>
-		<div
-			class="flex w-full overflow-clip"
-			style:height={innerWidth < 1024 ? 'calc(100% - 8rem)' : '100%'}
-		>
+		<div class="flex w-full h-full overflow-clip">
 			<Card css={{ card: 'gap-4 h-full' }}>
 				<Card css={{ card: 'flex md:flex-row md:h-12 gap-2 items-center justify-between p-2' }}>
 					<Input

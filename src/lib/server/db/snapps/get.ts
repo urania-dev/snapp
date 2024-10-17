@@ -5,7 +5,7 @@ export const get_snapp = async (
 	query?: string,
 	limit: number = 10,
 	offset: number = 0,
-	orderBy: { [key: string]: 'asc'|'desc' } | undefined = undefined
+	orderBy: { [key: string]: 'asc' | 'desc' } | undefined = undefined
 ) => {
 	await prisma.snapp.deleteMany({ where: { expiration: { lte: new Date() } } });
 	const snapps = await prisma.snapp
@@ -16,24 +16,27 @@ export const get_snapp = async (
 					{
 						OR: query
 							? [
-									{
-										shortcode: {
-											contains: query
-										}
-									},
-									{
-										original_url: {
-											contains: query
-										}
+								{
+									shortcode: {
+										contains: query
 									}
-								]
+								},
+								{
+									original_url: {
+										contains: query
+									}
+								}
+							]
 							: undefined
 					}
 				]
 			},
 			take: limit,
 			skip: offset,
-			orderBy: orderBy
+			orderBy: orderBy,
+			include: {
+				tags: { select: { id: true, name: true, slug: true, _count: true } }
+			}
 		})
 		.then((res) =>
 			res.map((item) => {
