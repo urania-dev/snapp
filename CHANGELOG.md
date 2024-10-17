@@ -143,3 +143,5 @@
     - Path as prefix wouldn't not work as disambiguation for shortcodes
     - Path as prefix would be enable only by ENV VAR TAGS_AS_PREFIX due to the different behaviour of the app
   - Introducing Multi Factors Authentication (Enabled via UI / ENV) [link to discussion](https://github.com/urania-dev/snapp/discussions/57)
+  - Various fixes found around
+  - update .dockerignore and .gitignore [see more...](https://github.com/urania-dev/snapp/pull/58)
