@@ -142,7 +142,7 @@ model Tag {
   id     String  @id @default(cuid())
   name   String  @unique
   slug   String  @unique
-  notes  String  @unique
+  notes  String?  @unique
 
   snapps Snapp[] @relation("snapp_tags")
   users  User[]  @relation("user_tags")

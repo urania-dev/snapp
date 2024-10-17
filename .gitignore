@@ -1,0 +1,14 @@
+.DS_Store
+node_modules
+/build
+/.vscode
+.gitignore
+/.svelte-kit
+/package
+.env
+.env.*
+!.env.example
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+src/lib/server/geo-db/geolite-2-city.mmdb
+prisma/sqlite/db.sqlite

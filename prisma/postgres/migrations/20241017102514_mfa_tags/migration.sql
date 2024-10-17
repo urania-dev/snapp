@@ -9,7 +9,7 @@ CREATE TABLE "prefixes" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "slug" TEXT NOT NULL,
-    "notes" TEXT NOT NULL,
+    "notes" TEXT,
 
     CONSTRAINT "prefixes_pkey" PRIMARY KEY ("id")
 );

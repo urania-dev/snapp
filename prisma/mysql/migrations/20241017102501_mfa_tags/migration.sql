@@ -12,7 +12,7 @@ CREATE TABLE `prefixes` (
     `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
     `slug` VARCHAR(191) NOT NULL,
-    `notes` VARCHAR(191) NOT NULL,
+    `notes` VARCHAR(191) NULL,
 
     UNIQUE INDEX `prefixes_name_key`(`name`),
     UNIQUE INDEX `prefixes_slug_key`(`slug`),
