@@ -8,6 +8,9 @@ import { ENABLE_LIMITS, ENABLED_MFA, TAGS_AS_PREFIX, MAX_REQUESTS_PER_DAY, MAX_R
 import { redirect, type Handle } from '@sveltejs/kit';
 import { locale } from 'svelte-i18n';
 
+// init OIDC configs
+import '$lib/server/oauth/config'
+
 // INIT DB
 const run_init_functions = async () => {
 	database;

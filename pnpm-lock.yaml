@@ -65,6 +65,9 @@ importers:
       nodemailer:
         specifier: ^6.9.15
         version: 6.9.15
+      openid-client:
+        specifier: ^6.1.1
+        version: 6.1.1
       oslo:
         specifier: ^1.2.1
         version: 1.2.1
@@ -2379,6 +2382,9 @@ packages:
     resolution: {integrity: sha512-2yTgeWTWzMWkHu6Jp9NKgePDaYHbntiwvYuuJLbbN9vl7DC9DvXKOB2BC3ZZ92D3cvV/aflH0osDfwpHepQ53w==}
     hasBin: true
 
+  jose@5.9.4:
+    resolution: {integrity: sha512-WBBl6au1qg6OHj67yCffCgFR3BADJBXN8MdRvCgJDuMv3driV2nHr7jdGvaKX9IolosAsn+M0XRArqLXUhyJHQ==}
+
   js-file-download@0.4.12:
     resolution: {integrity: sha512-rML+NkoD08p5Dllpjo0ffy4jRHeY6Zsapvr/W86N7E0yuzAO6qa5X9+xog6zQNlH102J7IXljNY2FtS6Lj3ucg==}
 
@@ -2643,6 +2649,9 @@ packages:
     resolution: {integrity: sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==}
     engines: {node: '>=0.10.0'}
 
+  oauth4webapi@3.1.1:
+    resolution: {integrity: sha512-0h4FZjsntbKQ5IHGM9mFT7uOwQCRdcTG7YhC0xXlWIcCch24wUa6Vggaipa3Sw6Ab7nEnmO4rctROmyuHBfP7Q==}
+
   object-assign@4.1.1:
     resolution: {integrity: sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==}
     engines: {node: '>=0.10.0'}
@@ -2672,6 +2681,9 @@ packages:
   openapi-server-url-templating@1.1.0:
     resolution: {integrity: sha512-dtyTFKx2xVcO0W8JKaluXIHC9l/MLjHeflBaWjiWNMCHp/TBs9dEjQDbj/VFlHR4omFOKjjmqm1pW1aCAhmPBg==}
     engines: {node: '>=12.20.0'}
+
+  openid-client@6.1.1:
+    resolution: {integrity: sha512-JVN2ao1ErxHdWTme+xAQrLsQV2rV4RlhdiR8ZfaN0ktMhE8lEapU+VH7XuHSxTPHaAK7Rz7AqIB98ea+cHaCUg==}
 
   optionator@0.9.4:
     resolution: {integrity: sha512-6IpQ7mKUxRcZNLIObR0hz7lxsapSSIYNZJwXPGeF0mTVqGKFIXj1DQcMoT22S3ROcLyY/rz0PWaWZ9ayWmad9g==}
@@ -6051,6 +6063,8 @@ snapshots:
 
   jiti@1.21.6: {}
 
+  jose@5.9.4: {}
+
   js-file-download@0.4.12: {}
 
   js-tokens@4.0.0: {}
@@ -6309,6 +6323,8 @@ snapshots:
 
   normalize-range@0.1.2: {}
 
+  oauth4webapi@3.1.1: {}
+
   object-assign@4.1.1: {}
 
   object-hash@3.0.0: {}
@@ -6336,6 +6352,11 @@ snapshots:
   openapi-server-url-templating@1.1.0:
     dependencies:
       apg-lite: 1.0.4
+
+  openid-client@6.1.1:
+    dependencies:
+      jose: 5.9.4
+      oauth4webapi: 3.1.1
 
   optionator@0.9.4:
     dependencies:

@@ -65,6 +65,7 @@
 		"jsonwebtoken": "^9.0.2",
 		"maxmind": "^4.3.22",
 		"nodemailer": "^6.9.15",
+		"openid-client": "^6.1.1",
 		"oslo": "^1.2.1",
 		"papaparse": "^5.4.1",
 		"qrcode": "^1.5.4",

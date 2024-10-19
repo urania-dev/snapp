@@ -5,7 +5,6 @@ import { oauth, lucia } from "$lib/server/auth";
 
 import { error, redirect, type RequestEvent } from "@sveltejs/kit";
 import { prisma } from "$lib/server/prisma";
-import { env } from "$env/dynamic/private";
 import { database } from "$lib/server/db/database";
 import { ENABLED_SIGNUP } from "$lib/utils/constants";
 
@@ -22,15 +21,8 @@ export async function GET(event: RequestEvent): Promise<Response> {
     try {
         const tokens = await oauth.validateAuthorizationCode(code, codeVerifier);
 
-        const oauthUserResponse = await fetch(env.KC_USERINFO_URL, {
-            headers: {
-                Authorization: `Bearer ${tokens.accessToken}`
-            }
-        });
-        const oauthUser = await oauthUserResponse.json();
-
         // Replace this with your own DB client.
-        const existingUser = await prisma.user.findFirst({ where: { email: oauthUser.email } })
+        const existingUser = await prisma.user.findFirst({ where: { email: tokens.email } })
 
         if (existingUser) {
             const session = await lucia.createSession(existingUser.id, { two_factor_verified: true });
@@ -46,8 +38,8 @@ export async function GET(event: RequestEvent): Promise<Response> {
             await prisma.user.create({
                 data: {
                     id: userId,
-                    username: oauthUser.email,
-                    email: oauthUser.email as string,
+                    username: tokens.email, // tokens.username
+                    email: tokens.email as string,
                     password_hash: 'none'
                 }
             })
