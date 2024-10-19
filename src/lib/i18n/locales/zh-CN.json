@@ -306,6 +306,7 @@
 			"reset-token-expired": "密码恢复重置令牌已过期。"
 		},
 		"snapps": {
+			"no-prefix": "该 SNAPP 没有前缀，请选择一个",
 			"unallowed-not-https": "原始网址必须是安全的HTTPS链接",
 			"original-url-missing": "必须提供原始网址以进行重定向",
 			"original-url-blacklisted": "此网址已被列入黑名单或被VirusTotal API标记",

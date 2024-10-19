@@ -306,6 +306,7 @@
 			"reset-token-expired": "Der Zurücksetzungs-Token für die Passwortwiederherstellung ist abgelaufen."
 		},
 		"snapps": {
+			"no-prefix": "Dieser SNAPP hat keinen Präfix, bitte wählen Sie einen aus",
 			"unallowed-not-https": "Die ursprüngliche URL muss ein sicherer https-Link sein.",
 			"original-url-missing": "Eine ursprüngliche URL muss für die Weiterleitung angegeben werden.",
 			"original-url-blacklisted": "Diese URL wurde von VirusTotal API auf die Blacklist gesetzt oder markiert.",

@@ -150,3 +150,6 @@
   - Keycloak OIDC integration
 - 0.8.7.2
   - fix: prevent double encoding of redirection URLs [see more...](https://github.com/urania-dev/snapp/pull/61)
+- 0.8.7.3
+  - feat(auth): implement generic OpenID Connect authentication. [see more...](https://github.com/urania-dev/snapp/pull/65)
+  - fix: Tags with no paths when feature is on (should throw error) [see more...](https://github.com/urania-dev/snapp/issues/63#issuecomment-2423712962)

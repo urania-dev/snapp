@@ -262,31 +262,31 @@
 	},
 	"tags": {
 		"labels": {
-		  "create": "Crear unha etiqueta",
-		  "edit": "Editar etiqueta",
-		  "name": "Nome da etiqueta",
-		  "slug": "Slug",
-		  "notes": "Notas",
-		  "search": "Buscar por shortcode",
-		  "users": "Usuarios",
-		  "user": "Usuario",
-		  "manage-users": "Xestionar usuarios",
-		  "snapps": "Snapps"
+			"create": "Crear unha etiqueta",
+			"edit": "Editar etiqueta",
+			"name": "Nome da etiqueta",
+			"slug": "Slug",
+			"notes": "Notas",
+			"search": "Buscar por shortcode",
+			"users": "Usuarios",
+			"user": "Usuario",
+			"manage-users": "Xestionar usuarios",
+			"snapps": "Snapps"
 		},
 		"helpers": {
-		  "creation": "A etiqueta asignarase ao usuario permitindo que prefixe os seus snapps cando os prefixos estean habilitados",
-		  "notes": "As notas serán visibles para todos os que teñan acceso a este prefixo",
-		  "created": "A etiqueta foi gardada",
-		  "confirm-delete": "Isto eliminará a etiqueta e todas as relacións con esta etiqueta. Os snapps quedarán intactos",
-		  "deleted": "A(s) etiqueta(s) foron eliminadas"
+			"creation": "A etiqueta asignarase ao usuario permitindo que prefixe os seus snapps cando os prefixos estean habilitados",
+			"notes": "As notas serán visibles para todos os que teñan acceso a este prefixo",
+			"created": "A etiqueta foi gardada",
+			"confirm-delete": "Isto eliminará a etiqueta e todas as relacións con esta etiqueta. Os snapps quedarán intactos",
+			"deleted": "A(s) etiqueta(s) foron eliminadas"
 		},
 		"placeholders": {
-		  "search": "Buscar por nome da etiqueta"
+			"search": "Buscar por nome da etiqueta"
 		},
 		"errors": {
-		  "name-invalid": "Por favor, proporciona un nome de etiqueta válido."
+			"name-invalid": "Por favor, proporciona un nome de etiqueta válido."
 		}
-	  },
+	},
 	"errors": {
 		"api": {
 			"token-missing": "Requírese un token de autorización."
@@ -306,6 +306,7 @@
 			"reset-token-expired": "O token de recuperación de contrasinal expirou."
 		},
 		"snapps": {
+			"no-prefix": "Este SNAPP non ten prefixo, por favor selecciona un",
 			"unallowed-not-https": "A URL orixinal debe ser un enlace seguro https",
 			"original-url-missing": "Debe proporcionarse unha URL orixinal para a redirección",
 			"original-url-blacklisted": "Esta URL foi bloqueada ou marcada pola API de VirusTotal",

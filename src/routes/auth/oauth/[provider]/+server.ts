@@ -8,7 +8,7 @@ import { getOIDCConfig } from "$lib/server/oauth/config";
 
 export const GET: Action = async ({ cookies,
     params: { provider } }) => {
-    const config = await getOIDCConfig(provider!);
+    const config = getOIDCConfig(provider!);
 
     if (!config) {
         throw error(400, "Provider not found");

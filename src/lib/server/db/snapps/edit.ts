@@ -5,11 +5,13 @@ import {
 	MAX_SNAPPS_PER_USER,
 	SNAPP_ORIGIN_URL_BLACKLISTED,
 	SNAPP_ORIGIN_URL_REQUESTED,
+	TAGS_AS_PREFIX,
 	UNAUTHORIZED
 } from '$lib/utils/constants';
 import { hash } from '@node-rs/argon2';
 import { generateId } from 'lucia';
 import { database } from '../database';
+import { getServerSideSettings } from '$lib/server/server-wide-settings';
 
 export const edit_snapp = async (snapp: Snapp & { tags: string[] }, userId: string, fetch: SvelteFetch) => {
 	const is_admin = await database.users.is_admin(userId);
@@ -57,6 +59,11 @@ export const edit_snapp = async (snapp: Snapp & { tags: string[] }, userId: stri
 			: secret === null
 				? null
 				: undefined;
+
+	const settings = getServerSideSettings()
+	const isActiveTagsAsPrefix = settings.get<boolean>(TAGS_AS_PREFIX)
+
+	if (isActiveTagsAsPrefix === true && !tags?.length) return [null, TAGS_AS_PREFIX] as [null, string]
 
 	const edit_snapp = await prisma.snapp.update({
 		where: { id },

@@ -92,18 +92,18 @@
 					href="/auth/oauth/{provider.identity}"
 					class="flex h-10 w-full items-center rounded border-none bg-slate-500/25 p-2 px-4 text-start outline-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50"
 				>
-					<span class="text-sm w-full">OIDC {provider.identity}</span>
+					<span class="text-sm w-full capitalize">{provider.identity}</span>
 					<Icon css={{ icon: 'ms-auto' }} ph="arrow-right"></Icon>
 				</a>
 			{/each}
-			<a
+			<!-- <a
 				data-sveltekit-preload-data="false"
 				href="/auth/oauth/"
 				class="flex h-10 w-full items-center rounded border-none bg-slate-500/25 p-2 px-4 text-start outline-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50"
 			>
-				<span class="text-sm w-full">Arctic &#38; Authelia</span>
+				<span class="text-sm w-full">Authelia</span>
 				<Icon css={{ icon: 'ms-auto' }} ph="arrow-right"></Icon>
-			</a>
+			</a> -->
 			<p class="text-balance px-4 text-sm">
 				{@html $_('users.auth.go-to-signup', { values: { url: '/auth/sign-up' } })}
 			</p>

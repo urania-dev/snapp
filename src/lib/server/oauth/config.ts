@@ -1,4 +1,5 @@
 import { env } from '$env/dynamic/private';
+import { error } from '@sveltejs/kit';
 import { discovery, Configuration } from 'openid-client';
 
 
@@ -36,28 +37,32 @@ const fetchClientConfig = async (
 };
 
 const parseOIDCConfigs = () => {
-  const providers = env.AUTH_PROVIDERS?.split(',').map(provider => provider.trim()) ?? [];
+  const providers = env.AUTH_PROVIDERS?.trim() !== '' && env.AUTH_PROVIDERS?.trim()?.toString()?.split(',').map(provider => provider.trim()) || [];
+
+  if (!providers.length) return []
+
   return providers.map(provider => {
     const issuer = env[`AUTH_${provider}_ISSUER`];
     const clientID = env[`AUTH_${provider}_CLIENT_ID`];
     const clientSecret = env[`AUTH_${provider}_CLIENT_SECRET`];
-    const scope = env[`AUTH_${provider}_SCOPE`] ?? 'openid profile email';
-    const userNameField = env[`AUTH_${provider}_USERNAME_FIELD`] ?? 'preferred_username';
-    const userIdField = env[`AUTH_${provider}_USERID_FIELD`] ?? 'id';
-    const displayNameField = env[`AUTH_${provider}_DISPLAYNAME_FIELD`] ?? 'name';
-    const profilePictureField = env[`AUTH_${provider}_PROFILE_PICTURE_FIELD`] ?? 'avatar';
-    const emailField = env[`AUTH_${provider}_EMAIL_FIELD`] ?? 'email';
+    const scope = env?.[`AUTH_${provider}_SCOPE`] || 'openid profile email';
+    const userNameField = env?.[`AUTH_${provider}_USERNAME_FIELD`] || 'preferred_username';
+    const userIdField = env?.[`AUTH_${provider}_USERID_FIELD`] || 'id';
+    const displayNameField = env?.[`AUTH_${provider}_DISPLAYNAME_FIELD`] || 'name';
+    const profilePictureField = env?.[`AUTH_${provider}_PROFILE_PICTURE_FIELD`] || 'avatar';
+    const emailField = env?.[`AUTH_${provider}_EMAIL_FIELD`] || 'email';
 
-    if (!issuer || !clientID || !clientSecret || !scope || !userNameField || !userIdField || !displayNameField || !profilePictureField || !emailField) {
-      throw new Error(`Missing environment variables for ${provider}`);
-    }
+    Object.entries({ issuer, clientID, clientSecret, scope, userNameField, userIdField, displayNameField, profilePictureField, emailField }).map(([key, value]) => {
+      if (!value) throw error(500, `Missing environment variables for ${provider}, ${key}`);
+    })
+
 
     return {
       identity: provider.toLocaleLowerCase(),
       provider: provider,
-      issuer,
-      clientID,
-      clientSecret,
+      issuer: issuer!,
+      clientID: clientID!,
+      clientSecret: clientSecret!,
       authorizeUrl: env[`AUTH_${provider}_AUTHORIZE_URL`],
       tokenUrl: env[`AUTH_${provider}_TOKEN_URL`],
       userinfoUrl: env[`AUTH_${provider}_USERINFO_URL`],

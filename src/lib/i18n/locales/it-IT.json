@@ -262,31 +262,31 @@
 	},
 	"tags": {
 		"labels": {
-		  "create": "Crea un tag",
-		  "edit": "Modifica tag",
-		  "name": "Nome del tag",
-		  "slug": "Slug",
-		  "notes": "Note",
-		  "search": "Cerca per shortcode",
-		  "users": "Utenti",
-		  "user": "Utente",
-		  "manage-users": "Gestisci utenti",
-		  "snapps": "Snapps"
+			"create": "Crea un tag",
+			"edit": "Modifica tag",
+			"name": "Nome del tag",
+			"slug": "Slug",
+			"notes": "Note",
+			"search": "Cerca per shortcode",
+			"users": "Utenti",
+			"user": "Utente",
+			"manage-users": "Gestisci utenti",
+			"snapps": "Snapps"
 		},
 		"helpers": {
-		  "creation": "Il tag sarà assegnato all'utente permettendogli di prefissare i suoi snapps quando i prefissi sono abilitati",
-		  "notes": "Le note saranno visibili a tutti coloro che hanno accesso a questo prefisso",
-		  "created": "Il tag è stato salvato",
-		  "confirm-delete": "Questo eliminerà il tag e tutte le relazioni a esso associate. Gli snapps rimarranno intatti",
-		  "deleted": "Il/i tag sono stati eliminati"
+			"creation": "Il tag sarà assegnato all'utente permettendogli di prefissare i suoi snapps quando i prefissi sono abilitati",
+			"notes": "Le note saranno visibili a tutti coloro che hanno accesso a questo prefisso",
+			"created": "Il tag è stato salvato",
+			"confirm-delete": "Questo eliminerà il tag e tutte le relazioni a esso associate. Gli snapps rimarranno intatti",
+			"deleted": "Il/i tag sono stati eliminati"
 		},
 		"placeholders": {
-		  "search": "Cerca per nome del tag"
+			"search": "Cerca per nome del tag"
 		},
 		"errors": {
-		  "name-invalid": "Per favore, fornisci un nome valido per il tag."
+			"name-invalid": "Per favore, fornisci un nome valido per il tag."
 		}
-	  },
+	},
 	"errors": {
 		"api": {
 			"token-missing": "Token di autorizzazione richiesto."
@@ -306,6 +306,7 @@
 			"reset-token-expired": "Il token di reset per il recupero della password è scaduto."
 		},
 		"snapps": {
+			"no-prefix": "Questo SNAPP non ha prefisso, selezionane uno",
 			"unallowed-not-https": "L&rsquo;URL originale deve essere un link HTTPS sicuro.",
 			"original-url-missing": "Deve essere fornito un URL originale per il reindirizzamento.",
 			"original-url-blacklisted": "Questo URL è stato inserito nella blacklist o segnalato dall&rsquo;API VirusTotal.",

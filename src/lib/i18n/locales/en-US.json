@@ -306,6 +306,7 @@
 			"reset-token-expired": "Password recovery reset token has expired."
 		},
 		"snapps": {
+			"no-prefix": "This SNAPP has no prefix, please select one",
 			"unallowed-not-https": "The original URL must be a secure https link",
 			"original-url-missing": "An Original URL must be provided for redirection",
 			"original-url-blacklisted": "This URL has been blacklisted or flagged by VirusTotal API",

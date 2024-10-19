@@ -1,13 +1,9 @@
 import { database } from '$lib/server/db/database';
+import { OIDCConfigs } from '$lib/server/oauth/config';
 import { fail, redirect } from '@sveltejs/kit';
-import { OIDCConfigs } from '../../../lib/server/oauth/config.js';
-
-/** @type {import('./$types').PageLoad} */
 
 export function load({ locals: { session } }) {
 	if (session) redirect(302, '/');
-
-
 
 	const oidcProviders = OIDCConfigs.map((o) => ({ identity: o.identity }));
 

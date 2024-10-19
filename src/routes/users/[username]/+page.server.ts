@@ -5,6 +5,7 @@ import {
 	SNAPP_NOT_FOUND,
 	SNAPP_ORIGIN_URL_BLACKLISTED,
 	SNAPP_ORIGIN_URL_REQUESTED,
+	TAGS_AS_PREFIX,
 	UNAUTHORIZED
 } from '$lib/utils/constants.js';
 
@@ -22,19 +23,19 @@ export async function load({ locals: { session, user }, url, params: { username 
 		await database.settings.get(ALLOW_UNSECURE_HTTP),
 		true
 	);
-	
+
 	const limit = parseInt(url.searchParams.get('limit')?.toString() || '14');
 	const page = parseInt(url.searchParams.get('page')?.toString() || '1');
 	const orderBy = url.searchParams.get('order-by')?.toString() || 'created';
 	const ascending =
-	url.searchParams.get('ascending')?.toString()?.toLowerCase() === 'false' || false;
+		url.searchParams.get('ascending')?.toString()?.toLowerCase() === 'false' || false;
 	const offset = (page - 1) * limit;
-	
+
 	const query = url.searchParams.get('query')?.toString();
-	
+
 	const cols = await database.settings
-	.get('COLUMNS', user.id)
-	.then((res) => (res?.value && (JSON.parse(res.value) as string[])) || []);
+		.get('COLUMNS', user.id)
+		.then((res) => (res?.value && (JSON.parse(res.value) as string[])) || []);
 	const [snapps, count] = await database.snapps.get(ghosting.id, query, limit, offset, {
 		[orderBy]: ascending ? 'asc' : 'desc'
 	});
@@ -58,6 +59,7 @@ export const actions = {
 		const [, err] = await database.snapps.create(JSON.parse(create_snapp), ghosting.id, fetch);
 
 		let message: string | undefined = undefined;
+		if (err === TAGS_AS_PREFIX) message = 'errors.snapps.no-prefix';
 		if (err === MAX_SNAPPS_PER_USER) message = 'errors.snapps.max-snapps';
 		if (err === SNAPP_ORIGIN_URL_REQUESTED) message = 'errors.snapps.original-url-missing';
 		if (err === SNAPP_ORIGIN_URL_BLACKLISTED) message = 'errors.snapps.original-url-blacklisted';
@@ -75,10 +77,11 @@ export const actions = {
 		const edit_snapp = form.get('snapp')?.toString();
 
 		if (!edit_snapp) return fail(400, { message: 'errors.snapps.original-url-missing' });
-		const _snapp = JSON.parse(edit_snapp);
-		const [, err] = await database.snapps.edit(_snapp, _snapp.userId, fetch);
+		const _snapp = JSON.parse(edit_snapp) as Snapp & { tags: Tag[] }
+		const [, err] = await database.snapps.edit({ ..._snapp, tags: _snapp.tags.map((t) => t.slug) }, _snapp.userId, fetch);
 
 		let message: string | undefined = undefined;
+		if (err === TAGS_AS_PREFIX) message = 'This Snapps has no prefix selected, please include one.';
 		if (err === MAX_SNAPPS_PER_USER) message = 'errors.snapps.max-snapps';
 		if (err === SNAPP_ORIGIN_URL_REQUESTED) message = 'errors.snapps.original-url-missing';
 		if (err === SNAPP_ORIGIN_URL_BLACKLISTED) message = 'errors.snapps.original-url-blacklisted';

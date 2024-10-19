@@ -1,7 +1,7 @@
 import { database } from '$lib/server/db/database.js';
 import { prisma } from '$lib/server/prisma';
 import { getServerSideSettings } from '$lib/server/server-wide-settings/index.js';
-import { TAGS_AS_PREFIX } from '$lib/utils/constants.js';
+import { ALLOW_UNSECURE_HTTP, MAX_SNAPPS_PER_USER, SNAPP_ORIGIN_URL_BLACKLISTED, SNAPP_ORIGIN_URL_REQUESTED, TAGS_AS_PREFIX, UNAUTHORIZED } from '$lib/utils/constants.js';
 import { fail, redirect } from '@sveltejs/kit';
 
 export const load = async ({ locals: { session, user }, request, params: { id }, url }) => {
@@ -80,7 +80,16 @@ export const actions = {
 		}
 		snapp.disabled = disabled;
 
-		await database.snapps.edit(snapp, snapp?.userId, fetch);
+		await database.snapps.edit({ ...snapp, tags: snapp.tags.map(t => t.slug) }, snapp?.userId, fetch);
+
+		let message: string | undefined = undefined;
+		if (err === TAGS_AS_PREFIX) message = 'This Snapps has no prefix selected, please include one.';
+		if (err === MAX_SNAPPS_PER_USER) message = 'errors.snapps.max-snapps';
+		if (err === SNAPP_ORIGIN_URL_REQUESTED) message = 'errors.snapps.original-url-missing';
+		if (err === SNAPP_ORIGIN_URL_BLACKLISTED) message = 'errors.snapps.original-url-blacklisted';
+		if (err === UNAUTHORIZED) message = 'errors.unauthorized';
+		if (err === ALLOW_UNSECURE_HTTP) message = 'errors.snapps.unallowed-not-https';
+		if (message) return fail(400, { message });
 		return { message: 'snapps.actions.edited' };
 	}
 };

@@ -25,7 +25,7 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 
 ENV APPNAME="Snapp.li"
-ENV PUBLIC_SNAPP_VERSION="0.8.7.2"
+ENV PUBLIC_SNAPP_VERSION="0.8.7.3"
 # Expose the port the app runs on
 EXPOSE 3000
 

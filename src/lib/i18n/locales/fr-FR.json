@@ -306,6 +306,7 @@
 			"reset-token-expired": "Le jeton de réinitialisation de mot de passe a expiré."
 		},
 		"snapps": {
+			"no-prefix": "Ce SNAPP n'a pas de préfixe, veuillez en sélectionner un",
 			"unallowed-not-https": "L'URL d'origine doit être un lien sécurisé https",
 			"original-url-missing": "Une URL originale doit être fournie pour la redirection",
 			"original-url-blacklisted": "Cette URL a été mise sur liste noire ou signalée par l'API VirusTotal",

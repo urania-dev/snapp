@@ -4,6 +4,7 @@ import {
 	MAX_SNAPPS_PER_USER,
 	SNAPP_ORIGIN_URL_BLACKLISTED,
 	SNAPP_ORIGIN_URL_REQUESTED,
+	TAGS_AS_PREFIX,
 	UNAUTHORIZED
 } from '$lib/utils/constants.js';
 import { fail, redirect } from '@sveltejs/kit';
@@ -30,10 +31,11 @@ export const actions = {
 		const edit_snapp = form.get('snapp')?.toString();
 
 		if (!edit_snapp) return fail(400, { message: 'errors.snapps.original-url-missing' });
-
-		const [snapp, err] = await database.snapps.edit(JSON.parse(edit_snapp), session.userId, fetch);
+		const parsed = JSON.parse(edit_snapp) as Snapp & { tags: Tag[] }
+		const [snapp, err] = await database.snapps.edit({ ...parsed, tags: parsed.tags.map((t) => t.slug) }, session.userId, fetch);
 
 		let message: string | undefined = undefined;
+		if (err === TAGS_AS_PREFIX) message = 'This Snapps has no prefix selected, please include one.';
 		if (err === MAX_SNAPPS_PER_USER) message = 'errors.snapps.max-snapps';
 		if (err === SNAPP_ORIGIN_URL_REQUESTED) message = 'errors.snapps.original-url-missing';
 		if (err === SNAPP_ORIGIN_URL_BLACKLISTED) message = 'errors.snapps.original-url-blacklisted';

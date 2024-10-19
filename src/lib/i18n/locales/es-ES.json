@@ -7,7 +7,7 @@
 		"metrics": "Métricas",
 		"settings": "Configurar",
 		"users": "Usuarios",
-		"tags":"Tags"
+		"tags": "Tags"
 	},
 	"admin": {
 		"label": "Admin Panel",
@@ -306,6 +306,7 @@
 			"reset-token-expired": "El token de recuperación de contraseña ha expirado."
 		},
 		"snapps": {
+			"no-prefix": "Este SNAPP no tiene prefijo, por favor selecciona uno",
 			"unallowed-not-https": "La URL original debe ser un enlace seguro https",
 			"original-url-missing": "Debe proporcionarse una URL original para la redirección",
 			"original-url-blacklisted": "Esta URL ha sido bloqueada o marcada por la API de VirusTotal",

@@ -72,10 +72,13 @@ export const actions = {
 
 
 		let message: string | undefined = undefined;
-		if (!snapp || err === MAX_SNAPPS_PER_USER) message = 'errors.snapps.max-snapps';
-		if (!snapp || err === SNAPP_ORIGIN_URL_REQUESTED) message = 'errors.snapps.original-url-missing';
-		if (!snapp || err === SNAPP_ORIGIN_URL_BLACKLISTED) message = 'errors.snapps.original-url-blacklisted';
-		if (!snapp || err === ALLOW_UNSECURE_HTTP) message = 'errors.snapps.unallowed-not-https';
+		console.log(err)
+
+		if (!snapp || err === TAGS_AS_PREFIX) message = 'errors.snapps.no-prefix';
+		else if (!snapp || err === MAX_SNAPPS_PER_USER) message = 'errors.snapps.max-snapps';
+		else if (!snapp || err === SNAPP_ORIGIN_URL_REQUESTED) message = 'errors.snapps.original-url-missing';
+		else if (!snapp || err === SNAPP_ORIGIN_URL_BLACKLISTED) message = 'errors.snapps.original-url-blacklisted';
+		else if (!snapp || err === ALLOW_UNSECURE_HTTP) message = 'errors.snapps.unallowed-not-https';
 		if (message) return fail(400, { message });
 
 		const tagsString = form.get('tags')?.toString() || "[]"
@@ -100,6 +103,7 @@ export const actions = {
 		const [snapp, err] = await database.snapps.edit(JSON.parse(edit_snapp), session.userId, fetch);
 
 		let message: string | undefined = undefined;
+		if (err === TAGS_AS_PREFIX) message = 'This Snapps has no prefix selected, please include one.';
 		if (err === MAX_SNAPPS_PER_USER) message = 'errors.snapps.max-snapps';
 		if (err === SNAPP_ORIGIN_URL_REQUESTED) message = 'errors.snapps.original-url-missing';
 		if (err === SNAPP_ORIGIN_URL_BLACKLISTED) message = 'errors.snapps.original-url-blacklisted';

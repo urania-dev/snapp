@@ -5,12 +5,14 @@ import {
 	MAX_SNAPPS_PER_USER,
 	SNAPP_ORIGIN_URL_BLACKLISTED,
 	SNAPP_ORIGIN_URL_REQUESTED,
-	SNAPP_VIOLATES_APP_PATH
+	SNAPP_VIOLATES_APP_PATH,
+	TAGS_AS_PREFIX
 } from '$lib/utils/constants';
 import { hash } from '@node-rs/argon2';
 import { generateId } from 'lucia';
 import { database } from '../database';
 import type { Snapp } from '@prisma/client';
+import { getServerSideSettings } from '$lib/server/server-wide-settings';
 
 export const create_snapp = async (snapp: Partial<Snapp & { tags: string[] }>, userId: string, fetch: SvelteFetch) => {
 	const is_admin = await database.users.is_admin(userId);
@@ -53,6 +55,11 @@ export const create_snapp = async (snapp: Partial<Snapp & { tags: string[] }>, u
 			parallelism: 1
 		})
 		: null;
+
+	const settings = getServerSideSettings()
+	const isActiveTagsAsPrefix = settings.get<boolean>(TAGS_AS_PREFIX)
+
+	if (isActiveTagsAsPrefix === true && !tags?.length) return [null, TAGS_AS_PREFIX] as [null, string]
 
 	const new_snapp = await prisma.snapp.create({
 		data: {

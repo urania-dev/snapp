@@ -38,8 +38,9 @@ export const actions = {
 		const is_admin = await database.users.is_admin(user.id);
 		if (!is_admin) redirect(302, '/dashboard');
 		if (!edit_snapp) return fail(400, { message: 'errors.snapps.original-url-missing' });
+		const parsed = JSON.parse(edit_snapp) as Snapp & { tags: Tag[] }
 
-		const [snapp, err] = await database.snapps.edit(JSON.parse(edit_snapp), session.userId, fetch);
+		const [snapp, err] = await database.snapps.edit({ ...parsed, tags: parsed.tags.map(t => t.slug) }, session.userId, fetch);
 
 		let message: string | undefined = undefined;
 		if (err === MAX_SNAPPS_PER_USER) message = 'errors.snapps.max-snapps';

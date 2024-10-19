@@ -6,7 +6,7 @@ import { error, redirect, type Action } from "@sveltejs/kit";
 import { prisma } from "$lib/server/prisma";
 import { database } from "$lib/server/db/database";
 import { ENABLED_SIGNUP } from "$lib/utils/constants";
-import { getOIDCConfig } from '../../../../../lib/server/oauth/config';
+import { getOIDCConfig } from '$lib/server/oauth/config';
 import { authorizationCodeGrant, fetchUserInfo } from 'openid-client';
 import { env } from '$env/dynamic/private';
 
@@ -15,18 +15,18 @@ export const GET: Action = async ({ cookies, url, params: { provider } }) => {
     const storedState = cookies.get("oauth_state") ?? null;
     const codeVerifier = cookies.get("oauth_code") ?? null;
 
-    if (!storedState || !codeVerifier) {
+    if (!storedState || !codeVerifier)
         throw error(400, "STATE and STORE STATE not matching OR missing code verifier")
-    }
 
-    if (!cookieProviderIdentity || cookieProviderIdentity !== provider) {
+
+    if (!cookieProviderIdentity || cookieProviderIdentity !== provider)
         throw error(400, "Provider not found in cookie")
-    }
+
 
     const config = getOIDCConfig(provider!);
-    if (!config) {
+    if (!config)
         throw error(400, "Provider not found")
-    }
+
 
     const enabled_signup = database.settings.parse(await database.settings.get(ENABLED_SIGNUP), true);
 

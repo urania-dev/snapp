@@ -10,7 +10,7 @@ class ToastState {
 	};
 	addToast = (data) => {
 		if (!isBrowser) return;
-		this.toasts.push(data);
+		this.toasts.unshift(data);
 	};
 	updateToast = ({ id, data, type, message }) => {
 		const toastIdx = this.toasts.findIndex((toast) => toast.id === id);

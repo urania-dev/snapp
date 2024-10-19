@@ -7,6 +7,7 @@ import {
 	MAX_SNAPPS_PER_USER,
 	SNAPP_ORIGIN_URL_BLACKLISTED,
 	SNAPP_ORIGIN_URL_REQUESTED,
+	TAGS_AS_PREFIX,
 	UNAUTHORIZED
 } from '$lib/utils/constants.js';
 import { error, json } from '@sveltejs/kit';
@@ -31,8 +32,8 @@ export const GET = async (event) => {
 		offset,
 		orderBy
 			? {
-					[orderBy]: ascending ? 'asc' : 'desc'
-				}
+				[orderBy]: ascending ? 'asc' : 'desc'
+			}
 			: undefined
 	);
 
@@ -76,6 +77,7 @@ export const POST = async (event) => {
 	);
 
 	let message: string | undefined = undefined;
+	if (err === TAGS_AS_PREFIX) message = 'This Snapps has no prefix selected, please include one.';
 	if (err === MAX_SNAPPS_PER_USER) message = 'This account reached its limit number of snapps.';
 	if (err === SNAPP_ORIGIN_URL_REQUESTED) message = 'You must provide an Original URL';
 	if (err === SNAPP_ORIGIN_URL_BLACKLISTED) message = 'Original URL is blacklisted';
@@ -99,6 +101,7 @@ export const PATCH = async (event) => {
 		secret,
 		max_usages,
 		notes,
+		tags,
 		expiration,
 		disabled
 	}: {
@@ -108,6 +111,7 @@ export const PATCH = async (event) => {
 		secret?: string | null;
 		max_usages?: number;
 		notes?: string | null;
+		tags?: string[]
 		expiration?: Date | null;
 		disabled?: boolean;
 	} = await event.request.json();
@@ -115,7 +119,8 @@ export const PATCH = async (event) => {
 	if (!id) return error(400, { message: 'Missing Snapp ID' });
 	const is_admin = token.user.role !== 'user';
 	const editable = await prisma.snapp.findFirst({
-		where: { id, userId: is_admin ? undefined : token.userId }
+		where: { id, userId: is_admin ? undefined : token.userId },
+		include: { tags: true }
 	});
 
 	if (editable?.userId !== token.userId && is_admin === false)
@@ -132,13 +137,15 @@ export const PATCH = async (event) => {
 			max_usages: max_usages || editable.max_usages,
 			expiration: expiration === null ? null : expiration || editable.expiration,
 			notes: notes || editable.notes,
-			disabled: disabled || editable.disabled
+			disabled: disabled || editable.disabled,
+			tags: tags && tags.length ? tags : editable.tags.map(t => t.slug)
 		},
 		token.userId,
 		event.fetch
 	);
 
 	let message: string | undefined = undefined;
+	if (err === TAGS_AS_PREFIX) message = 'This Snapps has no prefix selected, please include one.';
 	if (err === MAX_SNAPPS_PER_USER) message = 'This account reached its limit number of snapps.';
 	if (err === SNAPP_ORIGIN_URL_REQUESTED) message = 'You must provide an Original URL';
 	if (err === SNAPP_ORIGIN_URL_BLACKLISTED) message = 'Original URL is blacklisted';

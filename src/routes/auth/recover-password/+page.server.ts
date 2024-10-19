@@ -54,7 +54,9 @@ export const actions = {
 			}
 		});
 
-		const session = await lucia.createSession(token.userId, {});
+		const session = await lucia.createSession(token.userId, {
+			two_factor_verified:false
+		});
 		const sessionCookie = lucia.createSessionCookie(session.id);
 		cookies.set(sessionCookie.name, sessionCookie.value, {
 			path: '.',

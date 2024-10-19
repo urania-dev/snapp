@@ -16,8 +16,7 @@
 				<div
 					class="mx-auto mb-10 flex aspect-square h-56 w-56 items-center justify-center rounded-full bg-slate-500/25 p-10"
 				>
-					<Icon  css={{ icon: 'text-pink-500/50' }} ph="link-break" size={128}
-					></Icon>
+					<Icon css={{ icon: 'text-pink-500/50' }} ph="link-break" size={128}></Icon>
 				</div>
 			</Card>
 		</div>
