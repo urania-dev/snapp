@@ -18,7 +18,7 @@
 		show_password = !show_password;
 	};
 
-	let { form } = $props();
+	let { form, data } = $props();
 	const enhanceSignIn: SubmitFunction = () => {
 		return async function ({ result }) {
 			await applyAction(result);
@@ -86,6 +86,16 @@
 				<span class="text-sm w-full">{$_('users.auth.sign-in')}</span>
 				<Icon css={{ icon: 'ms-auto' }} ph="arrow-right"></Icon>
 			</button>
+			{#each data.oidcProviders as provider}
+				<a
+					data-sveltekit-preload-data="false"
+					href="/auth/oauth/{provider.identity}"
+					class="flex h-10 w-full items-center rounded border-none bg-slate-500/25 p-2 px-4 text-start outline-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50"
+				>
+					<span class="text-sm w-full">OIDC {provider.identity}</span>
+					<Icon css={{ icon: 'ms-auto' }} ph="arrow-right"></Icon>
+				</a>
+			{/each}
 			<a
 				data-sveltekit-preload-data="false"
 				href="/auth/oauth/"
