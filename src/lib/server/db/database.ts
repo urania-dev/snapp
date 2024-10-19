@@ -1,4 +1,4 @@
-import { DISABLE_HOME, ENABLED_SIGNUP, INITIALIZED_DB, SMTP_FROM, SMTP_HOST, SMTP_PASS, SMTP_PORT, SMTP_SSL, SMTP_USER, UMAMI_URL, UMAMI_WEBSITE_ID, USER_EXISTS, VIRUSTOTAL_API_KEY } from '$lib/utils/constants';
+import { ALLOW_UNSECURE_HTTP, DISABLE_HOME, ENABLED_SIGNUP, INITIALIZED_DB, SMTP_FROM, SMTP_HOST, SMTP_PASS, SMTP_PORT, SMTP_SSL, SMTP_USER, UMAMI_URL, UMAMI_WEBSITE_ID, USER_EXISTS, VIRUSTOTAL_API_KEY } from '$lib/utils/constants';
 import { env } from '$env/dynamic/private';
 import { env as publicEnv } from '$env/dynamic/public';
 import { parse_db_setting } from '$lib/server/db/helpers/parse_db_setting';
@@ -137,6 +137,12 @@ export class Database {
 		await this.settings.set(DISABLE_HOME, ENV_DISABLE_HOME);
 		if (ENV_DISABLE_HOME && ENV_DISABLE_HOME === 'true') console.log("Disable Home: configuration added to the database.")
 
+		const ENV_ALLOW_HTTP = env.ALLOW_UNSECURE_HTTP === "true" || false
+		if (ENV_ALLOW_HTTP) {
+			await this.settings.set(ALLOW_UNSECURE_HTTP, String(ENV_ALLOW_HTTP));
+			console.log("Allow Unsecure HTTP: configuration added to the database.")
+		}
+
 		let ENV_SMTP_HOST = env.SMTP_HOST || null
 		let ENV_SMTP_PORT = env.SMTP_PORT || null
 		let ENV_SMTP_USER = env.SMTP_USER || null
@@ -144,6 +150,7 @@ export class Database {
 		let ENV_SMTP_FROM = env.SMTP_FROM || null
 		let ENV_SMTP_SSL = env.SMTP_SSL || true
 		let ENV_VTAPIKEY = env.VTAPI_KEY || null
+
 
 		if (ENV_SMTP_HOST) await this.settings.set(SMTP_HOST, ENV_SMTP_HOST);
 		if (ENV_SMTP_PORT) await this.settings.set(SMTP_PORT, ENV_SMTP_PORT);

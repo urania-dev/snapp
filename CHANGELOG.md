@@ -148,3 +148,5 @@
 - 0.8.7.1
   - Fixes in Tags API
   - Keycloak OIDC integration
+- 0.8.7.2
+  - fix: prevent double encoding of redirection URLs [see more...](https://github.com/urania-dev/snapp/pull/61)
