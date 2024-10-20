@@ -2,7 +2,7 @@
 import { generateIdFromEntropySize } from "lucia";
 import { lucia } from "$lib/server/auth";
 
-import { error, redirect, type Action } from "@sveltejs/kit";
+import { error, redirect } from "@sveltejs/kit";
 import { prisma } from "$lib/server/prisma";
 import { database } from "$lib/server/db/database";
 import { ENABLED_SIGNUP } from "$lib/utils/constants";
@@ -10,7 +10,7 @@ import { getOIDCConfig } from '$lib/server/oauth/config';
 import { authorizationCodeGrant, fetchUserInfo } from 'openid-client';
 import { env } from '$env/dynamic/private';
 
-export const GET: Action = async ({ cookies, url, params: { provider } }) => {
+export const GET = async ({ cookies, url, params: { provider } }) => {
     const cookieProviderIdentity = cookies.get("oauth_identity") ?? null;
     const storedState = cookies.get("oauth_state") ?? null;
     const codeVerifier = cookies.get("oauth_code") ?? null;
@@ -30,7 +30,6 @@ export const GET: Action = async ({ cookies, url, params: { provider } }) => {
 
     const enabled_signup = database.settings.parse(await database.settings.get(ENABLED_SIGNUP), true);
 
-    url = new URL(url);
     url.protocol = new URL(env.ORIGIN).protocol; // fix for reverse proxy
     try {
         const tokens = await authorizationCodeGrant(config.configuration, url, {

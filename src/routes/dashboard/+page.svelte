@@ -150,11 +150,12 @@
 			if (form?.success === true) close_and_reset_panel();
 		};
 	};
-	const enhanceSnappAction: SubmitFunction = ({ formData, cancel }) => {
+	const enhanceSnappAction: SubmitFunction = ({ formData }) => {
+		
 		if (ttl) _snapp.expiration = new Date(new Date().getTime() + ttl * 1000);
 		if (_snapp) formData.set('snapp', JSON.stringify(_snapp));
-		if (creationTags) formData.set('tags', JSON.stringify(creationTags));
-		else return cancel();
+		if (creationTags.length) formData.set('tags', JSON.stringify(creationTags));
+		
 		return async ({ result }) => {
 			await applyAction(result);
 			await invalidateAll();
@@ -194,6 +195,7 @@
 		if (!snapp) return;
 		_snapp = snapp;
 		creationTags = snapp.tags.map((t) => t.id);
+
 		has_secret = snapp.secret === null ? false : true;
 		has_expiration = snapp.expiration !== null ? true : false;
 		has_limited_usage = (snapp.max_usages && snapp.max_usages > 0) || false;
@@ -330,6 +332,7 @@
 			}
 		}
 	};
+
 </script>
 
 <svelte:window bind:innerWidth />

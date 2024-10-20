@@ -9,7 +9,7 @@ import type { User } from 'lucia';
 type ERROR = typeof USER_DOES_NOT_EXISTS | typeof PASSWORD_IS_INVALID;
 
 const authenticate = async (cookies: Cookies, username: string, password: string) => {
-	const exists = await prisma.user.findFirst({ where: { username }, });
+	const exists = await prisma.user.findFirst({ where: { username:username.toLowerCase() }, });
 	if (exists === null) return [null, USER_DOES_NOT_EXISTS] as [null, ERROR];
 	const validPassword = await verify(exists.password_hash, password, {
 		memoryCost: 19456,

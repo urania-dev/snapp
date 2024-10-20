@@ -153,3 +153,8 @@
 - 0.8.7.3
   - feat(auth): implement generic OpenID Connect authentication. [see more...](https://github.com/urania-dev/snapp/pull/65)
   - fix: Tags with no paths when feature is on (should throw error) [see more...](https://github.com/urania-dev/snapp/issues/63#issuecomment-2423712962)
+- 0.8.7.4
+  - fix: edit snapps when tags as prefix is on [see more...](https://github.com/urania-dev/snapp/issues/68)
+  - fix: SMPT typo in log
+  - added endpoint as request to generate qrcode `/api/qrcode/path`. It will just render a shortcode to ORIGIN/...path (ex example.com/abc example.com/abc/def)
+  - updated readme for typo

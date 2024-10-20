@@ -112,7 +112,7 @@ export class Database {
 		const admin_email = env.ADMIN_EMAIL || 'admin@example.com';
 
 		const [user, error] = await this.users.create(
-			admin_username,
+			admin_username.toLowerCase(),
 			admin_email,
 			admin_password,
 			undefined,
@@ -160,7 +160,7 @@ export class Database {
 		if (ENV_SMTP_SSL) await this.settings.set(SMTP_SSL, ENV_SMTP_SSL?.toString());
 		if (ENV_VTAPIKEY) await this.settings.set(VIRUSTOTAL_API_KEY, ENV_VTAPIKEY);
 		if (ENV_VTAPIKEY) console.log("VirusTotal API Key: configuration added to the database.")
-		if (ENV_SMTP_HOST) console.log("SMPT Setup: configuration added to the database.")
+		if (ENV_SMTP_HOST) console.log("SMTP Setup: configuration added to the database.")
 
 		await this.settings.set(INITIALIZED_DB, 'true');
 	};

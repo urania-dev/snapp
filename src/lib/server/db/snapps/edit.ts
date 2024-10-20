@@ -63,8 +63,7 @@ export const edit_snapp = async (snapp: Snapp & { tags: string[] }, userId: stri
 	const settings = getServerSideSettings()
 	const isActiveTagsAsPrefix = settings.get<boolean>(TAGS_AS_PREFIX)
 
-	if (isActiveTagsAsPrefix === true && !tags?.length) return [null, TAGS_AS_PREFIX] as [null, string]
-
+	if (isActiveTagsAsPrefix === true && tags?.length === 0) return [null, TAGS_AS_PREFIX] as [null, string]
 	const edit_snapp = await prisma.snapp.update({
 		where: { id },
 		data: {
