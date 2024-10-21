@@ -62,8 +62,8 @@ export const edit_snapp = async (snapp: Snapp & { tags: string[] }, userId: stri
 
 	const settings = getServerSideSettings()
 	const isActiveTagsAsPrefix = settings.get<boolean>(TAGS_AS_PREFIX)
-
 	if (isActiveTagsAsPrefix === true && tags?.length === 0) return [null, TAGS_AS_PREFIX] as [null, string]
+	if (isActiveTagsAsPrefix) await prisma.snapp.update({ where: { id }, data: { tags: { set: [] } } })
 	const edit_snapp = await prisma.snapp.update({
 		where: { id },
 		data: {
@@ -76,6 +76,7 @@ export const edit_snapp = async (snapp: Snapp & { tags: string[] }, userId: stri
 			max_usages: max_usages || -1,
 			disabled,
 			tags: {
+
 				connectOrCreate: tags?.map(t => (
 					{
 						where: {
@@ -85,7 +86,7 @@ export const edit_snapp = async (snapp: Snapp & { tags: string[] }, userId: stri
 							name: t,
 							slug: t
 						}
-					}))
+					})),
 			}
 		}
 	});

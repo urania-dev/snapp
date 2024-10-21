@@ -51,7 +51,6 @@ export async function load({ locals: { session, user }, url }) {
 
 	const tagQuery = url.searchParams.get('tag-query')?.toString();
 	const [tags, countTag] = await database.tags.get(user.id, tagQuery, 3, 0, { name: 'asc' })
-
 	return { allow_http, snapps: snapps, count, offset, page, limit, cols, protocol: url.protocol, tagsAsPrefix, tags, countTag };
 }
 
@@ -65,21 +64,22 @@ export const actions = {
 		if (!create_snapp) return fail(400, { message: 'errors.snapps.original-url-missing' });
 		const tagsString = form.get('tags')?.toString() || "[]"
 		const tags = JSON.parse(tagsString) as string[]
-
+		const settings = getServerSideSettings()
+		const tagsAsPrefix = settings.get<boolean>(TAGS_AS_PREFIX)
+		if (!tags?.length && tagsAsPrefix === true) return fail(400, { message: 'errors.snapps.no-prefix' })
 		const [snapp, err] = await database.snapps.create(
 			{ ...JSON.parse(create_snapp), tags },
 			session.userId,
 			fetch
 		);
 
-
 		let message: string | undefined = undefined;
 
-		if (!snapp || err === TAGS_AS_PREFIX) message = 'errors.snapps.no-prefix';
-		else if (!snapp || err === MAX_SNAPPS_PER_USER) message = 'errors.snapps.max-snapps';
-		else if (!snapp || err === SNAPP_ORIGIN_URL_REQUESTED) message = 'errors.snapps.original-url-missing';
-		else if (!snapp || err === SNAPP_ORIGIN_URL_BLACKLISTED) message = 'errors.snapps.original-url-blacklisted';
-		else if (!snapp || err === ALLOW_UNSECURE_HTTP) message = 'errors.snapps.unallowed-not-https';
+		if (err === TAGS_AS_PREFIX) message = 'errors.snapps.no-prefix';
+		else if (err === MAX_SNAPPS_PER_USER) message = 'errors.snapps.max-snapps';
+		else if (err === SNAPP_ORIGIN_URL_REQUESTED) message = 'errors.snapps.original-url-missing';
+		else if (err === SNAPP_ORIGIN_URL_BLACKLISTED) message = 'errors.snapps.original-url-blacklisted';
+		else if (err === ALLOW_UNSECURE_HTTP) message = 'errors.snapps.unallowed-not-https';
 		if (message) return fail(400, { message });
 
 
@@ -92,14 +92,15 @@ export const actions = {
 		const edit_snapp = form.get('snapp')?.toString();
 
 		if (!edit_snapp) return fail(400, { message: 'errors.snapps.original-url-missing' });
-
+		const settings = getServerSideSettings()
+		const tagsAsPrefix = settings.get(TAGS_AS_PREFIX)
 		const tagsString = form.get('tags')?.toString() || "[]"
 		const tags = JSON.parse(tagsString) as string[]
-
-		const [snapp, err] = await database.snapps.edit({ ...(JSON.parse(edit_snapp)), tags }, session.userId, fetch);
+		if (!tags.length && tagsAsPrefix) return fail(400, { message: 'errors.snapps.no-prefix' })
+		const [_, err] = await database.snapps.edit({ ...(JSON.parse(edit_snapp)), tags }, session.userId, fetch);
 
 		let message: string | undefined = undefined;
-		if (err === TAGS_AS_PREFIX) message = 'This Snapps has no prefix selected, please include one.';
+		if (err === TAGS_AS_PREFIX) message = 'errors.snapps.no-prefix';
 		if (err === MAX_SNAPPS_PER_USER) message = 'errors.snapps.max-snapps';
 		if (err === SNAPP_ORIGIN_URL_REQUESTED) message = 'errors.snapps.original-url-missing';
 		if (err === SNAPP_ORIGIN_URL_BLACKLISTED) message = 'errors.snapps.original-url-blacklisted';

@@ -57,7 +57,7 @@ export const actions = {
 		const [ghosting] = await database.users.one(username);
 		if (!ghosting) return fail(400, { message: 'errors.users.not-found' });
 		const [, err] = await database.snapps.create(JSON.parse(create_snapp), ghosting.id, fetch);
-
+		
 		let message: string | undefined = undefined;
 		if (err === TAGS_AS_PREFIX) message = 'errors.snapps.no-prefix';
 		if (err === MAX_SNAPPS_PER_USER) message = 'errors.snapps.max-snapps';

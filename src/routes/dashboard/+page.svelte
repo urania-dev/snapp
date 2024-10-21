@@ -151,11 +151,9 @@
 		};
 	};
 	const enhanceSnappAction: SubmitFunction = ({ formData }) => {
-		
 		if (ttl) _snapp.expiration = new Date(new Date().getTime() + ttl * 1000);
-		if (_snapp) formData.set('snapp', JSON.stringify(_snapp));
-		if (creationTags.length) formData.set('tags', JSON.stringify(creationTags));
-		
+		if (_snapp) formData.set('snapp', JSON.stringify($state.snapshot(_snapp)));
+		if (creationTags.length) formData.set('tags', JSON.stringify($state.snapshot(creationTags)));
 		return async ({ result }) => {
 			await applyAction(result);
 			await invalidateAll();
@@ -194,7 +192,7 @@
 		const snapp = data.snapps.find((s) => s.id === idx);
 		if (!snapp) return;
 		_snapp = snapp;
-		creationTags = snapp.tags.map((t) => t.id);
+		creationTags = snapp.tags.map((t) => t.slug);
 
 		has_secret = snapp.secret === null ? false : true;
 		has_expiration = snapp.expiration !== null ? true : false;
@@ -332,7 +330,6 @@
 			}
 		}
 	};
-
 </script>
 
 <svelte:window bind:innerWidth />
@@ -379,7 +376,7 @@
 				{#each default_columns as column}
 					<button data-idx={column} class="flex items-center gap-2" onclick={handle_select_column}>
 						<div
-							class="flex h-6 w-6 items-center justify-center rounded border border-slate-500/50 bg-neutral-50 dark:bg-neutral-950"
+							class="flex h-5 w-5 items-center justify-center rounded border border-slate-500/50 bg-neutral-50 dark:bg-neutral-950"
 						>
 							{#if columns.includes(column)}
 								<Icon ph="check" size={16}></Icon>
@@ -404,7 +401,7 @@
 		</div>
 		<div class="flex w-full" style:height={innerWidth < 1024 ? 'calc(100% - 3rem)' : 'h-full'}>
 			<Card css={{ card: 'h-full gap-4' }}>
-				<div class="flex  flex-col w-full items-center gap-4">
+				<div class="flex flex-col w-full items-center gap-4">
 					<Card css={{ card: 'md:flex-row justify-between gap-4 p-2' }}>
 						<h4 class="whitespace-nowrap ps-2 text-lg font-semibold">{$_('snapps.label')}</h4>
 						{#if !selected.length}
@@ -1153,13 +1150,13 @@
 					{#each data.tags as tag}
 						<Card css={{ card: 'h-10 p-0 items-center flex-row' }}>
 							<button
-								data-action={creationTags.includes(tag.id) ? 'disconnect' : 'connect'}
-								data-idx={tag.id}
+								data-action={creationTags.includes(tag.slug) ? 'disconnect' : 'connect'}
+								data-idx={tag.slug}
 								class="flex items-center leading-none w-full gap-2 p-2 h-max"
 								onclick={handle_tag}
 							>
 								<div class="flex gap-2 items-center w-full">
-									{#if creationTags.includes(tag.id)}
+									{#if creationTags.includes(tag.slug)}
 										<Icon ph="tag-simple" style="fill" />
 									{:else}
 										<Icon ph="tag-simple" />

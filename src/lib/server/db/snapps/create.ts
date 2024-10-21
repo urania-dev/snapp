@@ -58,7 +58,6 @@ export const create_snapp = async (snapp: Partial<Snapp & { tags: string[] }>, u
 
 	const settings = getServerSideSettings()
 	const isActiveTagsAsPrefix = settings.get<boolean>(TAGS_AS_PREFIX)
-
 	if (isActiveTagsAsPrefix === true && !tags?.length) return [null, TAGS_AS_PREFIX] as [null, string]
 
 	const new_snapp = await prisma.snapp.create({

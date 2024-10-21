@@ -14,7 +14,7 @@
 	} = $props();
 </script>
 
-<div class="inline-flex justify-center items-center">
+<div class="inline-flex justify-center items-center w-max h-max">
 	<i
 		class={cn(
 			style !== 'regular' ? `ph-${style}` : 'ph',

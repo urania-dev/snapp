@@ -497,14 +497,14 @@
 											use:enhance={enhanceTagAction}
 										></form>
 										<button
-											data-action={data.snapp.tags.map((t) => t.id).includes(tag.id)
+											data-action={data.snapp.tags.map((t) => t.slug).includes(tag.slug)
 												? 'disconnect'
 												: 'connect'}
-											data-idx={tag.id}
+											data-idx={tag.slug}
 											class="flex items-center w-max p-0 h-max"
 											onclick={handle_tag}
 										>
-											{#if data.snapp.tags.map((t) => t.id).includes(tag.id)}
+											{#if data.snapp.tags.map((t) => t.slug).includes(tag.slug)}
 												<Icon ph="tag-simple" style="fill" />
 											{:else}
 												<Icon ph="tag-simple" />

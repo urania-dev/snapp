@@ -341,7 +341,7 @@
 									>
 										<th class="px-2 table-cell" style:width="1.5rem">
 											<button
-												class="flex h-5 w-5 items-center justify-start rounded border border-slate-500/50 bg-neutral-50 dark:bg-neutral-950"
+												class="flex h-5 w-5 items-center justify-center rounded border border-slate-500/50 bg-neutral-50 dark:bg-neutral-950"
 												onclick={handle_select_this}
 												data-idx={tag.id}
 											>

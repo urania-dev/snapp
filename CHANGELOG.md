@@ -158,3 +158,5 @@
   - fix: SMPT typo in log
   - added endpoint as request to generate qrcode `/api/qrcode/path`. It will just render a shortcode to ORIGIN/...path (ex example.com/abc example.com/abc/def)
   - updated readme for typo
+- 0.8.7.4.1, 0.8.7.4.2
+  - fix: tags and typos
