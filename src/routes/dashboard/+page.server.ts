@@ -63,9 +63,11 @@ export const actions = {
 		const create_snapp = form.get('snapp')?.toString();
 
 		if (!create_snapp) return fail(400, { message: 'errors.snapps.original-url-missing' });
+		const tagsString = form.get('tags')?.toString() || "[]"
+		const tags = JSON.parse(tagsString) as string[]
 
 		const [snapp, err] = await database.snapps.create(
-			JSON.parse(create_snapp),
+			{ ...JSON.parse(create_snapp), tags },
 			session.userId,
 			fetch
 		);
@@ -80,14 +82,6 @@ export const actions = {
 		else if (!snapp || err === ALLOW_UNSECURE_HTTP) message = 'errors.snapps.unallowed-not-https';
 		if (message) return fail(400, { message });
 
-		const tagsString = form.get('tags')?.toString() || "[]"
-		const tags = JSON.parse(tagsString) as string[]
-
-		await prisma.snapp.update({ where: { id: snapp!.id }, data: { tags: { set: [] } } })
-
-		for (let tag of tags) {
-			await prisma.tag.update({ where: { id: tag }, data: { snapps: { connect: { id: snapp!.id } } } })
-		}
 
 		return { message: 'snapps.actions.created', success: true };
 	},
@@ -102,7 +96,7 @@ export const actions = {
 		const tagsString = form.get('tags')?.toString() || "[]"
 		const tags = JSON.parse(tagsString) as string[]
 
-		const [snapp, err] = await database.snapps.edit({...(JSON.parse(edit_snapp)), tags}, session.userId, fetch);
+		const [snapp, err] = await database.snapps.edit({ ...(JSON.parse(edit_snapp)), tags }, session.userId, fetch);
 
 		let message: string | undefined = undefined;
 		if (err === TAGS_AS_PREFIX) message = 'This Snapps has no prefix selected, please include one.';

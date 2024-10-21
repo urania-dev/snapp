@@ -79,6 +79,7 @@ export const actions = {
 			return fail(400, { message });
 		}
 		snapp.disabled = disabled;
+
 		await database.snapps.edit({ ...snapp, tags: snapp.tags.map(t => t.slug) }, snapp?.userId, fetch);
 
 		let message: string | undefined = undefined;
