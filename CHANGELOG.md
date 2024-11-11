@@ -160,3 +160,5 @@
   - updated readme for typo
 - 0.8.7.4.1, 0.8.7.4.2
   - fix: tags and typos
+- 0.8.7.4.3
+  - fix: snapps creation payload not including tags

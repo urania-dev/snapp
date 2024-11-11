@@ -11,7 +11,7 @@
 	import { applyAction, enhance } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
 	let { data, form } = $props();
-	import { toast } from '$lib/svelte-sonner';
+	import { toast } from 'svelte-sonner';
 	import type { SubmitFunction } from './$types.js';
 	import { outside } from '$lib/utils/outside.js';
 	import Select from '$lib/ui/select.svelte';

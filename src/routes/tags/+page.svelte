@@ -8,7 +8,7 @@
 	import { queryParam } from 'sveltekit-search-params';
 	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
-	import { toast } from '$lib/svelte-sonner';
+	import { toast } from 'svelte-sonner';
 	import { outside } from '$lib/utils/outside';
 	import { slugify } from '$lib/utils/slug';
 	import type { MouseEventHandler } from 'svelte/elements';

@@ -6,7 +6,7 @@
 	import { outside } from '$lib/utils/outside';
 	import { _ } from 'svelte-i18n';
 	import { fade, fly } from 'svelte/transition';
-	import { toast } from '$lib/svelte-sonner';
+	import { toast } from 'svelte-sonner';
 
 	import type { MouseEventHandler } from 'svelte/elements';
 	import { applyAction, enhance } from '$app/forms';

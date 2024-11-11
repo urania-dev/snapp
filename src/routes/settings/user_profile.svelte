@@ -12,7 +12,7 @@
 	import type { SubmitFunction } from './$types';
 	import { fade } from 'svelte/transition';
 	import { page } from '$app/stores';
-	import { toast } from '$lib/svelte-sonner';
+	import { toast } from 'svelte-sonner';
 
 	let {
 		is_admin,
@@ -185,7 +185,7 @@
 		<Card css={{ card: 'flex-row h-12  md:h-10 h-full p-0 max-w-max border-none' }}>
 			<form action="?/signout" method="post" use:enhance class="contents">
 				<button
-					class="flex h-12  md:h-10 w-full items-center justify-center gap-2 rounded bg-pink-700/50 p-2 px-4 transition-all hover:bg-pink-700/75 hover:text-neutral-50 focus:bg-pink-700/75"
+					class="flex h-12 md:h-10 w-full items-center justify-center gap-2 rounded bg-pink-700/50 p-2 px-4 transition-all hover:bg-pink-700/75 hover:text-neutral-50 focus:bg-pink-700/75"
 				>
 					<Icon ph="sign-out" size={24}></Icon>
 					<small class="text-sm font-semibold">{@html $_('users.actions.logout')}</small>

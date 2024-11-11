@@ -5,7 +5,7 @@
 	import { applyAction, enhance } from '$app/forms';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { invalidateAll } from '$app/navigation';
-	import { toast } from '$lib/svelte-sonner';
+	import { toast } from 'svelte-sonner';
 	import { fly } from 'svelte/transition';
 	import UserProfile from './user_profile.svelte';
 	import UserToken from './user_token.svelte';

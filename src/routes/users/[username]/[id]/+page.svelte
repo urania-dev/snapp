@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { applyAction, enhance } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
-	import { toast } from '$lib/svelte-sonner';
+	import { toast } from 'svelte-sonner';
 	import Card from '$lib/ui/card.svelte';
 	import { cn } from '$lib/utils/cn';
 	import Icon from '$lib/ui/icon.svelte';
@@ -199,7 +199,7 @@
 		>
 		<div class="flex w-full flex-col justify-between gap-4 lg:flex-row lg:items-center">
 			<h2 class="flex w-full items-center gap-2 text-lg font-bold">
-				<Icon ph="link-simple"  size={36} />
+				<Icon ph="link-simple" size={36} />
 				<span>
 					{data.snapp.shortcode}
 				</span>
@@ -212,7 +212,7 @@
 						class="flex h-10 flex-row items-center justify-between gap-2 rounded border-none bg-slate-500/25 p-0 px-4 text-start font-semibold outline-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50 md:h-8"
 					>
 						<small class="text-sm">{$_('globals.copy')}</small>
-						<Icon  ph="copy"></Icon>
+						<Icon ph="copy"></Icon>
 					</button>
 				{/if}
 				<Card css={{ card: 'lg:h-8 h-10 items-center lg:max-w-max gap-4 p-0 px-2' }}>

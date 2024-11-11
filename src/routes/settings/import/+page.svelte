@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { toast } from '$lib/svelte-sonner';
+	import { toast } from 'svelte-sonner';
 	import Card from '$lib/ui/card.svelte';
 	import Icon from '$lib/ui/icon.svelte';
 	import { cn } from '$lib/utils/cn';
@@ -38,7 +38,7 @@
 			original_url: string;
 			has_secret: boolean;
 			shortcode: string;
-			notes:string
+			notes: string;
 			used: number;
 		}>(await file.text(), {
 			delimiter: ',',
@@ -54,7 +54,7 @@
 					shortcode: snapp.shortcode,
 					original_url: snapp.original_url,
 					created: snapp.created,
-					notes:snapp.notes,
+					notes: snapp.notes,
 					hit: snapp.used
 				}));
 	}
@@ -107,11 +107,7 @@
 				{#if !import_list.length}
 					<div class="flex h-full w-full shrink-0 flex-col items-center justify-center">
 						<div class="flex rounded-full bg-slate-500/25 p-10">
-							<Icon
-								css={{ icon: 'text-pink-500/50' }}
-								ph="magnifying-glass"
-								size={128}
-							></Icon>
+							<Icon css={{ icon: 'text-pink-500/50' }} ph="magnifying-glass" size={128}></Icon>
 						</div>
 					</div>
 				{:else}

@@ -8,7 +8,7 @@
 	import { applyAction, enhance } from '$app/forms';
 	import type { SubmitFunction } from './$types.js';
 	import { goto, invalidateAll } from '$app/navigation';
-	import { toast } from '$lib/svelte-sonner';
+	import { toast } from 'svelte-sonner';
 
 	let { form } = $props();
 

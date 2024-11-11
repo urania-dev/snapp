@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { toast } from '$lib/svelte-sonner';
+	import { toast } from 'svelte-sonner';
 	import Card from '$lib/ui/card.svelte';
 	import Input from '$lib/ui/input.svelte';
 	import Switch from '$lib/ui/switch.svelte';

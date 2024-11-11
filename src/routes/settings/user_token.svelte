@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { _ } from 'svelte-i18n';
-	import { toast } from '$lib/svelte-sonner';
+	import { toast } from 'svelte-sonner';
 	import { page } from '$app/stores';
 	import Card from '$lib/ui/card.svelte';
 	import Input from '$lib/ui/input.svelte';

@@ -8,7 +8,7 @@
 	import { fade, fly } from 'svelte/transition';
 	import { onDestroy, onMount } from 'svelte';
 	import { browser } from '$app/environment';
-	import { toast } from '$lib/svelte-sonner';
+	import { toast } from 'svelte-sonner';
 	import Select from '$lib/ui/select.svelte';
 	import type { MouseEventHandler } from 'svelte/elements';
 	import { applyAction, enhance } from '$app/forms';
@@ -598,7 +598,7 @@
 														onclick={handle_copy_snapp_to_clipboard}
 														in:fly|global={{ delay: 75 * 4, y: 24 }}
 														class="flex h-10 w-10 items-center justify-center rounded border-none bg-slate-500/25 p-0 text-start outline-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50 md:h-8 md:w-8"
-														><Icon  ph="copy"></Icon>
+														><Icon ph="copy"></Icon>
 													</button>
 												{/if}
 											</div>
@@ -623,12 +623,7 @@
 					{:else}
 						<div class="flex h-full w-full shrink-0 flex-col items-center justify-center">
 							<div class="flex rounded-full bg-slate-500/25 p-10">
-								<Icon
-									
-									css={{ icon: 'text-pink-500/50' }}
-									ph="magnifying-glass"
-									size={128}
-								></Icon>
+								<Icon css={{ icon: 'text-pink-500/50' }} ph="magnifying-glass" size={128}></Icon>
 							</div>
 						</div>
 					{/if}

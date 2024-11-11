@@ -8,7 +8,7 @@
 	import { fade, fly } from 'svelte/transition';
 	import { onDestroy, onMount } from 'svelte';
 	import { browser } from '$app/environment';
-	import { toast } from '$lib/svelte-sonner';
+	import { toast } from 'svelte-sonner';
 	import Select from '$lib/ui/select.svelte';
 	import type { MouseEventHandler } from 'svelte/elements';
 	import { applyAction, enhance } from '$app/forms';

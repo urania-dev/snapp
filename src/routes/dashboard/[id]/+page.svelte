@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { applyAction, enhance } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
-	import { toast } from '$lib/svelte-sonner';
+	import { toast } from 'svelte-sonner';
 	import Card from '$lib/ui/card.svelte';
 	import { cn } from '$lib/utils/cn';
 	import Icon from '$lib/ui/icon.svelte';

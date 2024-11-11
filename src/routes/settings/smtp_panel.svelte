@@ -15,7 +15,7 @@
 	} from '$lib/utils/constants';
 	import type { User } from 'lucia';
 	import { debounce } from '$lib/utils/debounce';
-	import { toast } from '$lib/svelte-sonner';
+	import { toast } from 'svelte-sonner';
 	let show_smtp_pass = $state(false);
 	let handle_show_smtp_pass: MouseEventHandler<HTMLButtonElement> = (e) => {
 		e.preventDefault();

@@ -6,7 +6,7 @@
 	import { applyAction, enhance } from '$app/forms';
 	import type { SubmitFunction } from './$types.js';
 	import { invalidateAll, goto } from '$app/navigation';
-	import { toast } from '$lib/svelte-sonner';
+	import { toast } from 'svelte-sonner';
 	import Icon from '$lib/ui/icon.svelte';
 	import Card from '$lib/ui/card.svelte';
 	import { slugify } from '$lib/utils/slug.js';

@@ -2,7 +2,7 @@
 	import { _ } from 'svelte-i18n';
 	import '../app.css';
 	import Sidenav from '$lib/ui/sidenav.svelte';
-	import { Toaster } from '$lib/svelte-sonner';
+	import { Toaster } from 'svelte-sonner';
 	import { fade } from 'svelte/transition';
 
 	let { data, children } = $props();
@@ -51,7 +51,7 @@
 			css: 'md:m-0 md:mt-auto',
 			visible: data.is_authenticated
 		},
-	
+
 		{
 			label: $_('menu.authenticate'),
 			url: '/auth/sign-in',
@@ -68,7 +68,7 @@
 <Toaster theme={(data.theme || 'dark') as 'dark' | 'light'} />
 
 <div class="flex w-screen" style:height="100dvh">
-	{#if sidebardPages.includes(data.pathname) || data.pathname.startsWith('/dashboard') ||data.pathname.startsWith('/tags') || data.pathname.startsWith('/users') || data.pathname.startsWith('/settings')}
+	{#if sidebardPages.includes(data.pathname) || data.pathname.startsWith('/dashboard') || data.pathname.startsWith('/tags') || data.pathname.startsWith('/users') || data.pathname.startsWith('/settings')}
 		<Sidenav {menu_items}></Sidenav>
 	{/if}
 	{#key data.pathname}

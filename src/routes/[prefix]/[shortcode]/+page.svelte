@@ -8,7 +8,7 @@
 	import { applyAction, enhance } from '$app/forms';
 	import type { SubmitFunction } from './$types.js';
 	import { invalidateAll } from '$app/navigation';
-	import { toast } from '$lib/svelte-sonner';
+	import { toast } from 'svelte-sonner';
 
 	let { data, form } = $props();
 	let show_password = $state(false);
@@ -63,11 +63,11 @@
 					/>
 					<button
 						class="flex h-10 w-full gap-2 items-center rounded border-none justify-between bg-slate-500/25 p-2 px-4 text-start outline-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50"
-						type="submit">
+						type="submit"
+					>
 						<span>{$_('globals.confirm')}</span>
 						<Icon ph="arrow-right" />
-						</button
-					>
+					</button>
 				</form>
 			</Card>
 		</div>
