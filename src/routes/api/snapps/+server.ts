@@ -52,6 +52,7 @@ export const POST = async (event) => {
 		secret,
 		max_usages,
 		notes,
+		tags,
 		expiration,
 		disabled,
 		userId
@@ -63,6 +64,7 @@ export const POST = async (event) => {
 		notes?: string;
 		expiration?: Date | null;
 		disabled?: boolean;
+		tags: string[]
 		userId?: string;
 	} = await event.request.json();
 
@@ -71,7 +73,7 @@ export const POST = async (event) => {
 		return error(403, { message: "You're not allowed to create snapps for someone else" });
 
 	const [snapp, err] = await database.snapps.create(
-		{ shortcode, original_url, secret, max_usages, notes, expiration, disabled },
+		{ shortcode, original_url, secret, max_usages, notes, expiration, disabled, tags },
 		userId && token.user.role === 'user' ? token.userId : userId || token.userId,
 		event.fetch
 	);
