@@ -162,3 +162,4 @@
   - fix: tags and typos
 - 0.8.7.4.3
   - fix: snapps creation payload not including tags
+  - update on package.json dependencies
