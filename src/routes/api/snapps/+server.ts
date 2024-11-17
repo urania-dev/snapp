@@ -10,6 +10,7 @@ import {
 	TAGS_AS_PREFIX,
 	UNAUTHORIZED
 } from '$lib/utils/constants.js';
+import { slugify } from '$lib/utils/slug';
 import { error, json } from '@sveltejs/kit';
 
 export const GET = async (event) => {
@@ -73,7 +74,7 @@ export const POST = async (event) => {
 		return error(403, { message: "You're not allowed to create snapps for someone else" });
 
 	const [snapp, err] = await database.snapps.create(
-		{ shortcode, original_url, secret, max_usages, notes, expiration, disabled, tags },
+		{ shortcode: slugify(shortcode), original_url, secret, max_usages, notes, expiration, disabled, tags },
 		userId && token.user.role === 'user' ? token.userId : userId || token.userId,
 		event.fetch
 	);
@@ -133,7 +134,7 @@ export const PATCH = async (event) => {
 	const [snapp, err] = await database.snapps.edit(
 		{
 			...editable,
-			shortcode: shortcode || editable.shortcode,
+			shortcode: slugify(shortcode) || editable.shortcode,
 			original_url: original_url || editable.original_url,
 			secret: secret === null ? null : secret || editable.secret,
 			max_usages: max_usages || editable.max_usages,

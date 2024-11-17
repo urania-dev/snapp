@@ -1,6 +1,7 @@
 import { authenticate_api } from '$lib/server/authenticate-api/index';
 import { database } from '$lib/server/db/database';
 import { rateLimiterCheck } from '$lib/server/ratelimiter';
+import { slugify } from '$lib/utils/slug.js';
 import { error, json } from '@sveltejs/kit';
 
 export const GET = async (event) => {
@@ -16,7 +17,7 @@ export const GET = async (event) => {
 
 	if (!shortcode) return error(404, { message: '/snapp/:shortcode - shortcode not found' });
 
-	const [snapp, err] = await database.snapps.one(shortcode);
+	const [snapp, err] = await database.snapps.one(slugify(shortcode));
 
 	const is_admin = await database.users.is_admin(token.userId);
 	if (snapp?.userId !== token.userId && !is_admin) return error(404, 'Snapp not found');
