@@ -255,8 +255,8 @@
 {/if}
 
 <style global>
-	:global(:where(html[dir='ltr'])),
-	:global(:where([data-sonner-toaster][dir='ltr'])) {
+	:global(:where(:global(html[dir='ltr']))),
+	:global(:where(:global([data-sonner-toaster][dir='ltr']))) {
 		--toast-icon-margin-start: -3px;
 		--toast-icon-margin-end: 4px;
 		--toast-svg-margin-start: -1px;
@@ -268,8 +268,8 @@
 		--toast-close-button-transform: translate(-35%, -35%);
 	}
 
-	:global(:where(html[dir='rtl'])),
-	:global(:where([data-sonner-toaster][dir='rtl'])) {
+	:global(:where(:global(html[dir='rtl']))),
+	:global(:where(:global([data-sonner-toaster][dir='rtl']))) {
 		--toast-icon-margin-start: 4px;
 		--toast-icon-margin-end: -3px;
 		--toast-svg-margin-start: 0px;
@@ -281,7 +281,7 @@
 		--toast-close-button-transform: translate(35%, -35%);
 	}
 
-	:global(:where([data-sonner-toaster])) {
+	:global(:where(:global([data-sonner-toaster]))) {
 		position: fixed;
 		width: var(--width);
 		font-family:
@@ -320,28 +320,28 @@
 		z-index: 999999999;
 	}
 
-	:global(:where([data-sonner-toaster][data-x-position='right'])) {
+	:global(:where(:global([data-sonner-toaster][data-x-position='right']))) {
 		right: max(var(--offset), env(safe-area-inset-right));
 	}
 
-	:global(:where([data-sonner-toaster][data-x-position='left'])) {
+	:global(:where(:global([data-sonner-toaster][data-x-position='left']))) {
 		left: max(var(--offset), env(safe-area-inset-left));
 	}
 
-	:global(:where([data-sonner-toaster][data-x-position='center'])) {
+	:global(:where(:global([data-sonner-toaster][data-x-position='center']))) {
 		left: 50%;
 		transform: translateX(-50%);
 	}
 
-	:global(:where([data-sonner-toaster][data-y-position='top'])) {
+	:global(:where(:global([data-sonner-toaster][data-y-position='top']))) {
 		top: max(var(--offset), env(safe-area-inset-top));
 	}
 
-	:global(:where([data-sonner-toaster][data-y-position='bottom'])) {
+	:global(:where(:global([data-sonner-toaster][data-y-position='bottom']))) {
 		bottom: max(var(--offset), env(safe-area-inset-bottom));
 	}
 
-	:global(:where([data-sonner-toast])) {
+	:global(:where(:global([data-sonner-toast]))) {
 		--y: translateY(100%);
 		--lift-amount: calc(var(--lift) * var(--gap));
 		z-index: var(--z-index);
@@ -361,7 +361,7 @@
 		overflow-wrap: anywhere;
 	}
 
-	:global(:where([data-sonner-toast][data-styled='true'])) {
+	:global(:where(:global([data-sonner-toast][data-styled='true']))) {
 		padding: 16px;
 		background: var(--normal-bg);
 		border: 1px solid var(--normal-border);
@@ -375,39 +375,39 @@
 		gap: 6px;
 	}
 
-	:global(:where([data-sonner-toast]:focus-visible)) {
+	:global(:where(:global([data-sonner-toast]:focus-visible))) {
 		box-shadow:
 			0px 4px 12px rgba(0, 0, 0, 0.1),
 			0 0 0 2px rgba(0, 0, 0, 0.2);
 	}
 
-	:global(:where([data-sonner-toast][data-y-position='top'])) {
+	:global(:where(:global([data-sonner-toast][data-y-position='top']))) {
 		top: 0;
 		--y: translateY(-100%);
 		--lift: 1;
 		--lift-amount: calc(1 * var(--gap));
 	}
 
-	:global(:where([data-sonner-toast][data-y-position='bottom'])) {
+	:global(:where(:global([data-sonner-toast][data-y-position='bottom']))) {
 		bottom: 0;
 		--y: translateY(100%);
 		--lift: -1;
 		--lift-amount: calc(var(--lift) * var(--gap));
 	}
 
-	:global(:where([data-sonner-toast])) :global(:where([data-description])) {
+	:global(:where(:global([data-sonner-toast]))) :global(:where(:global([data-description]))) {
 		font-weight: 400;
 		line-height: 1.4;
 		color: inherit;
 	}
 
-	:global(:where([data-sonner-toast])) :global(:where([data-title])) {
+	:global(:where(:global([data-sonner-toast]))) :global(:where(:global([data-title]))) {
 		font-weight: 500;
 		line-height: 1.5;
 		color: inherit;
 	}
 
-	:global(:where([data-sonner-toast])) :global(:where([data-icon])) {
+	:global(:where(:global([data-sonner-toast]))) :global(:where(:global([data-icon]))) {
 		display: flex;
 		height: 16px;
 		width: 16px;
@@ -419,8 +419,8 @@
 		margin-right: var(--toast-icon-margin-end);
 	}
 
-	:global(:where([data-sonner-toast][data-promise='true']))
-		:global(:where([data-icon]))
+	:global(:where(:global([data-sonner-toast][data-promise='true'])))
+		:global(:where(:global([data-icon])))
 		> :global(svg) {
 		opacity: 0;
 		transform: scale(0.8);
@@ -428,16 +428,16 @@
 		animation: sonner-fade-in 300ms ease forwards;
 	}
 
-	:global(:where([data-sonner-toast])) :global(:where([data-icon])) > :global(*) {
+	:global(:where(:global([data-sonner-toast]))) :global(:where(:global([data-icon]))) > :global(*) {
 		flex-shrink: 0;
 	}
 
-	:global(:where([data-sonner-toast])) :global(:where([data-icon])) :global(svg) {
+	:global(:where(:global([data-sonner-toast]))) :global(:where(:global([data-icon]))) :global(svg) {
 		margin-left: var(--toast-svg-margin-start);
 		margin-right: var(--toast-svg-margin-end);
 	}
 
-	:global(:where([data-sonner-toast])) :global(:where([data-content])) {
+	:global(:where(:global([data-sonner-toast]))) :global(:where(:global([data-content]))) {
 		display: flex;
 		flex-direction: column;
 		gap: 2px;
@@ -464,25 +464,25 @@
 			box-shadow 200ms;
 	}
 
-	:global(:where([data-sonner-toast])) :global(:where([data-button]):focus-visible) {
+	:global(:where(:global([data-sonner-toast]))) :global(:where(:global([data-button])):focus-visible) {
 		box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.4);
 	}
 
-	:global(:where([data-sonner-toast])) :global(:where([data-button]):first-of-type) {
+	:global(:where(:global([data-sonner-toast]))) :global(:where(:global([data-button])):first-of-type) {
 		margin-left: var(--toast-button-margin-start);
 		margin-right: var(--toast-button-margin-end);
 	}
 
-	:global(:where([data-sonner-toast])) :global(:where([data-cancel])) {
+	:global(:where(:global([data-sonner-toast]))) :global(:where(:global([data-cancel]))) {
 		color: var(--normal-text);
 		background: rgba(0, 0, 0, 0.08);
 	}
 
-	:global(:where([data-sonner-toast][data-theme='dark'])) :global(:where([data-cancel])) {
+	:global(:where(:global([data-sonner-toast][data-theme='dark']))) :global(:where(:global([data-cancel]))) {
 		background: rgba(255, 255, 255, 0.3);
 	}
 
-	:global(:where([data-sonner-toast])) :global(:where([data-close-button])) {
+	:global(:where(:global([data-sonner-toast]))) :global(:where(:global([data-close-button]))) {
 		position: absolute;
 		left: var(--toast-close-button-start);
 		right: var(--toast-close-button-end);
@@ -506,23 +506,23 @@
 			border-color 200ms;
 	}
 
-	:global(:where([data-sonner-toast])) :global(:where([data-close-button]):focus-visible) {
+	:global(:where(:global([data-sonner-toast]))) :global(:where(:global([data-close-button])):focus-visible) {
 		box-shadow:
 			0px 4px 12px rgba(0, 0, 0, 0.1),
 			0 0 0 2px rgba(0, 0, 0, 0.2);
 	}
 
-	:global(:where([data-sonner-toast])) :global(:where([data-disabled='true'])) {
+	:global(:where(:global([data-sonner-toast]))) :global(:where(:global([data-disabled='true']))) {
 		cursor: not-allowed;
 	}
 
-	:global(:where([data-sonner-toast]):hover) :global(:where([data-close-button]):hover) {
+	:global(:where(:global([data-sonner-toast])):hover) :global(:where(:global([data-close-button])):hover) {
 		background: var(--gray2);
 		border-color: var(--gray5);
 	}
 
 	/* Leave a ghost div to avoid setting hover to false when swiping out */
-	:global(:where([data-sonner-toast][data-swiping='true'])::before) {
+	:global(:where(:global([data-sonner-toast][data-swiping='true']))::before) {
 		content: '';
 		position: absolute;
 		left: 0;
@@ -531,20 +531,20 @@
 		z-index: -1;
 	}
 
-	:global(:where([data-sonner-toast][data-y-position='top'][data-swiping='true'])::before) {
+	:global(:where(:global([data-sonner-toast][data-y-position='top'][data-swiping='true']))::before) {
 		/* y 50% needed to distribute height additional height evenly */
 		bottom: 50%;
 		transform: scaleY(3) translateY(50%);
 	}
 
-	:global(:where([data-sonner-toast][data-y-position='bottom'][data-swiping='true'])::before) {
+	:global(:where(:global([data-sonner-toast][data-y-position='bottom'][data-swiping='true']))::before) {
 		/* y -50% needed to distribute height additional height evenly */
 		top: 50%;
 		transform: scaleY(3) translateY(-50%);
 	}
 
 	/* Leave a ghost div to avoid setting hover to false when transitioning out */
-	:global(:where([data-sonner-toast][data-swiping='false'][data-removed='true'])::before) {
+	:global(:where(:global([data-sonner-toast][data-swiping='false'][data-removed='true']))::before) {
 		content: '';
 		position: absolute;
 		inset: 0;
@@ -552,7 +552,7 @@
 	}
 
 	/* Needed to avoid setting hover to false when inbetween toasts */
-	:global(:where([data-sonner-toast])::after) {
+	:global(:where(:global([data-sonner-toast]))::after) {
 		content: '';
 		position: absolute;
 		left: 0;
@@ -561,58 +561,58 @@
 		width: 100%;
 	}
 
-	:global(:where([data-sonner-toast][data-mounted='true'])) {
+	:global(:where(:global([data-sonner-toast][data-mounted='true']))) {
 		--y: translateY(0);
 		opacity: 1;
 	}
 
-	:global(:where([data-sonner-toast][data-expanded='false'][data-front='false'])) {
+	:global(:where(:global([data-sonner-toast][data-expanded='false'][data-front='false']))) {
 		--scale: var(--toasts-before) * 0.05 + 1;
 		--y: translateY(calc(var(--lift-amount) * var(--toasts-before))) scale(calc(-1 * var(--scale)));
 		height: var(--front-toast-height);
 	}
 
-	:global(:where([data-sonner-toast])) > :global(*) {
+	:global(:where(:global([data-sonner-toast]))) > :global(*) {
 		transition: opacity 400ms;
 	}
 
 	:global(
-			:where([data-sonner-toast][data-expanded='false'][data-front='false'][data-styled='true'])
+			:where(:global([data-sonner-toast][data-expanded='false'][data-front='false'][data-styled='true']))
 		)
 		> :global(*) {
 		opacity: 0;
 	}
 
-	:global(:where([data-sonner-toast][data-visible='false'])) {
+	:global(:where(:global([data-sonner-toast][data-visible='false']))) {
 		opacity: 0;
 		pointer-events: none;
 	}
 
-	:global(:where([data-sonner-toast][data-mounted='true'][data-expanded='true'])) {
+	:global(:where(:global([data-sonner-toast][data-mounted='true'][data-expanded='true']))) {
 		--y: translateY(calc(var(--lift) * var(--offset)));
 		height: var(--initial-height);
 	}
 
 	:global(
-			:where([data-sonner-toast][data-removed='true'][data-front='true'][data-swipe-out='false'])
+			:where(:global([data-sonner-toast][data-removed='true'][data-front='true'][data-swipe-out='false']))
 		) {
 		--y: translateY(calc(var(--lift) * -100%));
 		opacity: 0;
 	}
 
 	:global(
-			:where(
+			:where(:global(
 					[data-sonner-toast][data-removed='true'][data-front='false'][data-swipe-out='false'][data-expanded='true']
-				)
+				))
 		) {
 		--y: translateY(calc(var(--lift) * var(--offset) + var(--lift) * -100%));
 		opacity: 0;
 	}
 
 	:global(
-			:where(
+			:where(:global(
 					[data-sonner-toast][data-removed='true'][data-front='false'][data-swipe-out='false'][data-expanded='false']
-				)
+				))
 		) {
 		--y: translateY(40%);
 		opacity: 0;
@@ -622,7 +622,7 @@
 	}
 
 	/* Bump up the height to make sure hover state doesn't get set to false */
-	:global(:where([data-sonner-toast][data-removed='true'][data-front='false'])::before) {
+	:global(:where(:global([data-sonner-toast][data-removed='true'][data-front='false']))::before) {
 		height: calc(var(--initial-height) + 20%);
 	}
 

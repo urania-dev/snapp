@@ -280,7 +280,7 @@
 	{/if}
 
 	{#if toast.component}
-		<svelte:component this={toast.component} {...toast.componentProps} closeToast={deleteToast} />
+		<toast.component {...toast.componentProps} closeToast={deleteToast} />
 	{:else}
 		{#if toastType !== 'default' || toast.icon || toast.promise}
 			<div data-icon="">
@@ -288,7 +288,7 @@
 					{@render restProps.loadingIcon?.()}
 				{/if}
 				{#if toast.icon}
-					<svelte:component this={toast.icon}></svelte:component>
+					<toast.icon></toast.icon>
 				{:else if toastType === 'success'}
 					{@render restProps.successIcon?.()}
 				{:else if toastType === 'error'}
@@ -304,7 +304,7 @@
 			{#if toast.title}
 				<div data-title="" class={cn(classes?.title, toast?.classes?.title)}>
 					{#if typeof toast.title !== 'string'}
-						<svelte:component this={toast.title} {...toast.componentProps} />
+						<toast.title {...toast.componentProps} />
 					{:else}
 						{toast.title}
 					{/if}
@@ -321,7 +321,7 @@
 					)}
 				>
 					{#if typeof toast.description !== 'string'}
-						<svelte:component this={toast.description} {...toast.componentProps} />
+						<toast.description {...toast.componentProps} />
 					{:else}
 						{toast.description}
 					{/if}

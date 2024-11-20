@@ -165,3 +165,5 @@
   - update on package.json dependencies
 - 0.8.7.4.4
   - fix: snapps api not sanitizing input
+- 0.8.7.5
+  - general update, cleaning and optimization of the dependencies

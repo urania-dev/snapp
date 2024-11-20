@@ -1,6 +1,6 @@
 <script lang="ts">
 	let { type = 'success' } = $props();
-	export {};
+	
 </script>
 
 {#if type === 'success'}

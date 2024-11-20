@@ -1,6 +1,6 @@
 import { SNAPP_DISABLED, UMAMI_URL, UMAMI_WEBSITE_ID } from '$lib/utils/constants';
 import { database } from '../db/database';
-import UAParser from 'ua-parser-js';
+import { UAParser } from 'ua-parser-js';
 import { getLocation } from '../get-location';
 import { generateId } from 'lucia';
 import { prisma } from '../prisma';
@@ -50,7 +50,7 @@ async function markUsage(
 	const umamiURL = (await database.settings.get(UMAMI_URL))?.value;
 	const websiteID = (await database.settings.get(UMAMI_WEBSITE_ID))?.value;
 	if (umamiURL && websiteID) {
-		let data = {
+		const data = {
 			payload: {
 				hostname: url.hostname,
 				language: language,
@@ -76,8 +76,8 @@ async function markUsage(
 		});
 	}
 
-	let id = generateId(8);
-	let timestamp = new Date();
+	const id = generateId(8);
+	const timestamp = new Date();
 
 	await prisma.usages.create({
 		data: {
