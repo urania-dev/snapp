@@ -204,3 +204,7 @@
   - fix: snapps api not sanitizing input
 - 0.8.7.5
   - general update, cleaning and optimization of the dependencies
+- 0.8.8
+  - general cleanup after updating some dependencies (svelte-search-params and
+    svelte5 updates)
+  - fixed cased https check

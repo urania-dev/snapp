@@ -4,7 +4,7 @@
 	import { onMount } from 'svelte';
 	import Input from './input.svelte';
 	import { _ } from 'svelte-i18n';
-	import { queryParam } from 'sveltekit-search-params';
+	import { queryParameters } from 'sveltekit-search-params';
 	import { type DateValue, CalendarDate } from '@internationalized/date';
 
 	let {
@@ -67,9 +67,10 @@
 	let clientHeight = $state(0);
 	const _start = new CalendarDate(start.getFullYear(), start.getMonth() + 1, start.getDate());
 	const _end = new CalendarDate(end.getFullYear(), end.getMonth() + 1, end.getDate());
-	const startParam = queryParam<DateValue>(
-		'start',
+	const params = queryParameters(
 		{
+		'start':{
+
 			defaultValue: _start,
 			encode: (value) => value.toString(),
 			decode: (value) => {
@@ -78,12 +79,7 @@
 				return new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate());
 			}
 		},
-		{ showDefaults: false }
-	);
-
-	const endParam = queryParam<DateValue>(
-		'end',
-		{
+		end:{
 			defaultValue: _end,
 			encode: (value) => value.toString(),
 			decode: (value) => {
@@ -92,8 +88,10 @@
 				return new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate());
 			}
 		},
-		{ showDefaults: false }
+	}
 	);
+
+	
 </script>
 
 <div class="relative flex h-full w-full flex-col">
@@ -114,7 +112,7 @@
 				name="start"
 				label={$_('globals.start')}
 				type="date"
-				bind:date={$startParam}
+				bind:date={params.start}
 				actions={{
 					focus: (e) => {
 						(e.currentTarget as HTMLInputElement)?.showPicker();
@@ -125,7 +123,7 @@
 				name="end"
 				label={$_('globals.end')}
 				type="date"
-				bind:date={$endParam}
+				bind:date={params.end}
 				actions={{
 					focus: (e) => {
 						(e.currentTarget as HTMLInputElement)?.showPicker();

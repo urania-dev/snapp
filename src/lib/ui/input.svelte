@@ -21,7 +21,7 @@
 		name: string;
 		label?: string;
 		type?: HTMLInputElement['type'];
-		icons?: { left?: string; right?: string, sizeLeft?:number };
+		icons?: { left?: string; right?: string; sizeLeft?: number };
 		actions?: {
 			left?: MouseEventHandler<HTMLButtonElement>;
 			right?: MouseEventHandler<HTMLButtonElement>;
@@ -58,7 +58,11 @@
 				class="flex w-full max-w-max items-center gap-2 px-2"
 				onclick={(e) => actions?.left?.(e) || element?.focus()}
 			>
-				<Icon ph={icons.left} css={css ? { icon: css?.['icon-left'] } : undefined} size={icons.sizeLeft}></Icon>
+				<Icon
+					ph={icons.left}
+					css={css ? { icon: css?.['icon-left'] } : undefined}
+					size={icons.sizeLeft}
+				></Icon>
 			</button>
 		{/if}
 		{#if type !== 'textarea' && type !== 'date'}
