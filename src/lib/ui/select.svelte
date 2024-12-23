@@ -47,7 +47,7 @@
 </script>
 
 <div
-	class="relative flex w-full"
+	class={cn('relative flex w-full', css?.['container'])}
 	use:outside={() => {
 		if (show_panel) show_panel = false;
 	}}

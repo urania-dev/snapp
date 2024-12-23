@@ -32,7 +32,7 @@
 
 	const handle_paste = function handle_paste(e: ClipboardEvent) {
 		const original_url = e.clipboardData?.getData('text/plain');
-		if (original_url && !data.allow_http && !original_url.startsWith('https://'))
+		if (original_url && !data.allow_http && !original_url.toLowerCase().startsWith('https://'))
 			return toast.info($_('errors.snapps.unallowed-not-https'));
 		else if (original_url) _snapp.original_url = original_url;
 		toast.info($_('snapps.helpers.text-pasted'));
@@ -138,14 +138,14 @@
 	let reset_password = $state(false);
 	let reset_expiration = $state(false);
 
-	const close_and_reset_panel = () => {
-		reset_expiration = false;
-		reset_password = false;
-		has_secret = false;
-		has_expiration = false;
-		has_limited_usage = false;
-		_snapp = data.snapp;
-	};
+	// const close_and_reset_panel = () => {
+	// 	reset_expiration = false;
+	// 	reset_password = false;
+	// 	has_secret = false;
+	// 	has_expiration = false;
+	// 	has_limited_usage = false;
+	// 	_snapp = data.snapp;
+	// };
 
 	let show_secret = $state(false);
 </script>
@@ -169,7 +169,7 @@
 						actions={{
 							right: async () => {
 								const pasted = await window.navigator.clipboard.readText();
-								if (pasted && !data.allow_http && !pasted.startsWith('https://'))
+								if (pasted && !data.allow_http && !pasted.toLowerCase().startsWith('https://'))
 									return toast.info($_('errors.snapps.unallowed-not-https'));
 								else _snapp.original_url = pasted;
 								toast.info($_('snapps.helpers.text-pasted'));
@@ -190,7 +190,7 @@
 						icons={{ left: 'link-simple-horizontal' }}
 						name="shortcode"
 						actions={{
-							input: (e) => {
+							input: () => {
 								_snapp.shortcode = slugify(_snapp.shortcode);
 							}
 						}}
@@ -211,7 +211,7 @@
 					helper={$_('snapps.helpers.has-secret')}
 					idx="has_secret"
 					actions={{
-						toggle: (e) => {
+						toggle: () => {
 							has_secret = !has_secret;
 							if (has_secret && _snapp.secret === null) reset_password = true;
 						}
@@ -264,7 +264,7 @@
 					idx="has_expiration"
 					name="switch-expiration"
 					actions={{
-						toggle: (e) => {
+						toggle: () => {
 							has_expiration = !has_expiration;
 							if (has_expiration && _snapp.expiration === null) reset_expiration = true;
 							if (!has_expiration) _snapp.expiration = null;

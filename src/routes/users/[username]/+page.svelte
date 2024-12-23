@@ -18,8 +18,8 @@
 	import { debounce } from '$lib/utils/debounce';
 	import { cn } from '$lib/utils/cn.js';
 	import { slugify } from '$lib/utils/slug.js';
-	import { queryParam } from 'sveltekit-search-params';
-	import { page } from '$app/stores';
+	import { queryParameters } from 'sveltekit-search-params';
+	import { page } from '$app/state';
 	let { data, form } = $props();
 	let snapp_action = $state<'create' | 'edit' | 'delete'>();
 
@@ -50,7 +50,7 @@
 
 	const handle_paste = function handle_paste(e: ClipboardEvent) {
 		const original_url = e.clipboardData?.getData('text/plain');
-		if (original_url && !data.allow_http && !original_url.startsWith('https://'))
+		if (original_url && !data.allow_http && !original_url.toLowerCase().startsWith('https://'))
 			return toast.info($_('errors.snapps.unallowed-not-https'));
 		else if (show_snapp_panel) _snapp.original_url = original_url;
 		toast.info($_('snapps.helpers.text-pasted'));
@@ -185,32 +185,31 @@
 		show_snapp_panel = true;
 	};
 
-	const query = queryParam('query');
-	const limit = queryParam('limit', {
-		defaultValue: data.limit as number | undefined,
-		decode: (val: string | null) => (val ? parseInt(val) : null),
-		encode: (val: number) => val.toString()
+	const params = queryParameters({
+		query: true,
+		limit: {
+			defaultValue: data.limit as number | undefined,
+			decode: (val: string | null) => (val ? parseInt(val) : null),
+			encode: (val: number) => val.toString()
+		},
+		'order-by': {
+			encode: (str: string) => str as string,
+			decode: (str: string | null) => str as string | null,
+			defaultValue: undefined as string | undefined
+		},
+		ascending: {
+			defaultValue: undefined as boolean | undefined,
+			encode: (booleanValue) => booleanValue.toString(),
+			decode: (stringValue) => stringValue !== null && stringValue !== 'false'
+		},
+		page: {
+			defaultValue: 1,
+			encode: (number) => number.toString(),
+			decode: (stringedNumber) => (stringedNumber && parseInt(stringedNumber)) || null
+		}
 	});
 
-	const orderBy = queryParam('order-by', {
-		encode: (str: string) => str as string,
-		decode: (str: string | null) => str as string | null,
-		defaultValue: undefined as string | undefined
-	});
-
-	const ascending = queryParam('ascending', {
-		defaultValue: undefined as boolean | undefined,
-		encode: (booleanValue) => booleanValue.toString(),
-		decode: (stringValue) => stringValue !== null && stringValue !== 'false'
-	});
-
-	const pageParam = queryParam('page', {
-		defaultValue: 1,
-		encode: (number) => number.toString(),
-		decode: (stringedNumber) => (stringedNumber && parseInt(stringedNumber)) || null
-	});
-
-	const max_pages = $derived(Math.ceil(data.count / ($limit || data.limit)));
+	const max_pages = $derived(Math.ceil(data.count / (params.limit || data.limit)));
 	const default_columns = [
 		'original_url',
 		'shortcode',
@@ -243,7 +242,7 @@
 		};
 	};
 
-	let secure_context = $derived(browser && navigator.clipboard && $page.url.protocol === 'https:');
+	let secure_context = $derived(browser && navigator.clipboard && page.url.protocol === 'https:');
 
 	const handle_copy_snapp_to_clipboard: MouseEventHandler<HTMLButtonElement> = async function (e) {
 		e.stopPropagation();
@@ -255,11 +254,9 @@
 		}
 
 		if (idx && navigator.clipboard)
-			await navigator.clipboard.writeText($page.url.origin + '/' + idx);
+			await navigator.clipboard.writeText(page.url.origin + '/' + idx);
 		toast.info($_('snapps.helpers.copied-to-clipboard'));
 	};
-
-	let limitValue = $state<number>(data.limit);
 </script>
 
 <svelte:window bind:innerWidth />
@@ -323,18 +320,19 @@
 											<button
 												class="flex h-full w-full items-center justify-start gap-2 text-xxs uppercase tracking-wider"
 												onclick={() => {
-													if ($orderBy === 'original_url') $ascending = $ascending ? false : true;
+													if (params['order-by'] === 'original_url')
+														params.ascending = params.ascending ? false : true;
 													else {
-														$orderBy = 'original_url';
-														$ascending = false;
+														params['order-by'] = 'original_url';
+														params.ascending = false;
 													}
 												}}
 											>
 												<span>{$_('snapps.fields.original-url')}</span>
-												{#if $orderBy === 'original_url'}
+												{#if params['order-by'] === 'original_url'}
 													<Icon
 														css={{ icon: 'h-max w-max' }}
-														ph={$ascending === true ? 'sort-ascending' : 'sort-descending'}
+														ph={params.ascending === true ? 'sort-ascending' : 'sort-descending'}
 													/>
 												{/if}
 											</button>
@@ -345,19 +343,19 @@
 											<button
 												class="flex h-full w-full items-center justify-start gap-2 text-xxs uppercase tracking-wider"
 												onclick={() => {
-													if ($orderBy === 'shortcode')
-														$ascending = $ascending === true ? false : true;
+													if (params['order-by'] === 'shortcode')
+														params.ascending = params.ascending === true ? false : true;
 													else {
-														$orderBy = 'shortcode';
-														$ascending = false;
+														params['order-by'] = 'shortcode';
+														params.ascending = false;
 													}
 												}}
 											>
 												<span>{$_('snapps.fields.shortcode')}</span>
-												{#if $orderBy === 'shortcode'}
+												{#if params['order-by'] === 'shortcode'}
 													<Icon
 														css={{ icon: 'h-max w-max' }}
-														ph={$ascending === true ? 'sort-ascending' : 'sort-descending'}
+														ph={params.ascending === true ? 'sort-ascending' : 'sort-descending'}
 													/>
 												{/if}
 											</button>
@@ -368,18 +366,19 @@
 											<button
 												class="flex h-full w-full items-center justify-center gap-2 text-xxs uppercase tracking-wider"
 												onclick={() => {
-													if ($orderBy === 'secret') $ascending = $ascending ? false : true;
+													if (params['order-by'] === 'secret')
+														params.ascending = params.ascending ? false : true;
 													else {
-														$orderBy = 'secret';
-														$ascending = false;
+														params['order-by'] = 'secret';
+														params.ascending = false;
 													}
 												}}
 											>
 												<span>{$_('snapps.fields.secret')}</span>
-												{#if $orderBy === 'secret'}
+												{#if params['order-by'] === 'secret'}
 													<Icon
 														css={{ icon: 'h-max w-max' }}
-														ph={$ascending === true ? 'sort-ascending' : 'sort-descending'}
+														ph={params.ascending === true ? 'sort-ascending' : 'sort-descending'}
 													/>
 												{/if}
 											</button>
@@ -390,18 +389,19 @@
 											<button
 												class="flex h-full w-full items-center justify-center gap-2 text-xxs uppercase tracking-wider"
 												onclick={() => {
-													if ($orderBy === 'disabled') $ascending = $ascending ? false : true;
+													if (params['order-by'] === 'disabled')
+														params.ascending = params.ascending ? false : true;
 													else {
-														$orderBy = 'disabled';
-														$ascending = false;
+														params['order-by'] = 'disabled';
+														params.ascending = false;
 													}
 												}}
 											>
 												<span>{$_('snapps.fields.status')}</span>
-												{#if $orderBy === 'disabled'}
+												{#if params['order-by'] === 'disabled'}
 													<Icon
 														css={{ icon: 'h-max w-max' }}
-														ph={$ascending === true ? 'sort-ascending' : 'sort-descending'}
+														ph={params.ascending === true ? 'sort-ascending' : 'sort-descending'}
 													/>
 												{/if}
 											</button>
@@ -412,18 +412,19 @@
 											<button
 												class="flex h-full w-full items-center justify-start gap-2 text-xxs uppercase tracking-wider"
 												onclick={() => {
-													if ($orderBy === 'created') $ascending = $ascending ? false : true;
+													if (params['order-by'] === 'created')
+														params.ascending = params.ascending ? false : true;
 													else {
-														$orderBy = 'created';
-														$ascending = false;
+														params['order-by'] = 'created';
+														params.ascending = false;
 													}
 												}}
 											>
 												<span>{$_('snapps.fields.created')}</span>
-												{#if $orderBy === 'created'}
+												{#if params['order-by'] === 'created'}
 													<Icon
 														css={{ icon: 'h-max w-max' }}
-														ph={$ascending === true ? 'sort-ascending' : 'sort-descending'}
+														ph={params.ascending === true ? 'sort-ascending' : 'sort-descending'}
 													/>
 												{/if}
 											</button>
@@ -434,18 +435,19 @@
 											<button
 												class="flex h-full w-full items-center justify-start gap-2 text-xxs uppercase tracking-wider"
 												onclick={() => {
-													if ($orderBy === 'expiration') $ascending = $ascending ? false : true;
+													if (params['order-by'] === 'expiration')
+														params.ascending = params.ascending ? false : true;
 													else {
-														$orderBy = 'expiration';
-														$ascending = false;
+														params['order-by'] = 'expiration';
+														params.ascending = false;
 													}
 												}}
 											>
 												<span>{$_('snapps.fields.expiration')}</span>
-												{#if $orderBy === 'expiration'}
+												{#if params['order-by'] === 'expiration'}
 													<Icon
 														css={{ icon: 'h-max w-max' }}
-														ph={$ascending === true ? 'sort-ascending' : 'sort-descending'}
+														ph={params.ascending === true ? 'sort-ascending' : 'sort-descending'}
 													/>
 												{/if}
 											</button>
@@ -456,18 +458,19 @@
 											<button
 												class="flex h-full w-full items-center justify-center gap-2 text-xxs uppercase tracking-wider"
 												onclick={() => {
-													if ($orderBy === 'hit') $ascending = $ascending ? false : true;
+													if (params['order-by'] === 'hit')
+														params.ascending = params.ascending ? false : true;
 													else {
-														$orderBy = 'hit';
-														$ascending = false;
+														params['order-by'] = 'hit';
+														params.ascending = false;
 													}
 												}}
 											>
 												<span>{$_('snapps.fields.hit')}</span>
-												{#if $orderBy === 'hit'}
+												{#if params['order-by'] === 'hit'}
 													<Icon
 														css={{ icon: 'h-max w-max' }}
-														ph={$ascending === true ? 'sort-ascending' : 'sort-descending'}
+														ph={params.ascending === true ? 'sort-ascending' : 'sort-descending'}
 													/>
 												{/if}
 											</button>
@@ -486,7 +489,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								{#each snapps as snapp, idx}
+								{#each snapps as snapp}
 									<tr
 										class="h-14 w-full border border-slate-500/25 bg-slate-500/5 p-4 transition-all hover:bg-slate-500/15 md:h-12"
 									>
@@ -605,12 +608,12 @@
 										</td>
 									</tr>
 								{/each}
-								{#each { length: data.limit - snapps.length } as _, idx}
+								{#each { length: data.limit - snapps.length }}
 									<tr
 										class="h-14 w-full border border-slate-500/25 bg-slate-500/5 p-4 transition-all hover:bg-slate-500/15 md:h-10"
 									>
 										{#key columns.length}
-											{#each { length: columns.length + 1 } as _, idx}
+											{#each { length: columns.length + 1 }}
 												<td class="table-cell whitespace-nowrap px-2 text-center align-middle"
 													>&nbsp;</td
 												>
@@ -640,7 +643,7 @@
 									group: 'max-h-12 min-h-12 md:max-h-8 md:min-h-8 w-20',
 									label: 'hidden'
 								}}
-								bind:value={$limit}
+								bind:value={params.limit}
 							/>
 							<Input
 								name="search"
@@ -652,7 +655,7 @@
 									label: 'hidden'
 								}}
 								icons={{ left: 'magnifying-glass' }}
-								bind:value={$query}
+								bind:value={params.query}
 							/>
 							<button
 								onclick={(e) => {
@@ -672,7 +675,7 @@
 							class="flex w-full items-center justify-start gap-2 p-0 font-semibold md:justify-end"
 						>
 							<button
-								onclick={() => ($pageParam = Math.max(1, ($pageParam || 1) - 1))}
+								onclick={() => (params.page = Math.max(1, (params.page || 1) - 1))}
 								class="flex h-12 w-12 shrink-0 items-center justify-center rounded border-none bg-slate-500/25 outline-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50 md:h-8 md:w-8"
 							>
 								<Icon ph="arrow-left" />
@@ -680,9 +683,9 @@
 
 							<button
 								onclick={() => {
-									if ($pageParam && max_pages === Number($pageParam))
+									if (params.page && max_pages === Number(params.page))
 										toast.info($_('globals.max-page-reached'));
-									$pageParam = Math.min(max_pages, Number($pageParam) + 1);
+									params.page = Math.min(max_pages, Number(params.page) + 1);
 								}}
 								class="flex h-12 w-12 shrink-0 items-center justify-center rounded border-none bg-slate-500/25 outline-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50 md:h-8 md:w-8"
 							>
@@ -725,7 +728,7 @@
 					actions={{
 						right: async () => {
 							const pasted = await window.navigator.clipboard.readText();
-							if (pasted && !data.allow_http && !pasted.startsWith('https://'))
+							if (pasted && !data.allow_http && !pasted.toLowerCase().startsWith('https://'))
 								return toast.info($_('errors.snapps.unallowed-not-https'));
 							else if (show_snapp_panel === true) _snapp.original_url = pasted;
 							toast.info($_('snapps.helpers.text-pasted'));
@@ -746,7 +749,7 @@
 					icons={{ left: 'link-simple-horizontal' }}
 					name="shortcode"
 					actions={{
-						input: (e) => {
+						input: () => {
 							_snapp.shortcode = slugify(_snapp.shortcode);
 						}
 					}}
@@ -767,7 +770,7 @@
 				helper={$_('snapps.helpers.has-secret')}
 				idx="has_secret"
 				actions={{
-					toggle: (e) => {
+					toggle: () => {
 						has_secret = !has_secret;
 						if (has_secret && _snapp.secret === null) reset_password = true;
 					}
@@ -842,7 +845,7 @@
 				idx="has_expiration"
 				name="switch-expiration"
 				actions={{
-					toggle: (e) => {
+					toggle: () => {
 						has_expiration = !has_expiration;
 						if (has_expiration && _snapp.expiration === null) reset_expiration = true;
 						if (!has_expiration) _snapp.expiration = null;

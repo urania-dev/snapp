@@ -7,7 +7,7 @@
 	import { intlFormatDistance } from 'date-fns';
 	import { _ } from 'svelte-i18n';
 	import { fade, fly } from 'svelte/transition';
-	import { queryParam } from 'sveltekit-search-params';
+	import { queryParameters } from 'sveltekit-search-params';
 	import { applyAction, enhance } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
 	let { data, form } = $props();
@@ -16,20 +16,19 @@
 	import { outside } from '$lib/utils/outside.js';
 	import Select from '$lib/ui/select.svelte';
 	import { slugify } from '$lib/utils/slug.js';
-	import { browser } from '$app/environment';
-	import { page } from '$app/stores';
 
 	function getRelativeDate(date: Date) {
 		const rel = intlFormatDistance(date, new Date(), { locale: data.lang });
 		return rel;
 	}
-	const query = queryParam('query');
-	const pageParam = queryParam('page', {
-		defaultValue: 1,
-		decode: (value) => (typeof value === 'string' ? parseInt(value) : 1),
-		encode: (value) => value.toString()
+	const params = queryParameters({
+		query: true,
+		page: {
+			defaultValue: 1,
+			decode: (value) => (typeof value === 'string' ? parseInt(value) : 1),
+			encode: (value) => value.toString()
+		}
 	});
-
 	let show_buttons = $state<string>();
 	let show_user_panel = $state<boolean>(false);
 	let show_confirm_panel = $state<boolean>(false);
@@ -89,7 +88,7 @@
 		_user.role === 'admin' ? 'crown' : _user.role === 'root' ? 'lock-laminated' : 'user'
 	);
 
-	const handle_save: MouseEventHandler<HTMLButtonElement> = (e) => {
+	const handle_save: MouseEventHandler<HTMLButtonElement> = () => {
 		if (user_action === 'create') {
 			document.forms.namedItem('create')?.requestSubmit();
 		}
@@ -135,7 +134,7 @@
 							label: 'hidden'
 						}}
 						icons={{ left: 'magnifying-glass' }}
-						bind:value={$query}
+						bind:value={params.query}
 					/>
 					<button
 						onclick={(e) => {
@@ -223,16 +222,16 @@
 				<Card css={{ card: 'p-2 md:h-12 flex-row justify-between' }}>
 					<div class="flex w-full items-center justify-start gap-2 p-0 font-semibold">
 						<button
-							onclick={() => ($pageParam = Math.max(1, ($pageParam || 1) - 1))}
+							onclick={() => (params.page = Math.max(1, (params.page || 1) - 1))}
 							class="flex h-12 w-12 items-center justify-center rounded border-none bg-slate-500/25 outline-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50 md:h-8 md:w-8"
 						>
 							<Icon ph="arrow-left" />
 						</button>
 						<button
 							onclick={() => {
-								if ($pageParam && max_pages === Number($pageParam))
+								if (params.page && max_pages === Number(params.page))
 									toast.info($_('globals.max-page-reached'));
-								$pageParam = Math.min(max_pages, Number($pageParam) + 1);
+								params.page = Math.min(max_pages, Number(params.page) + 1);
 							}}
 							class="flex h-12 w-12 items-center justify-center rounded border-none bg-slate-500/25 outline-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50 md:h-8 md:w-8"
 						>

@@ -14,7 +14,8 @@
 	import { applyAction, enhance } from '$app/forms';
 	import type { SubmitFunction } from './$types';
 	import { invalidateAll } from '$app/navigation';
-	import { queryParam } from 'sveltekit-search-params';
+	import { queryParameters } from 'sveltekit-search-params';
+	import type { Watchlist } from '@prisma/client';
 	let handle_show_vt_apikey: MouseEventHandler<HTMLButtonElement> = (e) => {
 		e.preventDefault();
 		show_vt_apikey = !show_vt_apikey;
@@ -79,12 +80,14 @@
 	let username = $state<string>();
 	let active_tab = $state<'email' | 'domain' | 'username'>('domain');
 
-	const limit = queryParam('limit', {
-		defaultValue: _limit,
-		encode: (value: number) => value.toString(),
-		decode: (value: string | null) => (value ? parseInt(value) : null)
+	const params = queryParameters({
+		query: true,
+		limit: {
+			defaultValue: _limit,
+			encode: (value: number) => value.toString(),
+			decode: (value: string | null) => (value ? parseInt(value) : null)
+		}
 	});
-	const query = queryParam('query');
 
 	const enhanceList: SubmitFunction = ({ formData, cancel }) => {
 		if (!domain && !username) return cancel();
@@ -263,8 +266,8 @@
 									</Card>
 								</div>
 							{/each}
-							{#if $limit}
-								{#each { length: $limit - whitelist_domains.length } as _, idx}
+							{#if params.limit}
+								{#each { length: params.limit - whitelist_domains.length }, idx}
 									<div
 										class="flex w-full"
 										in:fly|global={{ y: 24, delay: 75 * idx + whitelist_domains.length }}
@@ -291,8 +294,8 @@
 									</Card>
 								</div>
 							{/each}
-							{#if $limit}
-								{#each { length: $limit - whitelist_emails.length } as _, idx}
+							{#if params.limit}
+								{#each { length: params.limit - whitelist_emails.length }, idx}
 									<div
 										class="flex w-full"
 										in:fly|global={{ y: 24, delay: 75 * idx + whitelist_emails.length }}
@@ -319,8 +322,8 @@
 									</Card>
 								</div>
 							{/each}
-							{#if $limit}
-								{#each { length: $limit - whitelist_usernames.length } as _, idx}
+							{#if params.limit}
+								{#each { length: params.limit - whitelist_usernames.length }, idx}
 									<div
 										class="flex w-full"
 										in:fly|global={{ y: 24, delay: 75 * idx + whitelist_usernames.length }}
@@ -337,7 +340,7 @@
 							icons={{ left: 'rows' }}
 							css={{ input: 'max-w-18 text-right', field: 'max-w-24' }}
 							name="limit"
-							bind:value={$limit}
+							bind:value={params.limit}
 						/>
 						<Input
 							type="text"
@@ -345,7 +348,7 @@
 							css={{ input: 'text-right placeholder:text-start' }}
 							name="query"
 							placeholder={$_('admin.placeholders.filter-watchlist')}
-							bind:value={$query}
+							bind:value={params.query}
 						/>
 					</div>
 				</Card>
@@ -476,8 +479,8 @@
 									</Card>
 								</div>
 							{/each}
-							{#if $limit}
-								{#each { length: $limit - blacklist_domains.length } as _, idx}
+							{#if params.limit}
+								{#each { length: params.limit - blacklist_domains.length }, idx}
 									<div
 										class="flex w-full"
 										in:fly|global={{ y: 24, delay: 75 * idx + blacklist_domains.length }}
@@ -504,8 +507,8 @@
 									</Card>
 								</div>
 							{/each}
-							{#if $limit}
-								{#each { length: $limit - blacklist_emails.length } as _, idx}
+							{#if params.limit}
+								{#each { length: params.limit - blacklist_emails.length }, idx}
 									<div
 										class="flex w-full"
 										in:fly|global={{ y: 24, delay: 75 * idx + blacklist_emails.length }}
@@ -532,8 +535,8 @@
 									</Card>
 								</div>
 							{/each}
-							{#if $limit}
-								{#each { length: $limit - blacklist_usernames.length } as _, idx}
+							{#if params.limit}
+								{#each { length: params.limit - blacklist_usernames.length }, idx}
 									<div
 										class="flex w-full"
 										in:fly|global={{ y: 24, delay: 75 * idx + blacklist_usernames.length }}
@@ -550,7 +553,7 @@
 							icons={{ left: 'rows' }}
 							css={{ input: 'max-w-18 text-right', field: 'max-w-24' }}
 							name="limit"
-							bind:value={$limit}
+							bind:value={params.limit}
 						/>
 						<Input
 							type="text"
@@ -558,7 +561,7 @@
 							css={{ input: 'text-right placeholder:text-start' }}
 							name="query"
 							placeholder={$_('admin.placeholders.filter-watchlist')}
-							bind:value={$query}
+							bind:value={params.query}
 						/>
 					</div>
 				</Card>{/if}

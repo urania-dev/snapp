@@ -1,4 +1,4 @@
-import { type Updater } from 'svelte/store';
+import { type Updater } from "svelte/store";
 export declare function cn(...classes: (string | undefined)[]): string;
 export declare const isBrowser: boolean;
 /**
@@ -11,7 +11,11 @@ export declare const isBrowser: boolean;
  * as otherwise the initial value will persist across requests.
  */
 export declare function clientWritable<T>(initialValue: T): {
-	subscribe: (this: void, run: (value: T) => void, invalidate?: () => void) => () => void;
-	set: (value: T) => void;
-	update: (updater: Updater<T>) => void;
+  subscribe: (
+    this: void,
+    run: (value: T) => void,
+    invalidate?: () => void,
+  ) => () => void;
+  set: (value: T) => void;
+  update: (updater: Updater<T>) => void;
 };

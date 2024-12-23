@@ -1,5 +1,4 @@
 <script>
-	import { env } from '$env/dynamic/public';
 	import Card from '$lib/ui/card.svelte';
 	import Icon from '$lib/ui/icon.svelte';
 	import logo from '$lib/utils/logo.svg?raw';

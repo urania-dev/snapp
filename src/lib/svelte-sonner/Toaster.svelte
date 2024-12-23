@@ -98,7 +98,7 @@
 		const handleKeydown = (event) => {
 			const isHotkeyPressed = hotkey.every(
 				(key) =>
-					// eslint-disable-next-line @typescript-eslint/no-explicit-any
+					 
 					event[key] || event.code === key
 			);
 			if (isHotkeyPressed) {

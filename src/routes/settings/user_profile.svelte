@@ -11,8 +11,8 @@
 	import { invalidateAll } from '$app/navigation';
 	import type { SubmitFunction } from './$types';
 	import { fade } from 'svelte/transition';
-	import { page } from '$app/stores';
 	import { toast } from 'svelte-sonner';
+	import { page } from '$app/state';
 
 	let {
 		is_admin,
@@ -35,7 +35,7 @@
 	} = $props();
 
 	let search_language = $state<string>();
-	const handle_change_theme: MouseEventHandler<HTMLButtonElement> = (e) => {
+	const handle_change_theme: MouseEventHandler<HTMLButtonElement> = () => {
 		const _theme = theme === 'light' ? 'dark' : 'light';
 		save_this('theme', _theme, 'settings');
 		document.documentElement.classList.remove('dark', 'light');
@@ -62,7 +62,7 @@
 		modal_is_open = true;
 	};
 
-	const enhanceResetPassword: SubmitFunction = ({ formData, cancel }) => {
+	const enhanceResetPassword: SubmitFunction = () => {
 		return async ({ result }) => {
 			await applyAction(result);
 			await invalidateAll();
@@ -70,16 +70,16 @@
 		};
 	};
 
-	const enhanceResetMFA: SubmitFunction = ({ formData, cancel }) => {
+	const enhanceResetMFA: SubmitFunction = () => {
 		return async ({ result }) => {
 			await applyAction(result);
 			await invalidateAll();
 			if (form?.message) toast.error($_(form?.message));
 		};
 	};
-	let { form } = $derived($page);
+	let { form } = $derived(page);
 
-	const handle_reset_password: MouseEventHandler<HTMLButtonElement> = (e) => {
+	const handle_reset_password: MouseEventHandler<HTMLButtonElement> = () => {
 		document.forms.namedItem('reset-password')?.requestSubmit();
 		modal_is_open = false;
 	};
@@ -89,7 +89,7 @@
 		e.preventDefault();
 		resetMFA_is_open = true;
 	};
-	const handle_reset_mfa: MouseEventHandler<HTMLButtonElement> = (e) => {
+	const handle_reset_mfa: MouseEventHandler<HTMLButtonElement> = () => {
 		document.forms.namedItem('reset-mfa')?.requestSubmit();
 	};
 	let innerWidth = $state<number>(0);

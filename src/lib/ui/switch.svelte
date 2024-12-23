@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '$lib/svelte-sonner/internal';
-	import type { FormEventHandler, MouseEventHandler } from 'svelte/elements';
+	import type { MouseEventHandler } from 'svelte/elements';
 	import Icon from './icon.svelte';
 
 	let {

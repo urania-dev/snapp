@@ -4,7 +4,7 @@ services:
     ports:
       - 3000:3000
     environment:
-      DATABASE_MYSQL_URL: 'mysql://root:password@mariadb:3306/snappdb'
+      DATABASE_MYSQL_URL: "mysql://root:password@mariadb:3306/snappdb"
       TOKEN_SECRET: # openssl rand -base64 32
       ORIGIN: https://example.com
       DATABASE_PROVIDER: mysql
@@ -24,7 +24,13 @@ services:
     networks:
       - snapp
     healthcheck:
-      test: ['CMD', 'healthcheck.sh', '--su-mysql', '--connect', '--innodb_initialized']
+      test: [
+        "CMD",
+        "healthcheck.sh",
+        "--su-mysql",
+        "--connect",
+        "--innodb_initialized",
+      ]
       start_period: 1m
       start_interval: 10s
       interval: 1m

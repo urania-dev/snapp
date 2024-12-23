@@ -1,5 +1,5 @@
-import { prisma } from '$lib/server/prisma';
+import { prisma } from "$lib/server/prisma";
 
 export const delete_token = async (userId: string) => {
-	await prisma.token.deleteMany({ where: { userId } });
+  await prisma.token.deleteMany({ where: { userId } });
 };

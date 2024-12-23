@@ -16,7 +16,8 @@
 - 0.3.0
   - Integrated UMAMI metrics
   - Fixed secret snapp not always triggering redirect
-  - Optimized metric retention to 30 customizable via MAX_RETENTION_DAYS=number|false
+  - Optimized metric retention to 30 customizable via
+    MAX_RETENTION_DAYS=number|false
 - 0.4.0
   - REST API at /api
   - OpenApi via Redoc-Static at [/openapi.html](http://snapp.li/openapi.html)
@@ -26,9 +27,11 @@
   - Fixed regex in new shorten creation
   - Fixed some mispell around
 - 0.4.2
-  - Fixed the DB inconsistencies when linking a volume through docker. It now pushes the db. not the most elegant fix.
+  - Fixed the DB inconsistencies when linking a volume through docker. It now
+    pushes the db. not the most elegant fix.
 - 0.4.3
-  - Github version was missing a +layout file wrongly in gitignore, that would not expose metrics umami integrations
+  - Github version was missing a +layout file wrongly in gitignore, that would
+    not expose metrics umami integrations
   - minor cleaning
 - 0.5
   - Added a SMTP to send confirmation mail and recover password
@@ -39,13 +42,18 @@
   - Added a better structure for admin and users roles and can(t)-do
   - New Users page for users management
   - New User page to inspect snapps and user profile
-  - Admins can delete users, and change ownership of their snapps before delete if they want to.
-  - Added CLI utility for promote / demote users to admin in order to mantain older versions of snapp
-  - New Admin capabilities of creating users, even with signups locked, resend password recovery, and edit users profiles.
+  - Admins can delete users, and change ownership of their snapps before delete
+    if they want to.
+  - Added CLI utility for promote / demote users to admin in order to mantain
+    older versions of snapp
+  - New Admin capabilities of creating users, even with signups locked, resend
+    password recovery, and edit users profiles.
   - New SuperAdmin role to keep order and peace
   - Improved Settings with admin only panels for app management
-  - New blacklist page for blocking emails, username and derogatory names, and suspicious domains involved in redirections
-  - Added malicious domain check via VirusTotal API harmfullness > maliciousness votes balance on last check
+  - New blacklist page for blocking emails, username and derogatory names, and
+    suspicious domains involved in redirections
+  - Added malicious domain check via VirusTotal API harmfullness > maliciousness
+    votes balance on last check
   - Improved Homepage layout
   - Minor cleaning here and there
 - 0.6.1
@@ -63,17 +71,21 @@
 
 - 0.7.test
   - Import CSV from previous version, first of all
-  - Rebuilt on top of Redis (with RedisInsight UI for a major QOL upgrade) instead of SQLITE, now it doesn't relies on third part libraries and my cron abilities for expiring urls
+  - Rebuilt on top of Redis (with RedisInsight UI for a major QOL upgrade)
+    instead of SQLITE, now it doesn't relies on third part libraries and my cron
+    abilities for expiring urls
   - reworked UI, now based on [Skeleton.dev UI](https://skeleton.dev)
   - API Docs are now documented by swagger
   - API now have rate limits
   - API now respond to token generated from user settings
   - Some here and there quality of life
-  - As for now the test release is not set as uraniadev/snapp:latest but it has to be done manually due to the new database stack and architecture
+  - As for now the test release is not set as uraniadev/snapp:latest but it has
+    to be done manually due to the new database stack and architecture
 - 0.7
   - Released
 - 0.7.1
-  - Provided placeholder default for better understanding of missing languages file
+  - Provided placeholder default for better understanding of missing languages
+    file
   - Corrected README unnecessarely mounting translation folder
   - Fixed overlay on Single Snapp dashboard
 - 0.7.2
@@ -81,8 +93,10 @@
   - Fix on custom theme
   - Feature Requested: Allow unsecure HTTP url in redirection
 - 0.7.3
-  - Added Spanish and Galician languages by [cabaseira](https://github.com/cabaseira)
-  - Minor fix to unsecure HTTP Edit to fix [Issue #26](https://github.com/urania-dev/snapp/issues/26)
+  - Added Spanish and Galician languages by
+    [cabaseira](https://github.com/cabaseira)
+  - Minor fix to unsecure HTTP Edit to fix
+    [Issue #26](https://github.com/urania-dev/snapp/issues/26)
   - Removed some dev console.logs.
 
 ---
@@ -92,10 +106,15 @@
 ---
 
 - 0.8-beta
-  - on the road to version 1: This is a new rebuilt on top of Svelte5, Tailwind, Prisma. It's a semplification in order to keep it more mantainable in the future.
+  - on the road to version 1: This is a new rebuilt on top of Svelte5, Tailwind,
+    Prisma. It's a semplification in order to keep it more mantainable in the
+    future.
   - Rebase of the project, new code for the same features as before.
-  - Prisma comes back again instead of Redis, this should allow me to change the database behind the project and create different images for mysql pg and sqlite
-  - fixed long time running bugs as not resettable secrets of usages, api endpoint with form submission protections, and so on.
+  - Prisma comes back again instead of Redis, this should allow me to change the
+    database behind the project and create different images for mysql pg and
+    sqlite
+  - fixed long time running bugs as not resettable secrets of usages, api
+    endpoint with form submission protections, and so on.
 - 0.8.1
   - Fixed database declination and instantiation.
   - Fixed some labels mishaps in auth process
@@ -111,7 +130,8 @@
   - Fixed some minor UI Issues
 - 0.8.4
   - Re-added snapp select and bulk delete
-  - Fixed some inconsistencies during import, now it import creation date and visits
+  - Fixed some inconsistencies during import, now it import creation date and
+    visits
 - 0.8.5
   - Fixed api errors on ordering and filtering
   - Fixed Docs url not working in homepage
@@ -129,34 +149,51 @@
   - Fixed password regex
 - 0.8.6.4
   - Disabled combo-box in language choosing for better UI from mobile
-  - Added Chinese language by [xja](https://github.com/xja) [see more...](https://github.com/urania-dev/snapp/issues/48)
+  - Added Chinese language by [xja](https://github.com/xja)
+    [see more...](https://github.com/urania-dev/snapp/issues/48)
 - 0.8.6.5, 0.8.6.6
-  - Update on README for better understanding of db.sqlite location path [see more...](https://github.com/urania-dev/snapp/issues/50)
-  - Fixing SMTP and invitation email [see more..](https://github.com/urania-dev/snapp/issues/51)
-  - Fixed incomplete flow on the URL dashboard [see more...](https://github.com/urania-dev/snapp/issues/52)
+  - Update on README for better understanding of db.sqlite location path
+    [see more...](https://github.com/urania-dev/snapp/issues/50)
+  - Fixing SMTP and invitation email
+    [see more..](https://github.com/urania-dev/snapp/issues/51)
+  - Fixed incomplete flow on the URL dashboard
+    [see more...](https://github.com/urania-dev/snapp/issues/52)
 - 0.8.6.7
-  - Fixed entrypoint.sh typo [see more...](https://github.com/urania-dev/snapp/issues/53)
+  - Fixed entrypoint.sh typo
+    [see more...](https://github.com/urania-dev/snapp/issues/53)
 - 0.8.7
-  - Introducing tags with two options [link to discussion](https://github.com/urania-dev/snapp/discussions/56)
-    - Regular: user can assign multiple tags to own snapp and browse tags panel being able to see others people tags
-    - Path as Prefix: disable domain.com/[shortcode] and prefers domain.com/[tag]/[shortcode]
+  - Introducing tags with two options
+    [link to discussion](https://github.com/urania-dev/snapp/discussions/56)
+    - Regular: user can assign multiple tags to own snapp and browse tags panel
+      being able to see others people tags
+    - Path as Prefix: disable domain.com/[shortcode] and prefers
+      domain.com/[tag]/[shortcode]
     - Path as prefix wouldn't not work as disambiguation for shortcodes
-    - Path as prefix would be enable only by ENV VAR TAGS_AS_PREFIX due to the different behaviour of the app
-  - Introducing Multi Factors Authentication (Enabled via UI / ENV) [link to discussion](https://github.com/urania-dev/snapp/discussions/57)
+    - Path as prefix would be enable only by ENV VAR TAGS_AS_PREFIX due to the
+      different behaviour of the app
+  - Introducing Multi Factors Authentication (Enabled via UI / ENV)
+    [link to discussion](https://github.com/urania-dev/snapp/discussions/57)
   - Various fixes found around
-  - update .dockerignore and .gitignore [see more...](https://github.com/urania-dev/snapp/pull/58)
+  - update .dockerignore and .gitignore
+    [see more...](https://github.com/urania-dev/snapp/pull/58)
 - 0.8.7.1
   - Fixes in Tags API
   - Keycloak OIDC integration
 - 0.8.7.2
-  - fix: prevent double encoding of redirection URLs [see more...](https://github.com/urania-dev/snapp/pull/61)
+  - fix: prevent double encoding of redirection URLs
+    [see more...](https://github.com/urania-dev/snapp/pull/61)
 - 0.8.7.3
-  - feat(auth): implement generic OpenID Connect authentication. [see more...](https://github.com/urania-dev/snapp/pull/65)
-  - fix: Tags with no paths when feature is on (should throw error) [see more...](https://github.com/urania-dev/snapp/issues/63#issuecomment-2423712962)
+  - feat(auth): implement generic OpenID Connect authentication.
+    [see more...](https://github.com/urania-dev/snapp/pull/65)
+  - fix: Tags with no paths when feature is on (should throw error)
+    [see more...](https://github.com/urania-dev/snapp/issues/63#issuecomment-2423712962)
 - 0.8.7.4
-  - fix: edit snapps when tags as prefix is on [see more...](https://github.com/urania-dev/snapp/issues/68)
+  - fix: edit snapps when tags as prefix is on
+    [see more...](https://github.com/urania-dev/snapp/issues/68)
   - fix: SMPT typo in log
-  - added endpoint as request to generate qrcode `/api/qrcode/path`. It will just render a shortcode to ORIGIN/...path (ex example.com/abc example.com/abc/def)
+  - added endpoint as request to generate qrcode `/api/qrcode/path`. It will
+    just render a shortcode to ORIGIN/...path (ex example.com/abc
+    example.com/abc/def)
   - updated readme for typo
 - 0.8.7.4.1, 0.8.7.4.2
   - fix: tags and typos

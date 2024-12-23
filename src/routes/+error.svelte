@@ -1,5 +1,5 @@
 <script>
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import Card from '$lib/ui/card.svelte';
 	import Icon from '$lib/ui/icon.svelte';
 	import { _ } from 'svelte-i18n';
@@ -12,7 +12,7 @@
 				<h2 class="flex w-full items-center justify-center gap-2 text-center text-lg font-bold">
 					<Icon ph="prohibit" style="bold" /><span>{@html $_('errors.label')}</span>
 				</h2>
-				<p class="mb-4 w-full text-balance text-center">{@html $_($page.error?.message || '')}</p>
+				<p class="mb-4 w-full text-balance text-center">{@html $_(page.error?.message || '')}</p>
 				<div
 					class="mx-auto mb-10 flex aspect-square h-56 w-56 items-center justify-center rounded-full bg-slate-500/25 p-10"
 				>

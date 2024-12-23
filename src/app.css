@@ -1,59 +1,62 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 * {
-	box-sizing: border-box;
-	color: inherit;
-	outline: transparent;
+  box-sizing: border-box;
+  color: inherit;
+  outline: transparent;
 }
 
 :where(a),
 :where(a:focus) {
-	border: none;
-	outline: none;
+  border: none;
+  outline: none;
 }
 
 .datepicker {
-	@apply text-white -hue-rotate-0 invert-0 dark:-hue-rotate-180 dark:invert;
+  @apply text-white -hue-rotate-0 invert-0 dark:-hue-rotate-180 dark:invert;
 }
 
 .datepicker-cell {
-	@apply text-neutral-50 dark:text-neutral-950;
+  @apply text-neutral-50 dark:text-neutral-950;
 }
 
 pre {
-	@apply whitespace-pre-wrap -hue-rotate-180 invert md:whitespace-pre dark:-hue-rotate-0 dark:invert-0;
+  @apply whitespace-pre-wrap -hue-rotate-180 invert md:whitespace-pre
+    dark:-hue-rotate-0 dark:invert-0;
 }
 
 html,
 body {
-	@apply bg-neutral-50 text-neutral-950 transition-colors dark:bg-neutral-950 dark:text-neutral-50;
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	height: 100%;
-	justify-content: center;
-	align-items: center;
+  @apply bg-neutral-50 text-neutral-950 transition-colors dark:bg-neutral-950
+    dark:text-neutral-50;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
 }
 
 .link {
-	@apply underline decoration-2 underline-offset-2 transition-all hover:text-pink-500 focus:text-pink-500;
+  @apply underline decoration-2 underline-offset-2 transition-all
+    hover:text-pink-500 focus:text-pink-500;
 }
 
 *::-webkit-scrollbar {
-	width: 2px;
-	height: 2px;
+  width: 2px;
+  height: 2px;
 }
 
 *::-webkit-scrollbar-button {
-	background: transparent;
+  background: transparent;
 }
 
 *::-webkit-scrollbar-track {
-	@apply bg-neutral-50/25 dark:bg-neutral-950/25;
+  @apply bg-neutral-50/25 dark:bg-neutral-950/25;
 }
 
 *::-webkit-scrollbar-thumb {
-	@apply bg-neutral-950 dark:bg-neutral-50;
+  @apply bg-neutral-950 dark:bg-neutral-50;
 }

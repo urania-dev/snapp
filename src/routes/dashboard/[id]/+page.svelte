@@ -15,10 +15,10 @@
 	import { fade, fly } from 'svelte/transition';
 	import Chart from '$lib/ui/chart.svelte';
 	import { browser } from '$app/environment';
-	import { page } from '$app/stores';
 	import { outside } from '$lib/utils/outside';
-	import { queryParam } from 'sveltekit-search-params';
+	import { queryParameters } from 'sveltekit-search-params';
 	import { debounce } from '$lib/utils/debounce';
+	import { page } from '$app/state';
 
 	let { data, form } = $props();
 	let active = $state(!data.snapp.disabled);
@@ -60,7 +60,7 @@
 		for (let i = 0; i <= days; i++) {
 			const dateString = date.toISOString().split('T')[0];
 
-			if (data.metrics.hasOwnProperty(dateString)) {
+			if (dateString in data.metrics) {
 				dataset.push(data.metrics[dateString]);
 			} else {
 				dataset.push(0);
@@ -76,7 +76,7 @@
 	};
 	const chartData = $derived(get_dates());
 
-	let secure_context = $derived(browser && navigator.clipboard && $page.url.protocol === 'https:');
+	let secure_context = $derived(browser && navigator.clipboard && page.url.protocol === 'https:');
 
 	const handle_copy_snapp_to_clipboard: MouseEventHandler<HTMLButtonElement> = async function (e) {
 		e.stopPropagation();
@@ -99,7 +99,7 @@
 	};
 
 	let fullUrlToSnapp = $derived(
-		$page.url.origin + '/' + data.tagsAsPrefix
+		page.url.origin + '/' + data.tagsAsPrefix
 			? data.snapp.tags[0]?.name + '/' + data.snapp.shortcode
 			: data.snapp.shortcode
 	);
@@ -128,27 +128,28 @@
 		};
 	};
 
-	const query = queryParam('query');
-	const limit = queryParam('limit', {
-		defaultValue: data.limit as number | undefined,
-		decode: (val: string | null) => (val ? parseInt(val) : null),
-		encode: (val: number) => val.toString()
+	const params = queryParameters({
+		query: true,
+		limit: {
+			defaultValue: data.limit as number | undefined,
+			decode: (val: string | null) => (val ? parseInt(val) : null),
+			encode: (val: number) => val.toString()
+		},
+		page: {
+			defaultValue: 1,
+			encode: (number) => number.toString(),
+			decode: (stringedNumber) => (stringedNumber && parseInt(stringedNumber)) || null
+		}
 	});
 
-	const pageParam = queryParam('page', {
-		defaultValue: 1,
-		encode: (number) => number.toString(),
-		decode: (stringedNumber) => (stringedNumber && parseInt(stringedNumber)) || null
-	});
-
-	const max_pages = $derived(Math.ceil(data.countTag / ($limit || data.limit)));
+	const max_pages = $derived(Math.ceil(data.countTag / (params.limit || data.limit)));
 	const enhanceRows: SubmitFunction = ({ formData }) => {
 		formData.set('rows', limitValue.toString());
 		return async ({ result }) => {
 			await applyAction(result);
 			await invalidateAll();
 			if (form?.message) toast.info($_(form.message));
-			$limit = limitValue;
+			params.limit = limitValue;
 		};
 	};
 	let limitValue = $state<number>(data.limit);
@@ -524,7 +525,7 @@
 									</div>
 								</Card>
 							{/each}
-							{#each { length: Math.max(0, ($limit || 0) - data.tags.length) } as tag}
+							{#each { length: Math.max(0, (params.limit || 0) - data.tags.length) }}
 								<Card css={{ card: 'h-10 p-0 px-4 items-center flex-row' }}></Card>
 							{/each}
 						</Card>
@@ -542,10 +543,10 @@
 										name="limit"
 										icons={{ left: 'rows' }}
 										actions={{
-											change: (e) => {
+											change: () => {
 												document.forms.namedItem('save-rows')?.requestSubmit();
 											},
-											input: (e) => {
+											input: () => {
 												debounce(
 													() => document.forms.namedItem('save-rows')?.requestSubmit(),
 													1000
@@ -570,7 +571,7 @@
 											label: 'hidden'
 										}}
 										icons={{ left: 'magnifying-glass' }}
-										bind:value={$query}
+										bind:value={params.query}
 									/>
 								</div>
 								<div
@@ -580,7 +581,7 @@
 										class="flex w-full items-center justify-start gap-2 p-0 font-semibold md:justify-end"
 									>
 										<button
-											onclick={() => ($pageParam = Math.max(1, ($pageParam || 1) - 1))}
+											onclick={() => (params.page = Math.max(1, (params.page || 1) - 1))}
 											class="flex h-10 w-10 shrink-0 items-center justify-center rounded border-none bg-slate-500/25 outline-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50 md:h-8 md:w-8"
 										>
 											<Icon ph="arrow-left" />
@@ -588,9 +589,9 @@
 
 										<button
 											onclick={() => {
-												if ($pageParam && max_pages === Number($pageParam))
+												if (params.page && max_pages === Number(params.page))
 													toast.info($_('globals.max-page-reached'));
-												$pageParam = Math.min(max_pages, Number($pageParam) + 1);
+												params.page = Math.min(max_pages, Number(params.page) + 1);
 											}}
 											class="flex h-10 w-10 shrink-0 items-center justify-center rounded border-none bg-slate-500/25 outline-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50 md:h-8 md:w-8"
 										>

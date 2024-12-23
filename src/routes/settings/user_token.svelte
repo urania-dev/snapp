@@ -2,12 +2,12 @@
 	import { enhance } from '$app/forms';
 	import { _ } from 'svelte-i18n';
 	import { toast } from 'svelte-sonner';
-	import { page } from '$app/stores';
 	import Card from '$lib/ui/card.svelte';
 	import Input from '$lib/ui/input.svelte';
 	import type { MouseEventHandler } from 'svelte/elements';
 	import { browser } from '$app/environment';
 	import Icon from '$lib/ui/icon.svelte';
+	import { page } from '$app/state';
 
 	let {
 		token = $bindable(),
@@ -28,7 +28,7 @@
 			toast.error($_('tokens.not-found'));
 			return;
 		}
-		if (!browser || !token || !navigator.clipboard || $page.url.protocol !== 'https:') {
+		if (!browser || !token || !navigator.clipboard || page.url.protocol !== 'https:') {
 			toast.error($_('tokens.not-allowed-to-copy'));
 			return;
 		}

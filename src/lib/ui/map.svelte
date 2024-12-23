@@ -18,7 +18,7 @@
 
 	onMount(async () => {
 		if (!browser) return;
-		//@ts-ignore
+		//@ts-expect-error
 		const map = globalThis?.['am5geodata_worldLow'] as any;
 		if (!map) return;
 

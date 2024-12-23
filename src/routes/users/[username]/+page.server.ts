@@ -1,115 +1,169 @@
-import { database } from '$lib/server/db/database.js';
+import { database } from "$lib/server/db/database.js";
 import {
-	ALLOW_UNSECURE_HTTP,
-	MAX_SNAPPS_PER_USER,
-	SNAPP_NOT_FOUND,
-	SNAPP_ORIGIN_URL_BLACKLISTED,
-	SNAPP_ORIGIN_URL_REQUESTED,
-	TAGS_AS_PREFIX,
-	UNAUTHORIZED
-} from '$lib/utils/constants.js';
+  ALLOW_UNSECURE_HTTP,
+  MAX_SNAPPS_PER_USER,
+  SNAPP_NOT_FOUND,
+  SNAPP_ORIGIN_URL_BLACKLISTED,
+  SNAPP_ORIGIN_URL_REQUESTED,
+  TAGS_AS_PREFIX,
+  UNAUTHORIZED,
+} from "$lib/utils/constants.js";
 
-import { fail, redirect } from '@sveltejs/kit';
+import { fail, redirect } from "@sveltejs/kit";
 
-export async function load({ locals: { session, user }, url, params: { username } }) {
-	if (!user || !session) redirect(302, '/auth/sign-in');
+export async function load(
+  { locals: { session, user }, url, params: { username } },
+) {
+  if (!user || !session) redirect(302, "/auth/sign-in");
 
-	const is_admin = await database.users.is_admin(user.id);
-	if (!is_admin) redirect(302, '/dashboard');
+  const is_admin = await database.users.is_admin(user.id);
+  if (!is_admin) redirect(302, "/dashboard");
 
-	const [ghosting] = await database.users.one(username);
-	if (!ghosting) redirect(302, '/users');
-	const allow_http = database.settings.parse(
-		await database.settings.get(ALLOW_UNSECURE_HTTP),
-		true
-	);
+  const [ghosting] = await database.users.one(username);
+  if (!ghosting) redirect(302, "/users");
+  const allow_http = database.settings.parse(
+    await database.settings.get(ALLOW_UNSECURE_HTTP),
+    true,
+  );
 
-	const limit = parseInt(url.searchParams.get('limit')?.toString() || '14');
-	const page = parseInt(url.searchParams.get('page')?.toString() || '1');
-	const orderBy = url.searchParams.get('order-by')?.toString() || 'created';
-	const ascending =
-		url.searchParams.get('ascending')?.toString()?.toLowerCase() === 'false' || false;
-	const offset = (page - 1) * limit;
+  const limit = parseInt(url.searchParams.get("limit")?.toString() || "14");
+  const page = parseInt(url.searchParams.get("page")?.toString() || "1");
+  const orderBy = url.searchParams.get("order-by")?.toString() || "created";
+  const ascending =
+    url.searchParams.get("ascending")?.toString()?.toLowerCase() === "false" ||
+    false;
+  const offset = (page - 1) * limit;
 
-	const query = url.searchParams.get('query')?.toString();
+  const query = url.searchParams.get("query")?.toString();
 
-	const cols = await database.settings
-		.get('COLUMNS', user.id)
-		.then((res) => (res?.value && (JSON.parse(res.value) as string[])) || []);
-	const [snapps, count] = await database.snapps.get(ghosting.id, query, limit, offset, {
-		[orderBy]: ascending ? 'asc' : 'desc'
-	});
-	return { allow_http, snapps: snapps, count, offset, page, limit, cols, ghosting, username };
+  const cols = await database.settings
+    .get("COLUMNS", user.id)
+    .then((res) => (res?.value && (JSON.parse(res.value) as string[])) || []);
+  const [snapps, count] = await database.snapps.get(
+    ghosting.id,
+    query,
+    limit,
+    offset,
+    {
+      [orderBy]: ascending ? "asc" : "desc",
+    },
+  );
+  return {
+    allow_http,
+    snapps: snapps,
+    count,
+    offset,
+    page,
+    limit,
+    cols,
+    ghosting,
+    username,
+  };
 }
 
 export const actions = {
-	create: async ({ locals: { session, user }, params: { username }, request, fetch }) => {
-		if (!session) redirect(302, '/');
+  create: async (
+    { locals: { session }, params: { username }, request, fetch },
+  ) => {
+    if (!session) redirect(302, "/");
 
-		const is_admin = await database.users.is_admin(session.userId);
-		if (!is_admin) redirect(302, '/dashboard');
+    const is_admin = await database.users.is_admin(session.userId);
+    if (!is_admin) redirect(302, "/dashboard");
 
-		const form = await request.formData();
-		const create_snapp = form.get('snapp')?.toString();
+    const form = await request.formData();
+    const create_snapp = form.get("snapp")?.toString();
 
-		if (!create_snapp) return fail(400, { message: 'errors.snapps.original-url-missing' });
+    if (!create_snapp) {
+      return fail(400, { message: "errors.snapps.original-url-missing" });
+    }
 
-		const [ghosting] = await database.users.one(username);
-		if (!ghosting) return fail(400, { message: 'errors.users.not-found' });
-		const [, err] = await database.snapps.create(JSON.parse(create_snapp), ghosting.id, fetch);
-		
-		let message: string | undefined = undefined;
-		if (err === TAGS_AS_PREFIX) message = 'errors.snapps.no-prefix';
-		if (err === MAX_SNAPPS_PER_USER) message = 'errors.snapps.max-snapps';
-		if (err === SNAPP_ORIGIN_URL_REQUESTED) message = 'errors.snapps.original-url-missing';
-		if (err === SNAPP_ORIGIN_URL_BLACKLISTED) message = 'errors.snapps.original-url-blacklisted';
-		if (err === ALLOW_UNSECURE_HTTP) message = 'errors.snapps.unallowed-not-https';
-		if (message) return fail(400, { message });
-		else return { message: 'snapps.actions.created', success: true };
-	},
-	edit: async ({ locals: { session }, request, fetch, params: { username } }) => {
-		if (!session) redirect(302, '/');
+    const [ghosting] = await database.users.one(username);
+    if (!ghosting) return fail(400, { message: "errors.users.not-found" });
+    const [, err] = await database.snapps.create(
+      JSON.parse(create_snapp),
+      ghosting.id,
+      fetch,
+    );
 
-		const is_admin = await database.users.is_admin(session.userId);
-		if (!is_admin) redirect(302, '/dashboard');
+    let message: string | undefined = undefined;
+    if (err === TAGS_AS_PREFIX) message = "errors.snapps.no-prefix";
+    if (err === MAX_SNAPPS_PER_USER) message = "errors.snapps.max-snapps";
+    if (err === SNAPP_ORIGIN_URL_REQUESTED) {
+      message = "errors.snapps.original-url-missing";
+    }
+    if (err === SNAPP_ORIGIN_URL_BLACKLISTED) {
+      message = "errors.snapps.original-url-blacklisted";
+    }
+    if (err === ALLOW_UNSECURE_HTTP) {
+      message = "errors.snapps.unallowed-not-https";
+    }
+    if (message) return fail(400, { message });
+    else return { message: "snapps.actions.created", success: true };
+  },
+  edit: async (
+    { locals: { session }, request, fetch },
+  ) => {
+    if (!session) redirect(302, "/");
 
-		const form = await request.formData();
-		const edit_snapp = form.get('snapp')?.toString();
+    const is_admin = await database.users.is_admin(session.userId);
+    if (!is_admin) redirect(302, "/dashboard");
 
-		if (!edit_snapp) return fail(400, { message: 'errors.snapps.original-url-missing' });
-		const _snapp = JSON.parse(edit_snapp) as Snapp & { tags: Tag[] }
-		const [, err] = await database.snapps.edit({ ..._snapp, tags: _snapp.tags.map((t) => t.slug) }, _snapp.userId, fetch);
+    const form = await request.formData();
+    const edit_snapp = form.get("snapp")?.toString();
 
-		let message: string | undefined = undefined;
-		if (err === TAGS_AS_PREFIX) message = 'This Snapps has no prefix selected, please include one.';
-		if (err === MAX_SNAPPS_PER_USER) message = 'errors.snapps.max-snapps';
-		if (err === SNAPP_ORIGIN_URL_REQUESTED) message = 'errors.snapps.original-url-missing';
-		if (err === SNAPP_ORIGIN_URL_BLACKLISTED) message = 'errors.snapps.original-url-blacklisted';
-		if (err === UNAUTHORIZED) message = 'errors.unauthorized';
-		if (err === ALLOW_UNSECURE_HTTP) message = 'errors.snapps.unallowed-not-https';
-		if (message) return fail(400, { message });
-		else return { message: 'snapps.actions.edited', success: true };
-	},
-	delete: async ({ locals: { session, user }, request, fetch }) => {
-		if (!session || !user) redirect(302, '/');
+    if (!edit_snapp) {
+      return fail(400, { message: "errors.snapps.original-url-missing" });
+    }
+    const _snapp = JSON.parse(edit_snapp) as Snapp & { tags: Tag[] };
+    const [, err] = await database.snapps.edit(
+      {
+        ..._snapp,
+        tags: _snapp.tags.map((t) => t.slug),
+      },
+      _snapp.userId,
+      fetch,
+    );
 
-		const form = await request.formData();
-		const { id } = form.get('snapp')?.toString() && JSON.parse(form.get('snapp')!.toString());
+    let message: string | undefined = undefined;
+    if (err === TAGS_AS_PREFIX) {
+      message = "This Snapps has no prefix selected, please include one.";
+    }
+    if (err === MAX_SNAPPS_PER_USER) message = "errors.snapps.max-snapps";
+    if (err === SNAPP_ORIGIN_URL_REQUESTED) {
+      message = "errors.snapps.original-url-missing";
+    }
+    if (err === SNAPP_ORIGIN_URL_BLACKLISTED) {
+      message = "errors.snapps.original-url-blacklisted";
+    }
+    if (err === UNAUTHORIZED) message = "errors.unauthorized";
+    if (err === ALLOW_UNSECURE_HTTP) {
+      message = "errors.snapps.unallowed-not-https";
+    }
+    if (message) return fail(400, { message });
+    else return { message: "snapps.actions.edited", success: true };
+  },
+  delete: async ({ locals: { session, user }, request }) => {
+    if (!session || !user) redirect(302, "/");
 
-		const [count, err] = await database.snapps.delete(user.id, id);
-		let message: string | undefined = undefined;
-		if (err === SNAPP_NOT_FOUND) message = 'errors.snapps.max-snapps';
-		if (err === UNAUTHORIZED) message = 'errors.unauthorized';
-		if (message) return fail(400, { message });
+    const form = await request.formData();
+    const snappString = form.get("snapp")?.toString()
+    const snapp = snappString && JSON.parse(snappString) || { id: null }
+    const id = snapp.id
+    if (!id) return fail(400, { message: 'errors.snapps.not-found' })
+    const [, err] = await database.snapps.delete(user.id, id);
+    let message: string | undefined = undefined;
+    if (err === SNAPP_NOT_FOUND) message = "errors.snapps.max-snapps";
+    if (err === UNAUTHORIZED) message = "errors.unauthorized";
+    if (message) return fail(400, { message });
 
-		return { message: 'snapps.actions.deleted', success: true };
-	},
+    return { message: "snapps.actions.deleted", success: true };
+  },
 
-	'save-cols': async ({ locals: { session, user }, request }) => {
-		if (!session || !user) redirect(302, '/');
-		const form = await request.formData();
+  "save-cols": async ({ locals: { session, user }, request }) => {
+    if (!session || !user) redirect(302, "/");
+    const form = await request.formData();
 
-		const cols = form.get('columns')?.toString();
-		if (cols) await database.settings.set('COLUMNS', cols, user.id);
-	}
+    const cols = form.get("columns")?.toString();
+    if (cols) await database.settings.set("COLUMNS", cols, user.id);
+  },
 };

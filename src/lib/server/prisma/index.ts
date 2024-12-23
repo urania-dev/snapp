@@ -1,8 +1,8 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client";
 
 const selectAdapter = () => {
-	if (!globalThis._prisma) globalThis._prisma = new PrismaClient();
-	return globalThis._prisma;
+  if (!globalThis._prisma) globalThis._prisma = new PrismaClient();
+  return globalThis._prisma;
 };
 
 const prisma = selectAdapter();

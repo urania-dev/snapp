@@ -16,7 +16,7 @@
 	import { fade, fly } from 'svelte/transition';
 	import Chart from '$lib/ui/chart.svelte';
 	import { browser } from '$app/environment';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { outside } from '$lib/utils/outside.js';
 
 	let { data, form } = $props();
@@ -59,7 +59,7 @@
 		for (let i = 0; i <= days; i++) {
 			const dateString = date.toISOString().split('T')[0];
 
-			if (data.metrics.hasOwnProperty(dateString)) {
+			if (dateString in data.metrics) {
 				dataset.push(data.metrics[dateString]);
 			} else {
 				dataset.push(0);
@@ -74,7 +74,7 @@
 		};
 	};
 	const chartData = $derived(get_dates());
-	let secure_context = $derived(browser && navigator.clipboard && $page.url.protocol === 'https:');
+	let secure_context = $derived(browser && navigator.clipboard && page.url.protocol === 'https:');
 
 	const handle_copy_snapp_to_clipboard: MouseEventHandler<HTMLButtonElement> = async function (e) {
 		e.stopPropagation();
@@ -96,7 +96,7 @@
 		show_zoomed_qrcode = !show_zoomed_qrcode;
 	};
 
-	let fullUrlToSnapp = $derived($page.url.origin + '/' + data.snapp.shortcode);
+	let fullUrlToSnapp = $derived(page.url.origin + '/' + data.snapp.shortcode);
 
 	let can_share = $derived(browser === true && window?.navigator?.share);
 </script>

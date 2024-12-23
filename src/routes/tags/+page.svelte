@@ -2,12 +2,9 @@
 	import Card from '$lib/ui/card.svelte';
 	import Icon from '$lib/ui/icon.svelte';
 	import Input from '$lib/ui/input.svelte';
-	import { hover } from '$lib/utils/hover';
 	import { _ } from 'svelte-i18n';
 	import { fade, fly } from 'svelte/transition';
-	import { queryParam } from 'sveltekit-search-params';
-	import { browser } from '$app/environment';
-	import { page } from '$app/stores';
+	import { queryParameters } from 'sveltekit-search-params';
 	import { toast } from 'svelte-sonner';
 	import { outside } from '$lib/utils/outside';
 	import { slugify } from '$lib/utils/slug';
@@ -16,51 +13,32 @@
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { invalidateAll } from '$app/navigation';
 	import { debounce } from 'chart.js/helpers';
-	import Select from '$lib/ui/select.svelte';
 	let { data, form } = $props();
-	const query = queryParam('query');
-
-	const limit = queryParam(
-		'limit',
-		{
+	const params = queryParameters({
+		query: true,
+		limit: {
 			defaultValue: data.limit as number | undefined,
 			decode: (val: string | null) => (val ? parseInt(val) : null),
 			encode: (val: number) => val.toString()
 		},
-		{ showDefaults: false }
-	);
-
-	const orderBy = queryParam(
-		'order-by',
-		{
+		'order-by': {
 			encode: (str: string) => str as string,
 			decode: (str: string | null) => str as string | null,
 			defaultValue: undefined as string | undefined
 		},
-		{ showDefaults: false }
-	);
-
-	const ascending = queryParam(
-		'ascending',
-		{
+		ascending: {
 			defaultValue: undefined as boolean | undefined,
 			encode: (booleanValue) => booleanValue.toString(),
 			decode: (stringValue) => stringValue !== null && stringValue !== 'false'
 		},
-		{ showDefaults: false }
-	);
-
-	const pageParam = queryParam(
-		'page',
-		{
+		page: {
 			defaultValue: 1,
 			encode: (number) => number.toString(),
 			decode: (stringedNumber) => (stringedNumber && parseInt(stringedNumber)) || null
-		},
-		{ showDefaults: false }
-	);
+		}
+	});
 
-	const max_pages = $derived(Math.ceil(data.count / ($limit || data.limit)));
+	const max_pages = $derived(Math.ceil(data.count / (params.limit || data.limit)));
 	let show_confirm_panel = $state(false);
 	let show_tag_panel = $state(false);
 	let tag_action = $state<string>();
@@ -75,7 +53,7 @@
 	});
 
 	let editing_tag = $state<number | undefined>(undefined);
-	const handle_save: MouseEventHandler<HTMLButtonElement> = (e) => {
+	const handle_save: MouseEventHandler<HTMLButtonElement> = () => {
 		if (tag_action === 'create') {
 			document.forms.namedItem('create')?.requestSubmit();
 		}
@@ -172,7 +150,7 @@
 			await applyAction(result);
 			await invalidateAll();
 			if (form?.message) toast.info($_(form.message));
-			$limit = limitValue;
+			params.limit = limitValue;
 		};
 	};
 
@@ -243,7 +221,7 @@
 							label: 'hidden'
 						}}
 						icons={{ left: 'magnifying-glass' }}
-						bind:value={$query}
+						bind:value={params.query}
 					/>
 					{#if selected.length === 0 && (data.tagsAsPrefix === false || data.is_admin)}
 						<button
@@ -335,7 +313,7 @@
 									<th class="table-cell"></th>
 								</tr></thead
 							><tbody>
-								{#each data.tags as tag, idx}
+								{#each data.tags as tag}
 									<tr
 										class="h-14 w-full border border-slate-500/25 bg-slate-500/5 p-4 transition-all hover:bg-slate-500/15 md:h-12"
 									>
@@ -417,7 +395,7 @@
 										</td>
 									</tr>
 								{/each}
-								{#each { length: Math.max(0, data.limit - data.tags.length) } as tag, idx}
+								{#each { length: Math.max(0, data.limit - data.tags.length) }}
 									<tr
 										class="h-14 w-full border border-slate-500/25 bg-slate-500/5 p-4 transition-all hover:bg-slate-500/15 md:h-12"
 									>
@@ -447,10 +425,10 @@
 							name="limit"
 							icons={{ left: 'rows' }}
 							actions={{
-								change: (e) => {
+								change: () => {
 									document.forms.namedItem('save-rows')?.requestSubmit();
 								},
-								input: (e) => {
+								input: () => {
 									debounce(() => document.forms.namedItem('save-rows')?.requestSubmit(), 1000)();
 								}
 							}}
@@ -464,16 +442,16 @@
 						/>
 
 						<button
-							onclick={() => ($pageParam = Math.max(1, ($pageParam || 1) - 1))}
+							onclick={() => (params.page = Math.max(1, (params.page || 1) - 1))}
 							class="flex h-12 w-12 items-center justify-center rounded border-none bg-slate-500/25 outline-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50 md:h-8 md:w-8"
 						>
 							<Icon ph="arrow-left" />
 						</button>
 						<button
 							onclick={() => {
-								if ($pageParam && max_pages === Number($pageParam))
+								if (params.page && max_pages === Number(params.page))
 									toast.info($_('globals.max-page-reached'));
-								$pageParam = Math.min(max_pages, Number($pageParam) + 1);
+								params.page = Math.min(max_pages, Number(params.page) + 1);
 							}}
 							class="flex h-12 w-12 items-center justify-center rounded border-none bg-slate-500/25 outline-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50 md:h-8 md:w-8"
 						>

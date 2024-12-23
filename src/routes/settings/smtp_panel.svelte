@@ -13,7 +13,6 @@
 		SMTP_FROM,
 		SMTP_SSL
 	} from '$lib/utils/constants';
-	import type { User } from 'lucia';
 	import { debounce } from '$lib/utils/debounce';
 	import { toast } from 'svelte-sonner';
 	let show_smtp_pass = $state(false);

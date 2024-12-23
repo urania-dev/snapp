@@ -4,7 +4,7 @@ services:
     ports:
       - 3000:3000
     environment:
-      DATABASE_POSTGRES_URL: 'postgresql://postgres:password@postgres:5432/snappdb'
+      DATABASE_POSTGRES_URL: "postgresql://postgres:password@postgres:5432/snappdb"
       TOKEN_SECRET: # openssl rand -base64 32
       ORIGIN: https://example.com
       DATABASE_PROVIDER: postgres
@@ -17,7 +17,7 @@ services:
   postgres:
     image: postgres:latest
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -d snappdb -U postgres']
+      test: ["CMD-SHELL", "pg_isready -d snappdb -U postgres"]
       interval: 10s
       timeout: 5s
       retries: 5

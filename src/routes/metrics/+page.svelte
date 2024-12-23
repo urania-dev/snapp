@@ -17,7 +17,7 @@
 		for (let i = 0; i <= days; i++) {
 			const dateString = date.toISOString().split('T')[0];
 
-			if (data.metrics.hasOwnProperty(dateString)) {
+			if (dateString in data.metrics) {
 				dataset.push(data.metrics[dateString]);
 			} else {
 				dataset.push(0);
@@ -36,13 +36,16 @@
 	import Map from '$lib/ui/map.svelte';
 	import Select from '$lib/ui/select.svelte';
 	import { translateCountry } from '$lib/utils/language';
-	import { queryParam } from 'sveltekit-search-params';
+	import { queryParameters } from 'sveltekit-search-params';
 
-	let countryID = queryParam('country');
+	const params = queryParameters({
+		countryID: true,
+		os: true,
+		device: true,
+		browser: true
+	});
+
 	let country = $state<string>();
-	let browsers = queryParam<string>('browser');
-	let os = queryParam<string>('os');
-	let device = queryParam<string>('device');
 	let dataset = $derived(data.countries);
 </script>
 
@@ -95,7 +98,7 @@
 							const idx = e.currentTarget.dataset.idx;
 							if (!idx) return;
 							country = idx === 'world' ? $_('globals.world') : translateCountry(data.lang, idx);
-							$countryID = idx === 'world' ? 'World' : translateCountry('en', idx);
+							params.countryID = idx === 'world' ? 'World' : translateCountry('en', idx);
 						}
 					}}
 					name="field"
@@ -116,11 +119,11 @@
 							e.stopPropagation();
 							const idx = e.currentTarget.dataset.idx;
 							if (!idx) return;
-							$browsers = idx;
+							params.browser = idx;
 						}
 					}}
 					name="field"
-					bind:value={$browsers}
+					bind:value={params.browser}
 				/>
 				<Select
 					label={$_('metrics.os')}
@@ -137,11 +140,11 @@
 							e.stopPropagation();
 							const idx = e.currentTarget.dataset.idx;
 							if (!idx) return;
-							$os = idx;
+							params.os = idx;
 						}
 					}}
 					name="field"
-					bind:value={$os}
+					bind:value={params.os}
 				/>
 				<Select
 					label={$_('metrics.device')}
@@ -158,11 +161,11 @@
 							e.stopPropagation();
 							const idx = e.currentTarget.dataset.idx;
 							if (!idx) return;
-							$device = idx;
+							params.device = idx;
 						}
 					}}
 					name="field"
-					bind:value={$device}
+					bind:value={params.device}
 				/>
 			</Card>
 		</div>

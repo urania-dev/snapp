@@ -15,10 +15,9 @@
 	import { debounce } from '$lib/utils/debounce';
 	import { cn } from '$lib/utils/cn.js';
 
-	import { queryParam } from 'sveltekit-search-params';
+	import { queryParameters } from 'sveltekit-search-params';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	let { data } = $props();
-	let user_action = $state<'link' | 'unlink'>();
 	let show_add_user_panel = $state(false);
 	let show_column_panel = $state(false);
 
@@ -30,29 +29,34 @@
 	let innerWidth = $state<number>(0);
 	let snapps = $derived(data.tag.snapps || []);
 
-	const query = queryParam('query');
-	const userQuery = queryParam('user-query');
-	const limit = queryParam('limit', {
-		defaultValue: data.limit as number | undefined,
-		decode: (val: string | null) => (val ? parseInt(val) : null),
-		encode: (val: number) => val.toString()
+	const params = queryParameters({
+		query: true,
+		'user-query': true,
+		limit: {
+			defaultValue: data.limit as number | undefined,
+			decode: (val: string | null) => (val ? parseInt(val) : null),
+			encode: (val: number) => val.toString()
+		},
+		'order-by': {
+			encode: (str: string) => str as string,
+			decode: (str: string | null) => str as string | null,
+			defaultValue: undefined as string | undefined
+		},
+		ascending: {
+			defaultValue: undefined as boolean | undefined,
+			encode: (booleanValue) => booleanValue.toString(),
+			decode: (stringValue) => stringValue !== null && stringValue !== 'false'
+		},
+		page: {
+			defaultValue: 1,
+			encode: (number) => number.toString(),
+			decode: (stringedNumber) => (stringedNumber && parseInt(stringedNumber)) || null
+		}
 	});
-	const orderBy = queryParam('order-by', {
-		encode: (str: string) => str as string,
-		decode: (str: string | null) => str as string | null,
-		defaultValue: undefined as string | undefined
-	});
-	const ascending = queryParam('ascending', {
-		defaultValue: undefined as boolean | undefined,
-		encode: (booleanValue) => booleanValue.toString(),
-		decode: (stringValue) => stringValue !== null && stringValue !== 'false'
-	});
-	const pageParam = queryParam('page', {
-		defaultValue: 1,
-		encode: (number) => number.toString(),
-		decode: (stringedNumber) => (stringedNumber && parseInt(stringedNumber)) || null
-	});
-	const max_pages = $derived(Math.ceil((data.tag._count?.snapps || 0) / ($limit || data.limit)));
+
+	const max_pages = $derived(
+		Math.ceil((data.tag._count?.snapps || 0) / (params.limit || data.limit))
+	);
 
 	const default_columns = ['shortcode', 'secret', 'created', 'expiration', 'userId'];
 
@@ -84,7 +88,7 @@
 			await applyAction(result);
 			await invalidateAll();
 			toast.info($_('settings.saved'));
-			$limit = limitValue;
+			params.limit = limitValue;
 		};
 	};
 
@@ -161,7 +165,7 @@
 							label: 'hidden'
 						}}
 						icons={{ left: 'magnifying-glass' }}
-						bind:value={$userQuery}
+						bind:value={params.userQuery}
 					/>
 					<div class="flex flex-col gap-2 items-center">
 						{#each data.users as user}
@@ -183,7 +187,7 @@
 								</button>
 							</Card>
 						{/each}
-						{#each { length: Math.max(0, 5 - data.users.length) } as tag}
+						{#each { length: Math.max(0, 5 - data.users.length) }}
 							<Card css={{ card: 'h-10 p-0 px-4 items-center flex-row' }}></Card>
 						{/each}
 					</div>
@@ -227,7 +231,6 @@
 									e.stopPropagation();
 									e.preventDefault();
 									show_add_user_panel = true;
-									user_action = 'link';
 								}}
 								class="flex h-12 w-full items-center gap-2 rounded border border-slate-500/50 p-0 px-2 text-sm font-semibold hover:bg-slate-500 hover:text-neutral-50 md:h-8 md:w-max md:justify-center"
 							>
@@ -251,19 +254,19 @@
 											<button
 												class="flex h-full w-full items-center justify-start gap-2 text-xxs uppercase tracking-wider"
 												onclick={() => {
-													if ($orderBy === 'shortcode')
-														$ascending = $ascending === true ? false : true;
+													if (params.orderBy === 'shortcode')
+														params.ascending = params.ascending === true ? false : true;
 													else {
-														$orderBy = 'shortcode';
-														$ascending = false;
+														params['order-by'] = 'shortcode';
+														params.ascending = false;
 													}
 												}}
 											>
 												<span>{$_('snapps.fields.shortcode')}</span>
-												{#if $orderBy === 'shortcode'}
+												{#if params['order-by'] === 'shortcode'}
 													<Icon
 														css={{ icon: 'h-max w-max' }}
-														ph={$ascending === true ? 'sort-ascending' : 'sort-descending'}
+														ph={params.ascending === true ? 'sort-ascending' : 'sort-descending'}
 													/>
 												{/if}
 											</button>
@@ -283,18 +286,19 @@
 											<button
 												class="flex h-full w-full items-center justify-start gap-2 text-xxs uppercase tracking-wider"
 												onclick={() => {
-													if ($orderBy === 'created') $ascending = $ascending ? false : true;
+													if (params['order-by'] === 'created')
+														params.ascending = params.ascending ? false : true;
 													else {
-														$orderBy = 'created';
-														$ascending = false;
+														params['order-by'] = 'created';
+														params.ascending = false;
 													}
 												}}
 											>
 												<span>{$_('snapps.fields.created')}</span>
-												{#if $orderBy === 'created'}
+												{#if params['order-by'] === 'created'}
 													<Icon
 														css={{ icon: 'h-max w-max' }}
-														ph={$ascending === true ? 'sort-ascending' : 'sort-descending'}
+														ph={params.ascending === true ? 'sort-ascending' : 'sort-descending'}
 													/>
 												{/if}
 											</button>
@@ -305,18 +309,19 @@
 											<button
 												class="flex h-full w-full items-center justify-start gap-2 text-xxs uppercase tracking-wider"
 												onclick={() => {
-													if ($orderBy === 'expiration') $ascending = $ascending ? false : true;
+													if (params['order-by'] === 'expiration')
+														params.ascending = params.ascending ? false : true;
 													else {
-														$orderBy = 'expiration';
-														$ascending = false;
+														params['order-by'] = 'expiration';
+														params.ascending = false;
 													}
 												}}
 											>
 												<span>{$_('snapps.fields.expiration')}</span>
-												{#if $orderBy === 'expiration'}
+												{#if params['order-by'] === 'expiration'}
 													<Icon
 														css={{ icon: 'h-max w-max' }}
-														ph={$ascending === true ? 'sort-ascending' : 'sort-descending'}
+														ph={params.ascending === true ? 'sort-ascending' : 'sort-descending'}
 													/>
 												{/if}
 											</button>
@@ -327,18 +332,19 @@
 											<button
 												class="flex h-full w-full items-center justify-start gap-2 text-xxs uppercase tracking-wider"
 												onclick={() => {
-													if ($orderBy === 'users') $ascending = $ascending ? false : true;
+													if (params['order-by'] === 'users')
+														params.ascending = params.ascending ? false : true;
 													else {
-														$orderBy = 'users';
-														$ascending = false;
+														params['order-by'] = 'users';
+														params.ascending = false;
 													}
 												}}
 											>
 												<span>{$_('tags.labels.user')}</span>
-												{#if $orderBy === 'users'}
+												{#if params['order-by'] === 'users'}
 													<Icon
 														css={{ icon: 'h-max w-max' }}
-														ph={$ascending === true ? 'sort-ascending' : 'sort-descending'}
+														ph={params.ascending === true ? 'sort-ascending' : 'sort-descending'}
 													/>
 												{/if}
 											</button>
@@ -348,7 +354,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								{#each snapps as snapp, idx}
+								{#each snapps as snapp}
 									<tr
 										class="h-14 w-full border border-slate-500/25 bg-slate-500/5 p-4 transition-all hover:bg-slate-500/15 md:h-12"
 									>
@@ -420,7 +426,7 @@
 										</td>
 									</tr>
 								{/each}
-								{#each { length: data.limit - snapps.length } as _, idx}
+								{#each { length: data.limit - snapps.length }}
 									<tr
 										class="h-14 w-full border border-slate-500/25 bg-slate-500/5 p-4 transition-all hover:bg-slate-500/15 md:h-10"
 									>
@@ -451,7 +457,7 @@
 										label: 'hidden'
 									}}
 									icons={{ left: 'magnifying-glass' }}
-									bind:value={$query}
+									bind:value={params.query}
 								/>
 							</div>
 							<div class="peer-focus-within:hidden">
@@ -459,10 +465,10 @@
 									name="limit"
 									icons={{ left: 'rows' }}
 									actions={{
-										change: (e) => {
+										change: () => {
 											document.forms.namedItem('save-rows')?.requestSubmit();
 										},
-										input: (e) => {
+										input: () => {
 											debounce(
 												() => document.forms.namedItem('save-rows')?.requestSubmit(),
 												1000
@@ -497,16 +503,16 @@
 							class="flex w-full items-center justify-start gap-2 p-0 font-semibold md:justify-end"
 						>
 							<button
-								onclick={() => ($pageParam = Math.max(1, ($pageParam || 1) - 1))}
+								onclick={() => (params.page = Math.max(1, (params.page || 1) - 1))}
 								class="flex h-12 w-12 shrink-0 items-center justify-center rounded border-none bg-slate-500/25 outline-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50 md:h-8 md:w-8"
 							>
 								<Icon ph="arrow-left" />
 							</button>
 							<button
 								onclick={() => {
-									if ($pageParam && max_pages === Number($pageParam))
+									if (params.page && max_pages === Number(params.page))
 										toast.info($_('globals.max-page-reached'));
-									$pageParam = Math.min(max_pages, Number($pageParam) + 1);
+									params.page = Math.min(max_pages, Number(params.page) + 1);
 								}}
 								class="flex h-12 w-12 shrink-0 items-center justify-center rounded border-none bg-slate-500/25 outline-none transition-all hover:bg-slate-500/50 focus:bg-slate-500/50 md:h-8 md:w-8"
 							>
