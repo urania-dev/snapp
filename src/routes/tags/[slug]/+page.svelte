@@ -360,7 +360,7 @@
 									>
 										{#if columns.includes('shortcode')}
 											<td class="table-cell whitespace-nowrap px-2 align-middle">
-												<a class="link" href="/{data.tag.slug}/{snapp.id}">
+												<a class="link" href="/dashboard/{snapp.id}">
 													{snapp.shortcode}
 												</a>
 											</td>

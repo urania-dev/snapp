@@ -4,21 +4,32 @@ import { encodeHex } from "oslo/encoding";
 
 export const update_two_factor_secret = async (
   userId: string,
-  username: string,
-  setNull: boolean = false,
+  totpKey: string,
+  setNull = false
 ) => {
-  const totpKey = new Uint8Array(20);
-  crypto.getRandomValues(totpKey);
 
-  const keyURI = createTOTPKeyURI("Snapp", username, totpKey, 30, 6);
+
   await prisma.user.update({
     where: {
       id: userId,
     },
     data: {
-      two_factor_secret: setNull ? null : encodeHex(totpKey),
+      two_factor_secret: setNull ? null : totpKey
     },
   });
 
-  return keyURI;
+  return true;
+};
+
+export const generate_two_factor_secret_only = async (
+  username: string,
+  setNull = false
+) => {
+  const totpKey = new Uint8Array(20);
+  crypto.getRandomValues(totpKey);
+  const encrypted = setNull ? null : encodeHex(totpKey)
+
+  const keyURI = createTOTPKeyURI("Snapp", username, totpKey, 30, 6);
+
+  return [keyURI, encrypted] as [string, string | null];
 };

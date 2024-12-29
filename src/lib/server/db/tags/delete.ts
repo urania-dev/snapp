@@ -9,7 +9,6 @@ export const delete_tag = async (tagId?: string) => {
     });
     return [deleted, null];
   } catch (error) {
-    console.log(error);
     return [null, error];
   }
 };

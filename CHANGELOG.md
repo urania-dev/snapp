@@ -208,3 +208,13 @@
   - general cleanup after updating some dependencies (svelte-search-params and
     svelte5 updates)
   - fixed cased https check
+- 0.8.9
+  - TOTP now have a failsafe on first attempt, if missed will prompt a new
+    QRCODE for the user, also put two buttons to download code and code text,
+    [see more...](https://github.com/urania-dev/snapp/discussions/72)
+    [see more...](https://github.com/urania-dev/snapp/issues/74)
+  - Fixed some TAGS misbehaviour
+  - Fixed minor map check
+  - Fixed copy link and QRCODE on Snapp details and Edit Snapps highlighting
+    with Notes for no reason
+    [see more...](https://github.com/urania-dev/snapp/issues/75)

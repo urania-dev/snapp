@@ -99,11 +99,12 @@
 	};
 
 	let fullUrlToSnapp = $derived(
-		page.url.origin + '/' + data.tagsAsPrefix
-			? data.snapp.tags[0]?.name + '/' + data.snapp.shortcode
-			: data.snapp.shortcode
+		String(page.url.origin) +
+			'/' +
+			(data?.tagsAsPrefix === true
+				? data.snapp.tags[0]?.name + '/' + data.snapp.shortcode
+				: data.snapp.shortcode)
 	);
-
 	let can_share = $derived(browser === true && window?.navigator?.share);
 	let tagToAdd = $state<string>();
 	let tagAction = $state<string>();
@@ -330,7 +331,7 @@
 				href="/dashboard/{data.snapp.id}/edit"
 				class={cn(
 					'flex h-10 w-full max-w-max min-w-max items-center gap-2 rounded p-2 text-sm leading-none transition-all hover:bg-slate-500/85 focus:bg-slate-500/85 md:h-8',
-					show_tab === 'notes' ? 'bg-slate-500/85' : 'bg-slate-500/25 '
+					'bg-slate-500/25 '
 				)}
 				>{$_('snapps.labels.edit')}
 			</a>

@@ -129,7 +129,7 @@ export const actions = {
     if (!tags.length && tagsAsPrefix) {
       return fail(400, { message: "errors.snapps.no-prefix" });
     }
-    const [_, err] = await database.snapps.edit(
+    const [, err] = await database.snapps.edit(
       { ...(JSON.parse(edit_snapp)), tags },
       session.userId,
       fetch,
@@ -156,7 +156,7 @@ export const actions = {
     if (!session || !user) redirect(302, "/");
 
     const form = await request.formData();
-    const { id } = form.get("snapp")?.toString() &&
+    const { id } = (form.get("snapp")?.toString() || false) &&
       JSON.parse(form.get("snapp")!.toString());
 
     const [, err] = await database.snapps.delete(user.id, id);

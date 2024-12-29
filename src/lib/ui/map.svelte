@@ -24,6 +24,7 @@
 
 		const am5 = await import('@amcharts/amcharts5');
 		const am5map = await import('@amcharts/amcharts5/map');
+		if (document.getElementById('world-map') === null) return;
 		if (root === undefined) root = am5.Root.new('world-map');
 
 		let chart = root.container.children.push(

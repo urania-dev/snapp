@@ -19,7 +19,7 @@ import "$lib/server/oauth/config";
 
 // INIT DB
 const run_init_functions = async () => {
-  database;
+  database.ping()
   const settings = getServerSideSettings();
   const savedInDbMFA = await database.settings.get(ENABLED_MFA);
   const savedInDbTagsAsPrefix = await database.settings.get(TAGS_AS_PREFIX);
@@ -101,7 +101,6 @@ export const handle: Handle = async ({ event, resolve }) => {
       ...sessionCookie.attributes,
     });
   }
-
   if (
     settings.get<boolean>(ENABLED_MFA) && user &&
     user.setupTwoFactor === false && event.url.pathname !== "/auth/mfa/setup"
@@ -110,13 +109,14 @@ export const handle: Handle = async ({ event, resolve }) => {
   }
 
   if (
-    settings.get<boolean>(ENABLED_MFA) && user &&
-    user.setupTwoFactor === true && session &&
-    session.twoFactorVerified !== true && event.url.pathname !== "/auth/mfa"
+    settings.get<boolean>(ENABLED_MFA) &&
+    session && session.twoFactorVerified !== true &&
+    user && user.setupTwoFactor === true
+    && event.url.pathname !== "/auth/mfa"
+
   ) {
     redirect(302, "/auth/mfa");
   }
-
   event.locals.user = user;
   event.locals.session = session;
 

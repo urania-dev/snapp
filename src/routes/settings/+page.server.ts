@@ -70,7 +70,7 @@ export async function load({ locals: { user, session, theme }, fetch, url }) {
   const configPath = join(process.cwd(), "smtp.config.cjs");
   const smtpConfig = require(configPath) as (
     _database: typeof database,
-  ) => Promise<any>;
+  ) => Promise<{ host: string, port: number, auth: { user: string, pass: string }, secure: boolean }>;
   const smtp = await smtpConfig(database);
   return {
     user,
@@ -408,7 +408,7 @@ const code = async (theme: string) =>
     `const request = await fetch(\`api/\${endpoint}\`, {
     "headers": {
         "Authorization": \`Bearer \${token}\`
-    \}
+    }
 })`,
     {
       lang: "typescript",

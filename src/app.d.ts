@@ -1,3 +1,4 @@
+/* eslint-disable no-var */
 declare global {
   type Language = "it" | "en" | "es" | "ga";
   type MenuItem = {
@@ -71,4 +72,4 @@ declare global {
   type Tag = import("@prisma/client").Tag;
 }
 
-export {};
+export { };

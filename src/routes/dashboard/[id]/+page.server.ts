@@ -18,8 +18,7 @@ export const load = async (
   if (!id) redirect(302, "/dashboard");
 
   const settings = getServerSideSettings();
-  const TAP = settings.get(TAGS_AS_PREFIX);
-
+  const TAP = (settings.get<boolean>(TAGS_AS_PREFIX) || false);
   const startString = url.searchParams.get("start")?.toString() || undefined;
   const endString = url.searchParams.get("end")?.toString() || undefined;
   const [snapp, err] = await database.snapps.id(id);
@@ -89,13 +88,15 @@ export const actions = {
     if (!tagId) return fail(400, { message: "errors.generic" });
     if (tagAction === "connect") {
       await prisma.tag.update({
-        where: { id: tagId },
-        data: { snapps: { connect: { id } } },
-      });
+        where: { slug: tagId },
+        data: {
+          snapps: { connect: { id } }
+        }
+      })
     }
     if (tagAction === "disconnect") {
       await prisma.tag.update({
-        where: { id: tagId },
+        where: { slug: tagId },
         data: { snapps: { disconnect: { id } } },
       });
     }

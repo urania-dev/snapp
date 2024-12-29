@@ -47,7 +47,7 @@ import { delete_snapp } from "./snapps/delete";
 import { get_one_by_id } from "./users/get_one_by_id";
 import { get_one_snapp_by_id } from "./snapps/get_one_by_id";
 import { validate_otp } from "./users/validate_otp";
-import { update_two_factor_secret } from "./users/update_mfa";
+import { generate_two_factor_secret_only, update_two_factor_secret } from "./users/update_mfa";
 import { get_tags } from "./tags/get_tags";
 import { create_tag } from "./tags/create";
 import { edit_tag } from "./tags/edit";
@@ -58,6 +58,8 @@ export class Database {
   constructor() {
     this.init();
   }
+
+  ping = () => 'pong'
 
   // SETTINGS
   public settings = {
@@ -74,6 +76,7 @@ export class Database {
     authenticate: authenticate,
     validate_otp: validate_otp,
     update_two_factor_secret: update_two_factor_secret,
+    generate_two_factor_secret: generate_two_factor_secret_only,
     update: update_user,
     get: get_users,
     one: get_one,
@@ -129,7 +132,7 @@ export class Database {
     const admin_password = env.ADMIN_PASSWORD || "password";
     const admin_email = env.ADMIN_EMAIL || "admin@example.com";
 
-    const [user, error] = await this.users.create(
+    const [, error] = await this.users.create(
       admin_username.toLowerCase(),
       admin_email,
       admin_password,

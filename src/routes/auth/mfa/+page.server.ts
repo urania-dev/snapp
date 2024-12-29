@@ -8,9 +8,9 @@ import { getServerSideSettings } from "$lib/server/server-wide-settings/index.js
 import { ENABLED_MFA } from "$lib/utils/constants";
 import { getMFAThrottler } from "$lib/server/ratelimiter/mfa.throttler.js";
 import crypto from "node:crypto";
-export const load = async () => {
+export const load = async ({ locals: { session } }) => {
   const settings = getServerSideSettings();
-  if (settings.get(ENABLED_MFA) !== true) redirect(302, "/dashboard");
+  if (settings.get(ENABLED_MFA) !== true || session?.twoFactorVerified) redirect(302, "/dashboard");
 };
 
 const hashInput = (input: string): string => {

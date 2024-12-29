@@ -43,7 +43,7 @@ export const actions = {
       const configPath = join(process.cwd(), "smtp.config.cjs");
       const smtpConfig = require(configPath) as (
         _database: typeof database,
-      ) => Promise<any>;
+      ) => Promise<{ host: string, port: number, secure: boolean, auth: { [key: string]: string } }>;
       const smtp = await smtpConfig(database);
       const from = await database.settings.get(SMTP_FROM).then((res) =>
         res?.value

@@ -1,8 +1,6 @@
 import { prisma } from "$lib/server/prisma";
 import {
   ALLOW_UNSECURE_HTTP,
-  ENABLE_LIMITS,
-  MAX_SNAPPS_PER_USER,
   SNAPP_ORIGIN_URL_BLACKLISTED,
   SNAPP_ORIGIN_URL_REQUESTED,
   TAGS_AS_PREFIX,
@@ -20,11 +18,10 @@ export const edit_snapp = async (
 ) => {
   const is_admin = await database.users.is_admin(userId);
 
-  let {
+  const {
     id,
     original_url,
     userId: snappUserId,
-    shortcode,
     notes,
     secret,
     expiration,
@@ -32,6 +29,7 @@ export const edit_snapp = async (
     disabled,
     tags,
   } = snapp;
+  let shortcode = snapp.shortcode
   if (!is_admin && snappUserId !== userId) {
     return [null, UNAUTHORIZED] as [null, string];
   }
@@ -72,8 +70,8 @@ export const edit_snapp = async (
       parallelism: 1,
     })
     : secret === null
-    ? null
-    : undefined;
+      ? null
+      : undefined;
 
   const settings = getServerSideSettings();
   const isActiveTagsAsPrefix = settings.get<boolean>(TAGS_AS_PREFIX);
@@ -83,6 +81,12 @@ export const edit_snapp = async (
   if (isActiveTagsAsPrefix) {
     await prisma.snapp.update({ where: { id }, data: { tags: { set: [] } } });
   }
+  await prisma.snapp.update({
+    where: { id },
+    data: {
+      tags: { set: [] }
+    }
+  });
   const edit_snapp = await prisma.snapp.update({
     where: { id },
     data: {
