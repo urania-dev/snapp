@@ -9,8 +9,7 @@ const config = {
       precompress: true,
     }),
     csrf: {
-      checkOrigin: false,
-      // checkOrigin: process.env.NODE_ENV !== "development",
+      checkOrigin: process.env.NODE_ENV !== "development",
     },
     alias: {
       "$smtp": "./smtp.config.cjs",
