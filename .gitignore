@@ -10,6 +10,8 @@ node_modules
 /build
 /dbschema/sqlite/prisma/db.sqlite
 /dbschema/sqlite/prisma/db.sqlite-journal
+/maxmind
+/output
 
 # OS
 .DS_Store
