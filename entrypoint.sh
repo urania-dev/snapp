@@ -1,0 +1,44 @@
+#!/bin/sh
+
+: ${DATABASE_PROVIDER:="sqlite"}
+
+# Determine which schema to use
+case "$DATABASE_PROVIDER" in
+  "sqlite")
+    cp /app/zenstack/sqlite /app/node_modules/.zenstack -r
+    bunx prisma generate --schema dbschema/sqlite/prisma/schema.prisma
+    bunx prisma migrate deploy --schema dbschema/sqlite/prisma/schema.prisma
+    ;;
+  "mysql"|"mariadb")
+    echo "######## This Configuration require to regenerate Prisma Client"
+    cp /app/zenstack/mysql /app/node_modules/.zenstack -r
+    bunx prisma generate --schema dbschema/mysql/prisma/schema.prisma
+    bunx prisma migrate deploy --schema dbschema/mysql/prisma/schema.prisma
+    ;;
+  "postgres")
+    echo "######## This Configuration require to regenerate Prisma Client"
+    cp /app/zenstack/postgres /app/node_modules/.zenstack -r
+    bunx prisma generate --schema dbschema/postgres/prisma/schema.prisma
+    bunx prisma migrate deploy --schema dbschema/postgres/prisma/schema.prisma
+    ;;
+  *)
+    echo "Unsupported DATABASE_PROVIDER: $DATABASE_PROVIDER"
+    exit 1
+    ;;
+esac
+clear
+# Welcome message with formatting
+echo "-------------------------------------------"
+echo "             Welcome to Snapp!"
+echo "-------------------------------------------"
+echo ""
+echo "      Thank you for choosing this app."
+echo ""
+echo "      Have a great day and enjoy your"
+echo "            experience with us!"
+echo ""
+echo "-------------------------------------------"
+
+
+# Run the application
+exec "$@"

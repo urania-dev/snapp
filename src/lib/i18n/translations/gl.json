@@ -1,0 +1,367 @@
+{
+	"admin": {
+		"label": "Panel de Administración",
+		"labels": {
+			"watchlists": "Listas de observación",
+			"limits": "Límites da API REST",
+			"vt-api": "API de VirusTotal",
+			"smtp": "Servidor SMTP",
+			"smtp-host": "Servidor",
+			"smtp-pass": "Contrasinal",
+			"smtp-port": "Porto",
+			"smtp-user": "Usuario",
+			"smtp-from": "De",
+			"smtp-test": "Enviar correo de proba",
+			"rpd": "Solicitudes por día",
+			"rpm": "Solicitudes por minuto",
+			"SSL": "SSL",
+			"spu": "URLs por usuario",
+			"usernames": "Nomes de usuario",
+			"blacklist": "Entidades Bloqueadas",
+			"domains": "Dominios",
+			"emails": "Correo electrónico",
+			"whitelist": "Entidades na lista branca",
+			"add-whitelist": "Permitir entidade",
+			"add-blacklist": "Bloquear entidade"
+		},
+		"placeholders": {
+			"vt-api": "Introduza a súa chave VTAPI aquí...",
+			"smtp-pass": "Introduza a súa contrasinal SMTP aquí...",
+			"smtp-host": "Introduza o seu servidor SMTP aquí...",
+			"smtp-from": "Introduza o enderezo 'De' do seu SMTP aquí...",
+			"smtp-user": "Introduza o seu usuario SMTP aquí...",
+			"smtp-port": "Introduza o porto SMTP aquí...",
+			"filter-watchlist": "Filtrar entidades nesta lista..."
+		},
+		"helpers": {
+			"vt-api": "Insira a súa chave VT API aquí, pode rexistrarse e solicitala na súa páxina web principal.",
+			"smtp": "Aquí pode configurar e probar o seu transportador SMTP para enviar correos desde esta aplicación.",
+			"smtp-ssl": "Active esta opción se o seu transportador utiliza un protocolo SSL seguro.",
+			"rpd": "Solicitudes por día",
+			"rpm": "Solicitudes por minuto",
+			"spu": "URLs por usuario",
+			"watchlists": "Nesta sección pode establecer listas de observación para unha aplicación máis segura",
+			"add-blacklist": "Engadir á lista negra",
+			"add-whitelist": "Engadir á lista branca"
+		}
+	},
+	"appname": "Snapp",
+	"date-picker": {
+		"labels": {
+			"presets": "Predefinidos",
+			"select": "Selecciona o período"
+		},
+		"values": {
+			"last-week": "Últimos 7 días",
+			"last-2week": "Últimos 14 días",
+			"last-month": "Últimos 30 días",
+			"last-6month": "Últimos 6 meses",
+			"last-year": "Último ano"
+		}
+	},
+	"errors": {
+		"snapps": {
+			"not-found": "URL non atopada.",
+			"disabled": "Esta URL pode ter sido eliminada ou desactivada polo usuario, ou pode ter alcanzado un límite establecido. Se cre que é un erro, contacte co administrador."
+		},
+		"auth": {
+			"disabled-signups": "As rexistracións están desactivadas. Se cre que é un erro, contacte co administrador do servizo.",
+			"user-not-found": "Usuario non atopado."
+		},
+		"generic": "Erro non recoñecido, por favor inténtao de novo máis tarde."
+	},
+	"globals": {
+		"cancel": "Cancelar",
+		"confirm": "Confirmar",
+		"count": "Cantidade",
+		"download": "Descargar",
+		"close": "Pechar",
+		"copy": "Copiar",
+		"disabled": "Desactivado",
+		"continue": "Continuar",
+		"rearrange": "Reordenar",
+		"show": "Mostrar",
+		"remove-filters": "Eliminar Filtros",
+		"delete": "Eliminar",
+		"deleted": "Eliminado",
+		"sure-ask": "Está seguro?",
+		"total": "Total",
+		"save": "Gardar",
+		"saved": "A información foi gardada.",
+		"start": "Comezar",
+		"qrcode": "Código QR",
+		"end": "Final",
+		"loading": "Cargando",
+		"advanced": "Avanzado",
+		"active": "Activo",
+		"refresh": "Actualizar"
+	},
+	"homepage": {
+		"intro": "Unha solución <em>de código aberto e auto-aloxada</em> para almacenar e xestionar as túas URLs",
+		"hero": {
+			"headline": "Simplifica a xestión das túas URLs",
+			"subheadline": "Potencia a túa presenza en liña cun abreviador de URLs seguro e auto-aloxado."
+		},
+		"getting-started": {
+			"label": "Comezando",
+			"claim": "Snapp é unha plataforma de código aberto e auto-aloxable",
+			"docker": {
+				"label": "Utilizando contedor Docker",
+				"helper": "Utiliza este docker-compose.yml para executar o teu Snapp cunha configuración avanzada."
+			}
+		},
+		"features": {
+			"label": "Funcionalidades",
+			"umami": {
+				"label": "Integración con Umami",
+				"description": "Integra a túa instancia cun <a href={url} class=\"link\">Umami Analytics</a> auto-aloxado ou baseado na nube para obter métricas avanzadas das URLs."
+			},
+			"why": {
+				"labels": {
+					"ease": "Fácil de usar",
+					"why": "Por que esta plataforma?",
+					"secure": "Seguro",
+					"analytics": "Analíticas"
+				},
+				"helpers": {
+					"why": "Funcionalidades potentes e sinxelas para xestionar os teus enlaces.",
+					"ease": "Interface intuitiva deseñada para unha configuración rápida.",
+					"secure": "Protección avanzada para os teus enlaces.",
+					"analytics": "Comprende o rendemento dos teus enlaces a primeira vista."
+				},
+				"full-list": "Ver a lista completa de funcionalidades en Github"
+			}
+		},
+		"stack": "A Stack"
+	},
+	"menu": {
+		"metrics": "Métricas",
+		"settings": "Configuración",
+		"users": "Usuarios",
+		"tags": "Etiquetas",
+		"groups": "Grupos",
+		"home": "Inicio",
+		"dashboard": "Panel"
+	},
+	"metrics": {
+		"labels": {
+			"top-urls": "Os 10 máis vistos",
+			"os-distribution": "Os sistemas operativos máis usados",
+			"country-distribution": "Orixe xeográfica",
+			"browser-distribution": "Navegadores utilizados"
+		},
+		"fields": {
+			"os": "Sistema operativo",
+			"country": "País",
+			"city": "Cidade",
+			"region": "Rexión",
+			"browser": "Navegador"
+		}
+	},
+	"migrations": {
+		"label": "Migración",
+		"import": "Importar",
+		"export": "Exportar",
+		"helper": "Aquí pode importar e exportar as túas URLs dende a plataforma.",
+		"set-fields": {
+			"label": "Selecciona campos",
+			"helper": "Aquí pode seleccionar os campos do ficheiro importado para mapearos aos requiridos por esta plataforma para transferir as túas URLs."
+		},
+		"invalid-file": "A importación require un ficheiro CSV ou JSON válido",
+		"import-helper": "Esta ferramenta permite importar e xestionar facilmente URLs abreviadas doutras plataformas. Pode subir un ficheiro JSON ou CSV exportado da súa plataforma preferida e mapear os campos das súas URLs aos requiridos por esta plataforma para un servizo sen complicacións.",
+		"upload": "Subir ficheiro",
+		"labels": {
+			"check-fields": "Comprobar ficheiro"
+		},
+		"helpers": {
+			"found": "Atopadas: [ {count} ] URLs",
+			"required": "Os campos marcados son obrigatorios",
+			"user-overwrite": "Asignar todas as URLs ao mesmo usuario"
+		},
+		"exporting": "As túas URLs están a ser exportadas, por favor volva máis tarde",
+		"available-for-10-minutes": "Este ficheiro estará dispoñible durante dez minutos a partir da súa creación",
+		"select": {
+			"field": "Importados [ {count} ]",
+			"user": "Seleccionar usuario"
+		}
+	},
+	"settings": {
+		"label": {
+			"language": "Idioma",
+			"theme": "Tema",
+			"theme-dark": "Modo Escuro",
+			"theme-light": "Modo Claro",
+			"theme-system": "Por defecto do sistema",
+			"enable-limits": "Activar límites",
+			"enable-signup": "Activar rexistracións",
+			"disable-homepage": "Desactivar a páxina de inicio",
+			"allow-http": "Permitir HTTP non seguro"
+		},
+		"helpers": {
+			"signups": "Permitir rexistracións externas dende a interface.",
+			"homepage": "Redirixir os usuarios á páxina de inicio de sesión ou ao Panel.",
+			"limits": "Límites de taxa da API solicitados pola comunidade.",
+			"http": "Permitir URLs con HTTP en lugar de HTTPS."
+		}
+	},
+	"snapps": {
+		"fields": {
+			"hit": "Visitas",
+			"notes": "Notas",
+			"status": "Estado",
+			"original-url": "URL orixinal",
+			"shortcode": "Código curto",
+			"secret": "Secreto",
+			"used": "Usos",
+			"max-usages": "Usos máximos",
+			"created": "Creado",
+			"expiration": "Caducidade",
+			"has-secret": "Definir Secreto",
+			"has-expiration": "Establecer caducidade"
+		},
+		"helpers": {
+			"not-found": "Non se atopou a URL",
+			"secret": "Esta URL está protexida por un segredo",
+			"copied-to-clipboard": "Copiado ao seu portapapeis",
+			"disable-text-1": "Pausa esta URL. As métricas e o código curto conservaranse. O usuario recibirá unha mensaxe de que a URL non está dispoñible.",
+			"not-secret": "Esta é unha URL pública",
+			"not-max-usages": "Sen límite",
+			"original-url": "Isto debe ser un enlace válido <code>https://</code>",
+			"shortcode": "Isto xerase automaticamente se non se especifica",
+			"has-secret": "Especifique un segredo para protexer a URL contra accesos non autorizados",
+			"expiration": "Especifique unha data de caducidade para desactivar automaticamente a súa URL",
+			"max-usages": "Especifique un número limitado de usos para esta URL. Unha vez alcanzado o límite, a URL será desactivada",
+			"previous-expiration": "Esta URL xa ten caducidade establecida, expira {relativeTime}",
+			"previous-secret": "Esta URL xa ten un segredo establecido",
+			"provide-secret": "Por favor, proporcione o segredo para continuar",
+			"utm-params": "Pode configurar parámetros reutilizables, como etiquetas UTM, para engadilos automaticamente ás súas URLs, evitando erros manuais e garantindo datos analíticos máis precisos."
+		},
+		"label": "Lista de URLs",
+		"labels": {
+			"create": "Abreviar URL",
+			"open-link": "Abrir URL (nova xanela)",
+			"details": "Detalles da URL",
+			"utm-params": "Parámetros UTM",
+			"edit": "Editar",
+			"columns": "Columnas",
+			"utm": {
+				"key": "Clave",
+				"value": "Valor",
+				"name": "Nome"
+			}
+		},
+		"placeholders": {
+			"search": "Buscar URLs",
+			"original-url": "Cole a súa URL orixinal",
+			"shortcode": "Especifique un código curto personalizado",
+			"secret": "Especifique un segredo para protexer esta URL"
+		},
+		"actions": {
+			"confirm-delete": "Esta acción eliminará permanentemente a URL"
+		}
+	},
+	"tags": {
+		"labels": {
+			"create": "Crear unha etiqueta",
+			"name": "Nome da etiqueta",
+			"slug": "Slug",
+			"search": "Buscar por slug"
+		},
+		"placeholders": {
+			"search": "Buscar polo nome da etiqueta"
+		},
+		"helpers": {
+			"confirm-delete": "Isto eliminará a etiqueta e todas as relacións asociadas. As URLs permanecerán intactas."
+		}
+	},
+	"tokens": {
+		"label": "Token da API REST",
+		"not-allowed-to-copy": "O portapapeis do navegador require un ambiente seguro HTTPS.",
+		"helper": "Autorice as chamadas á API cun cabeceira de Autorización que contén o Token xerado. As claves da API son únicas e vinculadas á conta de usuario, compartindo os roles da base de datos.",
+		"fields": {
+			"key": "Token",
+			"created": "Creado"
+		},
+		"placeholder": "A súa clave API aparecerá aquí...",
+		"copied": "Token copiado ao portapapeis.",
+		"revoke": "Revogar Token",
+		"generate": "Xerar Token",
+		"api-docs": "Consulte a documentación completa da <a href=\"{url}\" class=\"link\">API</a> para obter detalles sobre o uso e a implementación."
+	},
+	"users": {
+		"labels": {
+			"mfa": "Autenticación de múltiples factores",
+			"profile": "Perfil do usuario",
+			"create": "Invitar usuario",
+			"list": "Lista de usuarios rexistrados"
+		},
+		"auth": {
+			"helpers": {
+				"recover-password": "Isto enviará un correo para restablecer a contrasinal desta conta.",
+				"send-email": "Enviar correo",
+				"reset-mfa-for-user": "Isto desconectará o perfil do autenticador actual. O usuario necesitará un novo código QR.",
+				"set-new-authenticator": "Configure un novo autenticador para esta conta.",
+				"only-once-mfa": "Isto só se require unha vez. Gardar a imaxe para reconectar a súa conta ao autenticador ou desvincularo do seu perfil.",
+				"verify-email": "Verifique o seu enderezo de correo para continuar a usar esta plataforma. Tamén se utiliza para restablecer a contrasinal.",
+				"forgot-password": "Introduza o seu correo para comezar o proceso de recuperación da contrasinal.",
+				"mfa": "Active a autenticación de dous factores cun contrasinal temporal (TOTP). Os usuarios rexistrarán un autenticador de súa elección para acceder á súa conta.",
+				"mfa-single": "Active a autenticación de dous factores cun contrasinal temporal (TOTP).",
+				"reset-mfa": "Isto desconectará o seu perfil do autenticador actual. Será necesario un novo código QR.",
+				"set-new-password": "Estableza unha contrasinal para a súa conta."
+			},
+			"reset-mfa": "Restablecer MFA",
+			"resend-verify-email": "Volver a enviar o correo de verificación",
+			"post-email-message": "Enviamos un correo ao enderezo proporcionado.",
+			"go-to-signin": "Xa ten unha conta? Vaia á <a class=\"link\" href=\"{url}\">páxina de inicio de sesión</a>.",
+			"go-to-signup": "Non ten unha conta? Rexístrese na <a class=\"link\" href=\"{url}\">páxina de rexistro</a>.",
+			"otp": "Código de uso único",
+			"recover-password": "Recuperar contrasinal",
+			"sign-in": "Iniciar sesión",
+			"sign-up": "Rexistrarse",
+			"forgot-password": "Esqueciches a túa contrasinal?"
+		},
+		"fields": {
+			"role": "Rol",
+			"created": "Rexistrado",
+			"updated": "Último acceso",
+			"username": "Nome de usuario",
+			"email": "Correo electrónico",
+			"password": "Contrasinal",
+			"confirm-password": "Confirmar contrasinal"
+		},
+		"roles": {
+			"user": "Usuario",
+			"admin": "Administrador",
+			"root": "Root"
+		},
+		"helpers": {
+			"admin": "Selecione o nivel de permisos do usuario.",
+			"invitation": "O usuario recibirá un correo de invitación para configurar a súa contrasinal.",
+			"password": "A contrasinal debe ter polo menos oito caracteres, incluíndo unha maiúscula, unha minúscula, un número e un carácter especial."
+		},
+		"groups": {
+			"labels": {
+				"create": "Crear Grupo",
+				"manage": "Xestionar",
+				"name": "Nome",
+				"urls": "URLs",
+				"members": "Membros",
+				"placeholder": "Buscar un grupo...",
+				"confirm-delete": "Esta acción eliminará o grupo seleccionado, pero as URLs e os usuarios permanecerán sen cambios.",
+				"member": "Membro",
+				"single": "Grupo"
+			},
+			"label": "Grupos",
+			"helpers": {
+				"confirm-delete": "Esta acción eliminará o grupo seleccionado, pero as URLs e os usuarios permanecerán sen cambios.",
+				"in-snapp": "Selecione un grupo no que facer visible esta URL"
+			}
+		},
+		"placeholders": {
+			"username": "Introduza o seu nome de usuario...",
+			"email": "Introduza o seu enderezo de correo...",
+			"password": "Introduza a súa contrasinal...",
+			"search": "Buscar por nome de usuario ou correo..."
+		}
+	}
+}

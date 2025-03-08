@@ -1,0 +1,279 @@
+// This is a sample model to get you started.
+
+/// A sample data source using local sqlite db.
+datasource db {
+    provider = "postgresql"
+    url = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+/// User model
+model User {
+    id        String    @id @default(cuid())
+    email     String    @unique @email @length(6, 32) @allow('all', auth().id == this.id || auth().role == 'admin' || auth().role == 'root')
+    username  String    @unique @length(3, 20)
+    password  String    @password @allow('all', auth().role == 'admin' || auth().role == 'root'||auth().id == this.id)
+    notes     String?   @allow('all', auth().role == 'admin' || auth().role == 'root')
+    role      String    @default("user") @allow('all', auth().role == 'admin' || auth().role == 'root')
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    tfs       String?   @allow('all', auth().id == this.id || auth().role == 'admin' || auth().role == 'root')
+    verified  Boolean   @default(false)
+
+    snapps    Snapp[] 
+    sessions  Session[] 
+    settings  Setting[] 
+    token     Token[] 
+    usages    Usage[] 
+    groups    Group[] @relation('membership')
+
+
+    @@allow("all", auth().id == this.id)
+    @@allow("all", auth().role == "admin"||auth().role == "root")
+
+    @@openapi.meta({
+        security: [ { bearer: [] } ],
+        tagDescription: 'Operations for managing users',
+    })
+
+    @@map("users")
+}
+
+model Session {
+    id        String   @id
+    userId    String
+    expiresAt DateTime
+    tfs       Boolean  @default(false)
+
+    user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+
+    @@allow("create", true)
+    @@allow("all", auth().id == user.id)
+    @@allow("all", auth().role == "admin"||auth().role == "root")
+
+    @@openapi.meta({
+        security: [ { bearer: [] } ],
+        tagDescription: 'Operations for managing users sessions',
+    })
+    @@map("sessions")
+}
+
+model PasswordReset {
+    tokenHash String   @unique
+    userId    String   @id
+    expiresAt DateTime
+
+    @@allow("create,read", true)
+    @@allow("all", auth().id == userId)
+    @@allow("all", auth().role == "admin"||auth().role == "root")
+
+    @@openapi.meta({
+        security: [ { bearer: [] } ],
+        tagDescription: 'Operations for managing password resets',
+    })
+    @@map("passwordresets")
+}
+
+
+model Setting {
+    id      String   @id @unique @default(cuid())
+    field   String   @length(1, 256)
+    value   String   @length(1, 256)
+    userId  String?
+    user    User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    created DateTime @default(now())
+
+    @@allow("read", userId == null )
+    @@allow("all", auth().role == "admin"||auth().role == "root"||auth().id == userId)
+
+    @@index([field])
+    @@index([field, userId])
+    @@index([userId])
+
+    @@openapi.meta({
+        security: [ { bearer: [] } ],
+        tagDescription: 'Operations for managing global and user settings',
+    })
+    @@map("settings")
+}
+
+model Token {
+    key       String   @id
+    userId    String
+    createdAt DateTime @default(now())
+    user      User     @relation(fields: [userId], references: [id], onDelete:Cascade)
+
+    @@allow("all", auth().id == userId)
+    @@allow("all", auth().role == "admin"||auth().role == "root")
+
+    @@openapi.meta({
+        security: [ { bearer: [] } ],
+        tagDescription: 'Operations for managing api token',
+    })
+    @@map("token")
+}
+
+
+model Snapp {
+    id          String    @id @default(cuid())
+    shortcode   String    @unique
+    originalUrl String    @url
+
+    createdAt   DateTime  @default(now())
+    expiresAt   DateTime?
+
+    disabled    Boolean   @default(false)
+
+    userId      String
+    groupId     String?
+
+    utmParams   String?   @default("[]")
+
+    secret      String?
+    maxUsages   Int       @default(-1)
+    hit         Int       @default(0)
+    used        Int       @default(0)
+    notes       String?   @allow('all', auth().id == userId || auth().role == 'admin' || auth().role == 'root')
+
+    tag         Tag[]     @relation("snapptags")
+    usages      Usage[]
+    user        User      @relation(fields: [userId], references: [id])
+    group       Group?    @relation("publishedOnGroup", fields: [groupId], references: [slug])
+
+    @@allow("read", auth() != null || auth() == null && !disabled || group.users?[id==auth().id] && !disabled)
+
+    @@allow("all", user.id == auth().id)
+    @@allow("all", auth().role == "admin"||auth().role == "root")
+
+
+    @@openapi.meta({
+        security: [ { bearer: [] } ],
+        tagDescription: 'Operations for managing short urls',
+    })
+    @@map("snapps")
+}
+
+model Usage {
+    id        Int      @id @default(autoincrement())
+    timestamp DateTime @default(now())
+    snappId   String
+    ownerId   String
+
+    language  String?
+    userAgent String?
+    referrer  String?
+    device    String?
+    country   String?
+    region    String?
+    city      String?
+    os        String?
+    browser   String?
+    cpu       String?
+
+    user      User     @relation(fields: [ownerId], references: [id], onDelete:Cascade)
+    snapp     Snapp    @relation(fields: [snappId], references: [id], onDelete:Cascade)
+
+    @@allow("all", ownerId == auth().id)
+    @@allow("all", auth().role == "admin"||auth().role == "root")
+
+    @@openapi.meta({
+        security: [ { bearer: [] } ],
+        tagDescription: 'Operations for managing metrics about snapps',
+    })
+
+    @@map('usages')
+}
+
+model Tag {
+    name   String  @id @unique @length(3, 256)
+    slug   String  @unique
+    notes  String?
+    snapps Snapp[] @relation("snapptags")
+
+    @@allow('all',auth()!=null)
+    @@allow('read',true)
+    @@allow("all", auth().role == "admin"||auth().role == "root")
+
+
+    @@openapi.meta({
+        security: [ { bearer: [] } ],
+        tagDescription: 'Operations for managing tags',
+    })
+
+    @@map('tags')
+}
+
+model Group {
+    name   String  @unique @length(3, 256)
+    slug   String  @unique @id
+    notes  String?
+    users  User[] @relation('membership')
+    snapps Snapp[] @relation("publishedOnGroup")
+
+    @@allow('read', users?[id==auth().id])
+    @@allow("all", auth().role == "admin"||auth().role == "root")
+
+
+    @@openapi.meta({
+        security: [ { bearer: [] } ],
+        tagDescription: 'Operations for managing tags',
+    })
+
+    @@map('groups')
+}
+
+model VtApiCache {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    domain    String   @unique
+    result    String
+
+    @@allow("all", auth() != null)
+
+    @@openapi.meta({
+        security: [ { bearer: [] } ],
+        tagDescription: 'Operations for managing VirusTotal API Cached results',
+    })
+    @@map("vtapicaches")
+}
+
+model WatchList {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    username  String?
+    domain    String?
+    allowed   Boolean
+
+    @@allow("read", true)
+    @@allow("all", auth().role == "admin" || auth().role == "root")
+
+
+    @@openapi.meta({
+        security: [ { bearer: [] } ],
+        tagDescription: 'Operations for managing bans on names or domains',
+    })
+    @@map("watchlists")
+}
+
+plugin openapi {
+    provider = "@zenstackhq/openapi"
+    output = "../../static/openapi.yaml"
+    title = "Snapp"
+    version = "0.9-rc"
+    prefix='/api'
+    securitySchemes = {
+        bearer: { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
+    }
+}
+
+plugin zod {
+    provider = '@core/zod'
+}
+
+plugin enhancer {
+    provider = '@core/enhancer'
+    generatePermissionChecker = true
+}

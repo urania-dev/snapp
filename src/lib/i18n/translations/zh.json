@@ -1,0 +1,367 @@
+{
+	"admin": {
+	"label": "管理员面板",
+	"labels": {
+		"watchlists": "监视列表",
+		"limits": "REST API 限制",
+		"vt-api": "VirusTotal API",
+		"smtp": "SMTP 服务器",
+		"smtp-host": "服务器",
+		"smtp-pass": "密码",
+		"smtp-port": "端口",
+		"smtp-user": "用户",
+		"smtp-from": "发件人",
+		"smtp-test": "发送测试邮件",
+		"rpd": "每日请求数",
+		"rpm": "每分钟请求数",
+		"SSL": "SSL",
+		"spu": "每用户网址数",
+		"usernames": "用户名",
+		"blacklist": "已封锁实体",
+		"domains": "域名",
+		"emails": "电子邮件",
+		"whitelist": "白名单实体",
+		"add-whitelist": "允许实体",
+		"add-blacklist": "封锁实体"
+	},
+	"placeholders": {
+		"vt-api": "在此输入您的 VTAPI 密钥...",
+		"smtp-pass": "在此输入您的 SMTP 密码...",
+		"smtp-host": "在此输入您的 SMTP 主机...",
+		"smtp-from": "在此输入您的 SMTP 发件地址...",
+		"smtp-user": "在此输入您的 SMTP 用户...",
+		"smtp-port": "在此输入您的 SMTP 端口...",
+		"filter-watchlist": "筛选此列表中的实体..."
+	},
+	"helpers": {
+		"vt-api": "在此输入您的 VT API 密钥，您可以在他们的官方网站注册并申请一个。",
+		"smtp": "在此配置和测试您的 SMTP 传输器，以便从此应用程序发送邮件。",
+		"smtp-ssl": "如果您的传输器使用安全的 SSL 协议，请启用此选项。",
+		"rpd": "每日请求数量",
+		"rpm": "每分钟请求数量",
+		"spu": "每位用户的网址数量",
+		"watchlists": "在此部分，您可以设置监视列表，以提高应用程序的安全性。",
+		"add-blacklist": "添加到黑名单",
+		"add-whitelist": "添加到白名单"
+	}
+},
+"appname": "Snapp",
+"date-picker": {
+	"labels": {
+		"presets": "预设",
+		"select": "选择时间段"
+	},
+	"values": {
+		"last-week": "过去 7 天",
+		"last-2week": "过去 14 天",
+		"last-month": "过去 30 天",
+		"last-6month": "过去 6 个月",
+		"last-year": "过去 1 年"
+	}
+},
+"errors": {
+	"snapps": {
+		"not-found": "未找到 URL。",
+		"disabled": "该 URL 可能已被用户删除或禁用，或者已达到设定的阈值。如果您认为这是一个错误，请联系管理员。"
+	},
+	"auth": {
+		"disabled-signups": "注册已被禁用。如果您认为这是一个错误，请联系服务管理员。",
+		"user-not-found": "未找到用户。"
+	},
+	"generic": "未知错误，请稍后再试。"
+},
+"globals": {
+	"cancel": "取消",
+	"confirm": "确认",
+	"count": "数量",
+	"download": "下载",
+	"close": "关闭",
+	"copy": "复制",
+	"disabled": "已禁用",
+	"continue": "继续",
+	"rearrange": "重新排列",
+	"show": "显示",
+	"remove-filters": "移除筛选",
+	"delete": "删除",
+	"deleted": "已删除",
+	"sure-ask": "您确定吗？",
+	"total": "总计",
+	"save": "保存",
+	"saved": "信息已保存。",
+	"start": "开始",
+	"qrcode": "二维码",
+	"end": "结束",
+	"loading": "加载中",
+	"advanced": "高级",
+	"active": "激活",
+	"refresh": "刷新"
+},
+"homepage": {
+	"intro": "一个<em>开源且可自托管</em>的解决方案，用于存储和管理您的 URL",
+	"hero": {
+		"headline": "简化您的 URL 管理",
+		"subheadline": "使用安全、可自托管的短链接平台，提升您的在线影响力。"
+	},
+	"getting-started": {
+		"label": "快速开始",
+		"claim": "Snapp 是一个可自托管的开源平台",
+		"docker": {
+			"label": "使用 Docker 容器",
+			"helper": "使用此 docker-compose.yml 运行 Snapp，并进行高级配置。"
+		}
+	},
+	"features": {
+		"label": "功能",
+		"umami": {
+			"label": "Umami 集成",
+			"description": "将您的实例与自托管或云端的 <a href={url} class=\"link\">Umami Analytics</a> 集成，实现高级 URL 统计分析。"
+		},
+		"why": {
+			"labels": {
+				"ease": "易于使用",
+				"why": "为什么选择这个平台？",
+				"secure": "安全",
+				"analytics": "分析"
+			},
+			"helpers": {
+				"why": "强大而简单的功能，助您管理链接。",
+				"ease": "直观的界面，快速设置。",
+				"secure": "为您的链接提供高级保护。",
+				"analytics": "轻松了解链接表现。"
+			},
+			"full-list": "在 Github 上查看完整功能列表"
+		}
+	},
+	"stack": "技术栈"
+},
+"menu": {
+	"metrics": "数据统计",
+	"settings": "设置",
+	"users": "用户",
+	"tags": "标签",
+	"groups": "分组",
+	"home": "主页",
+	"dashboard": "仪表盘"
+},
+"metrics": {
+	"labels": {
+		"top-urls": "浏览量最高的十个链接",
+		"os-distribution": "最常使用的操作系统",
+		"country-distribution": "访问来源国家",
+		"browser-distribution": "使用的浏览器"
+	},
+	"fields": {
+		"os": "操作系统",
+		"country": "国家",
+		"city": "城市",
+		"region": "地区",
+		"browser": "浏览器"
+	}
+},
+"migrations": {
+	"label": "数据迁移",
+	"import": "导入",
+	"export": "导出",
+	"helper": "在此，您可以导入和导出您的 URL。",
+	"set-fields": {
+		"label": "选择字段",
+		"helper": "您可以选择从导入文件中提取的字段，并将其映射到本平台所需的字段，以完成 URL 迁移。"
+	},
+	"invalid-file": "导入时需要有效的 CSV 或 JSON 文件",
+	"import-helper": "此工具可帮助您轻松导入和管理其他平台的短链接。您可以上传从其他平台导出的 JSON 或 CSV 文件，并将 URL 字段映射到本平台所需的字段，实现无缝迁移。",
+	"upload": "上传文件",
+	"labels": {
+		"check-fields": "检查文件"
+	},
+	"helpers": {
+		"found": "已找到：[ {count} ] 个 URL",
+		"required": "标记的字段为必填项",
+		"user-overwrite": "将所有 URL 归属于同一用户"
+	},
+	"exporting": "您的 URL 正在导出，请稍后查看",
+	"available-for-10-minutes": "该文件将在创建后十分钟内可用",
+	"select": {
+		"field": "已导入 [ {count} ]",
+		"user": "选择用户"
+	}
+},
+"settings": {
+	"label": {
+		"language": "语言",
+		"theme": "主题",
+		"theme-dark": "深色模式",
+		"theme-light": "浅色模式",
+		"theme-system": "系统默认",
+		"enable-limits": "启用限制",
+		"enable-signup": "允许注册",
+		"disable-homepage": "禁用主页",
+		"allow-http": "允许不安全的 HTTP"
+	},
+	"helpers": {
+		"signups": "允许用户从前端自行注册。",
+		"homepage": "将用户重定向到登录页或仪表盘。",
+		"limits": "根据社区需求设置 API 速率限制。",
+		"http": "允许 HTTP 链接，而不仅限于 HTTPS。"
+	}
+},
+"snapps": {
+	"fields": {
+		"hit": "访问次数",
+		"notes": "备注",
+		"status": "状态",
+		"original-url": "原始 URL",
+		"shortcode": "短码",
+		"secret": "密钥",
+		"used": "已使用",
+		"max-usages": "最大使用次数",
+		"created": "创建时间",
+		"expiration": "到期时间",
+		"has-secret": "设置密钥",
+		"has-expiration": "设置到期时间"
+	},
+	"helpers": {
+		"not-found": "未找到该 URL",
+		"secret": "此 URL 受密钥保护",
+		"copied-to-clipboard": "已复制到剪贴板",
+		"disable-text-1": "暂停此 URL。指标和短码将被保留，用户将收到 URL 不可用的消息。",
+		"not-secret": "此为公开 URL",
+		"not-max-usages": "无限制",
+		"original-url": "必须是有效链接，例如 <code>https://</code>",
+		"shortcode": "如果未指定，将自动生成",
+		"has-secret": "设置密钥以防止未经授权的访问",
+		"expiration": "设置到期日期，到期后 URL 将自动禁用",
+		"max-usages": "设置此 URL 的最大使用次数，达到限制后 URL 将被禁用",
+		"previous-expiration": "此 URL 已设定到期时间，将于 {relativeTime} 过期",
+		"previous-secret": "此 URL 已设置密钥",
+		"provide-secret": "请提供密钥以继续",
+		"utm-params": "您可以设置可重复使用的参数，如 UTM 标签，以自动附加到 URL，避免手动错误，并确保更精确的分析数据。"
+	},
+	"label": "URL 列表",
+	"labels": {
+		"create": "缩短 URL",
+		"open-link": "打开 URL（新窗口）",
+		"details": "URL 详情",
+		"utm-params": "UTM 参数",
+		"edit": "编辑",
+		"columns": "列",
+		"utm": {
+			"key": "键",
+			"value": "值",
+			"name": "名称"
+		}
+	},
+	"placeholders": {
+		"search": "搜索 URL",
+		"original-url": "粘贴您的原始 URL",
+		"shortcode": "指定自定义短码",
+		"secret": "设置密钥以保护此 URL"
+	},
+	"actions": {
+		"confirm-delete": "此操作将永久删除该 URL"
+	}
+},
+"tags": {
+	"labels": {
+		"create": "创建标签",
+		"name": "标签名称",
+		"slug": "Slug",
+		"search": "按 Slug 搜索"
+	},
+	"placeholders": {
+		"search": "按标签名称搜索"
+	},
+	"helpers": {
+		"confirm-delete": "这将删除该标签及其所有关联关系。URL 仍将保持不变。"
+	}
+},
+"tokens": {
+	"label": "REST API 令牌",
+	"not-allowed-to-copy": "浏览器剪贴板需要安全的 HTTPS 环境。",
+	"helper": "使用 Authorization 头包含生成的令牌来授权 API 调用。API 密钥是唯一的，并与用户账户绑定，共享数据库角色。",
+	"fields": {
+		"key": "令牌",
+		"created": "创建时间"
+	},
+	"placeholder": "您的 API 密钥将在此处显示...",
+	"copied": "令牌已复制到剪贴板。",
+	"revoke": "撤销令牌",
+	"generate": "生成令牌",
+	"api-docs": "查看完整的 <a href=\"{url}\" class=\"link\">API 文档</a>，了解详细的使用和实现信息。"
+},
+"users": {
+	"labels": {
+		"mfa": "多因素身份验证",
+		"profile": "用户资料",
+		"create": "邀请用户",
+		"list": "注册用户列表"
+	},
+	"auth": {
+		"helpers": {
+			"recover-password": "这将向该账户发送密码重置电子邮件。",
+			"send-email": "发送电子邮件",
+			"reset-mfa-for-user": "这将使该账户与当前的身份验证器断开连接。用户需要扫描新的二维码。",
+			"set-new-authenticator": "为该账户设置新的身份验证器。",
+			"only-once-mfa": "此操作仅需执行一次。保存图像以便重新连接您的账户到身份验证器，或将其从您的账户解除绑定。",
+			"verify-email": "请验证您的电子邮件地址，以继续使用该平台。它也用于密码重置。",
+			"forgot-password": "请输入您的电子邮件以开始密码恢复流程。",
+			"mfa": "使用基于时间的一次性密码 (TOTP) 启用双因素身份验证。用户可以注册其首选的身份验证器以访问其账户。",
+			"mfa-single": "使用基于时间的一次性密码 (TOTP) 启用双因素身份验证。",
+			"reset-mfa": "这将使您的账户与当前的身份验证器断开连接。用户需要扫描新的二维码。",
+			"set-new-password": "为您的账户设置新密码。"
+		},
+		"reset-mfa": "重置 MFA",
+		"resend-verify-email": "重新发送验证邮件",
+		"post-email-message": "我们已向提供的地址发送了一封电子邮件。",
+		"go-to-signin": "已有账户？前往 <a class=\"link\" href=\"{url}\">登录页面</a>。",
+		"go-to-signup": "没有账户？前往 <a class=\"link\" href=\"{url}\">注册页面</a>。",
+		"otp": "一次性验证码",
+		"recover-password": "恢复密码",
+		"sign-in": "登录",
+		"sign-up": "注册",
+		"forgot-password": "忘记密码？"
+	},
+	"fields": {
+		"role": "角色",
+		"created": "注册时间",
+		"updated": "上次登录",
+		"username": "用户名",
+		"email": "电子邮件",
+		"password": "密码",
+		"confirm-password": "确认密码"
+	},
+	"roles": {
+		"user": "用户",
+		"admin": "管理员",
+		"root": "超级管理员"
+	},
+	"helpers": {
+		"admin": "选择用户的权限级别。",
+		"invitation": "用户将收到一封邀请邮件来设置其密码。",
+		"password": "密码必须至少包含 8 个字符，包括至少一个大写字母、一个小写字母、一个数字和一个特殊字符。"
+	},
+	"groups": {
+		"labels": {
+			"create": "创建群组",
+			"manage": "管理",
+			"name": "名称",
+			"urls": "URLs",
+			"members": "成员",
+			"placeholder": "搜索群组...",
+			"confirm-delete": "此操作将删除所选群组，但 URLs 和用户不会受到影响。",
+			"member": "成员",
+			"single": "群组"
+		},
+		"label": "群组",
+		"helpers": {
+			"confirm-delete": "此操作将删除所选群组，但 URLs 和用户不会受到影响。",
+			"in-snapp": "选择一个群组，以便在其中使此 URL 可见。"
+		}
+	},
+	"placeholders": {
+		"username": "输入您的用户名...",
+		"email": "输入您的电子邮件地址...",
+		"password": "输入您的密码...",
+		"search": "按用户名或电子邮件搜索..."
+	}
+}
+}

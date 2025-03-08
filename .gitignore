@@ -1,0 +1,26 @@
+node_modules
+
+# Output
+.output
+.vercel
+.netlify
+.dockerignore
+.wrangler
+/.svelte-kit
+/build
+/dbschema/sqlite/prisma/db.sqlite
+/dbschema/sqlite/prisma/db.sqlite-journal
+
+# OS
+.DS_Store
+Thumbs.db
+# Env
+.env
+.env.*
+!.env.example
+!.env.test
+image.tar.gz
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*

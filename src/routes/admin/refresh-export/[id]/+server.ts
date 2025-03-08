@@ -1,0 +1,22 @@
+import { error, json } from '@sveltejs/kit';
+import { log } from '$lib/server/log';
+import { existsSync, unlinkSync } from 'fs';
+import path from 'path';
+
+export const GET = async ({ fetch, locals: { user }, params: { id } }) => {
+	if (!user || (user.id !== id && user.role === 'user')) {
+		throw error(401, { message: 'errors.unauthorized' });
+	}
+
+	const csvDir = path.resolve('output');
+	const csvPath = path.join(csvDir, `${id}.csv`);
+
+	if (existsSync(csvPath)) {
+		if (process.env.LOG_LEVEL === 'debug') log.info('CSV exist.');
+		unlinkSync(csvPath);
+	}
+
+	await fetch('/admin/check-export/' + id);
+
+	return json({ success: true });
+};

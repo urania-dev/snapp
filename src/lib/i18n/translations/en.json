@@ -1,0 +1,367 @@
+{
+	"admin": {
+		"label": "Admin Panel",
+		"labels": {
+			"watchlists": "Watchlists",
+			"limits": "REST API Limits",
+			"vt-api": "VirusTotal API",
+			"smtp": "SMTP Server",
+			"smtp-host": "Server",
+			"smtp-pass": "Password",
+			"smtp-port": "Port",
+			"smtp-user": "User",
+			"smtp-from": "From",
+			"smtp-test": "Send test email",
+			"rpd": "Requests per Day",
+			"rpm": "Requests per Minute",
+			"SSL": "SSL",
+			"spu": "URLs per User",
+			"usernames": "Usernames",
+			"blacklist": "Blocked Entities",
+			"domains": "Domains",
+			"emails": "Email",
+			"whitelist": "Whitelisted Entities",
+			"add-whitelist": "Allow Entity",
+			"add-blacklist": "Block Entity"
+		},
+		"placeholders": {
+			"vt-api": "Enter your VTAPI key here...",
+			"smtp-pass": "Enter your SMTP password here...",
+			"smtp-host": "Enter your SMTP host here...",
+			"smtp-from": "Enter your SMTP 'From' address here...",
+			"smtp-user": "Enter your SMTP user here...",
+			"smtp-port": "Enter your SMTP port here...",
+			"filter-watchlist": "Filter entities in this list..."
+		},
+		"helpers": {
+			"vt-api": "Insert your VT Api key here, you can signup and request one on their main website.",
+			"smtp": "Here you can configure and test your SMTP transporter to send mails from this app.",
+			"smtp-ssl": "Enable this option if your transporter use a secure SSL protocol.",
+			"rpd": "Request per Day",
+			"rpm": "Request per Minute",
+			"spu": "URLs per User",
+			"watchlists": "In this section you can set watchlists for a safer app",
+			"add-blacklist": "Add to Blacklist",
+			"add-whitelist": "Add to Whitelist"
+		}
+	},
+	"appname": "Snapp",
+	"date-picker": {
+		"labels": {
+			"presets": "Presets",
+			"select": "Select period"
+		},
+		"values": {
+			"last-week": "Last 7 days",
+			"last-2week": "Last 14 days",
+			"last-month": "Last 30 days",
+			"last-6month": "Last 6 months",
+			"last-year": "Last year"
+		}
+	},
+	"errors": {
+		"snapps": {
+			"not-found": "URL not found.",
+			"disabled": "This URL may have been deleted or disabled by the user, or it may have reached a set threshold. If you believe this is an error, please contact the administrator."
+		},
+		"auth": {
+			"disabled-signups": "Registrations are disabled. If you believe this is an error, please contact the service administrator.",
+			"user-not-found": "User not found."
+		},
+		"generic": "Unrecognized Error, please try again later."
+	},
+	"globals": {
+		"cancel": "Cancel",
+		"confirm": "Confirm",
+		"count": "Qty",
+		"download": "Download",
+		"close": "Close",
+		"copy": "Copy",
+		"disabled": "Disabled",
+		"continue": "Continue",
+		"rearrange": "Rearrange",
+		"show": "Show",
+		"remove-filters": "Remove Filters",
+		"delete": "Delete",
+		"deleted": "Deleted",
+		"sure-ask": "Are you sure?",
+		"total": "Total",
+		"save": "Save",
+		"saved": "The information has been saved.",
+		"start": "Start",
+		"qrcode": "QR Code",
+		"end": "End",
+		"loading": "Loading",
+		"advanced": "Advanced",
+		"active": "Active",
+		"refresh": "Refresh"
+	},
+	"homepage": {
+		"intro": "An <em>open-source and self-hosted</em> solution for storing and managing your URLs",
+		"hero": {
+			"headline": "Simplify Your URL Management",
+			"subheadline": "Empower your online presence with a secure, self-hosted URL shortener."
+		},
+		"getting-started": {
+			"label": "Getting started",
+			"claim": "Snapp is a self-hostable open source platform",
+			"docker": {
+				"label": "Using Docker Container",
+				"helper": "Use this docker-compose.yml to run your Snapp with advanced configuration."
+			}
+		},
+		"features": {
+			"label": "Features",
+			"umami": {
+				"label": "Umami Integration",
+				"description": "Integrate your instance with self-hosted or cloud-based <a href={url} class=\"link\">Umami Analytics</a> for advanced URL metrics."
+			},
+			"why": {
+				"labels": {
+					"ease": "Easy-to-Use",
+					"why": "Why this platform?",
+					"secure": "Secure",
+					"analytics": "Analytics"
+				},
+				"helpers": {
+					"why": "Powerful and simple features to manage your links.",
+					"ease": "Intuitive interface designed for quick setup.",
+					"secure": "Advanced protection for your links.",
+					"analytics": "Understand your link performance at a glance."
+				},
+				"full-list": "Read full list of features on Github"
+			}
+		},
+		"stack": "The Stack"
+	},
+	"menu": {
+		"metrics": "Metrics",
+		"settings": "Settings",
+		"users": "Users",
+		"tags": "Tags",
+		"groups": "Groups",
+		"home": "Home",
+		"dashboard": "Dashboard"
+	},
+	"metrics": {
+		"labels": {
+			"top-urls": "Top Ten Most Viewed",
+			"os-distribution": "Most Used Operating Systems",
+			"country-distribution": "Geographical Origin",
+			"browser-distribution": "Browsers Used"
+		},
+		"fields": {
+			"os": "Operating System",
+			"country": "Country",
+			"city": "City",
+			"region": "Region",
+			"browser": "Browser"
+		}
+	},
+	"migrations": {
+		"label": "Migration",
+		"import": "Import",
+		"export": "Export",
+		"helper": "Here you can import and export your URLs from the platform.",
+		"set-fields": {
+			"label": "Select fields",
+			"helper": "Here you can select the fields from your imported file to map them to those required by this platform to transfer your URLs"
+		},
+		"invalid-file": "The import requires a valid CSV or JSON file",
+		"import-helper": "This tool allows you to easily import and manage short URLs from other platforms. You can upload a JSON or CSV file exported from your preferred platform and map your URL fields to those required by this platform for a seamless service.",
+		"upload": "Upload file",
+		"labels": {
+			"check-fields": "Check file"
+		},
+		"helpers": {
+			"found": "Found: [ {count} ] URLs",
+			"required": "The marked fields are required",
+			"user-overwrite": "Assign all URLs to the same user"
+		},
+		"exporting": "Your URLs are being exported, please check back later",
+		"available-for-10-minutes": "This file will be available for ten minutes from the time of creation",
+		"select": {
+			"field": "Imported [ {count} ]",
+			"user": "Select User"
+		}
+	},
+	"settings": {
+		"label": {
+			"language": "Language",
+			"theme": "Theme",
+			"theme-dark": "Dark Mode",
+			"theme-light": "Light Mode",
+			"theme-system": "System Default",
+			"enable-limits": "Enable Limits",
+			"enable-signup": "Enable Signups",
+			"disable-homepage": "Disable Homepage",
+			"allow-http": "Allow Insecure HTTP"
+		},
+		"helpers": {
+			"signups": "Allow external signups from the front-end.",
+			"homepage": "Redirect users to the login page or Dashboard.",
+			"limits": "API rate limits as requested by the community.",
+			"http": "Allow URLs with HTTP instead of HTTPS."
+		}
+	},
+	"snapps": {
+		"fields": {
+			"hit": "Visits",
+			"notes": "Notes",
+			"status": "Status",
+			"original-url": "Original URL",
+			"shortcode": "Shortcode",
+			"secret": "Secret",
+			"used": "Uses",
+			"max-usages": "Maximum Uses",
+			"created": "Created",
+			"expiration": "Expiry",
+			"has-secret": "Set Secret",
+			"has-expiration": "Set Expiry"
+		},
+		"helpers": {
+			"not-found": "The URL was not found",
+			"secret": "This URL is protected by a secret",
+			"copied-to-clipboard": "Copied to your clipboard",
+			"disable-text-1": "Pause this URL. Metrics and the shortcode will be preserved. The user will receive a message that the URL is not available.",
+			"not-secret": "This is a public URL",
+			"not-max-usages": "No Limit",
+			"original-url": "This must be a valid link <code>https://</code>",
+			"shortcode": "This will be generated automatically if not specified",
+			"has-secret": "Specify a secret to protect the URL from unauthorised access",
+			"expiration": "Specify an expiry date to automatically disable your URL",
+			"max-usages": "Specify a limited number of uses for this URL. Once the limit is reached, the URL will be disabled",
+			"previous-expiration": "This URL already has an expiry set, it expires {relativeTime}",
+			"previous-secret": "This URL already has a secret set",
+			"provide-secret": "Please provide the secret to continue",
+			"utm-params": "You can set up reusable parameters, such as UTM tags, to automatically append to your URLs, avoiding manual errors and ensuring more accurate analytics data."
+		},
+		"label": "URL List",
+		"labels": {
+			"create": "Shorten URL",
+			"open-link": "Open URL (new window)",
+			"details": "URL Details",
+			"utm-params": "UTM Parameters",
+			"edit": "Edit",
+			"columns": "Columns",
+			"utm": {
+				"key": "Key",
+				"value": "Value",
+				"name": "Name"
+			}
+		},
+		"placeholders": {
+			"search": "Search URLs",
+			"original-url": "Paste your original URL",
+			"shortcode": "Specify a custom shortcode",
+			"secret": "Specify a secret to protect this URL"
+		},
+		"actions": {
+			"confirm-delete": "This action will permanently delete the URL"
+		}
+	},
+	"tags": {
+		"labels": {
+			"create": "Create a tag",
+			"name": "Tag name",
+			"slug": "Slug",
+			"search": "Search by slug"
+		},
+		"placeholders": {
+			"search": "Search by tag name"
+		},
+		"helpers": {
+			"confirm-delete": "This will delete the tag and all associated relationships. URLs will remain intact"
+		}
+	},
+	"tokens": {
+		"label": "REST API Token",
+		"not-allowed-to-copy": "The browser clipboard requires a secure HTTPS environment.",
+		"helper": "Authorise API calls with an Authorization header containing the generated Token. API keys are unique and tied to the user account, sharing the database roles.",
+		"fields": {
+			"key": "Token",
+			"created": "Created"
+		},
+		"placeholder": "Your API key will appear here...",
+		"copied": "Token copied to clipboard.",
+		"revoke": "Revoke Token",
+		"generate": "Generate Token",
+		"api-docs": "Check the complete <a href=\"{url}\" class=\"link\">API documentation</a> for details on usage and implementation."
+	},
+	"users": {
+		"labels": {
+			"mfa": "Multi-Factor Authentication",
+			"profile": "User Profile",
+			"create": "Invite User",
+			"list": "Registered Users List"
+		},
+		"auth": {
+			"helpers": {
+				"recover-password": "This will send a password reset email to this account.",
+				"send-email": "Send email",
+				"reset-mfa-for-user": "This will disconnect the profile from the current authenticator. A new QR code will be required from the user.",
+				"set-new-authenticator": "Set a new authenticator for this account.",
+				"only-once-mfa": "This will only be required once. Save the image to reconnect your account to the authenticator or to unlink it from your profile.",
+				"verify-email": "Verify your email address to continue using this platform. It is also used for password resets.",
+				"forgot-password": "Enter your email to start the password recovery process.",
+				"mfa": "Enable two-factor authentication with a time-based one-time password (TOTP). Users will register an authenticator of their choice to access their account.",
+				"mfa-single": "Enable two-factor authentication with a time-based one-time password (TOTP).",
+				"reset-mfa": "This will disconnect your profile from the current authenticator. A new QR code will be required.",
+				"set-new-password": "Set a password for your account."
+			},
+			"reset-mfa": "Reset MFA",
+			"resend-verify-email": "Resend verification email",
+			"post-email-message": "We have sent an email to the provided address.",
+			"go-to-signin": "Already have an account? Go to the <a class=\"link\" href=\"{url}\">sign in page</a>.",
+			"go-to-signup": "Don't have an account? Register on the <a class=\"link\" href=\"{url}\">sign up page</a>.",
+			"otp": "One-time code",
+			"recover-password": "Recover Password",
+			"sign-in": "Sign in",
+			"sign-up": "Sign up",
+			"forgot-password": "Forgot your password?"
+		},
+		"fields": {
+			"role": "Role",
+			"created": "Registered",
+			"updated": "Last login",
+			"username": "Username",
+			"email": "Email",
+			"password": "Password",
+			"confirm-password": "Confirm Password"
+		},
+		"roles": {
+			"user": "User",
+			"admin": "Admin",
+			"root": "Root"
+		},
+		"helpers": {
+			"admin": "Select the user's permission level.",
+			"invitation": "The user will receive an invitation email to set their password.",
+			"password": "The password must be at least eight characters long, with at least one uppercase letter, one lowercase letter, one number, and one special character."
+		},
+		"groups": {
+			"labels": {
+				"create": "Create Group",
+				"manage": "Manage",
+				"name": "Name",
+				"urls": "URLs",
+				"members": "Members",
+				"placeholder": "Search for a group...",
+				"confirm-delete": "This action will delete the selected group, but URLs and users will remain unchanged.",
+				"member": "Member",
+				"single": "Group"
+			},
+			"label": "Groups",
+			"helpers": {
+				"confirm-delete": "This action will delete the selected group, but URLs and users will remain unchanged.",
+				"in-snapp": "Select a group in which to make this URL visible"
+			}
+		},
+		"placeholders": {
+			"username": "Enter your username...",
+			"email": "Enter your email address...",
+			"password": "Enter your password...",
+			"search": "Search by username or email..."
+		}
+	}
+}

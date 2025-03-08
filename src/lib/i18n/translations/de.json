@@ -1,0 +1,368 @@
+{
+	"admin": {
+		"label": "Admin-Bereich",
+		"labels": {
+			"watchlists": "Beobachtungslisten",
+			"limits": "REST API-Begrenzungen",
+			"vt-api": "VirusTotal API",
+			"smtp": "SMTP-Server",
+			"smtp-host": "Server",
+			"smtp-pass": "Passwort",
+			"smtp-port": "Port",
+			"smtp-user": "Benutzer",
+			"smtp-from": "Absender",
+			"smtp-test": "Test-E-Mail senden",
+			"rpd": "Anfragen pro Tag",
+			"rpm": "Anfragen pro Minute",
+			"SSL": "SSL",
+			"spu": "URLs pro Benutzer",
+			"usernames": "Benutzernamen",
+			"blacklist": "Blockierte Einträge",
+			"domains": "Domains",
+			"emails": "E-Mail",
+			"whitelist": "Zugelassene Einträge",
+			"add-whitelist": "Eintrag erlauben",
+			"add-blacklist": "Eintrag blockieren"
+		},
+		"placeholders": {
+			"vt-api": "Geben Sie hier Ihren VTAPI-Schlüssel ein...",
+			"smtp-pass": "Geben Sie hier Ihr SMTP-Passwort ein...",
+			"smtp-host": "Geben Sie hier Ihren SMTP-Host ein...",
+			"smtp-from": "Geben Sie hier Ihre SMTP-'Von'-Adresse ein...",
+			"smtp-user": "Geben Sie hier Ihren SMTP-Benutzer ein...",
+			"smtp-port": "Geben Sie hier Ihren SMTP-Port ein...",
+			"filter-watchlist": "Filtere Einträge in dieser Liste..."
+		},
+		"helpers": {
+			"vt-api": "Fügen Sie hier Ihren VT API-Schlüssel ein, Sie können sich auf der Hauptwebsite anmelden und einen anfordern.",
+			"smtp": "Hier können Sie Ihren SMTP-Transporter konfigurieren und testen, um E-Mails von dieser Anwendung zu senden.",
+			"smtp-ssl": "Aktivieren Sie diese Option, wenn Ihr Transporter ein sicheres SSL-Protokoll verwendet.",
+			"rpd": "Anfragen pro Tag",
+			"rpm": "Anfragen pro Minute",
+			"spu": "URLs pro Benutzer",
+			"watchlists": "In diesem Bereich können Sie Watchlists für eine sicherere Anwendung festlegen.",
+			"add-blacklist": "Zur Blacklist hinzufügen",
+			"add-whitelist": "Zur Whitelist hinzufügen"
+		}
+	},
+	"appname": "Snapp",
+	"date-picker": {
+		"labels": {
+			"presets": "Voreinstellungen",
+			"select": "Zeitraum auswählen"
+		},
+		"values": {
+			"last-week": "Letzte 7 Tage",
+			"last-2week": "Letzte 14 Tage",
+			"last-month": "Letzte 30 Tage",
+			"last-6month": "Letzte 6 Monate",
+			"last-year": "Letztes Jahr"
+		}
+	},
+	"errors": {
+		"snapps": {
+			"not-found": "URL nicht gefunden.",
+			"disabled": "Diese URL wurde möglicherweise vom Benutzer gelöscht oder deaktiviert oder hat einen festgelegten Schwellenwert erreicht. Wenn Sie glauben, dass dies ein Fehler ist, wenden Sie sich bitte an den Administrator."
+		},
+		"auth": {
+			"disabled-signups": "Registrierungen sind deaktiviert. Wenn Sie glauben, dass dies ein Fehler ist, wenden Sie sich bitte an den Serviceadministrator.",
+			"user-not-found": "Benutzer nicht gefunden."
+		},
+		"generic": "Unbekannter Fehler, bitte versuchen Sie es später erneut."
+	},
+	"globals": {
+		"cancel": "Abbrechen",
+		"confirm": "Bestätigen",
+		"count": "Anzahl",
+		"download": "Herunterladen",
+		"close": "Schließen",
+		"copy": "Kopieren",
+		"disabled": "Deaktiviert",
+		"continue": "Fortfahren",
+		"rearrange": "Neu anordnen",
+		"show": "Anzeigen",
+		"remove-filters": "Filter entfernen",
+		"delete": "Löschen",
+		"deleted": "Gelöscht",
+		"sure-ask": "Sind Sie sicher?",
+		"total": "Gesamt",
+		"save": "Speichern",
+		"saved": "Die Informationen wurden gespeichert.",
+		"start": "Start",
+		"qrcode": "QR-Code",
+		"end": "Ende",
+		"loading": "Laden",
+		"advanced": "Erweitert",
+		"active": "Aktiv",
+		"refresh": "Aktualisieren"
+	},
+	"homepage": {
+		"intro": "Eine <em>Open-Source- und Self-Hosted</em>-Lösung zum Speichern und Verwalten Ihrer URLs",
+		"hero": {
+			"headline": "Vereinfachen Sie Ihre URL-Verwaltung",
+			"subheadline": "Stärken Sie Ihre Online-Präsenz mit einem sicheren, selbst gehosteten URL-Shortener."
+		},
+		"getting-started": {
+			"label": "Erste Schritte",
+			"claim": "Snapp ist eine selbst hostbare Open-Source-Plattform",
+			"docker": {
+				"label": "Docker-Container verwenden",
+				"helper": "Verwenden Sie diese docker-compose.yml, um Ihren Snapp mit erweiterter Konfiguration zu betreiben."
+			}
+		},
+		"features": {
+			"label": "Funktionen",
+			"umami": {
+				"label": "Umami-Integration",
+				"description": "Integrieren Sie Ihre Instanz mit selbst gehosteten oder cloudbasierten <a href={url} class=\"link\">Umami Analytics</a> für erweiterte URL-Metriken."
+			},
+			"why": {
+				"labels": {
+					"ease": "Benutzerfreundlich",
+					"why": "Warum diese Plattform?",
+					"secure": "Sicher",
+					"analytics": "Analysen"
+				},
+				"helpers": {
+					"why": "Leistungsstarke und einfache Funktionen zur Verwaltung Ihrer Links.",
+					"ease": "Intuitive Benutzeroberfläche für eine schnelle Einrichtung.",
+					"secure": "Erweiterter Schutz für Ihre Links.",
+					"analytics": "Erhalten Sie auf einen Blick Einblick in die Leistung Ihrer Links."
+				},
+				"full-list": "Vollständige Liste der Funktionen auf Github lesen"
+			}
+		},
+		"stack": "Der Stack"
+	},
+	"menu": {
+		"metrics": "Metriken",
+		"settings": "Einstellungen",
+		"users": "Benutzer",
+		"tags": "Tags",
+		"groups": "Gruppen",
+		"home": "Startseite",
+		"dashboard": "Dashboard"
+	},
+	"metrics": {
+		"labels": {
+			"top-urls": "Top Ten meistgesehene",
+			"os-distribution": "Am häufigsten verwendete Betriebssysteme",
+			"country-distribution": "Geographische Herkunft",
+			"browser-distribution": "Verwendete Browser"
+		},
+		"fields": {
+			"os": "Betriebssystem",
+			"country": "Land",
+			"city": "Stadt",
+			"region": "Region",
+			"browser": "Browser"
+		}
+	},
+	"migrations": {
+		"label": "Migration",
+		"import": "Importieren",
+		"export": "Exportieren",
+		"helper": "Hier können Sie Ihre URLs in die Plattform importieren und exportieren.",
+		"set-fields": {
+			"label": "Felder auswählen",
+			"helper": "Hier können Sie die Felder aus Ihrer importierten Datei auswählen, um sie den von dieser Plattform benötigten Feldern zuzuordnen."
+		},
+		"invalid-file": "Der Import erfordert eine gültige CSV- oder JSON-Datei",
+		"import-helper": "Dieses Tool ermöglicht es Ihnen, Kurz-URLs aus anderen Plattformen einfach zu importieren und zu verwalten. Sie können eine JSON- oder CSV-Datei hochladen, die von Ihrer bevorzugten Plattform exportiert wurde, und Ihre URL-Felder den von dieser Plattform benötigten Feldern zuordnen, um einen nahtlosen Service zu gewährleisten.",
+		"upload": "Datei hochladen",
+		"labels": {
+			"check-fields": "Datei überprüfen"
+		},
+		"helpers": {
+			"found": "Gefunden: [ {count} ] URLs",
+			"required": "Die markierten Felder sind erforderlich",
+			"user-overwrite": "Alle URLs demselben Benutzer zuordnen"
+		},
+		"exporting": "Ihre URLs werden exportiert, bitte überprüfen Sie es später erneut",
+		"available-for-10-minutes": "Diese Datei ist ab dem Erstellungszeitpunkt für zehn Minuten verfügbar",
+		"select": {
+			"field": "Importiert [ {count} ]",
+			"user": "Benutzer auswählen"
+		}
+	},
+	"settings": {
+		"label": {
+			"language": "Sprache",
+			"theme": "Thema",
+			"theme-dark": "Dunkler Modus",
+			"theme-light": "Heller Modus",
+			"theme-system": "Systemstandard",
+			"enable-limits": "Limits aktivieren",
+			"enable-signup": "Registrierungen aktivieren",
+			"disable-homepage": "Startseite deaktivieren",
+			"allow-http": "Unsicheres HTTP zulassen"
+		},
+		"helpers": {
+			"signups": "Ermöglichen Sie externe Registrierungen über das Frontend.",
+			"homepage": "Leiten Sie Benutzer auf die Anmeldeseite oder das Dashboard weiter.",
+			"limits": "API-Ratenbegrenzungen, wie von der Community gefordert.",
+			"http": "Erlauben Sie URLs mit HTTP anstelle von HTTPS."
+		}
+	},
+	"snapps": {
+		"fields": {
+			"hit": "Besuche",
+			"notes": "Notizen",
+			"status": "Status",
+			"original-url": "Original-URL",
+			"shortcode": "Kurzcode",
+			"secret": "Geheimcode",
+			"used": "Verwendungen",
+			"max-usages": "Maximale Verwendungen",
+			"created": "Erstellt",
+			"expiration": "Ablauf",
+			"has-secret": "Geheimcode setzen",
+			"has-expiration": "Ablauf festlegen"
+		},
+		"helpers": {
+			"not-found": "Die URL wurde nicht gefunden",
+			"secret": "Diese URL ist durch einen Geheimcode geschützt",
+			"copied-to-clipboard": "In die Zwischenablage kopiert",
+			"disable-text-1": "Pausieren Sie diese URL. Metriken und der Kurzcode bleiben erhalten. Der Benutzer erhält eine Nachricht, dass die URL nicht verfügbar ist.",
+			"not-secret": "Dies ist eine öffentliche URL",
+			"not-max-usages": "Keine Begrenzung",
+			"original-url": "Dies muss ein gültiger Link <code>https://</code> sein",
+			"shortcode": "Dieser wird automatisch generiert, wenn nicht angegeben",
+			"has-secret": "Geben Sie einen Geheimcode an, um die URL vor unbefugtem Zugriff zu schützen",
+			"expiration": "Geben Sie ein Ablaufdatum an, um Ihre URL automatisch zu deaktivieren",
+			"max-usages": "Legen Sie eine begrenzte Anzahl von Verwendungen für diese URL fest. Sobald das Limit erreicht ist, wird die URL deaktiviert",
+			"previous-expiration": "Diese URL hat bereits ein Ablaufdatum, es läuft {relativeTime} ab",
+			"previous-secret": "Für diese URL wurde bereits ein Geheimcode gesetzt",
+			"provide-secret": "Bitte geben Sie den Geheimcode ein, um fortzufahren",
+			"utm-params": "Sie können wiederverwendbare Parameter, wie z. B. UTM-Tags, einrichten, die automatisch an Ihre URLs angehängt werden, um manuelle Fehler zu vermeiden und genauere Analysedaten zu gewährleisten."
+		},
+		"label": "URL-Liste",
+		"labels": {
+			"create": "URL kürzen",
+			"open-link": "URL öffnen (neues Fenster)",
+			"details": "URL-Details",
+			"utm-params": "UTM-Parameter",
+			"edit": "Bearbeiten",
+			"columns": "Spalten",
+			"utm": {
+				"key": "Schlüssel",
+				"value": "Wert",
+				"name": "Name"
+			}
+		},
+		"placeholders": {
+			"search": "URLs suchen",
+			"original-url": "Fügen Sie Ihre Original-URL ein",
+			"shortcode": "Geben Sie einen benutzerdefinierten Kurzcode an",
+			"secret": "Geben Sie einen Geheimcode an, um diese URL zu schützen"
+		},
+		"actions": {
+			"confirm-delete": "Diese Aktion löscht die URL dauerhaft"
+		}
+	},
+	"tags": {
+		"labels": {
+			"create": "Tag erstellen",
+			"name": "Tag-Name",
+			"slug": "Slug",
+			"search": "Nach Slug suchen"
+		},
+		"placeholders": {
+			"search": "Nach Tag-Name suchen"
+		},
+		"helpers": {
+			"confirm-delete": "Dies löscht den Tag und alle zugehörigen Beziehungen. URLs bleiben unverändert"
+		}
+	},
+	"tokens": {
+		"label": "REST API Token",
+		"not-allowed-to-copy": "Die Zwischenablage des Browsers erfordert eine sichere HTTPS-Umgebung.",
+		"helper": "Autorisieren Sie API-Aufrufe mit einem Authorization-Header, der den generierten Token enthält. API-Schlüssel sind einzigartig und an das Benutzerkonto gebunden, wobei die Datenbankrollen geteilt werden.",
+		"fields": {
+			"key": "Token",
+			"created": "Erstellt"
+		},
+		"placeholder": "Ihr API-Schlüssel wird hier angezeigt...",
+		"copied": "Token in die Zwischenablage kopiert.",
+		"revoke": "Token widerrufen",
+		"generate": "Token generieren",
+		"api-docs": "Weitere Details zur Nutzung und Implementierung finden Sie in der vollständigen <a href=\"{url}\" class=\"link\">API-Dokumentation</a>."
+	},
+	"users": {
+		"labels": {
+			"mfa": "Multi-Faktor-Authentifizierung",
+			"profile": "Benutzerprofil",
+			"create": "Benutzer einladen",
+			"list": "Liste registrierter Benutzer"
+		},
+		"auth": {
+			"helpers": {
+				"recover-password": "Dadurch wird eine E-Mail zum Zurücksetzen des Passworts an dieses Konto gesendet.",
+				"send-email": "E-Mail senden",
+				"reset-mfa-for-user": "Dadurch wird das Profil vom aktuellen Authenticator getrennt. Ein neuer QR-Code wird vom Benutzer benötigt.",
+				"set-new-authenticator": "Legen Sie einen neuen Authenticator für dieses Konto fest.",
+				"only-once-mfa": "Dies ist nur einmal erforderlich. Speichern Sie das Bild, um Ihr Konto wieder mit dem Authenticator zu verbinden oder es von Ihrem Profil zu trennen.",
+				"verify-email": "Bestätigen Sie Ihre E-Mail-Adresse, um diese Plattform weiterhin zu nutzen. Sie wird auch für Passwortzurücksetzungen verwendet.",
+				"forgot-password": "Geben Sie Ihre E-Mail-Adresse ein, um den Passwort-Wiederherstellungsprozess zu starten.",
+				"mfa": "Aktivieren Sie die Zwei-Faktor-Authentifizierung mit einem zeitbasierten Einmalpasswort (TOTP). Benutzer registrieren einen Authenticator ihrer Wahl, um auf ihr Konto zuzugreifen.",
+				"mfa-single": "Aktivieren Sie die Zwei-Faktor-Authentifizierung mit einem zeitbasierten Einmalpasswort (TOTP).",
+				"reset-mfa": "Dadurch wird Ihr Profil vom aktuellen Authenticator getrennt. Ein neuer QR-Code wird benötigt.",
+				"set-new-password": "Legen Sie ein Passwort für Ihr Konto fest."
+			},
+			"reset-mfa": "MFA zurücksetzen",
+			"resend-verify-email": "Bestätigungs-E-Mail erneut senden",
+			"post-email-message": "Wir haben eine E-Mail an die angegebene Adresse gesendet.",
+			"go-to-signin": "Haben Sie bereits ein Konto? Gehen Sie zur <a class=\"link\" href=\"{url}\">Anmeldeseite</a>.",
+			"go-to-signup": "Haben Sie kein Konto? Registrieren Sie sich auf der <a class=\"link\" href=\"{url}\">Registrierungsseite</a>.",
+			"otp": "Einmalcode",
+			"recover-password": "Passwort wiederherstellen",
+			"sign-in": "Anmelden",
+			"sign-up": "Registrieren",
+			"forgot-password": "Passwort vergessen?"
+		},
+		"fields": {
+			"role": "Rolle",
+			"created": "Registriert",
+			"updated": "Letzte Anmeldung",
+			"username": "Benutzername",
+			"email": "E-Mail",
+			"password": "Passwort",
+			"confirm-password": "Passwort bestätigen"
+		},
+		"roles": {
+			"user": "Benutzer",
+			"admin": "Admin",
+			"root": "Root"
+		},
+		"helpers": {
+			"admin": "Wählen Sie das Berechtigungsniveau des Benutzers.",
+			"invitation": "Der Benutzer erhält eine Einladung per E-Mail, um sein Passwort festzulegen.",
+			"password": "Das Passwort muss mindestens acht Zeichen lang sein, mindestens einen Großbuchstaben, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen enthalten."
+		},
+		"groups": {
+			"labels": {
+				"create": "Gruppe erstellen",
+				"manage": "Verwalten",
+				"name": "Name",
+				"urls": "URLs",
+				"members": "Mitglieder",
+				"placeholder": "Nach einer Gruppe suchen...",
+				"confirm-delete": "Diese Aktion löscht die ausgewählte Gruppe, aber URLs und Benutzer bleiben unverändert.",
+				"member": "Mitglied",
+				"single": "Gruppe"
+			},
+			"label": "Gruppen",
+			"helpers": {
+				"confirm-delete": "Diese Aktion löscht die ausgewählte Gruppe, aber URLs und Benutzer bleiben unverändert.",
+				"in-snapp": "Wählen Sie eine Gruppe aus, in der diese URL sichtbar sein soll"
+			}
+		},
+		"placeholders": {
+			"username": "Geben Sie Ihren Benutzernamen ein...",
+			"email": "Geben Sie Ihre E-Mail-Adresse ein...",
+			"password": "Geben Sie Ihr Passwort ein...",
+			"search": "Suche nach Benutzername oder E-Mail..."
+		}
+	}
+}
+ 
