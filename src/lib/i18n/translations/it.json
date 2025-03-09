@@ -61,12 +61,26 @@
 	},
 	"errors": {
 		"snapps": {
+			"unallowed-not-https": "L&rsquo;URL originale deve essere un link HTTPS sicuro.",
+			"original-url-missing": "Deve essere fornito un URL originale per il reindirizzamento.",
+			"original-url-blacklisted": "Questo URL è stato inserito nella blacklist o segnalato dall&rsquo;API VirusTotal.",
 			"not-found": "Url non trovato.",
 			"disabled": "Questo url potrebbe essere stato cancellato o disabilitato dall&rsquo;utente o aver raggiunto una soglia impostata. Se pensi che sia un errore, contatta l&rsquo;amministratore."
 		},
 		"auth": {
 			"disabled-signups": "Le registrazioni sono disabilitate. Se pensi che sia un errore, contatta l&rsquo;amministratore del servizio.",
-			"user-not-found": "Utente non trovato."
+			"user-not-found": "Utente non trovato.",
+			"wrong-credentials":"Wrong Credentials",
+			"too-many-requests-mfa": "Hai effettuato troppi tentativi. Attendi {TIME} minuti.",
+      "invaild-otp": "Il codice monouso inserito non è valido",
+      "email-invalid": "Per favore, fornisci un indirizzo email valido.",
+      "email-registered": "Questa email è già associata a un account. Prova a registrarti o a recuperare la tua password.",
+      "password-invalid": "La password fornita non è abbastanza sicura. Per favore, riprova.",
+      "password-unmatch": "La password e la conferma della password non corrispondono.",
+      "username-invalid": "Il nome utente non è valido. Fornisci un nome di almeno tre caratteri per il tuo profilo.",
+      "user-already-exists": "Nome utente già in uso. Prova con un altro.",
+      "reset-token-expired": "Il token di reset per il recupero della password è scaduto."
+
 		},
 		"generic": "Errore non riconosciuto, riprova più tardi."
 	},

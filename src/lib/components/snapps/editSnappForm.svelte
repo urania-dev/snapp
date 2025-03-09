@@ -24,6 +24,7 @@
 	import { Separator } from '../ui/separator';
 	import { Textarea } from '../ui/textarea';
 	import { snappSchema, type SnappSchema } from './schema';
+	import { slugify } from '$lib/utils';
 
 	const { formSchema }: { formSchema: SuperValidated<Infer<SnappSchema>> } = $props();
 
@@ -132,6 +133,10 @@
 							icon="link-simple"
 							placeholder={i18n.t('snapps.placeholders.shortcode')}
 							{...props}
+							oninput={(e)=>{
+								const value = e.currentTarget.value
+								if(value.trim()!=='') $formData.shortcode=slugify(value)
+							}}
 							bind:value={$formData.shortcode}
 						/>
 					{/snippet}
@@ -154,7 +159,7 @@
 			<Separator />
 		</div>
 		<Separator orientation="vertical" class="hidden lg:block" />
-		<Tabs.Root bind:value={activeTab} class="w-full py-4 lg:!px-3">
+		<Tabs.Root bind:value={activeTab} class="w-full pt-0 lg:pt-3 p-3">
 			<Tabs.List class="grid h-max w-full grid-cols-2 gap-2">
 				<Tabs.Trigger class="min-w-max" value="notes">{i18n.t('snapps.fields.notes')}</Tabs.Trigger>
 				<Tabs.Trigger class="min-w-max" value="advanced">{i18n.t('globals.advanced')}</Tabs.Trigger>

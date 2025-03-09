@@ -62,11 +62,26 @@
 	"errors": {
 		"snapps": {
 			"not-found": "URL introuvable.",
-			"disabled": "Cette URL a peut-être été supprimée ou désactivée par l'utilisateur, ou elle a atteint un seuil défini. Si vous pensez qu'il s'agit d'une erreur, veuillez contacter l'administrateur."
+			"disabled": "Cette URL a peut-être été supprimée ou désactivée par l'utilisateur, ou elle a atteint un seuil défini. Si vous pensez qu'il s'agit d'une erreur, veuillez contacter l'administrateur.",
+			"unallowed-not-https": "L'URL d'origine doit être un lien sécurisé https",
+      "original-url-missing": "Une URL originale doit être fournie pour la redirection",
+      "original-url-blacklisted": "Cette URL a été mise sur liste noire ou signalée par l'API VirusTotal"
+    
 		},
 		"auth": {
 			"disabled-signups": "Les inscriptions sont désactivées. Si vous pensez qu'il s'agit d'une erreur, veuillez contacter l'administrateur du service.",
-			"user-not-found": "Utilisateur non trouvé."
+			"user-not-found": "Utilisateur non trouvé.",
+			"wrong-credentials": "Informations d'identification incorrectes.",
+			"too-many-requests-mfa": "Vous avez fait trop de tentatives. Attendez {TIME} minutes.",
+			"invalid-otp": "Le mot de passe à usage unique saisi n'est pas valide",
+			"email-invalid": "Veuillez fournir une adresse e-mail valide.",
+			"email-registered": "Cet e-mail est déjà associé à un compte. Essayez de vous inscrire ou de récupérer votre mot de passe.",
+			"password-invalid": "Le mot de passe fourni n'est pas suffisamment sécurisé. Veuillez réessayer.",
+			"password-unmatch": "Le mot de passe et la confirmation du mot de passe ne correspondent pas.",
+			"username-invalid": "Le nom d'utilisateur est invalide. Veuillez fournir un nom d'au moins trois caractères pour votre profil.",
+			"user-already-exists": "Nom d'utilisateur déjà pris. Veuillez en essayer un autre.",
+			"reset-token-expired": "Le jeton de réinitialisation de mot de passe a expiré."
+	  
 		},
 		"generic": "Erreur non reconnue, veuillez réessayer plus tard."
 	},

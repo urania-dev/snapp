@@ -25,16 +25,16 @@
 	const { enhance: superEnhance, form: formData } = form;
 	const i18n = getTranslations();
 
-	$effect(() => {
-		untrack(() => {
-			checkStatus();
-		});
-	});
+	$effect(() => {untrack(() => checkStatus())});
 
 	let status = $state(false);
 	const checkStatus = async () => {
-		const res = await (await (page.data.fetch as typeof fetch)('/admin/check-vt-api')).json();
-		if (res && res.status) status = true;
+		try {
+			const res = await (await (page.data.fetch as typeof fetch)('/admin/check-vt-api')).json();
+			if (res && res.status) status = res.status;
+		} catch (error) {
+			console.error(error)	
+		}
 	};
 </script>
 

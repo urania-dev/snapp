@@ -14,6 +14,8 @@
 		[]
 	);
 	const loadData = async () => {
+		try {
+			
 		const res = (await (
 			await (page.data.fetch as typeof fetch)(
 				`/api/usage/groupBy?q=${JSON.stringify({
@@ -65,6 +67,10 @@
 				})
 			);
 			data = _data.filter((d) => d !== undefined);
+		}
+
+	} catch (error) {
+			console.log(error)
 		}
 	};
 

@@ -58,7 +58,6 @@ export const actions = {
 			params: { shortcode }
 		} = event;
 		const secretForm = await superValidate(event, zod(singleSchema));
-		log.info(secretForm);
 		if (!secretForm.valid) {
 			return fail(400, {
 				form: secretForm
@@ -70,7 +69,6 @@ export const actions = {
 		} catch (error) {
 			log.error(error);
 		}
-		log.info(snapp);
 		if (!snapp) return fail(400, { message: 'errors.snapps.not-found' });
 		const [available, err] = await markUsage(event, snapp);
 		const url = new URL(snapp.originalUrl);

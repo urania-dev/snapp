@@ -24,7 +24,7 @@ export const markUsage = async (
 
 	const isBlacklisted = await watchLists.validateURL(snapp.originalUrl);
 	for (const [label, err] of Object.entries(isBlacklisted.errors)) {
-		log.info({ [label]: err });
+		if(process.env.LOG_LEVEL==='debug')log.info({ [label]: err });
 		if (err) {
 			snapp.disabled = true;
 			await prisma.snapp.update({

@@ -52,8 +52,13 @@
 
 	const fetchGroups = async () => {
 		loading = true;
-		const res = await (await f(`/api/group/findMany?q=${JSON.stringify({ take: 5 })}`)).json();
-		foundGroups = res.data as Group[];
+		try {
+			const res = await (await f(`/api/group/findMany?q=${JSON.stringify({ take: 5 })}`)).json();
+			foundGroups = res.data as Group[];
+		} catch (error) {
+			console.error(error);
+			foundGroups = [];
+		}
 		loading = false;
 	};
 </script>
@@ -88,13 +93,17 @@
 						await fetchGroups();
 						return;
 					}
-					const res = await (
-						await f(
-							`/api/group/findMany?q=${JSON.stringify({ take: 5, where: { slug: slugify(searchGroup), users: page.data.user !== 'user' ? {} : { every: { id: page.data.user.id } } } })}`
-						)
-					).json();
+					try {
+						const res = await (
+							await f(
+								`/api/group/findMany?q=${JSON.stringify({ take: 5, where: { slug: slugify(searchGroup), users: page.data.user !== 'user' ? {} : { every: { id: page.data.user.id } } } })}`
+							)
+						).json();
 
-					foundGroups = res.data as Group[];
+						foundGroups = res.data as Group[];
+					} catch (error) {
+						console.error(error);
+					}
 					loading = false;
 				}, 250)}
 				bind:value={searchGroup}
@@ -119,25 +128,29 @@
 								<Button
 									class="h-8"
 									onclick={async () => {
-										const res = await (
-											await f('/api/group/upsert', {
-												body: JSON.stringify({
-													create: {
-														name: searchGroup,
-														slug: slugify(searchGroup)
-													},
-													update: {},
-													where: {
-														slug: slugify(searchGroup)
-													}
-												}),
-												credentials: 'include',
-												method: 'post'
-											})
-										).json();
-										if (res?.data) {
-											groups = [(res?.data as Group).slug];
-											foundGroups.push(res.data as Group);
+										try {
+											const res = await (
+												await f('/api/group/upsert', {
+													body: JSON.stringify({
+														create: {
+															name: searchGroup,
+															slug: slugify(searchGroup)
+														},
+														update: {},
+														where: {
+															slug: slugify(searchGroup)
+														}
+													}),
+													credentials: 'include',
+													method: 'post'
+												})
+											).json();
+											if (res?.data) {
+												groups = [(res?.data as Group).slug];
+												foundGroups.push(res.data as Group);
+											}
+										} catch (error) {
+											console.error(error);
 										}
 										closeAndFocusTrigger();
 									}}

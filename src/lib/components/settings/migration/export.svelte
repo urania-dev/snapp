@@ -7,9 +7,14 @@
 
 	const f = $derived(page.data.fetch as typeof fetch);
 	const checkCSV = async () => {
-		const res = await (await f('/admin/check-export/' + page.data.user.id)).json();
-		if (res.available) ready = true;
-		else ready = false;
+		try {
+			
+			const res = await (await f('/admin/check-export/' + page.data.user.id)).json();
+			if (res.available) ready = true;
+			else ready = false;
+		} catch (error) {
+			console.error(error)
+		}
 	};
 
 	const i18n = getTranslations();

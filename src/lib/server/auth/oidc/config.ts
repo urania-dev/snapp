@@ -1,5 +1,6 @@
 import { error } from '@sveltejs/kit';
 import { env } from '$env/dynamic/private';
+import { log } from '$lib/server/log';
 import { Configuration, discovery } from 'openid-client';
 
 export interface OidcConfig {
@@ -22,19 +23,25 @@ export interface OidcConfig {
 
 const fetchClientConfig = async (oidcConfig: OidcConfig): Promise<Configuration> => {
 	const useAutodiscover = oidcConfig.authorizeUrl === undefined;
-	return useAutodiscover
-		? await discovery(new URL(oidcConfig.issuer), oidcConfig.clientID, oidcConfig.clientSecret)
-		: new Configuration(
-				{
-					authorization_endpoint: oidcConfig.authorizeUrl,
-					end_session_endpoint: oidcConfig.endSessionUrl,
-					issuer: oidcConfig.issuer,
-					token_endpoint: oidcConfig.tokenUrl,
-					userinfo_endpoint: oidcConfig.userinfoUrl
-				},
-				oidcConfig.clientID,
-				oidcConfig.clientSecret
-			);
+	if(useAutodiscover)
+		try {
+			const config = await discovery(new URL(oidcConfig.issuer), oidcConfig.clientID, oidcConfig.clientSecret)
+			return config	
+		} catch (error) {
+			log.error(error)
+		}
+	
+	return new Configuration(
+		{
+			authorization_endpoint: oidcConfig.authorizeUrl,
+			end_session_endpoint: oidcConfig.endSessionUrl,
+			issuer: oidcConfig.issuer,
+			token_endpoint: oidcConfig.tokenUrl,
+			userinfo_endpoint: oidcConfig.userinfoUrl
+		},
+		oidcConfig.clientID,
+		oidcConfig.clientSecret
+	);
 };
 
 const parseOIDCConfigs = () => {

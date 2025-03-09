@@ -61,12 +61,26 @@
 	},
 	"errors": {
 		"snapps": {
+			"unallowed-not-https": "The original URL must be a secure https link",
+			"original-url-missing": "An Original URL must be provided for redirection",
+			"original-url-blacklisted": "This URL has been blacklisted or flagged by VirusTotal API",
+		   
 			"not-found": "URL not found.",
 			"disabled": "This URL may have been deleted or disabled by the user, or it may have reached a set threshold. If you believe this is an error, please contact the administrator."
 		},
 		"auth": {
 			"disabled-signups": "Registrations are disabled. If you believe this is an error, please contact the service administrator.",
-			"user-not-found": "User not found."
+			"user-not-found": "User not found.",
+			"wrong-credentials": "Wrong Credentials",
+			"too-many-requests-mfa": "You made to many attempt. Wait for {TIME} minutes.",
+			"invalid-otp": "The one-time password entered is not valid",
+			"email-invalid": "Please provide a valid email address.",
+			"email-registered": "This email is already associated with an account. Try signing up or recovering your password.",
+			"password-invalid": "The password provided is not secure enough. Please try again.",
+			"password-unmatch": "Password and confirmation password do not match.",
+			"username-invalid": "Username is invalid. Please provide at least a three-character long name for your profile.",
+			"user-already-exists": "Username already taken. Please try another one.",
+			"reset-token-expired": "Password recovery reset token has expired."
 		},
 		"generic": "Unrecognized Error, please try again later."
 	},

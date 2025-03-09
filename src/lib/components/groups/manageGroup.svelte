@@ -187,21 +187,24 @@
 								const [u] = members.splice(idx, 1);
 								if (u) users.push(u);
 								const f = page.data.fetch as typeof fetch;
-
-								await (
-									await f('/api/group/update', {
-										body: JSON.stringify({
-											data: {
-												users: { disconnect: { id: u.id } }
-											},
-											where: { slug: groupId }
-										}),
-										credentials: 'include',
-										method: 'PATCH'
-									})
-								).json();
-								memberCount--;
-								userCount = Math.max(0, userCount || 0 + 1);
+								try {
+									await (
+										await f('/api/group/update', {
+											body: JSON.stringify({
+												data: {
+													users: { disconnect: { id: u.id } }
+												},
+												where: { slug: groupId }
+											}),
+											credentials: 'include',
+											method: 'PATCH'
+										})
+									).json();
+									memberCount--;
+									userCount = Math.max(0, userCount || 0 + 1);
+								} catch (error) {
+									console.error(error);
+								}
 								saved();
 							}}
 						>

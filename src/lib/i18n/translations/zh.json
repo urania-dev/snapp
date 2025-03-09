@@ -61,12 +61,26 @@
 },
 "errors": {
 	"snapps": {
+		"unallowed-not-https": "原始网址必须是安全的HTTPS链接",
+		"original-url-missing": "必须提供原始网址以进行重定向",
+		"original-url-blacklisted": "此网址已被列入黑名单或被VirusTotal API标记",
+	   
 		"not-found": "未找到 URL。",
 		"disabled": "该 URL 可能已被用户删除或禁用，或者已达到设定的阈值。如果您认为这是一个错误，请联系管理员。"
 	},
 	"auth": {
 		"disabled-signups": "注册已被禁用。如果您认为这是一个错误，请联系服务管理员。",
-		"user-not-found": "未找到用户。"
+		"user-not-found": "未找到用户。",
+		"wrong-credentials": "凭据不正确。",
+		"too-many-requests-mfa": "您尝试次数过多。请等待 {TIME} 分钟。",
+		"invalid-otp": "输入的一次性密码无效",
+		"email-invalid": "请提供有效的邮箱地址。",
+		"email-registered": "此邮箱地址已与账户关联。请尝试注册或恢复您的密码。",
+		"password-invalid": "提供的密码不够安全。请再试一次。",
+		"password-unmatch": "密码和确认密码不匹配。",
+		"username-invalid": "用户名无效。请提供至少三个字符的名称作为您的个人资料。",
+		"user-already-exists": "用户名已被占用。请尝试其他名称。",
+		"reset-token-expired": "密码恢复重置令牌已过期。"
 	},
 	"generic": "未知错误，请稍后再试。"
 },

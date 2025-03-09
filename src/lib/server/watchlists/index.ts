@@ -46,6 +46,9 @@ class WatchLists {
 
 		const yesterday = new Date();
 		yesterday.setDate(yesterday.getDate() - 1);
+		try {
+			
+		
 		const exists = await prisma.setting.findFirst({
 			where: { id: 'VTAPI_STATUS' }
 		});
@@ -67,7 +70,7 @@ class WatchLists {
 			method: 'POST'
 		};
 		const res = await (await f(_url, { ..._options })).json();
-		log.info(res);
+		
 		if (!res?.data?.links) return false;
 		await sleep(500);
 		const analysis = await (
@@ -77,7 +80,6 @@ class WatchLists {
 				}
 			})
 		).json();
-
 		if (typeof analysis === 'object') {
 			await prisma.setting.upsert({
 				create: { field: 'VTAPI_STATUS', id: 'VTAPI_STATUS', value: 'true' },
@@ -89,6 +91,11 @@ class WatchLists {
 			await prisma.setting.delete({ where: { id: 'VTAPI_STATUS' } });
 			return false;
 		}
+
+	} catch (error) {
+			log.error(error)
+	}
+	return false
 	};
 	domainFromUrl = (url: string) => {
 		let result: string = '';
@@ -119,7 +126,7 @@ class WatchLists {
 			method: 'POST'
 		};
 		const res = await (await _fetch(_url, _options)).json();
-
+	
 		const analysis = await (
 			await _fetch(res.data.links.self, {
 				headers: {
@@ -205,10 +212,10 @@ class WatchLists {
 		const vtApiKey = settings.get<string>('VTAPI_KEY');
 		if (!vtApiKey) return true;
 
+		try {
 		await prisma.vtApiCache.deleteMany({
 			where: { createdAt: { lt: _30DaysAgo_ } }
 		});
-		try {
 			const cached = await prisma.vtApiCache.findFirst({ where: { domain } });
 			const response = cached
 				? JSON.parse(cached.result)

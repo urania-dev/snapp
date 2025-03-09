@@ -17,28 +17,32 @@
 
 	const loadData = async () => {
 		const alpha2 = (await import('iso-3166-1-alpha-2')).default;
-		const res = (await (
-			await (page.data.fetch as typeof fetch)(
-				`/api/usage/groupBy?q=${JSON.stringify({
-					_count: true,
-					by: ['country'],
-					where: {
-						ownerId: page.data.user.role !== 'user' ? undefined : page.data.user.id,
-						timestamp: {
-							gte: mstore.start.toDate(getLocalTimeZone()).toISOString(),
-							lte: mstore.end.toDate(getLocalTimeZone()).toISOString()
+		try {
+			const res = (await (
+				await (page.data.fetch as typeof fetch)(
+					`/api/usage/groupBy?q=${JSON.stringify({
+						_count: true,
+						by: ['country'],
+						where: {
+							ownerId: page.data.user.role !== 'user' ? undefined : page.data.user.id,
+							timestamp: {
+								gte: mstore.start.toDate(getLocalTimeZone()).toISOString(),
+								lte: mstore.end.toDate(getLocalTimeZone()).toISOString()
+							}
 						}
-					}
-				})}`
-			)
-		).json()) as { data: ({ _count: number } & Usage)[] };
-		if (res && res?.data)
-			data = res.data.map((item) => ({
-				id: item.country ? alpha2.getCode(item.country) : null,
-				name: item.country,
-				value: item._count
-			}));
-		await initMap();
+					})}`
+				)
+			).json()) as { data: ({ _count: number } & Usage)[] };
+			if (res && res?.data)
+				data = res.data.map((item) => ({
+					id: item.country ? alpha2.getCode(item.country) : null,
+					name: item.country,
+					value: item._count
+				}));
+			await initMap();
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	const initMap = async () => {

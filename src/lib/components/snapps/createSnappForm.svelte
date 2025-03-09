@@ -24,6 +24,7 @@
 	import { Separator } from '../ui/separator';
 	import { Textarea } from '../ui/textarea';
 	import { snappSchema, type SnappSchema } from './schema';
+	import { slugify } from '$lib/utils';
 
 	const { formSchema }: { formSchema: SuperValidated<Infer<SnappSchema>> } = $props();
 
@@ -37,11 +38,13 @@
 			if (result.status !== 200) return;
 			await goto('/dashboard');
 		},
-		onSubmit: ({ formData }) => {
-			for (const tag of tags) formData.append('tags', tag);
-			for (const group of groups) formData.append('groups', group);
+		onSubmit: ({ formData:fd }) => {
+			if(hasSecret&&$formData?.secret) fd.set('secret',$formData.secret)
+			else fd.delete('secret')
+			for (const tag of tags) fd.append('tags', tag);
+			for (const group of groups) fd.append('groups', group);
 			for (const [, params] of utmParams)
-				formData.append('utmParams', JSON.stringify([params.key, params.value, params.name]));
+				fd.append('utmParams', JSON.stringify([params.key, params.value, params.name]));
 		},
 		resetForm: false,
 		validationMethod: 'onsubmit',
@@ -116,6 +119,10 @@
 							placeholder={i18n.t('snapps.placeholders.shortcode')}
 							{...props}
 							bind:value={$formData.shortcode}
+							oninput={(e)=>{
+								const value = e.currentTarget.value
+								if(value.trim()!=='') $formData.shortcode=slugify(value)
+							}}
 						/>
 					{/snippet}
 				</Form.Control>
@@ -137,7 +144,7 @@
 			<Separator />
 		</div>
 		<Separator orientation="vertical" class="hidden lg:block" />
-		<Tabs.Root bind:value={activeTab} class="w-full py-4 lg:!px-3">
+		<Tabs.Root bind:value={activeTab} class="w-full pt-0 lg:pt-3 p-3">
 			<Tabs.List class="grid h-max w-full grid-cols-2 gap-2">
 				<Tabs.Trigger class="min-w-max" value="notes">{i18n.t('snapps.fields.notes')}</Tabs.Trigger>
 				<Tabs.Trigger class="min-w-max" value="advanced">{i18n.t('globals.advanced')}</Tabs.Trigger>

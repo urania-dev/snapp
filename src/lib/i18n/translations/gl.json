@@ -61,12 +61,27 @@
 	},
 	"errors": {
 		"snapps": {
+			"unallowed-not-https": "A URL orixinal debe ser un enlace seguro https",
+			"original-url-missing": "Debe proporcionarse unha URL orixinal para a redirección",
+			"original-url-blacklisted": "Esta URL foi bloqueada ou marcada pola API de VirusTotal",
+		  
 			"not-found": "URL non atopada.",
 			"disabled": "Esta URL pode ter sido eliminada ou desactivada polo usuario, ou pode ter alcanzado un límite establecido. Se cre que é un erro, contacte co administrador."
 		},
 		"auth": {
 			"disabled-signups": "As rexistracións están desactivadas. Se cre que é un erro, contacte co administrador do servizo.",
-			"user-not-found": "Usuario non atopado."
+			"user-not-found": "Usuario non atopado.",
+			"wrong-credentials": "Credenciais incorrectas.",
+			"too-many-requests-mfa": "Fixeches demasiados intentos. Agarda {TIME} minutos.",
+			"invalid-otp": "O contrasinal de uso único introducido non é válido",
+			"email-invalid": "Por favor, proporciona unha dirección de correo electrónico válida.",
+			"email-registered": "Este correo electrónico xa está asociado cunha conta. Intenta rexistrarte ou recuperar a túa contrasinal.",
+			"password-invalid": "A contrasinal proporcionada non é suficientemente segura. Por favor, intenta de novo.",
+			"password-unmatch": "A contrasinal e a confirmación da contrasinal non coinciden.",
+			"username-invalid": "O nome de usuario é inválido. Por favor, proporciona un nome de ao menos tres caracteres para o teu perfil.",
+			"user-already-exists": "O nome de usuario xa está en uso. Por favor, proba cun outro.",
+			"reset-token-expired": "O token de recuperación de contrasinal expirou."
+	   
 		},
 		"generic": "Erro non recoñecido, por favor inténtao de novo máis tarde."
 	},

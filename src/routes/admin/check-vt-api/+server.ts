@@ -8,7 +8,14 @@ export const GET = async ({ fetch, locals: { user } }) => {
 	const isAdmin = user.role;
 	const settings = getSettings();
 	const VTAPI_KEY = (await settings).get<string>('VTAPI_KEY');
-	const status = (isAdmin && (await watchLists.checkVTApiKeyStatus(fetch, VTAPI_KEY))) || false;
-	log.info({ status, VTAPI_KEY });
-	return json({ status });
+	if(!VTAPI_KEY) return json({status:false})
+	try {
+		const status = (isAdmin && (await watchLists.checkVTApiKeyStatus(fetch, VTAPI_KEY))) || false;
+		if(process.env.LOG_LEVEL==='debug') log.info({ status, VTAPI_KEY });
+		return json({ status });
+	} catch (error) {
+		log.error(error)
+	}
+
+	return json({status:false})
 };

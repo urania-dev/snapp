@@ -194,6 +194,8 @@
 			swapy?.destroy?.();
 		};
 	});
+
+	const sourceVisible = $derived(table.getAllColumns().filter((col) => col.id ==='originalUrl')?.[0]?.getIsVisible() )
 </script>
 
 <div class="flex items-center gap-2 px-4 pb-2">
@@ -208,6 +210,7 @@
 		/>
 	</div>
 	<DropdownMenu.Root
+	
 		onOpenChange={(open) => {
 			if (open === false) {
 				rearrange = false;
@@ -285,15 +288,16 @@
 					{#each headerGroup.headers as header (header.id)}
 						<Table.Head
 							class={cn(
-								header.id === 'id' && 'w-8 min-w-8',
-								['actions', 'originalUrl'].includes(header.id) && 'w-full min-w-32 text-center',
-								['shortcode'].includes(header.id) && 'min-w-max pe-2 text-center',
+								'w-24 max-w-24',
+								['originalUrl'].includes(header.id) && '!w-full min-w-32 text-center',
+								['shortcode'].includes(header.id) && 'pe-2 min-w-auto max-w-auto !w-32 text-center',
 								['createdAt'].includes(header.id) && 'w-24 min-w-max text-center',
-								['hit', 'maxUsages'].includes(header.id) && 'justify-center  text-center',
+								['hit', 'maxUsages'].includes(header.id) && 'justify-center !w-max text-center',
 								['expiresAt', 'secret'].includes(header.id) && 'w-auto text-center',
-								'w-auto max-w-24'
+								header.id === 'id' && '!w-8 min-w-8',
+								header.id==='actions' && "!w-full"
 							)}
-						>
+						> 
 							{#if !header.isPlaceholder}
 								<FlexRender
 									content={header.column.columnDef.header}

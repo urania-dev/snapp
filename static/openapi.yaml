@@ -133,11 +133,6 @@ components:
       enum:
         - asc
         - desc
-    QueryMode:
-      type: string
-      enum:
-        - default
-        - insensitive
     NullsOrder:
       type: string
       enum:
@@ -3557,8 +3552,6 @@ components:
           type: string
         endsWith:
           type: string
-        mode:
-          $ref: "#/components/schemas/QueryMode"
         not:
           oneOf:
             - type: string
@@ -3596,8 +3589,6 @@ components:
           type: string
         endsWith:
           type: string
-        mode:
-          $ref: "#/components/schemas/QueryMode"
         not:
           oneOf:
             - type: string
@@ -3765,8 +3756,6 @@ components:
           type: string
         endsWith:
           type: string
-        mode:
-          $ref: "#/components/schemas/QueryMode"
         not:
           oneOf:
             - type: string
@@ -3810,8 +3799,6 @@ components:
           type: string
         endsWith:
           type: string
-        mode:
-          $ref: "#/components/schemas/QueryMode"
         not:
           oneOf:
             - type: string
@@ -6902,8 +6889,6 @@ components:
             - type: array
               items:
                 $ref: "#/components/schemas/SnappCreateManyUserInput"
-        skipDuplicates:
-          type: boolean
       required:
         - data
     SessionCreateWithoutUserInput:
@@ -6953,8 +6938,6 @@ components:
             - type: array
               items:
                 $ref: "#/components/schemas/SessionCreateManyUserInput"
-        skipDuplicates:
-          type: boolean
       required:
         - data
     SettingCreateWithoutUserInput:
@@ -7008,8 +6991,6 @@ components:
             - type: array
               items:
                 $ref: "#/components/schemas/SettingCreateManyUserInput"
-        skipDuplicates:
-          type: boolean
       required:
         - data
     TokenCreateWithoutUserInput:
@@ -7053,8 +7034,6 @@ components:
             - type: array
               items:
                 $ref: "#/components/schemas/TokenCreateManyUserInput"
-        skipDuplicates:
-          type: boolean
       required:
         - data
     UsageCreateWithoutUserInput:
@@ -7180,8 +7159,6 @@ components:
             - type: array
               items:
                 $ref: "#/components/schemas/UsageCreateManyUserInput"
-        skipDuplicates:
-          type: boolean
       required:
         - data
     GroupCreateWithoutUsersInput:
@@ -8663,8 +8640,6 @@ components:
             - type: array
               items:
                 $ref: "#/components/schemas/UsageCreateManySnappInput"
-        skipDuplicates:
-          type: boolean
       required:
         - data
     UserCreateWithoutSnappsInput:
@@ -9994,8 +9969,6 @@ components:
             - type: array
               items:
                 $ref: "#/components/schemas/SnappCreateManyGroupInput"
-        skipDuplicates:
-          type: boolean
       required:
         - data
     UserUpsertWithWhereUniqueWithoutGroupsInput:

@@ -22,7 +22,7 @@ platforms, and offers integration with various databases, now accessible with
 just a ENV Variable.
 
 ### 2025 Update
-The app has undergone a major refactor, bringing numerous improvements, including a fresh UI built with ShadCN and Svelte. The platform is now stable and mature enough to be considered a release candidate.
+The app has undergone a major refactor, bringing numerous improvements, including a fresh UI built with ShadCN and Svelte. The platform is now stable and mature enough to be considered a release candidate. This will need a new reinitiation of a plain database, so export your URL and be prepared to a new importer that should be able to guide you assign any kind of CSV to the platform.
 
 ## Features
 
@@ -47,6 +47,7 @@ The app has undergone a major refactor, bringing numerous improvements, includin
 
 
 ---
+## This is a major refactor, the database has been rewritten
 ### Always backup before attempting any update
 ---
 
@@ -114,6 +115,7 @@ Some configuration moved from envs variable to settings page in-app, thou there
 are some ENV that could be set as default on first launch:
 
 ```
+APPNAME=Snapp # can be customized on startup before database initiation
 ADMIN_EMAIL=admin@example.org
 ADMIN_PASSWORD=password
 ADMIN_USERNAME=admin

@@ -65,6 +65,8 @@ class MetricsQueryStore {
 			}
 		})}`;
 
+		try {
+			
 		const res = (await (await f(url)).json()) as { data: Usage[] };
 		const usageMap = new Map<string, number>();
 
@@ -91,6 +93,11 @@ class MetricsQueryStore {
 		}
 
 		return data;
+
+	} catch (error) {
+		console.error(error)		
+	}
+	return []
 	};
 
 	setEnd = (date: Date = new Date()) =>

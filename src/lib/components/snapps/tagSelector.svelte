@@ -50,8 +50,12 @@
 
 	const fetchTags = async () => {
 		loading = true;
-		const res = await (await f(`/api/tag/findMany?q=${JSON.stringify({ take: 5 })}`)).json();
-		foundTags = res.data as Tag[];
+		try {
+			const res = await (await f(`/api/tag/findMany?q=${JSON.stringify({ take: 5 })}`)).json();
+			foundTags = res.data as Tag[];
+		} catch (error) {
+			console.error(error);
+		}
 		loading = false;
 	};
 </script>
@@ -84,13 +88,17 @@
 						await fetchTags();
 						return;
 					}
-					const res = await (
-						await f(
-							`/api/tag/findMany?q=${JSON.stringify({ take: 5, where: { slug: slugify(searchTag) } })}`
-						)
-					).json();
+					try {
+						const res = await (
+							await f(
+								`/api/tag/findMany?q=${JSON.stringify({ take: 5, where: { slug: slugify(searchTag) } })}`
+							)
+						).json();
 
-					foundTags = res.data as Tag[];
+						foundTags = res.data as Tag[];
+					} catch (error) {
+						console.error(error);
+					}
 					loading = false;
 				}, 250)}
 				bind:value={searchTag}
@@ -115,25 +123,29 @@
 								<Button
 									class="h-8"
 									onclick={async () => {
-										const res = await (
-											await f('/api/tag/upsert', {
-												body: JSON.stringify({
-													create: {
-														name: searchTag,
-														slug: slugify(searchTag)
-													},
-													update: {},
-													where: {
-														slug: slugify(searchTag)
-													}
-												}),
-												credentials: 'include',
-												method: 'post'
-											})
-										).json();
-										if (res?.data) {
-											tags.push((res.data as Tag).slug);
-											foundTags.push(res.data as Tag);
+										try {
+											const res = await (
+												await f('/api/tag/upsert', {
+													body: JSON.stringify({
+														create: {
+															name: searchTag,
+															slug: slugify(searchTag)
+														},
+														update: {},
+														where: {
+															slug: slugify(searchTag)
+														}
+													}),
+													credentials: 'include',
+													method: 'post'
+												})
+											).json();
+											if (res?.data) {
+												tags.push((res.data as Tag).slug);
+												foundTags.push(res.data as Tag);
+											}
+										} catch (error) {
+											console.error(error);
 										}
 										closeAndFocusTrigger();
 									}}

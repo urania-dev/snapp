@@ -57,8 +57,13 @@
 		const withPrefix = page.url.origin + '/' + idx;
 		const url = new URL(withPrefix);
 		url.protocol = page.url.protocol;
-		const qrcode = await (await data.fetch(`/qrcode/${url}`)).text();
-		return qrcode;
+		try {
+			const qrcode = await (await data.fetch(`/qrcode/${url}`)).text();
+			return qrcode;
+		} catch (err) {
+			console.error(err);
+		}
+		return '';
 	};
 
 	setMetricsStore();
@@ -100,7 +105,11 @@
 								id="qrcode-holder"
 								class="grid aspect-square w-full overflow-clip rounded opacity-75 dark:invert"
 							>
-								{@html decode(qrcode)}
+								{#if qrcode?.trim() !== ''}
+									{@html decode(qrcode)}
+								{:else}
+									{i18n.t('errors.generic')}
+								{/if}
 							</div>
 						{/await}
 					</div>

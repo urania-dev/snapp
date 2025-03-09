@@ -12,25 +12,29 @@
 
 	let data = $state<{ id: null | string; name: null | string; value: number }[]>([]);
 	const loadData = async () => {
-		const res = (await (
-			await (page.data.fetch as typeof fetch)(
-				`/api/usage/groupBy?q=${JSON.stringify({
-					_count: { country: true },
-					by: ['country'],
-					orderBy: { _count: { country: 'desc' } },
-					take: 10,
-					where: {
-						ownerId: page.data.user.role !== 'user' ? undefined : page.data.user.id,
-						timestamp: {
-							gte: mstore.start.toDate(getLocalTimeZone()).toISOString(),
-							lte: mstore.end.toDate(getLocalTimeZone()).toISOString()
+		try {
+			const res = (await (
+				await (page.data.fetch as typeof fetch)(
+					`/api/usage/groupBy?q=${JSON.stringify({
+						_count: { country: true },
+						by: ['country'],
+						orderBy: { _count: { country: 'desc' } },
+						take: 10,
+						where: {
+							ownerId: page.data.user.role !== 'user' ? undefined : page.data.user.id,
+							timestamp: {
+								gte: mstore.start.toDate(getLocalTimeZone()).toISOString(),
+								lte: mstore.end.toDate(getLocalTimeZone()).toISOString()
+							}
 						}
-					}
-				})}`
-			)
-		).json()) as { data: ({ _count: { country: number } } & Usage)[] };
-		if (res && res?.data) {
-			data = res.data.map((d) => ({ id: d.country, name: d.country, value: d._count.country }));
+					})}`
+				)
+			).json()) as { data: ({ _count: { country: number } } & Usage)[] };
+			if (res && res?.data) {
+				data = res.data.map((d) => ({ id: d.country, name: d.country, value: d._count.country }));
+			}
+		} catch (error) {
+			console.log(error)
 		}
 	};
 

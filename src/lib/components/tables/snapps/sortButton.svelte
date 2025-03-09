@@ -29,7 +29,7 @@
 <Button
 	{variant}
 	{...props}
-	class="text-foreground-muted max-w-auto flex w-full justify-center gap-0 bg-transparent px-0 shadow-none hover:bg-transparent hover:text-foreground"
+	class="text-foreground-muted max-w-auto flex w-full text-sm justify-center gap-0 bg-transparent px-1 shadow-none hover:bg-transparent hover:text-foreground"
 >
 	<span>
 		{i18n.t(data.label)}
@@ -38,6 +38,6 @@
 	<i
 		class="ph ph-{isAscending === true ? 'arrow-up' : 'arrow-down'} size-4 transition-all {isSorting
 			? 'ms-2 opacity-100'
-			: 'w-0 opacity-0'}"
+			: 'w-0 opacity-0'} pe-0"
 	></i>
 </Button>

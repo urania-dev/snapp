@@ -24,45 +24,50 @@
 		const data = [] as CharData[];
 		const f = page.data.fetch as typeof fetch;
 		if (!mstore.start || !mstore.end) return;
-		const url = `/api/usage/findMany?q=${JSON.stringify({
-			where: {
-				snappId,
-				timestamp: {
-					gte: new Date(mstore.start.toString()).toISOString(),
-					lte: new Date(
-						new Date(mstore.end.toString()).getTime() + 1000 * 24 * 60 * 60
-					).toISOString()
+		try {
+			const url = `/api/usage/findMany?q=${JSON.stringify({
+				where: {
+					snappId,
+					timestamp: {
+						gte: new Date(mstore.start.toString()).toISOString(),
+						lte: new Date(
+							new Date(mstore.end.toString()).getTime() + 1000 * 24 * 60 * 60
+						).toISOString()
+					}
 				}
+			})}`;
+
+			const res = (await (await f(url)).json()) as { data: Usage[] };
+			const usageMap = new Map<string, number>();
+
+			res.data?.forEach((u) => {
+				const date = new Date(u.timestamp).toLocaleDateString(page.data.locale, {
+					day: 'numeric',
+					month: 'numeric',
+					timeZone: getLocalTimeZone()
+				});
+
+				usageMap.set(date, (usageMap.get(date) || 0) + 1);
+			});
+
+			for (
+				let d = new Date(mstore.start.toDate(getLocalTimeZone()));
+				d <= new Date(mstore.end.toDate(getLocalTimeZone()));
+				d.setDate(d.getDate() + 1)
+			) {
+				const dateStr = d.toLocaleDateString(page.data.locale, {
+					day: 'numeric',
+					month: 'numeric',
+					timeZone: getLocalTimeZone()
+				});
+				data.push({ date: dateStr, value: usageMap.get(dateStr) || 0 });
 			}
-		})}`;
 
-		const res = (await (await f(url)).json()) as { data: Usage[] };
-		const usageMap = new Map<string, number>();
-
-		res.data?.forEach((u) => {
-			const date = new Date(u.timestamp).toLocaleDateString(page.data.locale, {
-				day: 'numeric',
-				month: 'numeric',
-				timeZone: getLocalTimeZone()
-			});
-
-			usageMap.set(date, (usageMap.get(date) || 0) + 1);
-		});
-
-		for (
-			let d = new Date(mstore.start.toDate(getLocalTimeZone()));
-			d <= new Date(mstore.end.toDate(getLocalTimeZone()));
-			d.setDate(d.getDate() + 1)
-		) {
-			const dateStr = d.toLocaleDateString(page.data.locale, {
-				day: 'numeric',
-				month: 'numeric',
-				timeZone: getLocalTimeZone()
-			});
-			data.push({ date: dateStr, value: usageMap.get(dateStr) || 0 });
+			return data;
+		} catch (error) {
+			console.error(error);
 		}
-
-		return data;
+		return [];
 	};
 </script>
 

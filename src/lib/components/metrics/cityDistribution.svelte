@@ -12,25 +12,29 @@
 
 	let data = $state<{ id: null | string; name: null | string; value: number }[]>([]);
 	const loadData = async () => {
-		const res = (await (
-			await (page.data.fetch as typeof fetch)(
-				`/api/usage/groupBy?q=${JSON.stringify({
-					_count: { city: true },
-					by: ['city'],
-					orderBy: { _count: { city: 'desc' } },
-					take: 10,
-					where: {
-						ownerId: page.data.user.role !== 'user' ? undefined : page.data.user.id,
-						timestamp: {
-							gte: mstore.start.toDate(getLocalTimeZone()).toISOString(),
-							lte: mstore.end.toDate(getLocalTimeZone()).toISOString()
+		try {
+			const res = (await (
+				await (page.data.fetch as typeof fetch)(
+					`/api/usage/groupBy?q=${JSON.stringify({
+						_count: { city: true },
+						by: ['city'],
+						orderBy: { _count: { city: 'desc' } },
+						take: 10,
+						where: {
+							ownerId: page.data.user.role !== 'user' ? undefined : page.data.user.id,
+							timestamp: {
+								gte: mstore.start.toDate(getLocalTimeZone()).toISOString(),
+								lte: mstore.end.toDate(getLocalTimeZone()).toISOString()
+							}
 						}
-					}
-				})}`
-			)
-		).json()) as { data: ({ _count: { city: number } } & Usage)[] };
-		if (res && res?.data) {
-			data = res.data.map((d) => ({ id: d.city, name: d.city, value: d._count.city }));
+					})}`
+				)
+			).json()) as { data: ({ _count: { city: number } } & Usage)[] };
+			if (res && res?.data) {
+				data = res.data.map((d) => ({ id: d.city, name: d.city, value: d._count.city }));
+			}
+		} catch (error) {
+			console.log(error);
 		}
 	};
 

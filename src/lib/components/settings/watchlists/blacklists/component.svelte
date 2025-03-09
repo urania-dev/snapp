@@ -28,25 +28,40 @@
 
 	const { blackListForm }: { blackListForm: SuperValidated<Infer<BlackListSchema>> } = $props();
 	const getblackListedUsernames = async () => {
-		const { data, error } = (await (
-			await f(`${apiBase}/findMany?q=${blackListQueryUsernames}`, { credentials: 'include' })
-		).json()) as { data: WatchList[]; error: { message: string } };
-		if (error) toast.error(error.message);
-		return data || [];
+		try {
+			const { data, error } = (await (
+				await f(`${apiBase}/findMany?q=${blackListQueryUsernames}`, { credentials: 'include' })
+			).json()) as { data: WatchList[]; error: { message: string } };
+			if (error) toast.error(error.message);
+			return data 
+		} catch (err) {
+			console.error(err);
+		}
+		return [];
 	};
 	const getblackListedEmails = async () => {
-		const { data, error } = (await (
-			await f(`${apiBase}/findMany?q=${blackListQueryEmails}`, { credentials: 'include' })
-		).json()) as { data: WatchList[]; error: { message: string } };
-		if (error) toast.error(error.message);
-		return data || [];
+		try {
+			const { data, error } = (await (
+				await f(`${apiBase}/findMany?q=${blackListQueryEmails}`, { credentials: 'include' })
+			).json()) as { data: WatchList[]; error: { message: string } };
+			if (error) toast.error(error.message);
+			return data 
+		} catch (err) {
+			console.error(err);
+		}
+		return [];
 	};
 	const getblackListedDomains = async () => {
-		const { data, error } = (await (
-			await f(`${apiBase}/findMany?q=${blackListQueryDomains}`, { credentials: 'include' })
-		).json()) as { data: WatchList[]; error: { message: string } };
-		if (error) toast.error(error.message);
-		return data || [];
+		try {
+			const { data, error } = (await (
+				await f(`${apiBase}/findMany?q=${blackListQueryDomains}`, { credentials: 'include' })
+			).json()) as { data: WatchList[]; error: { message: string } };
+			if (error) toast.error(error.message);
+			return data 
+		} catch (err) {
+			console.error(err);
+		}
+		return [];
 	};
 
 	let lastUpdate = $state(new Date().toISOString());
