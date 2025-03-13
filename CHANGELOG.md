@@ -231,4 +231,9 @@
   and all the other community requested features I added randomly.
   - The API Rest interface is now guided by Zenstack, that allow Column-level policies for authorizing read and write on the databases. I sugges to read dedicated [Policy page](./POLICIES.md)
   - The app now refuse to start if necesessaies ENV are missing
-  
+- 0.9-rc-001:
+  - Fixed: [#93 Expiration does not expire](https://github.com/urania-dev/snapp/issues/93)
+  - Fixed: [#92 Secret does not protect URL](https://github.com/urania-dev/snapp/issues/92)
+  - Fixed: [#91 VTAPI status return true without API Key](https://github.com/urania-dev/snapp/issues/91)
+  - Fixed: [#89 Shortcodes and original URL not sanitized on input in Frontend](https://github.com/urania-dev/snapp/issues/89)
+  - Fixed: some labels missing in I18N

@@ -24,6 +24,8 @@ just a ENV Variable.
 ### 2025 Update
 The app has undergone a major refactor, bringing numerous improvements, including a fresh UI built with ShadCN and Svelte. The platform is now stable and mature enough to be considered a release candidate. This will need a new reinitiation of a plain database, so export your URL and be prepared to a new importer that should be able to guide you assign any kind of CSV to the platform.
 
+Please, note that for the time being the release candidate will be updated as fixed version. Once stable will be released as Latest and v.1.0.0.
+
 ## Features
 
 - **Intuitive User Interface:** Snapp offers a user-friendly interface for easy
@@ -59,7 +61,7 @@ Snapp is an open-source platform you can host yourself.
 ```yml
 services:
   snapp:
-    image: uraniadev/snapp:latest
+    image: uraniadev/snapp:0.9-rc-001
     ports:
       - 3000:3000
     environment:
@@ -168,7 +170,7 @@ be enough to change `smtp.config.cjs` file
 ```yml
 services:
   snapp:
-    image: uraniadev/snapp:latest
+    image: uraniadev/snapp:0.9-rc-001
     ports:
       - 3000:3000
     volumes:
