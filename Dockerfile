@@ -9,10 +9,7 @@ RUN bun install
 
 # # Copy the rest of your application code
 COPY . .
-RUN --mount=type=secret,id=ADMIN_PASSWORD \
-    export ADMIN_PASSWORD=$(cat /run/secrets/ADMIN_PASSWORD) && echo $ADMIN_PASSWORD
-RUN --mount=type=secret,id=TOKEN_SECRET \
-    export TOKEN_SECRET=$(cat /run/secrets/TOKEN_SECRET) && echo $TOKEN_SECRET
+
 ENV DATABASE_URL=file:./db.sqlite \
     DATABASE_PROVIDER=sqlite \
     LOG_LEVEL="debug" \
@@ -26,7 +23,6 @@ ENV DATABASE_URL=file:./db.sqlite \
     PUBLIC_URL=http://localhost:3000 \
     APPNAME="Snapp.li" \
     PUBLIC_SNAPP_VERSION="0.9-rc-001"
-    
     
 # # Run build commands
 ENV DATABASE_URL=mysql://root:password@localhost:3306/snapp \
@@ -44,7 +40,12 @@ RUN bunx zenstack generate --schema dbschema/sqlite/schema.zmodel
 
 RUN bunx prisma migrate deploy --schema dbschema/sqlite/prisma/schema.prisma 
 
-RUN bun run build
+RUN --mount=type=secret,id=ADMIN_PASSWORD \
+    --mount=type=secret,id=TOKEN_SECRET \
+    ADMIN_PASSWORD=$(cat /run/secrets/ADMIN_PASSWORD) \
+    TOKEN_SECRET=$(cat /run/secrets/TOKEN_SECRET) \
+    bun run build
+
 
 # # Final stage: set up a lean runtime environment and reinstall production dependencies
 FROM oven/bun:slim
@@ -71,10 +72,7 @@ RUN bun install --production
 # Copy the entrypoint script and make it executable
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
-RUN --mount=type=secret,id=ADMIN_PASSWORD \
-    export ADMIN_PASSWORD=$(cat /run/secrets/ADMIN_PASSWORD)
-RUN --mount=type=secret,id=TOKEN_SECRET \
-    export TOKEN_SECRET=$(cat /run/secrets/TOKEN_SECRET)
+
 # Set runtime environment variables
 ENV DATABASE_URL=file:./db.sqlite \
     DATABASE_PROVIDER=sqlite \
@@ -83,7 +81,7 @@ ENV DATABASE_URL=file:./db.sqlite \
     ORIGIN=http://localhost:3000 \
     PORT=3000 \
     ADMIN_USERNAME=admin \
-    ADMIN_EMAIL=email@example.com \
+    ADMIN_EMAIL=email@example.org \
     ENABLE_SIGNUP=false \
     ENABLED_MFA=false \
     PUBLIC_URL=http://localhost:3000 \
@@ -91,7 +89,7 @@ ENV DATABASE_URL=file:./db.sqlite \
     PUBLIC_SNAPP_VERSION="0.9-rc-001"
 
 EXPOSE 3000
-
+    
 ENTRYPOINT ["entrypoint.sh"]
 CMD ["bun", "./build"]
 
