@@ -16,6 +16,9 @@
 	const form = superForm(formSchema, {
 		applyAction: true,
 		invalidateAll: true,
+		onResult:async()=>{
+			if (page.form?.message) toast.info(decode(i18n.t(page.form.message)));
+		},
 		onError: async () => {
 			if (page.form?.message) toast.info(decode(i18n.t(page.form.message)));
 		},

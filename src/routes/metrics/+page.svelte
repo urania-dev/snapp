@@ -34,7 +34,7 @@
 	</div>
 	<Separator />
 </div>
-<div class="flex h-full w-full max-w-[calc(100%_-_1px)] flex-col content-start lg:flex-row">
+<div class="flex h-full w-full max-w-[calc(100%_-_1px)] flex-col content-start lg:flex-row overflow-y-scroll">
 	<div class="flex h-full w-full flex-col">
 		<DateSelector />
 		<Separator />
@@ -96,27 +96,29 @@
 			</Select.Root>
 		</div>
 		<Separator />
-		{#if view === 'topSnapps'}
+		<div class="min-h-[128px]">
+			{#if view === 'topSnapps'}
 			<TopSnapps />
-		{/if}
-
-		{#if view === 'osDistribution'}
+			{/if}
+			
+			{#if view === 'osDistribution'}
 			<OsDistribution />
-		{/if}
-
-		{#if view === 'browserDistribution'}
+			{/if}
+			
+			{#if view === 'browserDistribution'}
 			<BrowserDistribution />
-		{/if}
-
-		{#if view === 'countryDistribution'}
+			{/if}
+			
+			{#if view === 'countryDistribution'}
 			<CountryDistribution />
-		{/if}
-		{#if view === 'regionDistribution'}
+			{/if}
+			{#if view === 'regionDistribution'}
 			<RegionDistribution />
-		{/if}
-		{#if view === 'cityDistribution'}
+			{/if}
+			{#if view === 'cityDistribution'}
 			<CityDistribution />
-		{/if}
+			{/if}
+		</div>
 	</div>
 </div>
 <SvelteSeo title={`${(data.appname||'Snapp')} | ${i18n.t('menu.settings')}`} />

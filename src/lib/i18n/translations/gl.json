@@ -273,7 +273,16 @@
 		},
 		"actions": {
 			"confirm-delete": "Esta acción eliminará permanentemente a URL"
-		}
+		},
+		"time": {
+			"seconds": "Segundos",
+			"minutes": "Minutos",
+			"hours": "Horas",
+			"days": "Días",
+			"weeks": "Semanas",
+			"months": "Meses",
+			"years": "Anos"
+		  }
 	},
 	"tags": {
 		"labels": {

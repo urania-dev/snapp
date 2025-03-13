@@ -1,21 +1,26 @@
-# Build stage: install all dependencies and build the application
+
+# Build stage: install all dependencies and bu  ild the application
 FROM oven/bun:slim AS builder
 WORKDIR /app
 
-# Copy package files and install all dependencies (including dev)
+# # Copy package files and install all dependencies (including dev)
 COPY package*.json ./
 RUN bun install
 
-# Copy the rest of your application code
+# # Copy the rest of your application code
 COPY . .
-ENV LOG_LEVEL="debug" \
+RUN --mount=type=secret,id=ADMIN_PASSWORD \
+    export ADMIN_PASSWORD=$(cat /run/secrets/ADMIN_PASSWORD) && echo $ADMIN_PASSWORD
+RUN --mount=type=secret,id=TOKEN_SECRET \
+    export TOKEN_SECRET=$(cat /run/secrets/TOKEN_SECRET) && echo $TOKEN_SECRET
+ENV DATABASE_URL=file:./db.sqlite \
+    DATABASE_PROVIDER=sqlite \
+    LOG_LEVEL="debug" \
     HOST=0.0.0.0 \
     ORIGIN=http://localhost:3000 \
     PORT=3000 \
-    TOKEN_SECRET=secret \
     ADMIN_USERNAME=admin \
     ADMIN_EMAIL=email@example.com \
-    ADMIN_PASSWORD=password \
     ENABLE_SIGNUP=false \
     ENABLED_MFA=false \
     PUBLIC_URL=http://localhost:3000 \
@@ -23,7 +28,7 @@ ENV LOG_LEVEL="debug" \
     PUBLIC_SNAPP_VERSION="0.9-rc"
     
     
-# Run build commands
+# # Run build commands
 ENV DATABASE_URL=mysql://root:password@localhost:3306/snapp \
     DATABASE_PROVIDER=mysql
 RUN bunx zenstack generate --schema dbschema/mysql/schema.zmodel --output /app/zenstack/mysql
@@ -41,7 +46,7 @@ RUN bunx prisma migrate deploy --schema dbschema/sqlite/prisma/schema.prisma
 
 RUN bun run build
 
-# Final stage: set up a lean runtime environment and reinstall production dependencies
+# # Final stage: set up a lean runtime environment and reinstall production dependencies
 FROM oven/bun:slim
 WORKDIR /app
 
@@ -66,7 +71,10 @@ RUN bun install --production
 # Copy the entrypoint script and make it executable
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
-
+RUN --mount=type=secret,id=ADMIN_PASSWORD \
+    export ADMIN_PASSWORD=$(cat /run/secrets/ADMIN_PASSWORD)
+RUN --mount=type=secret,id=TOKEN_SECRET \
+    export TOKEN_SECRET=$(cat /run/secrets/TOKEN_SECRET)
 # Set runtime environment variables
 ENV DATABASE_URL=file:./db.sqlite \
     DATABASE_PROVIDER=sqlite \
@@ -74,10 +82,8 @@ ENV DATABASE_URL=file:./db.sqlite \
     HOST=0.0.0.0 \
     ORIGIN=http://localhost:3000 \
     PORT=3000 \
-    TOKEN_SECRET=secret \
     ADMIN_USERNAME=admin \
     ADMIN_EMAIL=email@example.com \
-    ADMIN_PASSWORD=password \
     ENABLE_SIGNUP=false \
     ENABLED_MFA=false \
     PUBLIC_URL=http://localhost:3000 \
@@ -88,3 +94,4 @@ EXPOSE 3000
 
 ENTRYPOINT ["entrypoint.sh"]
 CMD ["bun", "./build"]
+

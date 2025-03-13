@@ -80,7 +80,6 @@
       "username-invalid": "Il nome utente non è valido. Fornisci un nome di almeno tre caratteri per il tuo profilo.",
       "user-already-exists": "Nome utente già in uso. Prova con un altro.",
       "reset-token-expired": "Il token di reset per il recupero della password è scaduto."
-
 		},
 		"generic": "Errore non riconosciuto, riprova più tardi."
 	},
@@ -271,7 +270,16 @@
 			"secret": "Specifica un segreto per proteggere questo URL"
 		},
 		"actions": {
-			"confirm-delete": "Questa azzione eliminerà l'URL permanentemente"
+			"confirm-delete": "Questa azione eliminerà l'URL permanentemente"
+		},
+		"time":{
+			"seconds":"Secondi",
+			"minutes":"Minuti",
+			"hours":"Ore",
+			"days":"Giorni",
+			"weeks":"Settimane",
+			"months":"Mesi",
+			"years":"Anni"
 		}
 	},
 	"tags": {

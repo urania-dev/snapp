@@ -272,7 +272,16 @@
 		},
 		"actions": {
 			"confirm-delete": "This action will permanently delete the URL"
-		}
+		},
+		"time": {
+      "seconds": "Seconds",
+      "minutes": "Minutes",
+      "hours": "Hours",
+      "days": "Days",
+      "weeks": "Weeks",
+      "months": "Months",
+      "years": "Years"
+    }
 	},
 	"tags": {
 		"labels": {

@@ -106,7 +106,7 @@
 	let container = $state<HTMLElement>();
 </script>
 
-<div class="h-full w-full p-2" in:fade|global>
+<div class="h-full min-h-[264px] w-full p-2" in:fade|global>
 	<div class="flex h-full w-full shrink-0 flex-col rounded border p-4">
 		<div bind:this={container} class="h-full w-full"></div>
 		{#await loadData()}

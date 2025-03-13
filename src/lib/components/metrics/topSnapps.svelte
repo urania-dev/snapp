@@ -77,7 +77,7 @@
 	const i18n = getTranslations();
 </script>
 
-<div class="flex h-full flex-col py-0">
+<div class="flex h-max md:h-full flex-col py-0">
 	<Table.Root>
 		<Table.Header>
 			<Table.Row class="h-8">
@@ -115,5 +115,7 @@
 			{/await}
 		</Table.Body>
 	</Table.Root>
+	{#if data.length}
 	<Separator />
+	{/if}
 </div>

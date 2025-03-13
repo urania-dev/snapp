@@ -13,6 +13,7 @@
 
 	import { DateSelector } from '../metrics';
 	import { Separator } from '../ui/separator';
+	import { browser } from '$app/environment';
 	type CharData = { date: string; value: number };
 
 	let { snappId }: { snappId: string } = $props();
@@ -82,7 +83,7 @@
 	<div class="flex min-h-[325px] flex-col px-2 py-2">
 		<div class="min-h-[325px] w-full rounded border p-4">
 			{#key mstore.start || mstore.end}
-				{#if mstore.start && mstore.end}
+				{#if mstore.start && mstore.end && browser}
 					{@const days =
 						Math.floor(
 							Math.abs(

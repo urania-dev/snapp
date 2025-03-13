@@ -13,7 +13,7 @@ export const markUsage = async (
 	event: RequestEvent,
 	snapp: Snapp
 ): Promise<[boolean, null | string | undefined]> => {
-	let disabled = false;
+	let disabled = snapp.disabled;
 
 	const headers = Object.fromEntries(event.request.headers);
 
@@ -34,7 +34,6 @@ export const markUsage = async (
 			return [false, err];
 		}
 	}
-
 	if (disabled === true) {
 		await prisma.snapp.update({
 			data: { ...snapp },
