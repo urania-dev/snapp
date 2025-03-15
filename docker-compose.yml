@@ -1,6 +1,6 @@
 services:
   snapp:
-    image: uraniadev/snapp:0.9-rc-001
+    image: uraniadev/snapp:0.9-rc-002
     ports:
       - 3000:3000
     environment:

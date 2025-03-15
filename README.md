@@ -22,9 +22,16 @@ platforms, and offers integration with various databases, now accessible with
 just a ENV Variable.
 
 ### 2025 Update
-The app has undergone a major refactor, bringing numerous improvements, including a fresh UI built with ShadCN and Svelte. The platform is now stable and mature enough to be considered a release candidate. This will need a new reinitiation of a plain database, so export your URL and be prepared to a new importer that should be able to guide you assign any kind of CSV to the platform.
 
-Please, note that for the time being the release candidate will be updated as fixed version. Once stable will be released as Latest and v.1.0.0.
+The app has undergone a major refactor, bringing numerous improvements,
+including a fresh UI built with ShadCN and Svelte. The platform is now stable
+and mature enough to be considered a release candidate. This will need a new
+reinitiation of a plain database, so export your URL and be prepared to a new
+importer that should be able to guide you assign any kind of CSV to the
+platform.
+
+Please, note that for the time being the release candidate will be updated as
+fixed version. Once stable will be released as Latest and v.1.0.0.
 
 ## Features
 
@@ -47,7 +54,6 @@ Please, note that for the time being the release candidate will be updated as fi
 - **REST API:** Community-requested REST API endpoints enable remote management
   of your Snapp instance. Find all Scalar Docs [here](https://snapp.li/docs).
 
-
 ---
 ## This is a major refactor, the database has been rewritten
 ### Always backup before attempting any update
@@ -57,11 +63,10 @@ Please, note that for the time being the release candidate will be updated as fi
 
 Snapp is an open-source platform you can host yourself.
 
-
 ```yml
 services:
   snapp:
-    image: uraniadev/snapp:0.9-rc-001
+    image: uraniadev/snapp:0.9-rc-002
     ports:
       - 3000:3000
     environment:
@@ -71,20 +76,21 @@ services:
       ORIGIN: https://example.com
 ```
 
-**Note**: SQLite database is located in /app/dbschema/sqlite/prisma/{DATABASE_URL} if you
-want to mount it
+**Note**: SQLite database is located in
+/app/dbschema/sqlite/prisma/{DATABASE_URL} if you want to mount it
 
-**_Update8.1_**: ~~In order to make it actually work it ended up requiring better~~
-~~specification of schemas for Prisma Clients, the combinations are:~~
+**_Update8.1_**: ~~In order to make it actually work it ended up requiring
+better~~ ~~specification of schemas for Prisma Clients, the combinations are:~~
 
-**_Update0.9-rc_**: Now integrate Zenstack and improved ENV definition to restrict:
+**_Update0.9-rc_**: Now integrate Zenstack and improved ENV definition to
+restrict:
+
 ```sh
-    DATABASE_PROVIDER=sqlite # postgres | mysql
-    DATABASE_URL=file:./db.sqlite
-    # DATABASE_URL=mysql://root:password@localhost:3306/db
-    # DATABASE_URL=postgres://root:password@localhost:5432/db
+DATABASE_PROVIDER=sqlite # postgres | mysql
+DATABASE_URL=file:./db.sqlite
+# DATABASE_URL=mysql://root:password@localhost:3306/db
+# DATABASE_URL=postgres://root:password@localhost:5432/db
 ```
-
 
 ## Default Admin Authentication
 
@@ -152,7 +158,6 @@ SMTP_SSL=
 SMTP_USER=
 VTAPI_KEY=
 TOKEN_SECRET=
-
 ```
 
 ## OAUTH2.0 & OIDC
@@ -170,7 +175,7 @@ be enough to change `smtp.config.cjs` file
 ```yml
 services:
   snapp:
-    image: uraniadev/snapp:0.9-rc-001
+    image: uraniadev/snapp:0.9-rc-002
     ports:
       - 3000:3000
     volumes:
