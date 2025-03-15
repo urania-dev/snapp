@@ -73,7 +73,9 @@ export class ParamsHandler {
 			this.cookies.set('limit', limit.toString(), {
 				expires: expirationDate,
 				httpOnly: true,
-				path: '/'
+				path: '/',
+		secure: process.env.NODE_ENV !== 'development'
+
 			});
 		}
 	}

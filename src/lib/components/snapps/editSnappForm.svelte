@@ -4,6 +4,7 @@
 	import * as Form from '$lib/components/ui/form';
 	import * as Tabs from '$lib/components/ui/tabs';
 	import { getTranslations } from '$lib/i18n/index.svelte';
+	import { slugify } from '$lib/utils';
 	import { decode } from 'html-entities';
 	import { toast } from 'svelte-sonner';
 	import { SvelteMap } from 'svelte/reactivity';
@@ -24,7 +25,6 @@
 	import { Separator } from '../ui/separator';
 	import { Textarea } from '../ui/textarea';
 	import { snappSchema, type SnappSchema } from './schema';
-	import { slugify } from '$lib/utils';
 
 	const { formSchema }: { formSchema: SuperValidated<Infer<SnappSchema>> } = $props();
 

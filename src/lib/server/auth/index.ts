@@ -74,7 +74,7 @@ export function setSessionTokenCookie(event: RequestEvent, token: string, expire
 		httpOnly: true,
 		path: '/',
 		sameSite: 'lax',
-		secure: !dev
+		secure: process.env.NODE_ENV !== 'development'
 	});
 }
 

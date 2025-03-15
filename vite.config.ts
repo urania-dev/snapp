@@ -16,6 +16,7 @@ export default defineConfig({
 			allow: [searchForWorkspaceRoot(process.cwd()), './maxmind', './output']
 		},
 		origin: config.ORIGIN as string,
-		port: config.PORT as number
+		port: config.PORT as number,
+		
 	}
 });

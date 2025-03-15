@@ -34,21 +34,21 @@ export const GET: Action = async ({ cookies, params: { provider } }) => {
 		maxAge: 60 * 10,
 		path: '/',
 		sameSite: 'lax',
-		secure: import.meta.env.PROD
+		secure: process.env.NODE_ENV !== 'development'
 	});
 	cookies.set('oauth_code', codeVerifier, {
 		httpOnly: true,
 		maxAge: 60 * 10,
 		path: '/',
 		sameSite: 'lax',
-		secure: import.meta.env.PROD
+		secure: process.env.NODE_ENV !== 'development'
 	});
 	cookies.set('oauth_identity', config.identity, {
 		httpOnly: true,
 		maxAge: 60 * 10,
 		path: '/',
 		sameSite: 'lax',
-		secure: import.meta.env.PROD
+		secure: process.env.NODE_ENV !== 'development'
 	});
 
 	redirect(302, authorizationUrl);

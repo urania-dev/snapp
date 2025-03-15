@@ -202,7 +202,8 @@ export const actions = {
 			cookies.set('language', lang, {
 				httpOnly: true,
 				path: '/',
-				secure: true
+				secure: process.env.NODE_ENV !== 'development'
+
 			});
 			return { message: 'globals.saved' };
 		}
@@ -388,7 +389,7 @@ export const actions = {
 			cookies.set('theme', theme, {
 				httpOnly: true,
 				path: '/',
-				secure: true
+				secure: process.env.NODE_ENV !== 'development'
 			});
 			return { message: 'globals.saved' };
 		}

@@ -80,10 +80,12 @@ export const testTransport = async <T extends Component<any, any, string>>(
 			},
 			style: ''
 		});
+		const verify = await transporter.verify()
 
-		if (process.env.LOG_LEVEL === 'debug') {
-			log.info('VERIFY SMTP: ', await transporter.verify());
-		}
+		if (process.env.LOG_LEVEL === 'debug') 
+			log.info({'VERIFY SMTP: ': {verify}});
+		
+		log.info({from,smtp})
 		await transporter.sendMail({ from, html, subject, to });
 	} catch (error) {
 		if (process.env.LOG_LEVEL === 'debug') log.error(error);

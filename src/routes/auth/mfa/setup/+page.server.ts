@@ -1,7 +1,6 @@
 import { decodeHex, encodeHexLowerCase } from '@oslojs/encoding';
 import { createTOTPKeyURI, verifyTOTP } from '@oslojs/otp';
 import { fail, redirect } from '@sveltejs/kit';
-import { dev } from '$app/environment';
 import { otpSchema } from '$lib/components/auth/schema';
 import { prisma } from '$lib/db/prisma';
 import {
@@ -45,7 +44,7 @@ export const load = async (event) => {
 		expires: new Date(new Date().getTime() + 1000 * 60 * 60),
 		httpOnly: true,
 		path: '/',
-		secure: !dev
+		secure: process.env.NODE_ENV !== 'development'
 	});
 
 	return {
@@ -70,7 +69,7 @@ export const actions = {
 				expires: new Date(new Date().getTime() + 1000 * 60 * 60),
 				httpOnly: true,
 				path: '/',
-				secure: true
+				secure: process.env.NODE_ENV !== 'development'
 			});
 		}
 

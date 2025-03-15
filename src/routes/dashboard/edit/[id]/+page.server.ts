@@ -55,7 +55,7 @@ export const actions = {
 
 		const { groups, secret, tags, utmParams, ...snapp } = editForm.data;
 
-		const originalURL = snapp.originalUrl.toLowerCase();
+		const originalURL = snapp.originalUrl
 
 		const { errors, valid } = await watchLists.validateURL(originalURL);
 
@@ -63,7 +63,7 @@ export const actions = {
 			? await prisma.snapp.count({
 					where: {
 						id: { not: event.params.id },
-						shortcode: { startsWith: snapp.shortcode }
+						shortcode: { startsWith: snapp.shortcode.toLowerCase() }
 					}
 				})
 			: null;

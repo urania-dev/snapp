@@ -1,6 +1,6 @@
 import { prisma } from '../../db/prisma';
 import { log } from '../log';
-
+import 'dotenv/config'
 const parseEnv = <T extends boolean | null | number | string | undefined>(
 	value?: boolean | null | number | string | undefined
 ): T => {

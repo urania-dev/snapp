@@ -4,7 +4,9 @@
 	import * as Form from '$lib/components/ui/form';
 	import * as Tabs from '$lib/components/ui/tabs';
 	import { getTranslations } from '$lib/i18n/index.svelte';
+	import { slugify } from '$lib/utils';
 	import { decode } from 'html-entities';
+	import { nanoid } from 'nanoid';
 	import { toast } from 'svelte-sonner';
 	import { SvelteMap } from 'svelte/reactivity';
 	import { type Infer, superForm, type SuperValidated } from 'sveltekit-superforms';
@@ -24,7 +26,6 @@
 	import { Separator } from '../ui/separator';
 	import { Textarea } from '../ui/textarea';
 	import { snappSchema, type SnappSchema } from './schema';
-	import { slugify } from '$lib/utils';
 
 	const { formSchema }: { formSchema: SuperValidated<Infer<SnappSchema>> } = $props();
 
@@ -39,6 +40,7 @@
 			await goto('/dashboard');
 		},
 		onSubmit: ({ formData:fd }) => {
+			if(!$formData.shortcode) fd.set('shortcode', nanoid(5))
 			if(hasSecret&&$formData?.secret) fd.set('secret',$formData.secret)
 			else fd.delete('secret')
 			for (const tag of tags) fd.append('tags', tag);
