@@ -237,3 +237,5 @@
   - Fixed: [#91 VTAPI status return true without API Key](https://github.com/urania-dev/snapp/issues/91)
   - Fixed: [#89 Shortcodes and original URL not sanitized on input in Frontend](https://github.com/urania-dev/snapp/issues/89)
   - Fixed: some labels missing in I18N
+- 0.9-rc-002/003:
+  - Fixed: [#94/#95 Original URL lowercased by mistake](https://github.com/urania-dev/snapp/issues/95)
