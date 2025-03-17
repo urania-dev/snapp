@@ -66,7 +66,7 @@ export const testTransport = async <T extends Component<any, any, string>>(
 ) => {
 	const smtp = await getSMTP();
 	const transporter = createTransport<Transport>({ ...smtp } as TransportOptions);
-	try {
+
 		const settings = await getSettings();
 		const from = settings.get<string>('SMTP_FROM') || process.env.SMTP_USER;
 		const emailer = new Emailer();
@@ -87,8 +87,4 @@ export const testTransport = async <T extends Component<any, any, string>>(
 		
 		log.info({from,smtp})
 		await transporter.sendMail({ from, html, subject, to });
-	} catch (error) {
-		if (process.env.LOG_LEVEL === 'debug') log.error(error);
-		throw error;
-	}
 };

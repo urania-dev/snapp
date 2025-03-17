@@ -102,10 +102,6 @@
 							icon="globe-simple"
 							placeholder={i18n.t('snapps.placeholders.original-url')}
 							{...props}
-							oninput={(e)=>{
-								const value = e.currentTarget.value
-								if(value.trim()!=='') $formData.originalUrl=value.toLowerCase()
-							}}
 							bind:value={$formData.originalUrl}
 						/>
 					{/snippet}

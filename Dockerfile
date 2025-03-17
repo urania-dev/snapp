@@ -22,7 +22,7 @@ ENV DATABASE_URL=file:./db.sqlite \
     ENABLED_MFA=false \
     PUBLIC_URL=http://localhost:3000 \
     APPNAME="Snapp.li" \
-    PUBLIC_SNAPP_VERSION="0.9-rc-002"
+    PUBLIC_SNAPP_VERSION="0.9-rc-003"
     
 # # Run build commands
 ENV DATABASE_URL=mysql://root:password@localhost:3306/snapp \
@@ -86,7 +86,7 @@ ENV DATABASE_URL=file:./db.sqlite \
     ENABLED_MFA=false \
     PUBLIC_URL=http://localhost:3000 \
     APPNAME="Snapp.li" \
-    PUBLIC_SNAPP_VERSION="0.9-rc-002"
+    PUBLIC_SNAPP_VERSION="0.9-rc-003"
 
 EXPOSE 3000
     
