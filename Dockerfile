@@ -22,7 +22,7 @@ ENV DATABASE_URL=file:./db.sqlite \
     ENABLED_MFA=false \
     PUBLIC_URL=http://localhost:3000 \
     APPNAME="Snapp.li" \
-    PUBLIC_SNAPP_VERSION="0.9-rc-003"
+    PUBLIC_SNAPP_VERSION="0.9-rc-004"
     
 # # Run build commands
 ENV DATABASE_URL=mysql://root:password@localhost:3306/snapp \
@@ -53,6 +53,7 @@ WORKDIR /app
 
 # Copy the built output (adjust path if necessary)
 COPY --from=builder /app/build ./build
+COPY --from=builder /app/smtp.config.cjs ./smtp.config.cjs
 COPY --from=builder /app/src ./src
 COPY --from=builder /app/dbschema ./dbschema
 COPY --from=builder /app/maxmind ./maxmind
@@ -86,7 +87,7 @@ ENV DATABASE_URL=file:./db.sqlite \
     ENABLED_MFA=false \
     PUBLIC_URL=http://localhost:3000 \
     APPNAME="Snapp.li" \
-    PUBLIC_SNAPP_VERSION="0.9-rc-003"
+    PUBLIC_SNAPP_VERSION="0.9-rc-004"
 
 EXPOSE 3000
     

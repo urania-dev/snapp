@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { page } from '$app/state';
+	import { env } from '$env/dynamic/public';
 	import H1 from '$lib/components/typography/heading/h1.svelte';
 	import H2 from '$lib/components/typography/heading/h2.svelte';
 	import H3 from '$lib/components/typography/heading/h3.svelte';
@@ -25,6 +26,12 @@
 		toast.info(i18n.t('snapps.helpers.copied-to-clipboard'));
 	};
 </script>
+
+<svelte:head>
+	{#if env.PUBLIC_UMAMI_WEBSITE_ID && env.PUBLIC_UMAMI_WEBSITE_URL}
+		{@html `<script async src="${env.PUBLIC_UMAMI_WEBSITE_URL}" data-website-id="${env.PUBLIC_UMAMI_WEBSITE_ID}"></script>`}
+	{/if}
+</svelte:head>
 
 <div
 	class="erratic-bg relative flex h-screen w-screen flex-col overflow-y-scroll scroll-smooth pt-12"

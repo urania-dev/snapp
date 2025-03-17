@@ -239,3 +239,5 @@
   - Fixed: some labels missing in I18N
 - 0.9-rc-002/003:
   - Fixed: [#94/#95 Original URL lowercased by mistake](https://github.com/urania-dev/snapp/issues/95)
+- 0.9-rc-004:
+  - Fixed SMTP not working for DOCKERFILE misconfiguration
