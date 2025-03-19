@@ -241,3 +241,5 @@
   - Fixed: [#94/#95 Original URL lowercased by mistake](https://github.com/urania-dev/snapp/issues/95)
 - 0.9-rc-004:
   - Fixed SMTP not working for DOCKERFILE misconfiguration
+- 0.9-rc-005:
+  - Fixed: [#96 Unable to download QR code as PNG file](https://github.com/urania-dev/snapp/issues/96)

@@ -132,12 +132,14 @@
 								onclick={async () => {
 									const canvas = document.createElement('canvas');
 									const ctx = canvas.getContext('2d');
-									const img = document.getElementById('qrcode-holder')?.firstChild as Node;
+									const img = document.querySelector('#qrcode-holder svg')
 									if (!img || !ctx) return;
 									const svgData = new XMLSerializer().serializeToString(img);
+
 									const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
 									const svgUrl = URL.createObjectURL(svgBlob);
 									const image = new Image();
+									image.src = svgUrl;
 									image.onload = function () {
 										canvas.width = 500;
 										canvas.height = 500;
@@ -148,11 +150,11 @@
 										const pngUrl = canvas.toDataURL('image/png');
 										const a = document.createElement('a');
 										a.title = data.snapp?.shortcode;
+										a.target="_blank"
 										a.download = `${data.snapp?.shortcode}.png`;
 										a.href = pngUrl;
 										a.click();
 									};
-									image.src = svgUrl;
 								}}
 							>
 								<i class="ph-duotone ph-file-png text-[20px]"></i>

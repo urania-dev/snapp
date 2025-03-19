@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import type { Transport } from '@sveltejs/kit';
+
 import type { Component, ComponentProps } from 'svelte';
 
 import Emailer, { inline } from '@uraniadev/emailer';
 import { createRequire } from 'module';
-import { createTransport, type TransportOptions } from 'nodemailer';
+import { createTransport, type Transport, type TransportOptions } from 'nodemailer';
 import { join } from 'path';
 
 import { getSettings } from '../config';
