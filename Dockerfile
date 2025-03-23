@@ -20,6 +20,7 @@ ENV DATABASE_URL=file:./db.sqlite \
     ENABLE_SIGNUP=false \
     ENABLED_MFA=false \
     PUBLIC_URL=http://localhost:3000 \
+    PUBLIC_EXTRA_GROUPS_EDITABLE=false \
     APPNAME="Snapp.li" \
     PUBLIC_SNAPP_VERSION="0.9-rc-006"
     
@@ -44,7 +45,6 @@ RUN --mount=type=secret,id=ADMIN_PASSWORD \
     ADMIN_PASSWORD=$(cat /run/secrets/ADMIN_PASSWORD) \
     TOKEN_SECRET=$(cat /run/secrets/TOKEN_SECRET) \
     bun run build
-
 
 # Final stage: set up a lean runtime environment and reinstall production dependencies
 FROM oven/bun:slim
@@ -85,6 +85,7 @@ ENV DATABASE_URL=file:./db.sqlite \
     ENABLE_SIGNUP=false \
     ENABLED_MFA=false \
     PUBLIC_URL=http://localhost:3000 \
+    PUBLIC_EXTRA_GROUPS_EDITABLE=false \
     APPNAME="Snapp.li" \
     PUBLIC_SNAPP_VERSION="0.9-rc-006"
 

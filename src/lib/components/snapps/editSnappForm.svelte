@@ -32,6 +32,7 @@
 		applyAction: true,
 		invalidateAll: true,
 		onError: async () => {
+			console.log(Object.fromEntries(page.form.entries()))
 			if (page.form?.message) toast.info(decode(i18n.t(page.form.message)));
 		},
 		onResult: async ({ result }) => {

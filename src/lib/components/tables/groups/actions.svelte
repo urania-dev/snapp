@@ -40,7 +40,7 @@
 						class="h-8 w-full shrink-0 justify-start p-0"
 					>
 						<i class="ph ph-eye text-[18px]"></i>
-						<span class="capitalize">{group.name}</span>
+						<span class="capitalize">{i18n.t('globals.show')}</span>
 					</Button>
 				</DropdownMenu.Item>
 				{#if user.role !== 'user'}

@@ -6,6 +6,8 @@ import bcrypt from 'bcryptjs';
 import { customAlphabet } from 'nanoid';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
+import { env } from '$env/dynamic/public';
+import { log } from '$lib/server/log/index.js';
 
 const nanoid = customAlphabet('abcdefghijklmnopqrstuvwxyz', 5);
 
@@ -85,10 +87,13 @@ export const actions = {
 					(errors?.https && errors.https)
 			});
 		}
-		if (!isOwnerOrAdmin) return fail(400, { message: 'errors.unauthorized' });
+		const EXTRA_GROUPS_EDITABLE  = env?.PUBLIC_EXTRA_GROUPS_EDITABLE?.toString()?.toLowerCase() === 'true'
+
+		if (!isOwnerOrAdmin && !EXTRA_GROUPS_EDITABLE ) return fail(400, { message: 'errors.unauthorized',editForm });
 		try {
 			const updatedSnapp = await prisma.snapp.update({
 				data: {
+					userId:old?.userId,
 					expiresAt: snapp.expiresAt || null,
 					groupId: (groups.length && groups[0]) || null,
 					maxUsages: snapp.maxUsages || -1,

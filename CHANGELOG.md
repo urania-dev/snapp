@@ -247,3 +247,5 @@
   - Fixed: [#97 Icons don't render](https://github.com/urania-dev/snapp/issues/97)
   - Fixed: [#98 500 on switching to "System default" (light/dark) mode](https://github.com/urania-dev/snapp/issues/98)
   - Fixed: [#99 Callback-URL wrong in docs + oauth docs are unclear](https://github.com/urania-dev/snapp/issues/99)
+- 0.9-rc-007:
+  - Fixed: [#67 Adding ability to change what user the shortcode belongs to on front end #67](https://github.com/urania-dev/snapp/discussions/67) now possible with env PUBLIC_EXTRA_GROUPS_EDITABLE=true it will show edit in group snapps dashboard

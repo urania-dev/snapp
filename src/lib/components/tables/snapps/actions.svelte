@@ -10,6 +10,7 @@
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import { getTranslations } from '$lib/i18n/index.svelte';
 	import { toast } from 'svelte-sonner';
+	import { env } from '$env/dynamic/public';
 
 	type ActionProps<T> = {
 		children?: Snippet;
@@ -60,7 +61,7 @@
 						<span>{i18n.t('globals.copy')}</span>
 					</Button>
 				</DropdownMenu.Item>
-				{#if snapp.userId === page.data.user.id || page.data.user.role !== 'user'}
+				{#if snapp.userId === page.data.user.id || page.data.user.role !== 'user' || env?.PUBLIC_EXTRA_GROUPS_EDITABLE?.toString()?.toLowerCase()==='true'}
 					<DropdownMenu.Item>
 						<Button
 							variant="ghost"
