@@ -15,7 +15,7 @@ const startDocker =  async (theme: string) =>
 		`docker run uraniadev/snapp:latest`,
 		{
 			lang: 'bash',
-			theme: 'github-' + theme
+			theme: ( theme === 'system' ||  theme === 'dark' ? 'github-dark':'github-light')
 		}
 	);
 const dockerCompose =  async (theme: string) =>
@@ -32,6 +32,6 @@ const dockerCompose =  async (theme: string) =>
 			DATABASE_URL: file:./db.sqlite`,
 		{
 			lang: 'bash',
-			theme: 'github-' + theme
+			theme: ( theme === 'system' ||  theme === 'dark' ? 'github-dark':'github-light')
 		}
 	);

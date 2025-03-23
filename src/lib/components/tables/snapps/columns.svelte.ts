@@ -83,8 +83,8 @@ export const columns = (i18n: TranslationsStoreType, isPrivateView: boolean = tr
 						return {
 							render: () =>
 								isPrivateView
-									? `<a href="/dashboard/${id}" class="text-xs flex shrink-0 uppercase justify-center font-medium hover:text-foreground w-full text-center">${shortcode}</a>`
-									: `<a href="/${shortcode}" data-sveltekit-preload-data="off" class="text-xs flex shrink-0 uppercase justify-center font-medium hover:text-foreground w-full text-center">${shortcode}</a>`
+									? `<a href="/dashboard/${id}" class="text-xs flex uppercase justify-center font-medium hover:text-foreground w-full text-center whitespace-nowrap text-nowrap text-ellipsis">${shortcode}</a>`
+									: `<a href="/${shortcode}" data-sveltekit-preload-data="off" class="text-xs flex shrink-0 uppercase justify-center font-medium hover:text-foreground w-full whitespace-nowrap text-nowrap text-ellipsis text-center">${shortcode}</a>`
 						};
 					}
 				);

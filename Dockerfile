@@ -3,13 +3,12 @@
 FROM oven/bun:slim AS builder
 WORKDIR /app
 
-# # Copy package files and install all dependencies (including dev)
+# Copy package files and install all dependencies (including dev)
 COPY package*.json ./
 RUN bun install
 
-# # Copy the rest of your application code
+# Copy the rest of your application code
 COPY . .
-
 ENV DATABASE_URL=file:./db.sqlite \
     DATABASE_PROVIDER=sqlite \
     LOG_LEVEL="debug" \
@@ -22,9 +21,10 @@ ENV DATABASE_URL=file:./db.sqlite \
     ENABLED_MFA=false \
     PUBLIC_URL=http://localhost:3000 \
     APPNAME="Snapp.li" \
-    PUBLIC_SNAPP_VERSION="0.9-rc-004"
+    PUBLIC_SNAPP_VERSION="0.9-rc-006"
     
-# # Run build commands
+RUN apt-get update -y && apt-get install -y openssl
+# Run build commands
 ENV DATABASE_URL=mysql://root:password@localhost:3306/snapp \
     DATABASE_PROVIDER=mysql
 RUN bunx zenstack generate --schema dbschema/mysql/schema.zmodel --output /app/zenstack/mysql
@@ -39,7 +39,6 @@ ENV DATABASE_URL=file:./db.sqlite\
 RUN bunx zenstack generate --schema dbschema/sqlite/schema.zmodel
 
 RUN bunx prisma migrate deploy --schema dbschema/sqlite/prisma/schema.prisma 
-
 RUN --mount=type=secret,id=ADMIN_PASSWORD \
     --mount=type=secret,id=TOKEN_SECRET \
     ADMIN_PASSWORD=$(cat /run/secrets/ADMIN_PASSWORD) \
@@ -47,7 +46,7 @@ RUN --mount=type=secret,id=ADMIN_PASSWORD \
     bun run build
 
 
-# # Final stage: set up a lean runtime environment and reinstall production dependencies
+# Final stage: set up a lean runtime environment and reinstall production dependencies
 FROM oven/bun:slim
 WORKDIR /app
 
@@ -87,7 +86,7 @@ ENV DATABASE_URL=file:./db.sqlite \
     ENABLED_MFA=false \
     PUBLIC_URL=http://localhost:3000 \
     APPNAME="Snapp.li" \
-    PUBLIC_SNAPP_VERSION="0.9-rc-004"
+    PUBLIC_SNAPP_VERSION="0.9-rc-006"
 
 EXPOSE 3000
     

@@ -696,6 +696,6 @@ const code = async (theme: string) =>
 	})`,
 		{
 			lang: 'typescript',
-			theme: 'github-' + theme
+			theme: ( theme === 'system' ||  theme === 'dark' ? 'github-dark':'github-light')
 		}
 	);

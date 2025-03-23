@@ -1,4 +1,9 @@
 <script lang="ts">
+	import '@phosphor-icons/web/bold';
+	import '@phosphor-icons/web/duotone';
+	import '@phosphor-icons/web/fill';
+	import '@phosphor-icons/web/regular';
+
 	import '../app.css';
 
 	const { children, data } = $props();
@@ -10,7 +15,7 @@
 	import * as Sidebar from '$lib/components/ui/sidebar';
 	import { setTranslations } from '$lib/i18n/index.svelte';
 	import { mode, setMode } from 'mode-watcher';
-	import SvelteSeo from "svelte-seo";
+	import SvelteSeo from 'svelte-seo';
 	import { Toaster } from 'svelte-sonner';
 	import { fade } from 'svelte/transition';
 	const i18n = setTranslations(data.translations, data.locale);
@@ -35,8 +40,6 @@
 	const SHOW_MENU = $derived(
 		paths.includes(page?.url?.pathname) || paths?.some((p) => page?.url?.pathname?.startsWith(p))
 	);
-
-	
 </script>
 
 <div class="flex h-[100dvh] w-screen" in:fade|global>
@@ -53,7 +56,6 @@
 				<div class="flex h-14 w-full shrink-0 items-center gap-2 border-b px-2">
 					<Sidebar.Trigger class="h-10 w-10"></Sidebar.Trigger>
 					<Separator orientation="vertical" />
-					
 				</div>
 			{/if}
 			{#key page.url.pathname}
@@ -67,19 +69,20 @@
 <Toaster position="top-right" theme={$mode} />
 
 <SvelteSeo
-	title={data.appname||'Snapp'}
+	title={data.appname || 'Snapp'}
 	description={i18n.t('homepage.getting-started.claim')}
 	canonical={env.PUBLIC_URL}
-  	keywords="self-hosted URL shortening, Snapp, URL management, link shortening, 
+	keywords="self-hosted URL shortening, Snapp, URL management, link shortening, 
 	custom short URLs, secure authentication, protected URLs, analytics, Umami integration,
 	VirusTotal API, REST API, open source, Docker deployment, migration, CSV export, secret links, 
 	personalized short codes, link engagement, privacy-focused, community-requested features, swagger documentation."
-    openGraph={{
-		description:
-		  "Learn about primal movement exercises and how they can benefit your fitness.",
-		images:[{alt:"Screenshot",height:800, url:'/screenshot.png', width:1600}],
-		title: data.appname||'Snapp',
-		type:"website",
-		url: env.PUBLIC_URL}}
-
+	openGraph={{
+		description: i18n.t('homepage.getting-started.claim'),
+		images: [
+			{ alt: 'Screenshot', height: 600, url: env.PUBLIC_URL + '/screenshot.png', width: 1000 }
+		],
+		title: data.appname || 'Snapp',
+		type: 'website',
+		url: env.PUBLIC_URL
+	}}
 />

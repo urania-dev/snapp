@@ -66,7 +66,7 @@ Snapp is an open-source platform you can host yourself.
 ```yml
 services:
   snapp:
-    image: uraniadev/snapp:0.9-rc-004
+    image: uraniadev/snapp:0.9-rc-006
     ports:
       - 3000:3000
     environment:
@@ -165,7 +165,7 @@ TOKEN_SECRET=
 Snapp can now integrate Oauth & OIDC compatible SSO. It requires env variables
 prefixed with AUTH as the example above Users are checked on email, unregistered
 user will rejected if sign ups are disabled. Registered callback URI at
-`/auth/oauth/{provider}/callback`
+`/auth/{provider}/callback`
 
 ## SMTP Configuration
 
@@ -175,7 +175,7 @@ be enough to change `smtp.config.cjs` file
 ```yml
 services:
   snapp:
-    image: uraniadev/snapp:0.9-rc-004
+    image: uraniadev/snapp:0.9-rc-006
     ports:
       - 3000:3000
     volumes:

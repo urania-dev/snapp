@@ -171,6 +171,7 @@
 			PUBLIC_URL: http://example.org
 			DATABASE_PROVIDER: sqlite
 			DATABASE_URL: file:./db.sqlite
+			TOKEN_SECRET: # openssl rand --base64 32
 `
 							)}><i class="ph-duotone ph-copy text-[20px]"></i></Button
 					>

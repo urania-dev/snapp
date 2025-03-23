@@ -195,7 +195,6 @@
 		};
 	});
 
-	const sourceVisible = $derived(table.getAllColumns().filter((col) => col.id ==='originalUrl')?.[0]?.getIsVisible() )
 </script>
 
 <div class="flex items-center gap-2 px-4 pb-2">
@@ -318,7 +317,8 @@
 								class={cn(
 									'align-center',
 									['expiration', 'secret'].includes(cell.column.id) && '!p-0',
-									['hit', 'maxUsages'].includes(cell.column.id) && 'text-center'
+									['hit', 'maxUsages'].includes(cell.column.id) && 'text-center',
+
 								)}
 							>
 								<FlexRender content={cell.column.columnDef.cell} context={cell.getContext()} />

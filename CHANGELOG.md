@@ -243,3 +243,7 @@
   - Fixed SMTP not working for DOCKERFILE misconfiguration
 - 0.9-rc-005:
   - Fixed: [#96 Unable to download QR code as PNG file](https://github.com/urania-dev/snapp/issues/96)
+- 0.9-rc-006:
+  - Fixed: [#97 Icons don't render](https://github.com/urania-dev/snapp/issues/97)
+  - Fixed: [#98 500 on switching to "System default" (light/dark) mode](https://github.com/urania-dev/snapp/issues/98)
+  - Fixed: [#99 Callback-URL wrong in docs + oauth docs are unclear](https://github.com/urania-dev/snapp/issues/99)
