@@ -22,7 +22,7 @@ ENV DATABASE_URL=file:./db.sqlite \
     PUBLIC_URL=http://localhost:3000 \
     PUBLIC_EXTRA_GROUPS_EDITABLE=false \
     APPNAME="Snapp.li" \
-    PUBLIC_SNAPP_VERSION="0.9-rc-006"
+    PUBLIC_SNAPP_VERSION="0.9-rc-008"
     
 RUN apt-get update -y && apt-get install -y openssl
 # Run build commands
@@ -52,6 +52,7 @@ WORKDIR /app
 
 # Copy the built output (adjust path if necessary)
 COPY --from=builder /app/build ./build
+COPY --from=builder /app/output ./output
 COPY --from=builder /app/smtp.config.cjs ./smtp.config.cjs
 COPY --from=builder /app/src ./src
 COPY --from=builder /app/dbschema ./dbschema
@@ -87,7 +88,7 @@ ENV DATABASE_URL=file:./db.sqlite \
     PUBLIC_URL=http://localhost:3000 \
     PUBLIC_EXTRA_GROUPS_EDITABLE=false \
     APPNAME="Snapp.li" \
-    PUBLIC_SNAPP_VERSION="0.9-rc-006"
+    PUBLIC_SNAPP_VERSION="0.9-rc-008"
 
 EXPOSE 3000
     
