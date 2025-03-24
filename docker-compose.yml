@@ -1,13 +1,24 @@
 services:
   snapp:
-    image: uraniadev/snapp:0.9-rc-008
+    image: test
     ports:
       - 3000:3000
+    healthcheck: 
+      interval: 30s 
+      timeout: 5s 
+      start_period: 10s 
+      retries: 3 
+      test: ["CMD", "curl", "--fail", "http://127.0.0.1:3000/health", "||", "exit", "1"]
     environment:
+      ADMIN_PASSWORD: password
       DATABASE_PROVIDER: sqlite # mysql | postgres
       DATABASE_URL: file:./db.sqlite
       # DATABASE_URL: postgres://root:password@postgres:5432/snapp
       # DATABASE_URL: mysql://root:password@mariadb:3306/snapp
+      TOKEN_SECRET: $(openssl rand --base64 32)
+    volumes: 
+      - snapp:/app
+      - ./entrypoint.sh:/usr/local/bin/entrypoint.sh
   # mariadb:
   #   image: mariadb:latest
   #   ports:
@@ -24,14 +35,16 @@ services:
   #     interval: 1m
   #     timeout: 5s
   #     retries: 3
-  # postgres:
-  #   image: postgres:17.4-alpine
-  #   ports:
-  #     - 5432:5432
-  #   volumes:
-  #     - ../postgres:/var/lib/postgresql/data
-  #   environment:
-  #     - POSTGRES_PASSWORD=password
-  #     - POSTGRES_USER=root
-  #     - POSTGRES_DB=snapp
+  postgres:
+    image: postgres:17.4-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - ../postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=root
+      - POSTGRES_DB=snapp
  
+volumes:
+  snapp:

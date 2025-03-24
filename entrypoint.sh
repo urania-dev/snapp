@@ -1,13 +1,11 @@
 #!/bin/sh
 
 : ${DATABASE_PROVIDER:="sqlite"}
-
+apt-get update -y && apt-get install -y curl
 # Determine which schema to use
 case "$DATABASE_PROVIDER" in
   "sqlite")
-    cp /app/zenstack/sqlite /app/node_modules/.zenstack -r
-    bunx prisma generate --schema dbschema/sqlite/prisma/schema.prisma
-    bunx prisma migrate deploy --schema dbschema/sqlite/prisma/schema.prisma
+    echo "-- Default SQLITE Provider --"
     ;;
   "mysql"|"mariadb")
     echo "######## This Configuration require to regenerate Prisma Client"
@@ -26,7 +24,7 @@ case "$DATABASE_PROVIDER" in
     exit 1
     ;;
 esac
-clear
+
 # Welcome message with formatting
 echo "-------------------------------------------"
 echo "             Welcome to Snapp!"
@@ -38,7 +36,6 @@ echo "      Have a great day and enjoy your"
 echo "            experience with us!"
 echo ""
 echo "-------------------------------------------"
-
 
 # Run the application
 exec "$@"

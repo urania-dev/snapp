@@ -24,7 +24,6 @@ ENV DATABASE_URL=file:./db.sqlite \
     APPNAME="Snapp.li" \
     PUBLIC_SNAPP_VERSION="0.9-rc-008"
     
-RUN apt-get update -y && apt-get install -y openssl
 # Run build commands
 ENV DATABASE_URL=mysql://root:password@localhost:3306/snapp \
     DATABASE_PROVIDER=mysql
@@ -49,6 +48,8 @@ RUN --mount=type=secret,id=ADMIN_PASSWORD \
 # Final stage: set up a lean runtime environment and reinstall production dependencies
 FROM oven/bun:slim
 WORKDIR /app
+
+RUN apt-get update -y && apt-get install -y openssl
 
 # Copy the built output (adjust path if necessary)
 COPY --from=builder /app/build ./build

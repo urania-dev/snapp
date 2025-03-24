@@ -2,6 +2,8 @@
 	import { browser } from '$app/environment';
 	import { page } from '$app/state';
 	import { env } from '$env/dynamic/public';
+	import { PUBLIC_SNAPP_VERSION } from '$env/static/public';
+	import I18nButton from '$lib/components/settings/profile/i18nButton.svelte';
 	import H1 from '$lib/components/typography/heading/h1.svelte';
 	import H2 from '$lib/components/typography/heading/h2.svelte';
 	import H3 from '$lib/components/typography/heading/h3.svelte';
@@ -25,11 +27,12 @@
 		if (navigator.clipboard) await navigator.clipboard.writeText(command);
 		toast.info(i18n.t('snapps.helpers.copied-to-clipboard'));
 	};
+	$effect(()=>{i18n.locale = data.locale })
 </script>
 
 <svelte:head>
 	{#if env.PUBLIC_UMAMI_WEBSITE_ID && env.PUBLIC_UMAMI_WEBSITE_URL}
-		{@html `<script async src="${env.PUBLIC_UMAMI_WEBSITE_URL}" data-website-id="${env.PUBLIC_UMAMI_WEBSITE_ID}"></script>`}
+		{@html `<script src="${env.PUBLIC_UMAMI_WEBSITE_URL}" data-website-id="${env.PUBLIC_UMAMI_WEBSITE_ID}"></script>`}
 	{/if}
 </svelte:head>
 
@@ -42,7 +45,7 @@
 		<Button variant="ghost" href="/" class="h-10 w-10 font-bold uppercase"
 			><i class="ph ph-house text-[24px]"></i></Button
 		>
-		<div class="flex gap-4">
+		<div class="flex gap-4 pe-2">
 			<Button
 				href="https://github.com/urania-dev/snapp"
 				target="_blank"
@@ -55,6 +58,7 @@
 				variant="ghost"
 				class="h-10 w-10"><i class="ph-duotone ph-shipping-container text-[24px]"></i></Button
 			>
+			<I18nButton availableLanguages={data.availableLanguages} language={data.locale} />
 		</div>
 	</div>
 	<section
@@ -183,20 +187,25 @@
 		class="z-30 flex min-h-14 shrink-0 items-center justify-between border-t px-2 bg-background/20 py-4 backdrop-blur-sm"
 	>
 		<div class="flex flex-col gap-2 w-full justify-start">
-			<div class="flex items-center gap-2 w-full justify-start pe-2 flex-wrap">
+			<div class="flex items-center gap-2 w-full justify-start flex-wrap">
 				<Button class="p-1 h-8 text-sm" variant="outline" href="https://next.shadcn-svelte.com" target="_blank">ShadCN - Svelte</Button>
 				<Button class="p-1 h-8 text-sm" variant="outline" href="https://tailwindcss.com" target="_blank">TailwindCSS</Button>
 				<Button class="p-1 h-8 text-sm" variant="outline" href="https://phosphoricons.com" target="_blank">Phosphor Icons</Button>
 				<Button class="p-1 h-8 text-sm" variant="outline" href="https://amcharts.com" target="_blank">AM Charts</Button>
 				<Button class="p-1 h-8 text-sm" variant="outline" href="https://zenstack.dev" target="_blank">Zenstack</Button>
 				<Button class="p-1 h-8 text-sm" variant="outline" href="https://prisma.io" target="_blank">PrismaJS</Button>
+				
+				
 			</div>
 			<div class="flex items-center gap-2 w-full justify-start">
 				<Button  class="p-1 h-8 text-sm" href="https://opensource.org/license/mit" variant=ghost>
 				<i class="ph-duotone ph-copyright text-[20px]"></i>
 				<span>{new Date().getFullYear()} urania-dev</span>
 				</Button>
+				
 			</div>			
+			<span class="text-foreground-muted px-1 text-xs">{PUBLIC_SNAPP_VERSION}</span>
+
 		</div>
 	</div>
 	<div

@@ -248,5 +248,11 @@
   - Fixed: [#98 500 on switching to "System default" (light/dark) mode](https://github.com/urania-dev/snapp/issues/98)
   - Fixed: [#99 Callback-URL wrong in docs + oauth docs are unclear](https://github.com/urania-dev/snapp/issues/99)
 - 0.9-rc-007:
-  - Fixed: [#67 Adding ability to change what user the shortcode belongs to on front end #67](https://github.com/urania-dev/snapp/discussions/67) now possible with env PUBLIC_EXTRA_GROUPS_EDITABLE=true it will show edit in group snapps dashboard
-- 0.9-rc-008: [#101 Fixed Import/Export](https://github.com/urania-dev/snapp/issues/101)
+  - Fixed: [#67 Adding ability to change what user the shortcode belongs to on front end](https://github.com/urania-dev/snapp/discussions/67)  
+      now possible with env PUBLIC_EXTRA_GROUPS_EDITABLE=true it will show edit in group snapps dashboard
+- 0.9-rc-008:
+  - Fixed: [#101 Import/Export](https://github.com/urania-dev/snapp/issues/101)
+  - Fixed: [#102 Unable to invite user (0.9-rc-008)](https://github.com/urania-dev/snapp/issues/102)
+  - Fixed: [#103 Add curl or wget on Docker image](https://github.com/urania-dev/snapp/issues/102) Added curl and /health
+  - Minor: Added version and i18n on public homepage
+  

@@ -1,4 +1,6 @@
 import { redirect } from '@sveltejs/kit';
+import { dev } from '$app/environment';
+import { loadTranslations } from '$lib/i18n/server.js';
 import { getSettings } from '$lib/server/config/index.js';
 import * as shiki from 'shiki'
 export const load = async (event) => {
@@ -6,19 +8,43 @@ export const load = async (event) => {
 
 	const disableHome = settings.get<boolean>('DISABLE_HOME') === true;
 	if (disableHome) redirect(302, '/dashboard');
+	const availableLanguages = settings.get<string>("AVAILABLE_LANGUAGES") as string
 
-	return { disableHome, dockerCompose:await dockerCompose(event.locals.theme), startDocker:await startDocker(event.locals.theme) };
+	return {
+		availableLanguages,
+		disableHome,
+		dockerCompose: await dockerCompose(event.locals.theme),
+		locale: event.locals.lang, 
+				startDocker: await startDocker(event.locals.theme),
+		translations: await loadTranslations(event.locals.lang||'en')
+	};
 };
 
-const startDocker =  async (theme: string) =>
+export const actions = {
+	language: async ({ cookies, request }) => {
+		const form = await request.formData();
+		const lang = form.get('language')?.toString();
+		if (lang) {
+			cookies.set('language', lang, {
+				httpOnly: true,
+				path: '/',
+				secure: !dev || process.env.NODE_ENV !== 'development'
+
+			});
+			return { message: 'globals.saved' };
+		}
+	},
+}
+
+const startDocker = async (theme: string) =>
 	await shiki.codeToHtml(
 		`docker run uraniadev/snapp:latest`,
 		{
 			lang: 'bash',
-			theme: ( theme === 'system' ||  theme === 'dark' ? 'github-dark':'github-light')
+			theme: (theme === 'system' || theme === 'dark' ? 'github-dark' : 'github-light')
 		}
 	);
-const dockerCompose =  async (theme: string) =>
+const dockerCompose = async (theme: string) =>
 	await shiki.codeToHtml(
 		`services:
 	snapp:
@@ -32,6 +58,6 @@ const dockerCompose =  async (theme: string) =>
 			DATABASE_URL: file:./db.sqlite`,
 		{
 			lang: 'bash',
-			theme: ( theme === 'system' ||  theme === 'dark' ? 'github-dark':'github-light')
+			theme: (theme === 'system' || theme === 'dark' ? 'github-dark' : 'github-light')
 		}
 	);

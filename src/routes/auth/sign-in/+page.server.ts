@@ -5,6 +5,7 @@ import { generateSessionToken } from '$lib/server/auth/index.js';
 import { createSession } from '$lib/server/auth/index.js';
 import { setSessionTokenCookie } from '$lib/server/auth/index.js';
 import { OIDCConfigs } from '$lib/server/auth/oidc/config';
+import { getSettings } from '$lib/server/config/index.js';
 import { watchLists } from '$lib/server/watchlists';
 import bcrypt from 'bcryptjs';
 import { superValidate } from 'sveltekit-superforms';
@@ -32,6 +33,12 @@ export const actions = {
 
 		if (!auth) {
 			return fail(400, { form, message: 'errors.auth.user-not-found' });
+		}
+
+		const settings = await getSettings()
+		const disabled = settings.get<boolean>('DISABLED_EMAIL_AND_PASSWORD')
+		if (disabled) {
+			return fail(401, { form, message: 'errors.auth.disabled-auth-email-and-password' });
 		}
 
 		const validEmail = await watchLists.checkEmail(auth.email);

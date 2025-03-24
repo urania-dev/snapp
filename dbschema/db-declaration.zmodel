@@ -1,6 +1,6 @@
 model User {
     id        String    @id @default(cuid())
-    email     String    @unique @email @length(6, 32) @allow('all', auth().id == this.id || auth().role == 'admin' || auth().role == 'root')
+    email     String    @unique @email @length(6, 320) @allow('all', auth().id == this.id || auth().role == 'admin' || auth().role == 'root')
     username  String    @unique @length(3, 20)
     password  String    @password @allow('all', auth().role == 'admin' || auth().role == 'root'||auth().id == this.id)
     notes     String?   @allow('all', auth().role == 'admin' || auth().role == 'root')

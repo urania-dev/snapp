@@ -56,7 +56,7 @@
 			
 			const file = files[0];
 			if (!file.name.endsWith('.csv')) return toast.error('Invalid file type');
-			console.log(await file.text())
+			
 			const rawData = papa.parse(await file.text(), { header: true }).data as Record<
 			string,
 			string

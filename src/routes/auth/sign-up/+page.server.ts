@@ -42,6 +42,11 @@ export const actions = {
 				return fail(401, { form, message: 'errors.auth.disabled-signups' });
 			}
 
+			const disabled = settings.get<boolean>('DISABLED_EMAIL_AND_PASSWORD')
+			if (disabled) {
+				return fail(401, { form, message: 'errors.auth.disabled-auth-email-and-password' });
+			}
+
 			const validEmail = await watchLists.checkEmail(form.data.email);
 			const validUsername = await watchLists.checkUsername(form.data.username);
 

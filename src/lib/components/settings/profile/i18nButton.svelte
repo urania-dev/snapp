@@ -2,9 +2,7 @@
 	import { applyAction, enhance } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
 	import { page } from '$app/state';
-	import { Label } from '$lib/components/ui/label';
 	import * as Select from '$lib/components/ui/select';
-	import { getTranslations } from '$lib/i18n/index.svelte';
 	import { translateLanguage } from '$lib/utils';
 
 	let {
@@ -17,7 +15,6 @@
 		language: string;
 	} = $props();
 
-	const i18n = getTranslations();
 </script>
 
 <form
@@ -31,9 +28,8 @@
 		};
 	}}
 	action="?/language"
-	class="my-2 flex flex-col gap-2"
+	class="contents"
 >
-	<Label class="px-1">{i18n.t('settings.label.language')}</Label>
 	<Select.Root
 		type="single"
 		bind:value={language}
@@ -42,11 +38,11 @@
 			document.forms.namedItem('changeLanguage')?.requestSubmit();
 	}}
 	>
-	<Select.Trigger 
-		class="w-full font-semibold capitalize {classes} ">
-			{translateLanguage(page.data.locale, page.data.locale)}
+	<Select.Trigger  showArrow={false} 
+		class="w-10 h-10 flex flex-col font-semibold capitalize bg-transparent {classes} ">
+			<i class="ph-duotone text-[24px] ph-translate"></i>
 		</Select.Trigger>
-		<Select.Content>
+		<Select.Content class="m-2">
 			{#each availableLanguages?.split(',') || [] as lang}
 				<Select.Item value={lang} class="capitalize"
 					>{translateLanguage(page.data.locale, lang)}</Select.Item
