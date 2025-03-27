@@ -5,7 +5,6 @@ import { generateSessionToken } from '$lib/server/auth/index.js';
 import { createSession } from '$lib/server/auth/index.js';
 import { setSessionTokenCookie } from '$lib/server/auth/index.js';
 import { OIDCConfigs } from '$lib/server/auth/oidc/config';
-import { getSettings } from '$lib/server/config/index.js';
 import { watchLists } from '$lib/server/watchlists';
 import bcrypt from 'bcryptjs';
 import { superValidate } from 'sveltekit-superforms';
@@ -13,7 +12,10 @@ import { zod } from 'sveltekit-superforms/adapters';
 export const load = async ({ locals: { user } }) => {
 	if (user) redirect(302, '/dashboard');
 	const providers = OIDCConfigs.map((o) => ({ identity: o.identity }));
+	const DISABLED_EMAIL_AND_PASSWORD  = process.env.DISABLED_EMAIL_AND_PASSWORD?.toLowerCase() === "true" || false
+	
 	return {
+		emailDisabled:DISABLED_EMAIL_AND_PASSWORD,
 		form: await superValidate(zod(signInSchema)),
 		providers
 	};
@@ -35,8 +37,7 @@ export const actions = {
 			return fail(400, { form, message: 'errors.auth.user-not-found' });
 		}
 
-		const settings = await getSettings()
-		const disabled = settings.get<boolean>('DISABLED_EMAIL_AND_PASSWORD')
+		const disabled = process.env.DISABLED_EMAIL_AND_PASSWORD?.toLowerCase() === 'true'||false
 		if (disabled) {
 			return fail(401, { form, message: 'errors.auth.disabled-auth-email-and-password' });
 		}

@@ -1,167 +1,169 @@
 {
 	"admin": {
-		"label": "Pannello Admin",
+		"label": "Dashboard Admin",
 		"labels": {
-			"watchlists": "Liste di Controllo",
+			"watchlists": "Liste di Monitoraggio",
 			"limits": "Limiti API REST",
 			"vt-api": "API VirusTotal",
 			"smtp": "Server SMTP",
-			"smtp-host": "Server",
+			"smtp-host": "Host",
 			"smtp-pass": "Password",
 			"smtp-port": "Porta",
-			"smtp-user": "Utente",
-			"smtp-from": "Da",
-			"smtp-test": "Invia email di prova",
+			"smtp-user": "Username",
+			"smtp-from": "Mittente",
+			"smtp-test": "Test Email",
 			"rpd": "Richieste al Giorno",
 			"rpm": "Richieste al Minuto",
 			"spu": "URL per Utente",
-			"usernames": "Nomi Utente",
-			"blacklist": "Entità Bloccate",
+			"usernames": "Username",
+			"blacklist": "Blacklist",
 			"domains": "Domini",
 			"SSL": "SSL",
 			"emails": "Email",
-			"whitelist": "Entità Consentite",
-			"add-whitelist": "Consenti Entità",
-			"add-blacklist": "Blocca Entità"
+			"whitelist": "Whitelist",
+			"add-whitelist": "Aggiungi a Whitelist",
+			"add-blacklist": "Aggiungi a Blacklist"
 		},
 		"placeholders": {
-			"vt-api": "Inserisci qui la tua chiave VTAPI...",
-			"smtp-pass": "Inserisci qui la tua password SMTP...",
-			"smtp-host": "Inserisci qui il tuo host SMTP...",
-			"smtp-from": "Inserisci qui il tuo indirizzo &rsquo;Da&rsquo; SMTP...",
-			"smtp-user": "Inserisci qui il tuo utente SMTP...",
-			"smtp-port": "Inserisci qui la tua porta SMTP...",
-			"filter-watchlist": "Filtra entità in questa lista..."
+			"vt-api": "Inserisci la tua chiave API VT...",
+			"smtp-pass": "Inserisci la password SMTP...",
+			"smtp-host": "Inserisci l'host SMTP...",
+			"smtp-from": "Inserisci il mittente SMTP...",
+			"smtp-user": "Inserisci l'username SMTP...",
+			"smtp-port": "Inserisci la porta SMTP...",
+			"filter-watchlist": "Filtra le entità in questa lista..."
 		},
 		"helpers": {
-			"vt-api": "Inserisci la tua Chiave API, puoi registrarti e richiederne una sul loro sito principale.",
-			"smtp": "Qui puoi impostare il tuo transporter SMTP per inviare mail da questa piattaforma.",
-			"smtp-ssl": "Attiva questa opzione se il tuo transporter usa una connessione protetta via SSL",
+			"vt-api": "Inserisci la tua chiave API. Registrati sul sito ufficiale per ottenerne una.",
+			"smtp": "Configura il tuo SMTP per inviare email dalla piattaforma.",
+			"smtp-ssl": "Abilita se il tuo server SMTP usa una connessione SSL sicura.",
 			"rpd": "Richieste al Giorno",
 			"rpm": "Richieste al Minuto",
 			"spu": "URL per Utente",
-			"watchlists": "In questa sezione puoi impostare delle liste di controllo per la sicurezza della tua app",
-			"add-blacklist": "Aggiungi alla Blacklist",
-			"add-whitelist": "Aggiungi alla Whitelist"
+			"watchlists": "Configura le tue liste di monitoraggio per la sicurezza della tua app.",
+			"add-blacklist": "Aggiungi alla blacklist",
+			"add-whitelist": "Aggiungi alla whitelist"
 		}
 	},
 	"appname": "Snapp",
 	"date-picker": {
 		"labels": {
 			"presets": "Predefiniti",
-			"select": "Scegli periodo"
+			"select": "Seleziona Periodo"
 		},
 		"values": {
 			"last-week": "Ultimi 7 giorni",
-			"last-2week": "Ultime 14 giorni",
+			"last-2week": "Ultimi 14 giorni",
 			"last-month": "Ultimi 30 giorni",
 			"last-6month": "Ultimi 6 mesi",
-			"last-year": "Utimo anno"
+			"last-year": "Ultimo anno"
 		}
 	},
 	"errors": {
 		"snapps": {
-			"unallowed-not-https": "L&rsquo;URL originale deve essere un link HTTPS sicuro.",
-			"original-url-missing": "Deve essere fornito un URL originale per il reindirizzamento.",
-			"original-url-blacklisted": "Questo URL è stato inserito nella blacklist o segnalato dall&rsquo;API VirusTotal.",
-			"not-found": "Url non trovato.",
-			"disabled": "Questo url potrebbe essere stato cancellato o disabilitato dall&rsquo;utente o aver raggiunto una soglia impostata. Se pensi che sia un errore, contatta l&rsquo;amministratore."
+			"unallowed-not-https": "L'URL originale deve essere HTTPS sicuro.",
+			"original-url-missing": "È richiesto un URL originale per il redirect.",
+			"original-url-blacklisted": "Questo URL è presente in blacklist o segnalato da VirusTotal.",
+			"not-found": "URL non trovato.",
+			"disabled": "Questo URL potrebbe essere stato eliminato o disabilitato dall'utente oppure aver superato il limite. Se pensi sia un errore, contatta l'amministratore."
 		},
 		"auth": {
-			"disabled-signups": "Le registrazioni sono disabilitate. Se pensi che sia un errore, contatta l&rsquo;amministratore del servizio.",
+			"disabled-signups": "Le registrazioni sono disabilitate. Se pensi sia un errore, contatta l'amministratore.",
+			"disabled-auth-email-and-password": "L'autenticazione con email e password è disattivata",
 			"user-not-found": "Utente non trovato.",
-			"wrong-credentials":"Wrong Credentials",
-			"too-many-requests-mfa": "Hai effettuato troppi tentativi. Attendi {TIME} minuti.",
-      "invaild-otp": "Il codice monouso inserito non è valido",
-      "email-invalid": "Per favore, fornisci un indirizzo email valido.",
-      "email-registered": "Questa email è già associata a un account. Prova a registrarti o a recuperare la tua password.",
-      "password-invalid": "La password fornita non è abbastanza sicura. Per favore, riprova.",
-      "password-unmatch": "La password e la conferma della password non corrispondono.",
-      "username-invalid": "Il nome utente non è valido. Fornisci un nome di almeno tre caratteri per il tuo profilo.",
-      "user-already-exists": "Nome utente già in uso. Prova con un altro.",
-      "reset-token-expired": "Il token di reset per il recupero della password è scaduto."
+			"wrong-credentials": "Credenziali errate",
+			"too-many-requests-mfa": "Troppe richieste. Riprova tra {TIME} minuti.",
+			"invaild-otp": "Il codice OTP inserito non è valido",
+			"email-invalid": "Inserisci un'email valida.",
+			"email-registered": "Questa email è già associata a un account. Prova ad accedere o a recuperare la password.",
+			"password-invalid": "La password non è sufficientemente sicura. Riprova.",
+			"password-unmatch": "La password e la conferma non corrispondono.",
+			"username-invalid": "Username non valido. Deve contenere almeno 3 caratteri.",
+			"user-already-exists": "Username già in uso. Prova un altro.",
+			"reset-token-expired": "Il token per il reset è scaduto."
 		},
-		"generic": "Errore non riconosciuto, riprova più tardi."
+		"generic": "Errore non riconosciuto. Riprova più tardi."
 	},
 	"globals": {
 		"cancel": "Annulla",
 		"confirm": "Conferma",
-		"count": "Q.tà",
+		"count": "Quantità",
 		"download": "Download",
 		"close": "Chiudi",
 		"copy": "Copia",
 		"disabled": "Disabilitato",
-		"deleted":"Cancellato",
+		"deleted": "Eliminato",
 		"continue": "Continua",
-		"qrcode": "QRCode",
+		"qrcode": "QR Code",
 		"rearrange": "Riordina",
 		"show": "Mostra",
 		"remove-filters": "Rimuovi Filtri",
 		"delete": "Elimina",
-		"sure-ask": "Sei sicurə?",
+		"sure-ask": "Sei sicuro?",
 		"total": "Totale",
 		"save": "Salva",
-		"saved": "Le informazioni sono state salvate.",
+		"saved": "Informazioni salvate.",
 		"start": "Inizio",
 		"end": "Fine",
-		"loading": "Caricamento",
+		"loading": "Caricamento in corso...",
 		"advanced": "Avanzate",
 		"active": "Attivo",
-		"refresh": "Rigenera"
+		"refresh": "Aggiorna"
 	},
 	"homepage": {
-		"intro": "An <em>open-source and self-hosted</em> solution for storing and managing your URLs",
+		"feedback":"La tua opinione è importante",
+		"intro": "Una soluzione <em>open-source e self-hosted</em> per gestire e archiviare i tuoi URL",
 		"hero": {
-			"headline": "Simplify Your URL Management",
-			"subheadline": "Empower your online presence with a secure, self-hosted URL shortener."
+			"headline": "Gestione URL semplificata",
+			"subheadline": "Potenzia la tua presenza online con un URL shortener self-hosted e sicuro."
 		},
 		"getting-started": {
-			"label": "Getting started",
-			"claim": "Snapp is a self-hostable open source platform",
+			"label": "Avvia",
+			"claim": "Snapp è una piattaforma open-source installabile in autonomia",
 			"docker": {
-				"label": "Using Docker Container",
-				"helper": "Use this docker-compose.yml to run your Snapp with advanced configuration."
+				"label": "Utilizzo del container Docker",
+				"helper": "Utilizza questo docker-compose.yml per avviare un'istanza di Snapp con configurazioni avanzate."
 			}
 		},
 		"features": {
-			"label": "Features",
+			"label": "Funzionalità",
 			"umami": {
-				"label": "Umami Integration",
-				"description": "Integrate your instance with self-hosted or cloud-based <a href={url} class=\"link\">Umami Analytics</a> for advanced URL metrics."
+				"label": "Integrazione con Umami",
+				"description": "Integra la tua istanza con <a href={url} class=\"link\">Umami Analytics</a>, sia self-hosted che cloud, per metriche avanzate sui tuoi URL."
 			},
 			"why": {
 				"labels": {
-					"ease": "Easy-to-Use",
-					"why": "Why this platform?",
-					"secure": "Secure",
-					"analytics": "Analytics"
+					"ease": "Facilità d'uso",
+					"why": "Perché scegliere Snapp?",
+					"secure": "Sicurezza",
+					"analytics": "Analisi"
 				},
 				"helpers": {
-					"why": "Powerful and simple features to manage your links.",
-					"ease": "Intuitive interface designed for quick setup.",
-					"secure": "Advanced protection for your links.",
-					"analytics": "Understand your link performance at a glance."
+					"why": "Strumenti potenti e intuitivi per gestire i tuoi link.",
+					"ease": "Interfaccia user-friendly per una rapida configurazione.",
+					"secure": "Protezione avanzata per i tuoi link.",
+					"analytics": "Metriche estese e personalizzabili."
 				},
-				"full-list": "Read full list of features on Github"
+				"full-list": "Visualizza l'elenco completo delle funzionalità su Github"
 			}
 		},
-		"stack": "The Stack"
+		"stack": "Lo Stack Tecnologico"
 	},
 	"menu": {
 		"metrics": "Metriche",
 		"settings": "Impostazioni",
 		"users": "Utenti",
-		"tags": "Tags",
+		"tags": "Tag",
 		"groups": "Gruppi",
 		"home": "Home",
 		"dashboard": "Dashboard"
 	},
 	"metrics": {
 		"labels": {
-			"top-urls": "Top Ten Più Visti",
-			"os-distribution": "Sistemi operativi più in uso",
-			"country-distribution": "Provenienza Geografica",
-			"browser-distribution": "Browser utilizzato"
+			"top-urls": "Top 10 URL più visitati",
+			"os-distribution": "Distribuzione Sistemi Operativi",
+			"country-distribution": "Distribuzione Geografica",
+			"browser-distribution": "Distribuzione Browser"
 		},
 		"fields": {
 			"os": "Sistema Operativo",
@@ -175,24 +177,24 @@
 		"label": "Migrazione",
 		"import": "Importa",
 		"export": "Esporta",
-		"helper": "Qui puoi importare ed esporate i tuoi url dalla piattaforma.",
+		"helper": "Importa ed esporta i tuoi URL dalla piattaforma.",
 		"set-fields": {
 			"label": "Seleziona campi",
-			"helper": "Qui puoi selezionare i campi dal tuo file importato per assegnarli a quelli necessari questa piattaforma per trasferire i tuoi URL"
+			"helper": "Mappa i campi del file importato con quelli richiesti dalla piattaforma per il trasferimento dei URL."
 		},
-		"invalid-file": "L&rsquo;importazione richiede un file CSV o JSON valido",
-		"import-helper": "Questo strumento ti permette di importare ed url brevi da altre piattaforme facilmente. Puoi caricare un file JSON o CSV esportato dalla tua piattaforma di preferenza e di conseguenza mappare i campi dei tuoi url con quelli necessari alla piattaforma per offrirti un buon servizio.",
+		"invalid-file": "Il file deve essere un CSV o JSON valido per l'importazione.",
+		"import-helper": "Usa questo strumento per importare URL da altre piattaforme. Carica un file JSON o CSV esportato dalla tua piattaforma preferita e mappa i campi necessari per un servizio ottimale.",
 		"upload": "Carica file",
 		"labels": {
-			"check-fields": "Verifica file"
+			"check-fields": "Verifica campi"
 		},
 		"helpers": {
-			"found": "Sono stati trovati: [ {count} ] url",
-			"required": "I campi contrassegnati sono obbligatori",
-			"user-overwrite": "Assegna tutti gli URL allo stesso utente"
+			"found": "Trovati: [ {count} ] URL",
+			"required": "I campi evidenziati sono obbligatori",
+			"user-overwrite": "Assegna tutti gli URL a un singolo utente"
 		},
-		"exporting": "I tuoi URL stanno venendo esportati, ritorna più tardi",
-		"available-for-10-minutes": "Questo file sarà disponibile per dieci minuti dal momento della creazione",
+		"exporting": "Esportazione in corso, riprova più tardi",
+		"available-for-10-minutes": "Il file sarà disponibile per 10 minuti dalla creazione",
 		"select": {
 			"field": "Importati [ {count} ]",
 			"user": "Seleziona Utente"
@@ -204,17 +206,17 @@
 			"theme": "Tema",
 			"theme-dark": "Modalità Scura",
 			"theme-light": "Modalità Chiara",
-			"theme-system": "Predefinito di sistema",
+			"theme-system": "Tema di sistema",
 			"enable-limits": "Abilita Limiti",
 			"enable-signup": "Abilita Registrazioni",
 			"disable-homepage": "Disabilita Homepage",
-			"allow-http": "HTTP Non Sicuro"
+			"allow-http": "Permetti HTTP non sicuro"
 		},
 		"helpers": {
-			"signups": "Consenti registrazioni esterne dal front-end.",
-			"homepage": "Reindirizza gli utenti al login o al Dashboard.",
-			"limits": "Limitazioni API richieste dalla comunità.",
-			"http": "Consenti URL con HTTP invece di HTTPS."
+			"signups": "Abilita le registrazioni dal frontend.",
+			"homepage": "Reindirizza gli utenti al login o alla dashboard.",
+			"limits": "Limitazioni delle API richieste dalla community.",
+			"http": "Permetti URL in HTTP anziché HTTPS."
 		}
 	},
 	"snapps": {
@@ -223,35 +225,35 @@
 			"notes": "Note",
 			"status": "Stato",
 			"original-url": "URL Originale",
-			"shortcode": "Codice Breve",
+			"shortcode": "Codice Short",
 			"secret": "Segreto",
-			"used": "Usi",
-			"max-usages": "Usi Massimi",
-			"created": "Creazione",
+			"used": "Utilizzi",
+			"max-usages": "Limite Utilizzi",
+			"created": "Creato",
 			"expiration": "Scadenza",
-			"has-secret": "Imposta segreto",
+			"has-secret": "Proteggi con segreto",
 			"has-expiration": "Imposta scadenza"
 		},
 		"helpers": {
-			"not-found": "L'URL non è stato trovato",
+			"not-found": "URL non trovato",
 			"secret": "Questo URL è protetto da un segreto",
-			"copied-to-clipboard": "Copiato nei tuoi appunti",
-			"disable-text-1": "Metti in pausa questo url. Metriche e codice breve verranno conservati. L&rsquo;utente riceverà un messaggio che l'URL è non disponibile.",
-			"not-secret": "Questo è un URL pubblico",
-			"not-max-usages": "Nessun Limite",
-			"original-url": "Questo deve essere un link valido <code>https://</code>",
-			"shortcode": "Questo verrà generato automaticamente se non specificato",
-			"has-secret": "Specifica un Segreto per proteggere l&rsquo;URL da accessi non autorizzati",
-			"expiration": "Specifica una data di scadenza per disabilitare automaticamente il tuo URL",
-			"max-usages": "Specifica un numero limitato di utilizzi per questo url. Dopo aver raggiunto il limite, l'url sarà disabilitato",
-			"previous-expiration": "Questo URL ha già una scadenza impostata, scade {relativeTime}",
-			"previous-secret": "Questo URL ha già un segreto impostato",
-			"provide-secret": "Inserisci il segreto per continuare",
-			"utm-params": "Puoi configurare parametri riutilizzabili, come i tag UTM, per aggiungerli automaticamente ai tuoi URL senza doverli digitare manualmente ogni volta, evitando errori e garantendo dati di analisi più accurati."
+			"copied-to-clipboard": "Copiato negli appunti",
+			"disable-text-1": "Metti in pausa questo URL. Le metriche e il codice short saranno mantenuti. L'utente verrà notificato che l'URL non è disponibile.",
+			"not-secret": "URL pubblico",
+			"not-max-usages": "Nessun limite",
+			"original-url": "Inserisci un URL valido a partire da <code>https://</code>",
+			"shortcode": "Generato automaticamente se non specificato",
+			"has-secret": "Imposta un segreto per proteggere l'URL da accessi non autorizzati",
+			"expiration": "Definisci una data di scadenza per disabilitare automaticamente l'URL",
+			"max-usages": "Imposta un numero massimo di utilizzi. Una volta raggiunto, l'URL verrà disabilitato",
+			"previous-expiration": "L'URL ha già una scadenza impostata: scade {relativeTime}",
+			"previous-secret": "L'URL è già protetto da un segreto",
+			"provide-secret": "Inserisci il segreto per procedere",
+			"utm-params": "Configura parametri riutilizzabili, come i tag UTM, per aggiungerli automaticamente ai tuoi URL e garantire analisi più precise."
 		},
 		"label": "Elenco URL",
 		"labels": {
-			"create": "Accordia URL",
+			"create": "Crea URL",
 			"open-link": "Apri URL (nuova finestra)",
 			"details": "Dettagli URL",
 			"utm-params": "Parametri UTM",
@@ -264,28 +266,28 @@
 			}
 		},
 		"placeholders": {
-			"search": "Cerca tra gli URL",
+			"search": "Cerca URL",
 			"original-url": "Incolla il tuo URL originale",
-			"shortcode": "Specifia un codice breve personalizzato",
-			"secret": "Specifica un segreto per proteggere questo URL"
+			"shortcode": "Inserisci un codice short personalizzato",
+			"secret": "Inserisci un segreto per proteggere l'URL"
 		},
 		"actions": {
-			"confirm-delete": "Questa azione eliminerà l'URL permanentemente"
+			"confirm-delete": "Questa operazione eliminerà l'URL in modo permanente"
 		},
-		"time":{
-			"seconds":"Secondi",
-			"minutes":"Minuti",
-			"hours":"Ore",
-			"days":"Giorni",
-			"weeks":"Settimane",
-			"months":"Mesi",
-			"years":"Anni"
+		"time": {
+			"seconds": "Secondi",
+			"minutes": "Minuti",
+			"hours": "Ore",
+			"days": "Giorni",
+			"weeks": "Settimane",
+			"months": "Mesi",
+			"years": "Anni"
 		}
 	},
 	"tags": {
 		"labels": {
-			"create": "Crea un tag",
-			"name": "Nome del tag",
+			"create": "Crea Tag",
+			"name": "Nome del Tag",
 			"slug": "Slug",
 			"search": "Cerca per slug"
 		},
@@ -293,52 +295,53 @@
 			"search": "Cerca per nome del tag"
 		},
 		"helpers": {
-			"confirm-delete": "Questo eliminerà il tag e tutte le relazioni a esso associate. Gli urls rimarranno intatti"
+			"confirm-delete": "Eliminando il tag, verranno rimosse anche tutte le associazioni. Gli URL rimarranno invariati."
 		}
 	},
 	"tokens": {
 		"label": "Token API REST",
-		"not-allowed-to-copy": "La clipboard del browser richiede un ambiente HTTPS sicuro.",
-		"helper": "Autorizza le chiamate API con un&rsquo;intestazione Authorization contenente il Token generato. Le chiavi API sono uniche e relative all&rsquo;account utente, condividendo i ruoli del database.",
+		"not-allowed-to-copy": "La clipboard richiede una connessione HTTPS sicura.",
+		"helper": "Usa questo token nell'intestazione Authorization per autenticare le chiamate API. I token sono univoci per ogni utente e riflettono i ruoli nel database.",
 		"fields": {
 			"key": "Token",
 			"created": "Creato"
 		},
-		"placeholder": "La tua chiave API apparirà qui...",
+		"placeholder": "Il tuo token API apparirà qui...",
 		"copied": "Token copiato negli appunti.",
 		"revoke": "Revoca Token",
 		"generate": "Genera Token",
-		"api-docs": "Consulta la completa <a href=\"{url}\" class=\"link\">documentazione API</a> per i dettagli sull&rsquo;utilizzo e l&rsquo;implementazione."
+		"api-docs": "Consulta la <a href=\"{url}\" class=\"link\">documentazione API</a> completa per dettagli su utilizzo e implementazione."
 	},
 	"users": {
 		"labels": {
 			"mfa": "Autenticazione a più fattori",
 			"profile": "Profilo Utente",
 			"create": "Invita Utente",
-			"list": "Elenco degli Utenti Registrati"
+			"list": "Elenco Utenti Registrati"
 		},
 		"auth": {
 			"helpers": {
-				"recover-password": "Questo invierà un&rsquo;email di reset della password a questo account.",
+				"recover-password": "Invierà un'email di reset per la password.",
 				"send-email": "Invia email",
-				"reset-mfa-for-user": "Questo scollegherà il profilo dall'autenticatore attuale. Verrà richiesto un nuovo codice QR all'utente.",
+				"reset-mfa-for-user": "Questo disassocerà l'autenticatore attuale dal profilo. Verrà richiesto un nuovo QR code.",
 				"set-new-authenticator": "Imposta un nuovo autenticatore per questo account.",
-				"only-once-mfa": "Questo verrà richiesto solo una volta. Salva l'immagine per ricollegare il tuo account all'autenticatore o scollegarlo dal tuo profilo.",
-				"verify-email": "Verifica il tuo indirizzo email per continuare a usare questa piattaforma. Viene anche usato per il reset della password.",
+				"only-once-mfa": "Verrà richiesta una sola volta. Salva l'immagine per riconnettere il tuo account all'autenticatore.",
+				"verify-email": "Verifica il tuo indirizzo email per continuare a usare la piattaforma. È utilizzato anche per il reset della password.",
 				"forgot-password": "Inserisci la tua email per avviare il recupero della password.",
-				"mfa": "Abilita l'autenticazione a due fattori con una password monouso basata sul tempo (TOTP). Gli utenti registreranno un autenticatore a loro scelta e lo utilizzeranno per accedere al proprio account.",
-				"mfa-single": "Abilita l'autenticazione a due fattori con una password monouso basata sul tempo (TOTP).",
-				"reset-mfa": "Questo scollegherà il tuo profilo dall'autenticatore attuale. Ti verrà richiesto un nuovo codice QR.",
-				"set-new-password": "Imposta una password per il tuo account."
+				"mfa": "Abilita l'autenticazione a due fattori con OTP basato sul tempo (TOTP). Gli utenti configureranno un autenticatore a loro scelta per accedere al proprio account.",
+				"mfa-single": "Abilita l'autenticazione a due fattori (TOTP).",
+				"reset-mfa": "Questo disassocerà il tuo account dall'autenticatore attuale. Ti verrà richiesto un nuovo QR code.",
+				"set-new-password": "Imposta una nuova password per il tuo account."
 			},
 			"reset-mfa": "Reimposta MFA",
-			"resend-verify-email": "Reinvia email",
-			"post-email-message": "Abbiamo inviato un&rsquo;email all&rsquo;indirizzo fornito.",
+			"resend-verify-email": "Reinvia email di verifica",
+			"post-email-message": "Abbiamo inviato un'email all'indirizzo fornito.",
 			"go-to-signin": "Hai già un account? Vai alla <a class=\"link\" href=\"{url}\">pagina di login</a>.",
 			"go-to-signup": "Non hai un account? Registrati alla <a class=\"link\" href=\"{url}\">pagina di registrazione</a>.",
-			"otp": "Codice monouso",
-			"recover-password": "Recupera Password",
+			"otp": "OTP",
+			"recover-password": "Recupera password",
 			"sign-in": "Accedi",
+			"sign-out": "Logout",
 			"sign-up": "Registrati",
 			"forgot-password": "Hai dimenticato la password?"
 		},
@@ -346,7 +349,7 @@
 			"role": "Ruolo",
 			"created": "Registrato",
 			"updated": "Ultimo accesso",
-			"username": "Nome Utente",
+			"username": "Username",
 			"email": "Email",
 			"password": "Password",
 			"confirm-password": "Conferma Password"
@@ -357,33 +360,33 @@
 			"root": "Root"
 		},
 		"helpers": {
-			"admin": "Seleziona il livello di autorizzazione dell&rsquo;utente.",
-			"invitation": "L&rsquo;utente riceverà un&rsquo;email di invito per impostare la propria password.",
-			"password": "La password deve essere lunga almeno otto caratteri, con almeno una lettera maiuscola, una lettera minuscola, un numero e un carattere speciale."
+			"admin": "Seleziona il livello di autorizzazione per l'utente.",
+			"invitation": "L'utente riceverà un'email di invito per impostare la password.",
+			"password": "La password deve contenere almeno 8 caratteri, una lettera maiuscola, una minuscola, un numero e un simbolo."
 		},
 		"groups": {
 			"labels": {
 				"create": "Crea Gruppo",
 				"manage": "Gestione",
 				"name": "Nome",
-				"urls": "Urls",
+				"urls": "URL",
 				"members": "Membri",
-				"placeholder": "Cerca un gruppo...",
-				"confirm-delete": "Questa azione eliminerà il gruppo selezionato, url e utenti rimarranno inalterati.",
+				"placeholder": "Cerca gruppo...",
+				"confirm-delete": "Questa azione eliminerà il gruppo, ma gli URL e gli utenti rimarranno invariati.",
 				"member": "Membro",
 				"single": "Gruppo"
 			},
 			"label": "Gruppi",
 			"helpers": {
-				"confirm-delete": "Questa azione eliminerà il gruppo selezionato, url e utenti rimarranno inalterati.",
-				"in-snapp": "Scegli un gruppo in cui rendere visibile questo url"
+				"confirm-delete": "Eliminando il gruppo, gli URL e gli utenti non verranno rimossi.",
+				"in-snapp": "Seleziona un gruppo per rendere visibile questo URL."
 			}
 		},
 		"placeholders": {
-			"username": "Digita il tuo nome utente...",
-			"email": "Digita il tuo indirizzo email...",
-			"password": "Digita la tua password...",
-			"search": "Cerca nome utente o email..."
+			"username": "Inserisci il tuo username...",
+			"email": "Inserisci la tua email...",
+			"password": "Inserisci la tua password...",
+			"search": "Cerca per username o email..."
 		}
 	}
 }

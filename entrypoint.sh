@@ -6,6 +6,9 @@ apt-get update -y && apt-get install -y curl
 case "$DATABASE_PROVIDER" in
   "sqlite")
     echo "-- Default SQLITE Provider --"
+    cp /app/zenstack/sqlite /app/node_modules/.zenstack -r
+    bunx prisma generate --schema dbschema/sqlite/prisma/schema.prisma
+    bunx prisma migrate deploy --schema dbschema/sqlite/prisma/schema.prisma
     ;;
   "mysql"|"mariadb")
     echo "######## This Configuration require to regenerate Prisma Client"

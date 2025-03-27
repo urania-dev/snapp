@@ -2,7 +2,6 @@
 	import { cn } from '$lib/utils';
 	import { Select as SelectPrimitive, type WithoutChild } from 'bits-ui';
 
-	import type { buttonVariants } from '../button';
 
 	let {
 		children,

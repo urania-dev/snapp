@@ -3,6 +3,7 @@
 
 	import { getLocalTimeZone } from '@internationalized/date';
 	import { format, PeriodType } from '@layerstack/utils';
+	import { browser } from '$app/environment';
 	import { page } from '$app/state';
 	import { getTranslations } from '$lib/i18n/index.svelte';
 	import { getMetricsStore } from '$lib/stores/metrics.svelte';
@@ -13,7 +14,6 @@
 
 	import { DateSelector } from '../metrics';
 	import { Separator } from '../ui/separator';
-	import { browser } from '$app/environment';
 	type CharData = { date: string; value: number };
 
 	let { snappId }: { snappId: string } = $props();

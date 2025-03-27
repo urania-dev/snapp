@@ -1,13 +1,12 @@
 import { redirect } from '@sveltejs/kit';
 import { fail } from '@sveltejs/kit';
+import { env } from '$env/dynamic/public';
 import { snappSchema } from '$lib/components/snapps/schema';
 import { watchLists } from '$lib/server/watchlists/index.js';
 import bcrypt from 'bcryptjs';
 import { customAlphabet } from 'nanoid';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
-import { env } from '$env/dynamic/public';
-import { log } from '$lib/server/log/index.js';
 
 const nanoid = customAlphabet('abcdefghijklmnopqrstuvwxyz', 5);
 
@@ -89,11 +88,10 @@ export const actions = {
 		}
 		const EXTRA_GROUPS_EDITABLE  = env?.PUBLIC_EXTRA_GROUPS_EDITABLE?.toString()?.toLowerCase() === 'true'
 
-		if (!isOwnerOrAdmin && !EXTRA_GROUPS_EDITABLE ) return fail(400, { message: 'errors.unauthorized',editForm });
+		if (!isOwnerOrAdmin && !EXTRA_GROUPS_EDITABLE ) return fail(400, { editForm,message: 'errors.unauthorized' });
 		try {
 			const updatedSnapp = await prisma.snapp.update({
 				data: {
-					userId:old?.userId,
 					expiresAt: snapp.expiresAt || null,
 					groupId: (groups.length && groups[0]) || null,
 					maxUsages: snapp.maxUsages || -1,
@@ -116,6 +114,7 @@ export const actions = {
 								}))
 							}
 						: undefined,
+					userId:old?.userId,
 					utmParams: JSON.stringify(utmParams)
 				},
 				where: {

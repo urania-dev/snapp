@@ -2,11 +2,11 @@
 	import { browser } from '$app/environment';
 	import { page } from '$app/state';
 	import { env } from '$env/dynamic/public';
-	import { PUBLIC_SNAPP_VERSION } from '$env/static/public';
+	import Features from '$lib/components/homepage/features.svelte';
+	import Hero from '$lib/components/homepage/hero.svelte';
 	import I18nButton from '$lib/components/settings/profile/i18nButton.svelte';
-	import H1 from '$lib/components/typography/heading/h1.svelte';
+	import ThemeForHomepage from '$lib/components/settings/profile/themeForHomepage.svelte';
 	import H2 from '$lib/components/typography/heading/h2.svelte';
-	import H3 from '$lib/components/typography/heading/h3.svelte';
 	import H4 from '$lib/components/typography/heading/h4.svelte';
 	import P from '$lib/components/typography/text/p.svelte';
 	import { Button } from '$lib/components/ui/button';
@@ -42,77 +42,57 @@
 	<div
 		class="fixed end-0 start-0 top-0 z-30 flex h-14 items-center justify-between border-b bg-background/20 px-2 backdrop-blur-sm"
 	>
+	<div class="flex min-w-[110px]">
+
 		<Button variant="ghost" href="/" class="h-10 w-10 font-bold uppercase"
-			><i class="ph ph-house text-[24px]"></i></Button
+		><i class="ph ph-house text-[24px]"></i></Button
 		>
-		<div class="flex gap-4 pe-2">
+	</div>
+		<div class="flex gap-4">
 			<Button
-				href="https://github.com/urania-dev/snapp"
-				target="_blank"
-				variant="ghost"
-				class="h-10 w-10"><i class="ph-duotone ph-github-logo text-[24px]"></i></Button
+			href="https://github.com/urania-dev/snapp"
+			target="_blank"
+			variant="ghost"
+			class="h-10 w-10"><i class="ph-duotone ph-github-logo text-[24px]"></i></Button
 			>
 			<Button
-				href="https://hub.docker.com/r/uraniadev/snapp"
-				target="_blank"
-				variant="ghost"
-				class="h-10 w-10"><i class="ph-duotone ph-shipping-container text-[24px]"></i></Button
+			href="https://hub.docker.com/r/uraniadev/snapp"
+			target="_blank"
+			variant="ghost"
+			class="h-10 w-10"><i class="ph-duotone ph-shipping-container text-[24px]"></i></Button
 			>
+		</div>
+			<div class="flex gap-4 pe-2">
+				<ThemeForHomepage theme={data.theme} />
 			<I18nButton availableLanguages={data.availableLanguages} language={data.locale} />
 		</div>
 	</div>
 	<section
-		class="flex h-full w-full shrink-0 flex-col items-center justify-center gap-4 text-balance p-4"
+		class="flex flex-col items-center justify-center gap-4 text-balance p-4"
 	>
-		<H1 class="max-w-xl font-black w-full tracking-wide">{i18n.t('homepage.hero.headline')}</H1>
-		<H3 class="max-w-xl ">{i18n.t('homepage.hero.subheadline')}</H3>
-		<div class="mx-auto my-4 flex w-full max-w-xl gap-4">
-			<Button variant="outline" href="#features">
-				{i18n.t('homepage.features.label')}
-			</Button>
-			<Button href="#getting-started">
-				{i18n.t('homepage.getting-started.label')}
-			</Button>
-		</div>
+		<Hero />
 	</section>
 	<section
 		id="features"
-		class="flex h-full w-full shrink-0 flex-col items-center justify-center gap-4 text-balance p-4"
-	>
-		<div class="mx-auto flex w-full max-w-xl items-center gap-2 px-4">
-			<i class="ph-duotone ph-medal text-[24px]"></i>
-			<H2 class="w-full p-0 leading-[1]">{i18n.t('homepage.features.label')}</H2>
-		</div>
-		<div class="flex w-full max-w-xl flex-col justify-center gap-4 md:flex-row">
-			<div
-				class="flex w-full flex-col gap-2 rounded-sm border bg-foreground/5 p-4 backdrop-blur-sm md:max-w-[28ch]"
-			>
-				<H4>{i18n.t('homepage.features.why.labels.why')}</H4>
-				<P class="!m-0 text-muted-foreground">{i18n.t('homepage.features.why.helpers.why')}</P>
-			</div>
-			<div
-				class="flex w-full flex-col gap-2 rounded-sm border bg-foreground/5 p-4 backdrop-blur-sm md:max-w-[28ch]"
-			>
-				<H4>{i18n.t('homepage.features.why.labels.ease')}</H4>
-				<P class="!m-0 text-muted-foreground">{i18n.t('homepage.features.why.helpers.ease')}</P>
-			</div>
-		</div>
-		<div class="flex w-full max-w-xl flex-col justify-center gap-4 md:flex-row">
-			<div
-				class="flex w-full flex-col gap-2 rounded-sm border bg-foreground/5 p-4 backdrop-blur-sm md:max-w-[28ch]"
-			>
-				<H4>{i18n.t('homepage.features.why.labels.secure')}</H4>
-				<P class="!m-0 text-muted-foreground">{i18n.t('homepage.features.why.helpers.secure')}</P>
-			</div>
-			<div
-				class="flex w-full flex-col gap-2 rounded-sm border bg-foreground/5 p-4 backdrop-blur-sm md:max-w-[28ch]"
-			>
-				<H4>{i18n.t('homepage.features.why.labels.analytics')}</H4>
-				<P class="!m-0 text-muted-foreground">{i18n.t('homepage.features.why.helpers.analytics')}</P
-				>
-			</div>
-		</div>
-		<div class="mx-auto my-4 flex w-full max-w-xl flex-col gap-2 px-2 md:flex-row">
+		class="flex w-full md:min-h-full flex-col items-center justify-center gap-4 text-balance p-4"
+	>	<Features --grid-border="270 100% 70%" features={[
+		{
+			icon:'medal',
+			label:'homepage.features.why.labels.ease',
+			text:'homepage.features.why.helpers.ease',
+		},
+		{
+			icon:'lock-laminated',
+			label:'homepage.features.why.labels.secure',
+			text:'homepage.features.why.helpers.secure',
+		},
+		{
+			icon:'chart-line',
+			label:'homepage.features.why.labels.analytics',
+			text:'homepage.features.why.helpers.analytics',
+		}
+	]} />
+		<div class="mx-auto my-4 flex w-full max-w-xl flex-col gap-3 justify-center items-center px-2 md:flex-row">
 			<Button
 				class="order-2 flex items-center gap-2 md:order-1"
 				variant="ghost"
@@ -122,7 +102,7 @@
 				<span>{@html i18n.t('homepage.getting-started.label')}</span>
 			</Button>
 			<Button
-				class="order-1 flex items-center gap-2 md:order-2 "
+				class="order-1 flex items-center w-max gap-2 md:order-2 "
 				variant="ghost"
 				href="https://github.com/urania-dev/snapp"
 				target="_blank"
@@ -135,10 +115,10 @@
 	</section>
 	<section
 		id="getting-started"
-		class="flex h-full w-full shrink-0 flex-col items-center justify-center gap-2 text-balance p-4"
+		class="flex flex-col sm:min-h-full items-center justify-center gap-2 text-balance p-4"
 	>
 		<div class="mx-auto mb-2 flex w-full max-w-xl items-center gap-2 px-4">
-			<H2 class="w-full p-0 leading-[1]">{i18n.t('homepage.getting-started.claim')}</H2>
+			<H2 class="w-full text-center p-0">{i18n.t('homepage.getting-started.claim')}</H2>
 		</div>
 		<div class="flex w-full max-w-xl flex-col justify-center gap-4 md:flex-row">
 			<div
@@ -204,7 +184,7 @@
 				</Button>
 				
 			</div>			
-			<span class="text-foreground-muted px-1 text-xs">{PUBLIC_SNAPP_VERSION}</span>
+			<span class="text-foreground-muted px-1 text-xs">{env.PUBLIC_SNAPP_VERSION}</span>
 
 		</div>
 	</div>

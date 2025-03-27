@@ -64,12 +64,12 @@
 			"unallowed-not-https": "A URL orixinal debe ser un enlace seguro https",
 			"original-url-missing": "Debe proporcionarse unha URL orixinal para a redirección",
 			"original-url-blacklisted": "Esta URL foi bloqueada ou marcada pola API de VirusTotal",
-		  
 			"not-found": "URL non atopada.",
 			"disabled": "Esta URL pode ter sido eliminada ou desactivada polo usuario, ou pode ter alcanzado un límite establecido. Se cre que é un erro, contacte co administrador."
 		},
 		"auth": {
 			"disabled-signups": "As rexistracións están desactivadas. Se cre que é un erro, contacte co administrador do servizo.",
+			"disabled-auth-email-and-password": "A autenticación con correo electrónico e contrasinal está desactivada.",
 			"user-not-found": "Usuario non atopado.",
 			"wrong-credentials": "Credenciais incorrectas.",
 			"too-many-requests-mfa": "Fixeches demasiados intentos. Agarda {TIME} minutos.",
@@ -81,7 +81,6 @@
 			"username-invalid": "O nome de usuario é inválido. Por favor, proporciona un nome de ao menos tres caracteres para o teu perfil.",
 			"user-already-exists": "O nome de usuario xa está en uso. Por favor, proba cun outro.",
 			"reset-token-expired": "O token de recuperación de contrasinal expirou."
-	   
 		},
 		"generic": "Erro non recoñecido, por favor inténtao de novo máis tarde."
 	},
@@ -112,6 +111,7 @@
 		"refresh": "Actualizar"
 	},
 	"homepage": {
+		"feedback":"A túa opinión importa",
 		"intro": "Unha solución <em>de código aberto e auto-aloxada</em> para almacenar e xestionar as túas URLs",
 		"hero": {
 			"headline": "Simplifica a xestión das túas URLs",
@@ -282,7 +282,7 @@
 			"weeks": "Semanas",
 			"months": "Meses",
 			"years": "Anos"
-		  }
+		}
 	},
 	"tags": {
 		"labels": {
@@ -341,6 +341,7 @@
 			"otp": "Código de uso único",
 			"recover-password": "Recuperar contrasinal",
 			"sign-in": "Iniciar sesión",
+			"sign-out": "Pechar sesión",
 			"sign-up": "Rexistrarse",
 			"forgot-password": "Esqueciches a túa contrasinal?"
 		},

@@ -1,6 +1,6 @@
-import { dev } from '$app/environment';
 import type { Cookies } from '@sveltejs/kit';
 
+import { dev } from '$app/environment';
 import { z } from 'zod';
 
 export class ParamsHandler {
@@ -75,8 +75,7 @@ export class ParamsHandler {
 				expires: expirationDate,
 				httpOnly: true,
 				path: '/',
-				secure: dev === true ? false : process.env.NODE_ENV !== 'development'
-
+				secure: dev===false || process.env.NODE_ENV !== 'development'
 			});
 		}
 	}

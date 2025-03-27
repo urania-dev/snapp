@@ -70,6 +70,7 @@
 		},
 		"auth": {
 			"disabled-signups": "Registrations are disabled. If you believe this is an error, please contact the service administrator.",
+			"disabled-auth-email-and-password": "Authentication through email and password not enabled.",
 			"user-not-found": "User not found.",
 			"wrong-credentials": "Wrong Credentials",
 			"too-many-requests-mfa": "You made to many attempt. Wait for {TIME} minutes.",
@@ -111,6 +112,7 @@
 		"refresh": "Refresh"
 	},
 	"homepage": {
+		"feedback":"Your opinion matters",
 		"intro": "An <em>open-source and self-hosted</em> solution for storing and managing your URLs",
 		"hero": {
 			"headline": "Simplify Your URL Management",
@@ -340,6 +342,7 @@
 			"otp": "One-time code",
 			"recover-password": "Recover Password",
 			"sign-in": "Sign in",
+			"sign-out": "Logout",
 			"sign-up": "Sign up",
 			"forgot-password": "Forgot your password?"
 		},

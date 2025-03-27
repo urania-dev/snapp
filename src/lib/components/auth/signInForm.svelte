@@ -13,9 +13,10 @@
 	import { Button } from '../ui/button';
 
 	let {
+		emailDisabled=false,
 		providers,
-		signInForm
-	}: { providers: { identity: string }[]; signInForm: SuperValidated<Infer<SignInSchema>> } =
+		signInForm,
+	}: { emailDisabled?:boolean,providers: { identity: string }[]; signInForm: SuperValidated<Infer<SignInSchema>> } =
 		$props();
 
 	const form = superForm(signInForm, {
@@ -40,6 +41,7 @@
 </script>
 
 <div class="grid gap-4">
+	{#if !emailDisabled}
 	<form method="POST" use:enhance action="?/signin">
 		<Form.Field {form} name="username">
 			<Form.Control>
@@ -92,7 +94,7 @@
 		>
 		<Form.Button class="mt-12 w-full">{i18n.t('users.auth.sign-in')}</Form.Button>
 	</form>
-
+	{/if}
 	{#each providers as provider}
 		<Button
 			class="justify-center"

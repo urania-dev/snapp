@@ -250,9 +250,13 @@
 - 0.9-rc-007:
   - Fixed: [#67 Adding ability to change what user the shortcode belongs to on front end](https://github.com/urania-dev/snapp/discussions/67)  
       now possible with env PUBLIC_EXTRA_GROUPS_EDITABLE=true it will show edit in group snapps dashboard
-- 0.9-rc-008:
+- 0.9-rc-008/009/010:
   - Fixed: [#101 Import/Export](https://github.com/urania-dev/snapp/issues/101)
   - Fixed: [#102 Unable to invite user (0.9-rc-008)](https://github.com/urania-dev/snapp/issues/102)
   - Fixed: [#103 Add curl or wget on Docker image](https://github.com/urania-dev/snapp/issues/102) Added curl and /health
-  - Minor: Added version and i18n on public homepage
-  
+  - Added new ENV DISABLED_EMAIL_AND_PASSWORD [#100 Let Admins remove email/password registration alltogether when OIDC is connected](https://github.com/urania-dev/snapp/discussions/100)
+  - Minor: Added version and i18n on public homepage + added Arabic (ar.json)
+- 0.9-rc-011
+  - SQLITE: fixed missing schema files from docker builder
+  - Fixed some necessities for Coolify service PR
+  - 

@@ -9,7 +9,7 @@
 		><Image
 			class="flex max-w-[64px] items-center overflow-clip rounded-sm pe-4"
 			width="64px"
-			src="{env.PUBLIC_URL}/logo.svg"
+			src="{env.PUBLIC_URL}/logo.png"
 		/></Button
 	>
 	<Heading class="text-blue" level={2}>SMTP Test Email</Heading>

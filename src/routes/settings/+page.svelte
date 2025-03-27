@@ -12,6 +12,7 @@
 	import SettingsSidebar from '$lib/components/sidebar/settingsSidebar.svelte';
 	import H2 from '$lib/components/typography/heading/h2.svelte';
 	import H4 from '$lib/components/typography/heading/h4.svelte';
+	import Button from '$lib/components/ui/button/button.svelte';
 	import { Separator } from '$lib/components/ui/separator';
 	import { getTranslations } from '$lib/i18n/index.svelte';
 	import { decode } from 'html-entities';
@@ -33,15 +34,25 @@
 	});
 </script>
 
-<div class="flex w-full flex-col">
-	<div class="flex h-20 w-full shrink-0 items-center gap-2 px-4">
+<div class="flex w-full items-center flex-row px-4">
+	<div class="flex h-20 w-full items-center gap-2">
 		<i class="ph-duotone ph-gear text-[32px]"></i>
 		<H2 class="m-0 p-0">{i18n.t('menu.settings')}</H2>
 	</div>
+	<Button
+	onclick={() => {
+		
+	}}
+>
+	<i class="ph-bold ph-sign-out"></i>
+	<span class="hidden md:block">
+		{i18n.t('users.auth.sign-out')}
+	</span>
+</Button>
 </div>
 <Separator />
 <div class="flex h-full w-full flex-col md:flex-row">
-	<SettingsSidebar
+	<SettingsSidebar	
 		bind:url
 		{active}
 		isAdmin={data.user.role !== 'user'}

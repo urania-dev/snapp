@@ -63,13 +63,16 @@ const themeHandle: Handle = ({ event, resolve }) => {
 
 	return resolve(event, {
 		transformPageChunk({ html }) {
+			let _html = html.replace('%LANG%', lang)
+			if(['ar'].includes(lang)) _html = _html.replace('%DIR%', 'rtl')
+				else _html =_html.replace('%DIR%', 'ltr')
 			if (theme && theme === 'light') {
-				return html?.replace('class="dark"', 'class="light"');
+				return _html.replace('class="dark"', 'class="light"');
 			}
 			if (theme && theme === 'system') {
-				return html?.replace('class="dark"', 'class="system"');
+				return _html.replace('class="dark"', 'class="system"');
 			}
-			return html;
+			return _html;
 		}
 	});
 };

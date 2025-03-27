@@ -64,12 +64,12 @@
 			"not-found": "URL introuvable.",
 			"disabled": "Cette URL a peut-être été supprimée ou désactivée par l'utilisateur, ou elle a atteint un seuil défini. Si vous pensez qu'il s'agit d'une erreur, veuillez contacter l'administrateur.",
 			"unallowed-not-https": "L'URL d'origine doit être un lien sécurisé https",
-      "original-url-missing": "Une URL originale doit être fournie pour la redirection",
-      "original-url-blacklisted": "Cette URL a été mise sur liste noire ou signalée par l'API VirusTotal"
-    
+			"original-url-missing": "Une URL originale doit être fournie pour la redirection",
+			"original-url-blacklisted": "Cette URL a été mise sur liste noire ou signalée par l'API VirusTotal"
 		},
 		"auth": {
 			"disabled-signups": "Les inscriptions sont désactivées. Si vous pensez qu'il s'agit d'une erreur, veuillez contacter l'administrateur du service.",
+			"disabled-auth-email-and-password": "L'authentification par e-mail et mot de passe est désactivée",
 			"user-not-found": "Utilisateur non trouvé.",
 			"wrong-credentials": "Informations d'identification incorrectes.",
 			"too-many-requests-mfa": "Vous avez fait trop de tentatives. Attendez {TIME} minutes.",
@@ -81,7 +81,6 @@
 			"username-invalid": "Le nom d'utilisateur est invalide. Veuillez fournir un nom d'au moins trois caractères pour votre profil.",
 			"user-already-exists": "Nom d'utilisateur déjà pris. Veuillez en essayer un autre.",
 			"reset-token-expired": "Le jeton de réinitialisation de mot de passe a expiré."
-	  
 		},
 		"generic": "Erreur non reconnue, veuillez réessayer plus tard."
 	},
@@ -112,6 +111,7 @@
 		"refresh": "Rafraîchir"
 	},
 	"homepage": {
+		"feedback":"Ton avis compte",
 		"intro": "Une solution <em>open-source et auto-hébergée</em> pour stocker et gérer vos URLs",
 		"hero": {
 			"headline": "Simplifiez la gestion de vos URLs",
@@ -282,7 +282,7 @@
 			"weeks": "Semaines",
 			"months": "Mois",
 			"years": "Années"
-		  }
+		}
 	},
 	"tags": {
 		"labels": {
@@ -341,6 +341,7 @@
 			"otp": "Code à usage unique",
 			"recover-password": "Récupérer le mot de passe",
 			"sign-in": "Se connecter",
+			"sign-out": "Se déconnecter",
 			"sign-up": "S'inscrire",
 			"forgot-password": "Mot de passe oublié ?"
 		},

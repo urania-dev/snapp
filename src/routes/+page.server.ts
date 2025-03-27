@@ -34,6 +34,18 @@ export const actions = {
 			return { message: 'globals.saved' };
 		}
 	},
+		theme: async ({ cookies, request }) => {
+			const form = await request.formData();
+			const theme = form.get('theme')?.toString();
+			if (theme) {
+				cookies.set('theme', theme, {
+					httpOnly: true,
+					path: '/',
+					secure: process.env.NODE_ENV !== 'development'
+				});
+				return { message: 'globals.saved' };
+			}
+		},
 }
 
 const startDocker = async (theme: string) =>

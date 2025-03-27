@@ -25,6 +25,8 @@
 		return async ({ result }) => {
 			await applyAction(result);
 			await invalidateAll();
+			if(language === 'ar') document.dir = 'rtl'
+			else document.dir="l"
 		};
 	}}
 	action="?/language"

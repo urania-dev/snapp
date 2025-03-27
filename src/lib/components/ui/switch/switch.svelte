@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { getTranslations } from '$lib/i18n/index.svelte';
 	import { cn } from '$lib/utils';
 	import { Switch as SwitchPrimitive, type WithoutChildrenOrChild } from 'bits-ui';
 
@@ -8,6 +9,8 @@
 		ref = $bindable(null),
 		...restProps
 	}: WithoutChildrenOrChild<SwitchPrimitive.RootProps> = $props();
+
+	const i18n = getTranslations()
 </script>
 
 <SwitchPrimitive.Root
@@ -21,7 +24,10 @@
 >
 	<SwitchPrimitive.Thumb
 		class={cn(
-			'pointer-events-none block size-5 rounded-full bg-background shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0'
+			'pointer-events-none block size-5 rounded-full bg-background shadow-lg ring-0 transition-transform data-[state=unchecked]:translate-x-0',
+			i18n.locale === 'ar' ? 'data-[state=checked]:-translate-x-5':'',
+			i18n.locale !== 'ar' ? 'data-[state=checked]:translate-x-5':'',
+			
 		)}
 	/>
 </SwitchPrimitive.Root>

@@ -22,7 +22,7 @@ ENV DATABASE_URL=file:./db.sqlite \
     PUBLIC_URL=http://localhost:3000 \
     PUBLIC_EXTRA_GROUPS_EDITABLE=false \
     APPNAME="Snapp.li" \
-    PUBLIC_SNAPP_VERSION="0.9-rc-008"
+    PUBLIC_SNAPP_VERSION="0.9-rc-011"
     
 # Run build commands
 ENV DATABASE_URL=mysql://root:password@localhost:3306/snapp \
@@ -33,7 +33,7 @@ ENV DATABASE_URL=postgres://root:password@localhost:5432/snapp \
     DATABASE_PROVIDER=postgres
 RUN bunx zenstack generate --schema dbschema/postgres/schema.zmodel --output /app/zenstack/postgres
 
-ENV DATABASE_URL=file:./db.sqlite\
+ENV DATABASE_URL=file:./dev.sqlite\
     DATABASE_PROVIDER=sqlite
 
 RUN bunx zenstack generate --schema dbschema/sqlite/schema.zmodel
@@ -44,7 +44,7 @@ RUN --mount=type=secret,id=ADMIN_PASSWORD \
     ADMIN_PASSWORD=$(cat /run/secrets/ADMIN_PASSWORD) \
     TOKEN_SECRET=$(cat /run/secrets/TOKEN_SECRET) \
     bun run build
-
+RUN touch /app/dbschema/sqlite/prisma/db.sqlite
 # Final stage: set up a lean runtime environment and reinstall production dependencies
 FROM oven/bun:slim
 WORKDIR /app
@@ -74,22 +74,25 @@ RUN bun install --production
 # Copy the entrypoint script and make it executable
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
+RUN rm /app/dbschema/sqlite/prisma/dev.sqlite
+RUN touch /app/dbschema/sqlite/prisma/db.sqlite
 
 # Set runtime environment variables
 ENV DATABASE_URL=file:./db.sqlite \
-    DATABASE_PROVIDER=sqlite \
-    LOG_LEVEL="info" \
+DATABASE_PROVIDER=sqlite \
+LOG_LEVEL="info" \
     HOST=0.0.0.0 \
     ORIGIN=http://localhost:3000 \
     PORT=3000 \
     ADMIN_USERNAME=admin \
     ADMIN_EMAIL=email@example.org \
+    DISABLED_EMAIL_AND_PASSWORD=false \
     ENABLE_SIGNUP=false \
     ENABLED_MFA=false \
     PUBLIC_URL=http://localhost:3000 \
     PUBLIC_EXTRA_GROUPS_EDITABLE=false \
     APPNAME="Snapp.li" \
-    PUBLIC_SNAPP_VERSION="0.9-rc-008"
+    PUBLIC_SNAPP_VERSION="0.9-rc-011"
 
 EXPOSE 3000
     

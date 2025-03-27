@@ -18,7 +18,7 @@
 			</div>
 		</Card.Header>
 		<Card.Content class="px-8">
-			{#if data.enabledSignup}
+			{#if data.enabledSignup && data.emailDisabled === false}
 				<SignUpForm signUpForm={data.form} />
 			{:else}
 				<P>{@html i18n.t('errors.auth.disabled-signups')}</P>

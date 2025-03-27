@@ -66,10 +66,10 @@
       "unallowed-not-https": "La URL original debe ser un enlace seguro https",
       "original-url-missing": "Debe proporcionarse una URL original para la redirección",
       "original-url-blacklisted": "Esta URL ha sido bloqueada o marcada por la API de VirusTotal"
-    
     },
     "auth": {
       "disabled-signups": "Los registros están deshabilitados. Si crees que se trata de un error, contacta al administrador del servicio.",
+      "disabled-auth-email-and-password": "La autenticación con correo electrónico y contraseña está desactivada",
       "user-not-found": "Usuario no encontrado.",
       "wrong-credentials": "Credenciales incorrectas.",
       "too-many-requests-mfa": "Has realizado demasiados intentos. Espera {TIME} minutos.",
@@ -81,7 +81,6 @@
       "username-invalid": "El nombre de usuario es inválido. Por favor, proporciona un nombre de al menos tres caracteres para tu perfil.",
       "user-already-exists": "El nombre de usuario ya está en uso. Por favor, prueba con otro.",
       "reset-token-expired": "El token de recuperación de contraseña ha expirado."
-  
     },
     "generic": "Error no reconocido, por favor inténtalo de nuevo más tarde."
   },
@@ -112,6 +111,7 @@
     "refresh": "Actualizar"
   },
   "homepage": {
+    "feedback":"Tu opinión importa",
     "intro": "Una solución <em>de código abierto y autoalojada</em> para almacenar y gestionar tus URLs",
     "hero": {
       "headline": "Simplifica la gestión de tus URLs",
@@ -340,7 +340,8 @@
       "go-to-signup": "¿No tienes una cuenta? Regístrate en la <a class=\"link\" href=\"{url}\">página de registro</a>.",
       "otp": "Código de un solo uso",
       "recover-password": "Recuperar contraseña",
-      "sign-in": "Iniciar sesión",
+      "sign-in": "Login",
+			"sign-out": "Logout",
       "sign-up": "Registrarse",
       "forgot-password": "¿Olvidaste tu contraseña?"
     },
