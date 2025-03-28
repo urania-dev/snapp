@@ -55,6 +55,11 @@
 			visible: enabledLimits && isAdmin
 		},
 		{
+			id: '#utmParams',
+			label: i18n.t('snapps.labels.utm-params'),
+			visible:true
+		},
+		{
 			id: '#migration',
 			label: i18n.t('migrations.label'),
 			visible: true
@@ -95,6 +100,9 @@
 						{/if}
 						{#if active === '#migration'}
 							{i18n.t('migrations.label')}
+						{/if}
+						{#if active === '#utmParams'}
+							{i18n.t('snapps.labels.utm-params')}
 						{/if}
 					</Select.Trigger>
 					<Select.Content>

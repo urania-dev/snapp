@@ -62,6 +62,7 @@
 	"errors": {
 		"snapps": {
 			"unallowed-not-https": "L'URL originale deve essere HTTPS sicuro.",
+			"unallowed-not-group": "L'amministratore ha impostato l'uso della piattaforma esclusivamente attraverso l'uso dei Gruppi. Seleziona almeno un gruppo per continuare.",
 			"original-url-missing": "È richiesto un URL originale per il redirect.",
 			"original-url-blacklisted": "Questo URL è presente in blacklist o segnalato da VirusTotal.",
 			"not-found": "URL non trovato.",
@@ -249,6 +250,7 @@
 			"previous-expiration": "L'URL ha già una scadenza impostata: scade {relativeTime}",
 			"previous-secret": "L'URL è già protetto da un segreto",
 			"provide-secret": "Inserisci il segreto per procedere",
+			"utm-global-params": "Questi parametri verranno salvati e saranno disponibili nell’app ogni volta che modifichi o aggiungi un URL al database, garantendo un tracciamento coerente delle campagne",
 			"utm-params": "Configura parametri riutilizzabili, come i tag UTM, per aggiungerli automaticamente ai tuoi URL e garantire analisi più precise."
 		},
 		"label": "Elenco URL",

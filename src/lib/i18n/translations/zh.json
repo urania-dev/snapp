@@ -61,6 +61,7 @@
 	},
 	"errors": {
 		"snapps": {
+			"unallowed-not-group":  "管理员已将平台的使用设置为仅通过群组进行。请至少选择一个群组以继续。",
 			"unallowed-not-https": "原始网址必须是安全的HTTPS链接",
 			"original-url-missing": "必须提供原始网址以进行重定向",
 			"original-url-blacklisted": "此网址已被列入黑名单或被VirusTotal API标记",
@@ -249,6 +250,7 @@
 			"previous-expiration": "此 URL 已设定到期时间，将于 {relativeTime} 过期",
 			"previous-secret": "此 URL 已设置密钥",
 			"provide-secret": "请提供密钥以继续",
+			"utm-global-params": "這些參數將被存儲，並在您編輯或添加 URL 到數據庫時通過應用程序可用，以確保一致的行銷跟蹤",
 			"utm-params": "您可以设置可重复使用的参数，如 UTM 标签，以自动附加到 URL，避免手动错误，并确保更精确的分析数据。"
 		},
 		"label": "URL 列表",

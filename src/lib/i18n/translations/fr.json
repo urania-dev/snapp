@@ -61,9 +61,10 @@
 	},
 	"errors": {
 		"snapps": {
+			"unallowed-not-https": "L'URL d'origine doit être un lien sécurisé https",
+			"unallowed-not-group": "L'administrateur a configuré l'utilisation de la plateforme exclusivement via des groupes. Veuillez sélectionner au moins un groupe pour continuer.",
 			"not-found": "URL introuvable.",
 			"disabled": "Cette URL a peut-être été supprimée ou désactivée par l'utilisateur, ou elle a atteint un seuil défini. Si vous pensez qu'il s'agit d'une erreur, veuillez contacter l'administrateur.",
-			"unallowed-not-https": "L'URL d'origine doit être un lien sécurisé https",
 			"original-url-missing": "Une URL originale doit être fournie pour la redirection",
 			"original-url-blacklisted": "Cette URL a été mise sur liste noire ou signalée par l'API VirusTotal"
 		},
@@ -249,6 +250,7 @@
 			"previous-expiration": "Cette URL a déjà une date d'expiration définie, elle expire {relativeTime}",
 			"previous-secret": "Cette URL a déjà un secret défini",
 			"provide-secret": "Veuillez fournir le secret pour continuer",
+			"utm-global-params": "Ces paramètres seront enregistrés et accessibles dans l’application à chaque modification ou ajout d’une URL à la base de données, garantissant un suivi de campagne cohérent",
 			"utm-params": "Vous pouvez définir des paramètres réutilisables, tels que les balises UTM, pour les ajouter automatiquement à vos URLs, évitant ainsi les erreurs manuelles et garantissant des données analytiques plus précises."
 		},
 		"label": "Liste des URLs",

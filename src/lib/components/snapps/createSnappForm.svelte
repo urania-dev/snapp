@@ -165,7 +165,7 @@
 				<div class="grid">
 					<Label class="mb-2 p-2">{i18n.t('snapps.labels.utm-params')}</Label>
 					<UTMParams bind:params={utmParams} />
-					<Label class="mb-2 p-2">{i18n.t('menu.tags')}</Label>
+					<Label class="mt-4 mb-2 p-2">{i18n.t('menu.tags')}</Label>
 					<TagSelector bind:tags f={page.data.fetch} />
 					<Label class="mb-2 mt-4 p-2">{i18n.t('menu.groups')}</Label>
 					<GroupSelector bind:groups f={page.data.fetch} />

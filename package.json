@@ -1,6 +1,6 @@
 {
 	"name": "snapp",
-	"version": "0.9-rc-011",
+	"version": "0.9-rc-013",
 	"author": {
 		"name": "Urania",
 		"email": "m.isaia@urania.dev",
@@ -67,6 +67,7 @@
 		"@prisma/client": "6.5.0",
 		"@tanstack/table-core": "^8.21.2",
 		"@types/bun": "^1.2.5",
+		"@umami/node": "^0.4.0",
 		"@uraniadev/emailer": "^0.0.8",
 		"@zenstackhq/runtime": "2.12.3",
 		"@zenstackhq/server": "2.12.3",

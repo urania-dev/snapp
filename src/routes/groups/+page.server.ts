@@ -112,6 +112,7 @@ export const actions = {
 			});
 		}
 
+		if(user.role === 'user') return fail(401, {message:'errors.not-authorized'})
 		try {
 			await prisma.group.upsert({
 				create: { ...createForm.data },

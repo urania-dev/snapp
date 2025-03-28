@@ -1,7 +1,9 @@
 import type { Snapp } from '@prisma/client';
 
 import { type RequestEvent } from '@sveltejs/kit';
+import { env } from '$env/dynamic/private';
 import { prisma } from '$lib/db/prisma';
+import { getUmami } from '$lib/umami';
 import { UAParser } from 'ua-parser-js';
 
 import { getSettings } from '../config';
@@ -73,11 +75,10 @@ export const markUsage = async (
 	const location = await getLocation(realIp);
 	if (location) ({ city, country, region } = location);
 
-	const umamiURL = settings.get('PUBLIC_UMAMI_WEBSITE_URL');
-	const umamiID = settings.get('PUBLIC_UMAMI_WEBSITE_ID');
-				
+	const umamiURL = settings.get<string>('PUBLIC_UMAMI_WEBSITE_URL');
+	const umamiID = settings.get<string>('PUBLIC_UMAMI_WEBSITE_ID');
 	
-	if (umamiID && umamiURL) {
+	if (!!umamiID && !!umamiURL) {
 
 		const url = new URL(event.url)
 		
@@ -90,8 +91,7 @@ export const markUsage = async (
 		for (const params of utmParams) {
 			url.searchParams.set(params.key, params.value);
 		}
-		const data = {
-			payload: {
+		const payload = {
 				data: undefined as { [key: string]: string } | undefined,
 				hostname: event.url.hostname,
 				language,
@@ -101,27 +101,16 @@ export const markUsage = async (
 				title: `/${snapp.shortcode}`,
 				url,
 				website: umamiID
-			},
-			type: 'event'
+			
 		};
-		const sendPayloadToUmami = async (d: typeof data) => {
-			try {
-				await event.fetch(`${umamiURL}/api/send`, {
-					body: JSON.stringify(d),
-					headers: {
-						'Content-Type': 'application/json',
-						'user-agent': userAgent,
-						'x-forwarded-for': realIp
-					},
-					method: 'POST'
-				});
-			} catch (error) {
-				if (process.env.LOG_LEVEL === 'debug') log.error(error);
-			}
-		};
-		sendPayloadToUmami(data);
-	}
 
+		try {
+			const umami = getUmami(umamiURL,umamiID,userAgent)
+				await umami.track(payload)
+			} catch (error) {
+				if(env.LOG_LEVEL==='debug')log.error(error)
+			}
+	}
 	const timestamp = new Date();
 	await prisma.usage.create({
 		data: {

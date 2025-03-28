@@ -171,6 +171,8 @@
 				return i18n.t(`menu.tags`);
 			case 'used':
 				return i18n.t(`snapps.fields.used`);
+			case 'utmParams':
+				return 'UTM'
 		}
 	};
 	const selected_count = $derived(table.getFilteredSelectedRowModel().rows.length);

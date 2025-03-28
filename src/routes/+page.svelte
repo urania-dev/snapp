@@ -27,14 +27,10 @@
 		if (navigator.clipboard) await navigator.clipboard.writeText(command);
 		toast.info(i18n.t('snapps.helpers.copied-to-clipboard'));
 	};
-	$effect(()=>{i18n.locale = data.locale })
+	$effect(() => {
+		i18n.locale = data.locale;
+	});
 </script>
-
-<svelte:head>
-	{#if env.PUBLIC_UMAMI_WEBSITE_ID && env.PUBLIC_UMAMI_WEBSITE_URL}
-		{@html `<script src="${env.PUBLIC_UMAMI_WEBSITE_URL}" data-website-id="${env.PUBLIC_UMAMI_WEBSITE_ID}"></script>`}
-	{/if}
-</svelte:head>
 
 <div
 	class="erratic-bg relative flex h-screen w-screen flex-col overflow-y-scroll scroll-smooth pt-12"
@@ -42,57 +38,60 @@
 	<div
 		class="fixed end-0 start-0 top-0 z-30 flex h-14 items-center justify-between border-b bg-background/20 px-2 backdrop-blur-sm"
 	>
-	<div class="flex min-w-[110px]">
-
-		<Button variant="ghost" href="/" class="h-10 w-10 font-bold uppercase"
-		><i class="ph ph-house text-[24px]"></i></Button
-		>
-	</div>
-		<div class="flex gap-4">
-			<Button
-			href="https://github.com/urania-dev/snapp"
-			target="_blank"
-			variant="ghost"
-			class="h-10 w-10"><i class="ph-duotone ph-github-logo text-[24px]"></i></Button
-			>
-			<Button
-			href="https://hub.docker.com/r/uraniadev/snapp"
-			target="_blank"
-			variant="ghost"
-			class="h-10 w-10"><i class="ph-duotone ph-shipping-container text-[24px]"></i></Button
+		<div class="flex min-w-[110px]">
+			<Button variant="ghost" href="/" class="h-10 w-10 font-bold uppercase"
+				><i class="ph ph-house text-[24px]"></i></Button
 			>
 		</div>
-			<div class="flex gap-4 pe-2">
-				<ThemeForHomepage theme={data.theme} />
+		<div class="flex gap-4">
+			<Button
+				href="https://github.com/urania-dev/snapp"
+				target="_blank"
+				variant="ghost"
+				class="h-10 w-10"><i class="ph-duotone ph-github-logo text-[24px]"></i></Button
+			>
+			<Button
+				href="https://hub.docker.com/r/uraniadev/snapp"
+				target="_blank"
+				variant="ghost"
+				class="h-10 w-10"><i class="ph-duotone ph-shipping-container text-[24px]"></i></Button
+			>
+		</div>
+		<div class="flex gap-4 pe-2">
+			<ThemeForHomepage theme={data.theme} />
 			<I18nButton availableLanguages={data.availableLanguages} language={data.locale} />
 		</div>
 	</div>
-	<section
-		class="flex flex-col items-center justify-center gap-4 text-balance p-4"
-	>
+	<section class="flex flex-col items-center justify-center gap-4 text-balance p-4">
 		<Hero />
 	</section>
 	<section
 		id="features"
-		class="flex w-full md:min-h-full flex-col items-center justify-center gap-4 text-balance p-4"
-	>	<Features --grid-border="270 100% 70%" features={[
-		{
-			icon:'medal',
-			label:'homepage.features.why.labels.ease',
-			text:'homepage.features.why.helpers.ease',
-		},
-		{
-			icon:'lock-laminated',
-			label:'homepage.features.why.labels.secure',
-			text:'homepage.features.why.helpers.secure',
-		},
-		{
-			icon:'chart-line',
-			label:'homepage.features.why.labels.analytics',
-			text:'homepage.features.why.helpers.analytics',
-		}
-	]} />
-		<div class="mx-auto my-4 flex w-full max-w-xl flex-col gap-3 justify-center items-center px-2 md:flex-row">
+		class="flex w-full flex-col items-center justify-center gap-4 text-balance p-4 md:min-h-full"
+	>
+		<Features
+			--grid-border="270 100% 70%"
+			features={[
+				{
+					icon: 'medal',
+					label: 'homepage.features.why.labels.ease',
+					text: 'homepage.features.why.helpers.ease'
+				},
+				{
+					icon: 'lock-laminated',
+					label: 'homepage.features.why.labels.secure',
+					text: 'homepage.features.why.helpers.secure'
+				},
+				{
+					icon: 'chart-line',
+					label: 'homepage.features.why.labels.analytics',
+					text: 'homepage.features.why.helpers.analytics'
+				}
+			]}
+		/>
+		<div
+			class="mx-auto my-4 flex w-full max-w-xl flex-col items-center justify-center gap-3 px-2 md:flex-row"
+		>
 			<Button
 				class="order-2 flex items-center gap-2 md:order-1"
 				variant="ghost"
@@ -102,7 +101,7 @@
 				<span>{@html i18n.t('homepage.getting-started.label')}</span>
 			</Button>
 			<Button
-				class="order-1 flex items-center w-max gap-2 md:order-2 "
+				class="order-1 flex w-max items-center gap-2 md:order-2 "
 				variant="ghost"
 				href="https://github.com/urania-dev/snapp"
 				target="_blank"
@@ -115,10 +114,10 @@
 	</section>
 	<section
 		id="getting-started"
-		class="flex flex-col sm:min-h-full items-center justify-center gap-2 text-balance p-4"
+		class="flex flex-col items-center justify-center gap-2 text-balance p-4 sm:min-h-full"
 	>
 		<div class="mx-auto mb-2 flex w-full max-w-xl items-center gap-2 px-4">
-			<H2 class="w-full text-center p-0">{i18n.t('homepage.getting-started.claim')}</H2>
+			<H2 class="w-full p-0 text-center">{i18n.t('homepage.getting-started.claim')}</H2>
 		</div>
 		<div class="flex w-full max-w-xl flex-col justify-center gap-4 md:flex-row">
 			<div
@@ -164,28 +163,51 @@
 		</div>
 	</section>
 	<div
-		class="z-30 flex min-h-14 shrink-0 items-center justify-between border-t px-2 bg-background/20 py-4 backdrop-blur-sm"
+		class="z-30 flex min-h-14 shrink-0 items-center justify-between border-t bg-background/20 px-2 py-4 backdrop-blur-sm"
 	>
-		<div class="flex flex-col gap-2 w-full justify-start">
-			<div class="flex items-center gap-2 w-full justify-start flex-wrap">
-				<Button class="p-1 h-8 text-sm" variant="outline" href="https://next.shadcn-svelte.com" target="_blank">ShadCN - Svelte</Button>
-				<Button class="p-1 h-8 text-sm" variant="outline" href="https://tailwindcss.com" target="_blank">TailwindCSS</Button>
-				<Button class="p-1 h-8 text-sm" variant="outline" href="https://phosphoricons.com" target="_blank">Phosphor Icons</Button>
-				<Button class="p-1 h-8 text-sm" variant="outline" href="https://amcharts.com" target="_blank">AM Charts</Button>
-				<Button class="p-1 h-8 text-sm" variant="outline" href="https://zenstack.dev" target="_blank">Zenstack</Button>
-				<Button class="p-1 h-8 text-sm" variant="outline" href="https://prisma.io" target="_blank">PrismaJS</Button>
-				
-				
+		<div class="flex w-full flex-col justify-start gap-2">
+			<div class="flex w-full flex-wrap items-center justify-start gap-2">
+				<Button
+					class="h-8 p-1 text-sm"
+					variant="outline"
+					href="https://next.shadcn-svelte.com"
+					target="_blank">ShadCN - Svelte</Button
+				>
+				<Button
+					class="h-8 p-1 text-sm"
+					variant="outline"
+					href="https://tailwindcss.com"
+					target="_blank">TailwindCSS</Button
+				>
+				<Button
+					class="h-8 p-1 text-sm"
+					variant="outline"
+					href="https://phosphoricons.com"
+					target="_blank">Phosphor Icons</Button
+				>
+				<Button
+					class="h-8 p-1 text-sm"
+					variant="outline"
+					href="https://amcharts.com"
+					target="_blank">AM Charts</Button
+				>
+				<Button
+					class="h-8 p-1 text-sm"
+					variant="outline"
+					href="https://zenstack.dev"
+					target="_blank">Zenstack</Button
+				>
+				<Button class="h-8 p-1 text-sm" variant="outline" href="https://prisma.io" target="_blank"
+					>PrismaJS</Button
+				>
 			</div>
-			<div class="flex items-center gap-2 w-full justify-start">
-				<Button  class="p-1 h-8 text-sm" href="https://opensource.org/license/mit" variant=ghost>
-				<i class="ph-duotone ph-copyright text-[20px]"></i>
-				<span>{new Date().getFullYear()} urania-dev</span>
+			<div class="flex w-full items-center justify-start gap-2">
+				<Button class="h-8 p-1 text-sm" href="https://opensource.org/license/mit" variant="ghost">
+					<i class="ph-duotone ph-copyright text-[20px]"></i>
+					<span>{new Date().getFullYear()} urania-dev</span>
 				</Button>
-				
-			</div>			
+			</div>
 			<span class="text-foreground-muted px-1 text-xs">{env.PUBLIC_SNAPP_VERSION}</span>
-
 		</div>
 	</div>
 	<div

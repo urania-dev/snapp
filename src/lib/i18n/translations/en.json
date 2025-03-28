@@ -62,6 +62,7 @@
 	"errors": {
 		"snapps": {
 			"unallowed-not-https": "The original URL must be a secure https link",
+			"unallowed-not-group": "The administrator has configured the platform to be used exclusively through groups. Please select at least one group to continue.",
 			"original-url-missing": "An Original URL must be provided for redirection",
 			"original-url-blacklisted": "This URL has been blacklisted or flagged by VirusTotal API",
 		   
@@ -250,6 +251,7 @@
 			"previous-expiration": "This URL already has an expiry set, it expires {relativeTime}",
 			"previous-secret": "This URL already has a secret set",
 			"provide-secret": "Please provide the secret to continue",
+			"utm-global-params": "These parameters will be stored and accessible within the app whenever you edit or add a URL to the database, ensuring consistent campaign tracking",
 			"utm-params": "You can set up reusable parameters, such as UTM tags, to automatically append to your URLs, avoiding manual errors and ensuring more accurate analytics data."
 		},
 		"label": "URL List",

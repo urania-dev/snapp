@@ -1,5 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 import { fail } from '@sveltejs/kit';
+import { env } from '$env/dynamic/private';
 import { snappSchema } from '$lib/components/snapps/schema';
 import { watchLists } from '$lib/server/watchlists/index.js';
 import bcrypt from 'bcryptjs';
@@ -13,7 +14,8 @@ export const load = async ({ locals: { user } }) => {
 	if (!user) redirect(302, '/auth/sign-in');
 
 	return {
-		form: await superValidate(zod(snappSchema))
+		form: await superValidate(zod(snappSchema)),
+		user,
 	};
 };
 
@@ -42,8 +44,8 @@ export const actions = {
 		const { errors, valid } = await watchLists.validateURL(snapp.originalUrl);
 		const exists = snapp.shortcode
 			? await prisma.snapp.count({
-					where: { shortcode: { startsWith: snapp.shortcode } }
-				})
+				where: { shortcode: { startsWith: snapp.shortcode } }
+			})
 			: null;
 
 		if (!valid) {
@@ -55,6 +57,12 @@ export const actions = {
 					(errors?.https && errors.https)
 			});
 		}
+
+		if (env.URLS_VIA_GROUPS_ONLY?.toLowerCase() === "true" && groups.length && groups[0])
+			return fail(403, {
+				form: createForm,
+				message: 'errors.snapps.unallowed-not-group',
+			})
 
 		try {
 			const newSnapp = await prisma.snapp.create({

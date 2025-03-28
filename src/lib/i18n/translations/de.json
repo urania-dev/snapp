@@ -62,6 +62,7 @@
 	"errors": {
 		"snapps": {
 			"unallowed-not-https": "Die Original-URL muss über HTTPS gesichert sein.",
+			"unallowed-not-group": "Der Administrator hat die Plattform so konfiguriert, dass sie ausschließlich über Gruppen genutzt wird. Bitte wähle mindestens eine Gruppe, um fortzufahren.",
 			"original-url-missing": "Es muss eine Original-URL für die Weiterleitung angegeben werden.",
 			"original-url-blacklisted": "Diese URL wurde von der VirusTotal API als unsicher markiert.",
 			"not-found": "URL nicht gefunden.",
@@ -111,7 +112,7 @@
 		"refresh": "Aktualisieren"
 	},
 	"homepage": {
-		"feedback":"Deine Meinung zählt",
+		"feedback": "Deine Meinung zählt",
 		"intro": "Eine Open-Source, Self-Hosted Lösung zur Verwaltung und Speicherung Ihrer URLs",
 		"hero": {
 			"headline": "Optimieren Sie Ihr URL-Management",
@@ -249,7 +250,8 @@
 			"previous-expiration": "Diese URL hat bereits ein Verfallsdatum, das in {relativeTime} abläuft.",
 			"previous-secret": "Für diese URL ist bereits ein Geheimcode definiert.",
 			"provide-secret": "Bitte geben Sie den Geheimcode ein, um fortzufahren.",
-			"utm-params": "Richten Sie wiederverwendbare Parameter wie UTM-Tags ein, die automatisch an Ihre URLs angehängt werden, um Fehler zu vermeiden und präzise Analysen zu ermöglichen."
+			"utm-params": "Richten Sie wiederverwendbare Parameter wie UTM-Tags ein, die automatisch an Ihre URLs angehängt werden, um Fehler zu vermeiden und präzise Analysen zu ermöglichen.",
+			"utm-global-params": "Diese Parameter werden gespeichert und stehen in der App zur Verfügung, wenn du eine URL in die Datenbank einfügst oder bearbeitest, um eine konsistente Kampagnenverfolgung sicherzustellen"
 		},
 		"label": "URL-Verwaltung",
 		"labels": {

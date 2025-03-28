@@ -10,6 +10,7 @@
 	import { SMTPSettings } from '$lib/components/settings/smtpSettings';
 	import { WatchLists } from '$lib/components/settings/watchlists';
 	import SettingsSidebar from '$lib/components/sidebar/settingsSidebar.svelte';
+	import UTMGlobalParams from "$lib/components/snapps/utmGlobalParams.svelte"
 	import H2 from '$lib/components/typography/heading/h2.svelte';
 	import H4 from '$lib/components/typography/heading/h4.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
@@ -22,7 +23,6 @@
 	import { SvelteURL } from 'svelte/reactivity';
 	import { fly } from 'svelte/transition';
 	const i18n = getTranslations();
-
 	const { data } = $props();
 	let url = $state(new SvelteURL(page.url));
 	let active = $derived(url.hash || '#profile');
@@ -115,7 +115,10 @@
 				{#if active === '#migration'}
 					<H4 class="mt-4 hidden md:block">{i18n.t('migrations.label')}</H4>
 					<MigrationPanel user={data.user} />
-				{/if}
+					{/if}
+					{#if active === '#utmParams'}
+					<UTMGlobalParams />
+					{/if}
 			</div>
 		{/key}
 	</div>

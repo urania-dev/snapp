@@ -256,8 +256,17 @@
   - Fixed: [#103 Add curl or wget on Docker image](https://github.com/urania-dev/snapp/issues/102) Added curl and /health
   - Added new ENV DISABLED_EMAIL_AND_PASSWORD [#100 Let Admins remove email/password registration alltogether when OIDC is connected](https://github.com/urania-dev/snapp/discussions/100)
   - Minor: Added version and i18n on public homepage + added Arabic (ar.json)
-- 0.9-rc-011
+- 0.9-rc-011  > Latest post 0.9-rc
   - SQLITE: fixed missing schema files from docker builder
   - Fixed some necessities for Coolify service PR
 - 0.9-rc-012
   - Added UTM Params to UMAMI Metrics Payload 
+- 0.9-rc-013
+  - Improved Umami integration via @umami/node sdk:
+    - Mark usage of URL
+    - Mark URL not found
+    - Mark invalid login attempt
+    - Mark invalid private URL secret
+    - Mark database not working
+  - Added UTM Params count column [#79 Parameter manager](https://github.com/urania-dev/snapp/issues/79#issuecomment-2761453941)
+  - Restored URL creation via adding them to groups only [read discussion...](https://github.com/urania-dev/snapp/discussions/67#discussioncomment-12656742)

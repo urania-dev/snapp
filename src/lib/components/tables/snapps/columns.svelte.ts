@@ -14,6 +14,7 @@ import OriginalUrl from './originalUrl.svelte';
 import SortButton from './sortButton.svelte';
 import Status from './status.svelte';
 import Tags from './tags.svelte';
+import UTMColumn from './UTMColumn.svelte';
 
 interface SnappWithTags extends Snapp {
 	tag: Tag[];
@@ -222,6 +223,26 @@ export const columns = (i18n: TranslationsStoreType, isPrivateView: boolean = tr
 				return renderSnippet(getHeader, {});
 			},
 			id: 'secret'
+		},
+		{
+			accessorKey: 'utmParams',
+			cell: ({ row }) =>
+				renderComponent(UTMColumn, {
+					utms: row.original.utmParams||"[]"
+				}),
+			enableHiding: true,
+			enableSorting: true,
+			header: () => {
+				const getHeader = createRawSnippet<[]>(() => {
+					return {
+						render: () =>
+							`<div class="capitalize w-full text-center">UTM</div>`
+					};
+				});
+				return renderSnippet(getHeader, {});
+			},
+
+			id: 'utmParams'
 		},
 		{
 			accessorKey: 'expiration',
