@@ -75,8 +75,21 @@ export const markUsage = async (
 
 	const umamiURL = settings.get('PUBLIC_UMAMI_WEBSITE_URL');
 	const umamiID = settings.get('PUBLIC_UMAMI_WEBSITE_ID');
-
+				
+	
 	if (umamiID && umamiURL) {
+
+		const url = new URL(event.url)
+		
+		const utmParamsString = JSON.parse(snapp.utmParams || '[]') as string[];
+		const utmParams = utmParamsString.map((p) => {
+			const [key, value, name] = JSON.parse(p) as string[];
+			return { key, name, value };
+		});
+
+		for (const params of utmParams) {
+			url.searchParams.set(params.key, params.value);
+		}
 		const data = {
 			payload: {
 				data: undefined as { [key: string]: string } | undefined,
@@ -86,7 +99,7 @@ export const markUsage = async (
 				referrer,
 				screen: '--SSR',
 				title: `/${snapp.shortcode}`,
-				url: event.url.pathname,
+				url,
 				website: umamiID
 			},
 			type: 'event'

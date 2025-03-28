@@ -259,4 +259,5 @@
 - 0.9-rc-011
   - SQLITE: fixed missing schema files from docker builder
   - Fixed some necessities for Coolify service PR
-  - 
+- 0.9-rc-012
+  - Added UTM Params to UMAMI Metrics Payload 
