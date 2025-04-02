@@ -3,6 +3,7 @@ import { env } from '$env/dynamic/private';
 import { log } from '$lib/server/log';
 import { Configuration, discovery } from 'openid-client';
 
+
 export interface OidcConfig {
 	authorizeUrl?: string;
 	clientID: string;
@@ -23,14 +24,15 @@ export interface OidcConfig {
 
 const fetchClientConfig = async (oidcConfig: OidcConfig): Promise<Configuration> => {
 	const useAutodiscover = oidcConfig.authorizeUrl === undefined;
-	if(useAutodiscover)
+	if (useAutodiscover)
 		try {
 			const config = await discovery(new URL(oidcConfig.issuer), oidcConfig.clientID, oidcConfig.clientSecret)
-			return config	
+			return config
 		} catch (error) {
-			log.error(error)
+
+			if (env.LOG_LEVEL === "true") log.error(error)
 		}
-	
+
 	return new Configuration(
 		{
 			authorization_endpoint: oidcConfig.authorizeUrl,
@@ -44,76 +46,87 @@ const fetchClientConfig = async (oidcConfig: OidcConfig): Promise<Configuration>
 	);
 };
 
-const parseOIDCConfigs = () => {
-	const providers =
-		(env.AUTH_PROVIDERS?.trim() !== '' &&
-			env.AUTH_PROVIDERS?.trim()
-				?.toString()
-				?.split(',')
-				.map((provider) => provider.trim())) ||
-		[];
 
-	if (!providers.length) return [];
-	return providers.map((provider) => {
-		const issuer = env[`AUTH_${provider}_ISSUER`];
-		const clientID = env[`AUTH_${provider}_CLIENT_ID`];
-		const clientSecret = env[`AUTH_${provider}_CLIENT_SECRET`];
-		const scope = env?.[`AUTH_${provider}_SCOPE`] || 'openid profile email';
-		const userNameField = env?.[`AUTH_${provider}_USERNAME_FIELD`] || 'preferred_username';
-		const userIdField = env?.[`AUTH_${provider}_USERID_FIELD`] || 'id';
-		const displayNameField = env?.[`AUTH_${provider}_DISPLAYNAME_FIELD`] || 'name';
-		const profilePictureField = env?.[`AUTH_${provider}_PROFILE_PICTURE_FIELD`] || 'avatar';
-		const emailField = env?.[`AUTH_${provider}_EMAIL_FIELD`] || 'email';
+export type Provider ={
+	configuration: Configuration;
+	identity: string;
+	provider: string;
+	rawConfig:OidcConfig
+}
 
-		Object.entries({
-			clientID,
-			clientSecret,
-			displayNameField,
-			emailField,
-			issuer,
-			profilePictureField,
-			scope,
-			userIdField,
-			userNameField
-		}).map(([key, value]) => {
-			if (!value) {
-				throw error(500, `Missing environment variables for ${provider}, ${key}`);
-			}
+export const getProviders = async () => {
+	const parseOIDCConfigs = () => {
+		const providers =
+			(env.AUTH_PROVIDERS?.trim() !== '' &&
+				env.AUTH_PROVIDERS?.trim()
+					?.toString()
+					?.split(',')
+					.map((provider) => provider.trim())) ||
+			[];
+
+		if (!providers.length) return [];
+		return providers.map((provider) => {
+			const issuer = env[`AUTH_${provider}_ISSUER`];
+			const clientID = env[`AUTH_${provider}_CLIENT_ID`];
+			const clientSecret = env[`AUTH_${provider}_CLIENT_SECRET`];
+			const scope = env?.[`AUTH_${provider}_SCOPE`] || 'openid profile email';
+			const userNameField = env?.[`AUTH_${provider}_USERNAME_FIELD`] || 'preferred_username';
+			const userIdField = env?.[`AUTH_${provider}_USERID_FIELD`] || 'id';
+			const displayNameField = env?.[`AUTH_${provider}_DISPLAYNAME_FIELD`] || 'name';
+			const profilePictureField = env?.[`AUTH_${provider}_PROFILE_PICTURE_FIELD`] || 'avatar';
+			const emailField = env?.[`AUTH_${provider}_EMAIL_FIELD`] || 'email';
+
+			Object.entries({
+				clientID,
+				clientSecret,
+				displayNameField,
+				emailField,
+				issuer,
+				profilePictureField,
+				scope,
+				userIdField,
+				userNameField
+			}).map(([key, value]) => {
+				if (!value) {
+					throw error(500, `Missing environment variables for ${provider}, ${key}`);
+				}
+			});
+
+			return {
+				authorizeUrl: env[`AUTH_${provider}_AUTHORIZE_URL`],
+				clientID: clientID!,
+				clientSecret: clientSecret!,
+				displayNameField,
+				emailField,
+				endSessionUrl: env[`AUTH_${provider}_END_SESSION_URL`],
+				identity: provider.toLocaleLowerCase(),
+				issuer: issuer!,
+				profilePictureField,
+				provider: provider,
+				scope,
+				tokenUrl: env[`AUTH_${provider}_TOKEN_URL`],
+				userIdField,
+				userinfoUrl: env[`AUTH_${provider}_USERINFO_URL`],
+				userNameField
+			} satisfies OidcConfig;
 		});
+	};
 
-		return {
-			authorizeUrl: env[`AUTH_${provider}_AUTHORIZE_URL`],
-			clientID: clientID!,
-			clientSecret: clientSecret!,
-			displayNameField,
-			emailField,
-			endSessionUrl: env[`AUTH_${provider}_END_SESSION_URL`],
-			identity: provider.toLocaleLowerCase(),
-			issuer: issuer!,
-			profilePictureField,
-			provider: provider,
-			scope,
-			tokenUrl: env[`AUTH_${provider}_TOKEN_URL`],
-			userIdField,
-			userinfoUrl: env[`AUTH_${provider}_USERINFO_URL`],
-			userNameField
-		} satisfies OidcConfig;
-	});
-};
+	const result = await Promise.all(
+		parseOIDCConfigs().map(async (config) => {
+			const configuration = await fetchClientConfig(config);
+			return {
+				configuration,
+				identity: config.identity,
+				provider: config.provider,
+				rawConfig: config
+			};
+		})
+	) 
 
-export const OIDCConfigs = await Promise.all(
-	parseOIDCConfigs().map(async (config) => {
-		const configuration = await fetchClientConfig(config);
+	return result as Provider[]
+}
 
-		return {
-			configuration,
-			identity: config.identity,
-			provider: config.provider,
-			rawConfig: config
-		};
-	})
-);
-
-export const getOIDCConfig = (identity: string) => {
+export const getOIDCConfig = (identity: string, OIDCConfigs: Provider[]) => {
 	return OIDCConfigs.find((config) => config.identity === identity);
 };

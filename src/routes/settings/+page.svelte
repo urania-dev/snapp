@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import { page } from '$app/state';
 	import { AdminPanel } from '$lib/components/settings/adminPanel';
 	import Umami from '$lib/components/settings/adminPanel/umami.svelte';
@@ -39,16 +40,16 @@
 		<i class="ph-duotone ph-gear text-[32px]"></i>
 		<H2 class="m-0 p-0">{i18n.t('menu.settings')}</H2>
 	</div>
-	<Button
-	onclick={() => {
-		
-	}}
->
-	<i class="ph-bold ph-sign-out"></i>
-	<span class="hidden md:block">
-		{i18n.t('users.auth.sign-out')}
-	</span>
-</Button>
+	<form action="?/signOut" use:enhance method=post>
+		<Button
+		type="submit"
+		>
+		<i class="ph-bold ph-sign-out"></i>
+		<span class="hidden md:block">
+			{i18n.t('users.auth.sign-out')}
+		</span>
+	</Button>
+</form>
 </div>
 <Separator />
 <div class="flex h-full w-full flex-col md:flex-row">

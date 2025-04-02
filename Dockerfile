@@ -23,7 +23,7 @@ ENV DATABASE_URL=file:./db.sqlite \
     PUBLIC_EXTRA_GROUPS_EDITABLE=false \
     URLS_VIA_GROUPS_ONLY=false \
     APPNAME="Snapp.li" \
-    PUBLIC_SNAPP_VERSION="0.9-rc-013"
+    PUBLIC_SNAPP_VERSION="0.9-rc-014"
     
 # Run build commands
 ENV DATABASE_URL=mysql://root:password@localhost:3306/snapp \
@@ -94,7 +94,7 @@ LOG_LEVEL="info" \
     URLS_VIA_GROUPS_ONLY=false \
     PUBLIC_EXTRA_GROUPS_EDITABLE=false \
     APPNAME="Snapp.li" \
-    PUBLIC_SNAPP_VERSION="0.9-rc-013"
+    PUBLIC_SNAPP_VERSION="0.9-rc-014"
 
 EXPOSE 3000
     

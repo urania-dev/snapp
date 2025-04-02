@@ -83,7 +83,8 @@
 			"user-already-exists": "O nome de usuario xa está en uso. Por favor, proba cun outro.",
 			"reset-token-expired": "O token de recuperación de contrasinal expirou."
 		},
-		"generic": "Erro non recoñecido, por favor inténtao de novo máis tarde."
+		"generic": "Erro non recoñecido, por favor inténtao de novo máis tarde.",
+		"oidc-client-unavailable": "Error con {provider}: este proveedor no está disponible en este momento."
 	},
 	"globals": {
 		"cancel": "Cancelar",

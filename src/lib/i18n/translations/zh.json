@@ -83,7 +83,8 @@
 			"user-already-exists": "用户名已被占用。请尝试其他名称。",
 			"reset-token-expired": "密码恢复重置令牌已过期。"
 		},
-		"generic": "未知错误，请稍后再试。"
+		"generic": "未知错误，请稍后再试。",
+		"oidc-client-unavailable":  "与 {provider} 出现错误：该提供商当前不可用。"
 	},
 	"globals": {
 		"cancel": "取消",

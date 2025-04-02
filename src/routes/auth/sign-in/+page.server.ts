@@ -4,7 +4,7 @@ import { prisma } from '$lib/db/prisma';
 import { generateSessionToken } from '$lib/server/auth/index.js';
 import { createSession } from '$lib/server/auth/index.js';
 import { setSessionTokenCookie } from '$lib/server/auth/index.js';
-import { OIDCConfigs } from '$lib/server/auth/oidc/config';
+import { getProviders} from '$lib/server/auth/oidc/config';
 import { watchLists } from '$lib/server/watchlists';
 import { logInvalidLoginAttempt } from '$lib/umami';
 import bcrypt from 'bcryptjs';
@@ -13,6 +13,8 @@ import { zod } from 'sveltekit-superforms/adapters';
 
 export const load = async ({ locals: { user } }) => {
 	if (user) redirect(302, '/dashboard');
+
+	const OIDCConfigs = await getProviders()
 	const providers = OIDCConfigs.map((o) => ({ identity: o.identity }));
 	const DISABLED_EMAIL_AND_PASSWORD = process.env.DISABLED_EMAIL_AND_PASSWORD?.toLowerCase() === "true" || false
 

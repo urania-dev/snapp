@@ -83,7 +83,8 @@
 			"user-already-exists": "Nom d'utilisateur déjà pris. Veuillez en essayer un autre.",
 			"reset-token-expired": "Le jeton de réinitialisation de mot de passe a expiré."
 		},
-		"generic": "Erreur non reconnue, veuillez réessayer plus tard."
+		"generic": "Erreur non reconnue, veuillez réessayer plus tard.",
+		"oidc-client-unavailable": "Erreur avec {provider} : ce fournisseur n'est pas disponible pour le moment."
 	},
 	"globals": {
 		"cancel": "Annuler",

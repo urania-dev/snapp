@@ -270,3 +270,5 @@
     - Mark database not working
   - Added UTM Params count column [#79 Parameter manager](https://github.com/urania-dev/snapp/issues/79#issuecomment-2761453941)
   - Restored URL creation via adding them to groups only [read discussion...](https://github.com/urania-dev/snapp/discussions/67#discussioncomment-12656742)
+- 0.9-rc-014
+  - Fixed: [#107 Random Error At Night](https://github.com/urania-dev/snapp/issues/107) now OIDC get parsed on demand and not only on app startup

@@ -84,7 +84,9 @@
 			"user-already-exists": "Username already taken. Please try another one.",
 			"reset-token-expired": "Password recovery reset token has expired."
 		},
-		"generic": "Unrecognized Error, please try again later."
+		"generic": "Unrecognized Error, please try again later.",
+		"oidc-client-unavailable":"Error with {provider}: this provider is not available right now."
+
 	},
 	"globals": {
 		"cancel": "Cancel",

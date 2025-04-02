@@ -6,7 +6,7 @@ import {
 	generateSessionToken,
 	setSessionTokenCookie
 } from '$lib/server/auth/index.js';
-import { getOIDCConfig } from '$lib/server/auth/oidc/config';
+import { getOIDCConfig, getProviders } from '$lib/server/auth/oidc/config';
 import { getSettings } from '$lib/server/config';
 import { slugify } from '$lib/utils.js';
 import { authorizationCodeGrant, fetchUserInfo } from 'openid-client';
@@ -29,7 +29,9 @@ export const GET = async (event) => {
 		throw error(400, 'Provider not found in cookie');
 	}
 
-	const config = getOIDCConfig(provider!);
+	const providers = await getProviders()
+	const config = getOIDCConfig(provider!,providers);
+	
 	if (!config) {
 		throw error(400, 'Provider not found');
 	}

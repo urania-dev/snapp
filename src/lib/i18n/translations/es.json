@@ -83,7 +83,9 @@
       "user-already-exists": "El nombre de usuario ya está en uso. Por favor, prueba con otro.",
       "reset-token-expired": "El token de recuperación de contraseña ha expirado."
     },
-    "generic": "Error no reconocido, por favor inténtalo de nuevo más tarde."
+    "generic": "Error no reconocido, por favor inténtalo de nuevo más tarde.",
+    "oidc-client-unavailable":  "Erro con {provider}: este provedor non está dispoñible agora mesmo."
+
   },
   "globals": {
     "cancel": "Cancelar",
