@@ -7,7 +7,7 @@ import { profileSchema, smtpSchema } from '$lib/components/settings/schema';
 import { blackListSchema } from '$lib/components/settings/watchlists/blacklists/schema';
 import { whiteListSchema } from '$lib/components/settings/watchlists/whitelists/schema';
 import { prisma } from '$lib/db/prisma.js';
-import { createPasswordResetToken, invalidateSessions } from '$lib/server/auth';
+import { createPasswordResetToken, deleteSessionTokenCookie, invalidateSessions } from '$lib/server/auth';
 import { createToken } from '$lib/server/auth/db.js';
 import { getSettings } from '$lib/server/config';
 import ForgotPasswordEmail from '$lib/server/emails/auth/forgotPasswordEmail.svelte';
@@ -364,6 +364,7 @@ export const actions = {
 		if (!user) redirect(302, '/auth/sign-in');
 
 		await invalidateSessions(user.id)
+		deleteSessionTokenCookie(event)
 
 		redirect(302,'/auth/sign-in')
 		
