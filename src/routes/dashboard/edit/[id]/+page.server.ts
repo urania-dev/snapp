@@ -62,21 +62,22 @@ export const actions = {
 
 		const exists = snapp.shortcode
 			? await prisma.snapp.count({
-					where: {
-						id: { not: event.params.id },
-						shortcode: { startsWith: snapp.shortcode.toLowerCase() }
-					}
-				})
+				where: {
+					id: { not: event.params.id },
+					shortcode: { startsWith: snapp.shortcode.toLowerCase() }
+				}
+			})
 			: null;
 		const old = snapp.shortcode
 			? await prisma.snapp.findFirst({
-					where: {
-						id: event.params.id
-					}
-				})
+				where: {
+					id: event.params.id
+				}
+			})
 			: null;
-
-		const isOwnerOrAdmin = old?.id === event.locals.user?.id || event.locals.user?.role !== 'user';
+		const isOwner = old?.userId === event.locals.user?.id;
+		const isAdmin = event.locals.user?.role !== 'user' || false
+		
 		if (!valid) {
 			return fail(400, {
 				form: editForm,
@@ -86,9 +87,8 @@ export const actions = {
 					(errors?.https && errors.https)
 			});
 		}
-		const EXTRA_GROUPS_EDITABLE  = env?.PUBLIC_EXTRA_GROUPS_EDITABLE?.toString()?.toLowerCase() === 'true'
-
-		if (!isOwnerOrAdmin && !EXTRA_GROUPS_EDITABLE ) return fail(400, { editForm,message: 'errors.unauthorized' });
+		const EXTRA_GROUPS_EDITABLE = env?.PUBLIC_EXTRA_GROUPS_EDITABLE?.toString()?.toLowerCase() === 'true'
+		if (!isOwner && !isAdmin && !EXTRA_GROUPS_EDITABLE) return fail(401, { editForm, message: 'errors.unauthorized' });
 		try {
 			const updatedSnapp = await prisma.snapp.update({
 				data: {
@@ -108,13 +108,13 @@ export const actions = {
 						nanoid(5),
 					tag: tags?.length
 						? {
-								connectOrCreate: tags.map((t) => ({
-									create: { name: t, slug: t },
-									where: { slug: t }
-								}))
-							}
+							connectOrCreate: tags.map((t) => ({
+								create: { name: t, slug: t },
+								where: { slug: t }
+							}))
+						}
 						: undefined,
-					userId:old?.userId,
+					userId: old?.userId,
 					utmParams: JSON.stringify(utmParams)
 				},
 				where: {

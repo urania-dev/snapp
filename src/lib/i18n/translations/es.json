@@ -84,8 +84,8 @@
       "reset-token-expired": "El token de recuperación de contraseña ha expirado."
     },
     "generic": "Error no reconocido, por favor inténtalo de nuevo más tarde.",
-    "oidc-client-unavailable":  "Erro con {provider}: este provedor non está dispoñible agora mesmo."
-
+    "oidc-client-unavailable":  "Erro con {provider}: este provedor non está dispoñible agora mesmo.",
+        "unauthorized": "No autorizado"
   },
   "globals": {
     "cancel": "Cancelar",

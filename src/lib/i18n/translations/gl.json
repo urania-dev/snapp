@@ -84,7 +84,8 @@
 			"reset-token-expired": "O token de recuperación de contrasinal expirou."
 		},
 		"generic": "Erro non recoñecido, por favor inténtao de novo máis tarde.",
-		"oidc-client-unavailable": "Error con {provider}: este proveedor no está disponible en este momento."
+		"oidc-client-unavailable": "Error con {provider}: este proveedor no está disponible en este momento.",
+		"unauthorized": "Non autorizado"
 	},
 	"globals": {
 		"cancel": "Cancelar",

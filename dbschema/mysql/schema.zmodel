@@ -13,7 +13,7 @@ plugin openapi {
     provider = "@zenstackhq/openapi"
     output = "../../static/openapi.yaml"
     title = "Snapp"
-    version = "0.9-rc-014"
+    version = "0.9-rc-016"
     prefix='/api'
     securitySchemes = {
         bearer: { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },

@@ -84,7 +84,8 @@
 			"reset-token-expired": "Das Passwort-Zurücksetzungstoken ist abgelaufen."
 		},
 		"generic": "Unbekannter Fehler. Bitte versuchen Sie es später erneut.",
-		"oidc-client-unavailable":"Fehler mit {provider}: Dieser Anbieter ist derzeit nicht verfügbar."
+		"oidc-client-unavailable":"Fehler mit {provider}: Dieser Anbieter ist derzeit nicht verfügbar.",
+		"unauthorized": "Nicht autorisiert"
 
 	},
 	"globals": {

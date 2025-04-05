@@ -85,8 +85,8 @@
 			"reset-token-expired": "Password recovery reset token has expired."
 		},
 		"generic": "Unrecognized Error, please try again later.",
-		"oidc-client-unavailable":"Error with {provider}: this provider is not available right now."
-
+		"oidc-client-unavailable":"Error with {provider}: this provider is not available right now.",
+    "unauthorized": "Unauthorized"
 	},
 	"globals": {
 		"cancel": "Cancel",

@@ -23,7 +23,7 @@ ENV DATABASE_URL=file:./db.sqlite \
     PUBLIC_EXTRA_GROUPS_EDITABLE=false \
     URLS_VIA_GROUPS_ONLY=false \
     APPNAME="Snapp.li" \
-    PUBLIC_SNAPP_VERSION="0.9-rc-014"
+    PUBLIC_SNAPP_VERSION="0.9-rc-016"
     
 # Run build commands
 ENV DATABASE_URL=mysql://root:password@localhost:3306/snapp \
@@ -42,8 +42,10 @@ RUN bunx zenstack generate --schema dbschema/sqlite/schema.zmodel
 RUN bunx prisma migrate deploy --schema dbschema/sqlite/prisma/schema.prisma 
 RUN --mount=type=secret,id=ADMIN_PASSWORD \
     --mount=type=secret,id=TOKEN_SECRET \
+    --mount=type=secret,id=DISABLED_EMAIL_AND_PASSWORD \
     ADMIN_PASSWORD=$(cat /run/secrets/ADMIN_PASSWORD) \
     TOKEN_SECRET=$(cat /run/secrets/TOKEN_SECRET) \
+    DISABLED_EMAIL_AND_PASSWORD=$(cat /run/secrets/DISABLED_EMAIL_AND_PASSWORD) \
     bun run build
 RUN touch /app/dbschema/sqlite/prisma/db.sqlite
 # Final stage: set up a lean runtime environment and reinstall production dependencies
@@ -51,6 +53,7 @@ FROM oven/bun:slim
 WORKDIR /app
 
 RUN apt-get update -y && apt-get install -y openssl
+
 
 # Copy the built output (adjust path if necessary)
 COPY --from=builder /app/build ./build
@@ -80,21 +83,20 @@ RUN touch /app/dbschema/sqlite/prisma/db.sqlite
 
 # Set runtime environment variables
 ENV DATABASE_URL=file:./db.sqlite \
-DATABASE_PROVIDER=sqlite \
-LOG_LEVEL="info" \
+    DATABASE_PROVIDER=sqlite \
+    LOG_LEVEL="info" \
     HOST=0.0.0.0 \
     ORIGIN=http://localhost:3000 \
     PORT=3000 \
     ADMIN_USERNAME=admin \
     ADMIN_EMAIL=email@example.org \
-    DISABLED_EMAIL_AND_PASSWORD=false \
     ENABLE_SIGNUP=false \
     ENABLED_MFA=false \
     PUBLIC_URL=http://localhost:3000 \
     URLS_VIA_GROUPS_ONLY=false \
     PUBLIC_EXTRA_GROUPS_EDITABLE=false \
     APPNAME="Snapp.li" \
-    PUBLIC_SNAPP_VERSION="0.9-rc-014"
+    PUBLIC_SNAPP_VERSION="0.9-rc-016"
 
 EXPOSE 3000
     

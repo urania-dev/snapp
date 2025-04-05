@@ -84,7 +84,8 @@
 			"reset-token-expired": "Il token per il reset è scaduto."
 		},
 		"generic": "Errore non riconosciuto. Riprova più tardi.",
-		"oidc-client-unavailable": "Errore con {provider}: questo provider non è disponibile in questo momento."
+		"oidc-client-unavailable": "Errore con {provider}: questo provider non è disponibile in questo momento.",
+		"unauthorized":"Non autorizzato"
 	},
 	"globals": {
 		"cancel": "Annulla",

@@ -84,7 +84,8 @@
 			"reset-token-expired": "密码恢复重置令牌已过期。"
 		},
 		"generic": "未知错误，请稍后再试。",
-		"oidc-client-unavailable":  "与 {provider} 出现错误：该提供商当前不可用。"
+		"oidc-client-unavailable":  "与 {provider} 出现错误：该提供商当前不可用。",
+		"unauthorized": "未授权"
 	},
 	"globals": {
 		"cancel": "取消",

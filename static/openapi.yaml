@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: Snapp
-  version: 0.9-rc-014
+  version: 0.9-rc-016
 tags:
   - name: user
     description: Operations for managing users
