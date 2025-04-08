@@ -1,5 +1,5 @@
 export class Debouncer {
-	#timeout = $state<NodeJS.Timeout>();
+	#timeout = $state<NodeJS.Timer>();
 
 	debounce = <T extends (...args: unknown[]) => void>(func: T, timeout = 300) => {
 		const timer = this.#timeout;

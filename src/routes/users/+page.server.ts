@@ -135,9 +135,9 @@ export const actions = {
 		}
 
 		const form = await request.formData();
-
 		const ids = form.getAll('ids[]') as string[];
 
+		await prisma.snapp.deleteMany({ where: { userId: { in: ids } } });
 		await prisma.user.deleteMany({ where: { id: { in: ids } } });
 	}
 };

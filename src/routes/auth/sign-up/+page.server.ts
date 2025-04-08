@@ -36,7 +36,6 @@ export const actions = {
 				form
 			});
 		}
-
 		try {
 			const settings = await getSettings();
 
@@ -101,7 +100,7 @@ export const actions = {
 			await sendEmail(
 				Signup,
 				{ appname, cta, name },
-				user.email,
+				form.data.email,
 				appname + ' | Welcome to our platform'
 			);
 		} catch (error) {

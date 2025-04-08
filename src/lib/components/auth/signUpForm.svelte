@@ -17,13 +17,9 @@
 
 	const form = superForm(signUpForm, {
 		onResult: async ({ result }) => {
-			try {
 				await applyAction(result);
 				if (result && result?.status && result.status <= 201) await invalidateAll();
 				if (page.form.message) toast.info(decode(i18n.t(page.form.message)));
-			} catch (error) {
-				console.error(error);
-			}
 		},
 		validators: zodClient(signUpSchema)
 	});

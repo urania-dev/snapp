@@ -17,7 +17,7 @@ model User {
     usages    Usage[] 
     groups    Group[] @relation('membership')
 
-
+    @@allow('create,read', true)
     @@allow("all", auth().id == this.id)
     @@allow("all", auth().role == "admin"||auth().role == "root")
 

@@ -403,7 +403,7 @@
 				use:enhance={({ formData }) => {
 					table
 						.getFilteredSelectedRowModel()
-						.rows.map((r) => formData.append('ids[]', (r.original as { slug: string }).slug));
+						.rows.map((r) => formData.append('ids[]', (r.original as { id: string }).id));
 					return async ({ update }) => {
 						await update({ invalidateAll: true });
 						deleteDialogOpen = false;
