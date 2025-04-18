@@ -6,8 +6,10 @@ export const load = async ({ depends, locals: { lang, theme, user }, url }) => {
 	const settings = await getSettings();
 	const appname = settings.get<string>('APPNAME');
 	const disableHome = settings.get<boolean>('DISABLE_HOME') === true;
+	const customRedirect = settings.get<string>('CUSTOM_REDIRECT') !== '/dashboard';
 	return {
 		appname,
+		customRedirect,
 		disableHome,
 		locale: lang,
 		role: user?.role || 'user',

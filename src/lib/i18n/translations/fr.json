@@ -213,7 +213,8 @@
 			"enable-limits": "Activer les limites",
 			"enable-signup": "Activer les inscriptions",
 			"disable-homepage": "Désactiver la page d'accueil",
-			"allow-http": "Autoriser HTTP non sécurisé"
+			"allow-http": "Autoriser HTTP non sécurisé",
+			"custom-home-redirect":"Redirection vers la page d'accueil"
 		},
 		"helpers": {
 			"signups": "Autoriser les inscriptions externes depuis l'interface.",

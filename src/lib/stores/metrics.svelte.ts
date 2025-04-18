@@ -2,6 +2,7 @@ import { CalendarDate, DateFormatter, getLocalTimeZone } from '@internationalize
 import { page } from '$app/state';
 export type CharData = { date: string; value: number };
 import { type Usage } from '@prisma/client';
+import { browser } from '$app/environment';
 import { getContext, setContext } from 'svelte';
 
 class MetricsQueryStore {
@@ -44,6 +45,7 @@ class MetricsQueryStore {
 	);
 
 	loadFromDb = async () => {
+		if(!browser) return
 		const data = [] as CharData[];
 		const f = page.data.fetch as typeof fetch;
 		if (!this.start || !this.end) return;

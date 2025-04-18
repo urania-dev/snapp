@@ -47,7 +47,7 @@
 		<AppSidebar
 			show={SHOW_MENU}
 			{i18n}
-			disableHome={data.disableHome}
+			disableHome={data.disableHome && !data.customRedirect}
 			role={data.role}
 			url={new URL(data.url)}
 		/>

@@ -213,7 +213,8 @@
 			"enable-limits": "تفعيل الحدود",
 			"enable-signup": "تفعيل التسجيل",
 			"disable-homepage": "تعطيل الصفحة الرئيسية",
-			"allow-http": "السماح بـ HTTP غير الآمن"
+			"allow-http": "السماح بـ HTTP غير الآمن",
+			"custom-home-redirect": "إعادة التوجيه إلى الصفحة الرئيسية"
 		},
 		"helpers": {
 			"signups": "تفعيل التسجيل من الواجهة الأمامية.",

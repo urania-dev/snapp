@@ -213,7 +213,8 @@
 			"enable-limits": "启用限制",
 			"enable-signup": "允许注册",
 			"disable-homepage": "禁用主页",
-			"allow-http": "允许不安全的 HTTP"
+			"allow-http": "允许不安全的 HTTP",
+			"custom-home-redirect":"主页重定向"
 		},
 		"helpers": {
 			"signups": "允许用户从前端自行注册。",

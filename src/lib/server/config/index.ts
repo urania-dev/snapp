@@ -128,6 +128,7 @@ export class ServerWideSettings {
 		const envVars = {
 			ALLOW_UNSECURE_HTTP: process.env.ALLOW_UNSECURE_HTTP || null,
 			APPNAME: process.env.APPNAME || 'Snapp',
+			CUSTOM_REDIRECT: '/dashboard',
 			DISABLE_HOME: process.env.DISABLE_HOME || null,
 			ENABLE_LIMITS: process.env.ENABLE_LIMITS || null,
 			MAX_SNAPPS_PER_USER: process.env.MAX_SNAPPS_PER_USER || 10,
@@ -140,7 +141,7 @@ export class ServerWideSettings {
 			SMTP_PASS: process.env.SMTP_PASS || null,
 			SMTP_PORT: process.env.SMTP_PORT || null,
 			SMTP_SSL: process.env.SMTP_SSL || false,
-			SMTP_USER: process.env.SMTP_USER || null
+			SMTP_USER: process.env.SMTP_USER || null,
 		};
 
 		Object.entries(envVars).forEach(([key, value]) => this.set(key, value));

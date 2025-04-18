@@ -213,7 +213,8 @@
 			"enable-limits": "Activar límites",
 			"enable-signup": "Activar rexistracións",
 			"disable-homepage": "Desactivar a páxina de inicio",
-			"allow-http": "Permitir HTTP non seguro"
+			"allow-http": "Permitir HTTP non seguro",
+			"custom-home-redirect": "Redirección á páxina de inicio"
 		},
 		"helpers": {
 			"signups": "Permitir rexistracións externas dende a interface.",

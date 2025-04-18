@@ -90,6 +90,7 @@
 					<H4 class="mt-4 hidden md:block">{i18n.t('admin.label')}</H4>
 					<AdminPanel
 						enabledMFA={data.serverSideEnabledMFA}
+						bind:customRedirect={data.customRedirect}
 						allowUnsecureHTTP={data.allowUnsecureHTTP}
 						disableHome={data.disableHome}
 						enableLimits={data.enableLimits}

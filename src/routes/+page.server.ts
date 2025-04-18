@@ -11,7 +11,7 @@ export const load = async (event) => {
 	const settings = await getSettings();
 
 	const disableHome = settings.get<boolean>('DISABLE_HOME') === true;
-	if (disableHome) redirect(302, '/dashboard');
+	if (disableHome) redirect(302, settings.get<string>('CUSTOM_REDIRECT')||'/dashboard');
 	const availableLanguages = settings.get<string>("AVAILABLE_LANGUAGES") as string
 
 	try {

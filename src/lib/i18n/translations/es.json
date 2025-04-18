@@ -213,7 +213,8 @@
       "enable-limits": "Habilitar límites",
       "enable-signup": "Habilitar registros",
       "disable-homepage": "Deshabilitar página de inicio",
-      "allow-http": "Permitir HTTP inseguro"
+      "allow-http": "Permitir HTTP inseguro",
+      "custom-home-redirect":"Redirección a la página de inicio"
     },
     "helpers": {
       "signups": "Permitir registros externos desde la interfaz.",

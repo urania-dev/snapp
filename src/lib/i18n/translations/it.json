@@ -213,7 +213,9 @@
 			"enable-limits": "Abilita Limiti",
 			"enable-signup": "Abilita Registrazioni",
 			"disable-homepage": "Disabilita Homepage",
-			"allow-http": "Permetti HTTP non sicuro"
+			"allow-http": "Permetti HTTP non sicuro",
+			"custom-home-redirect":"Reindirizzamento Homepage"
+
 		},
 		"helpers": {
 			"signups": "Abilita le registrazioni dal frontend.",

@@ -214,7 +214,8 @@
 			"enable-limits": "Limits einschalten",
 			"enable-signup": "Registrierung aktivieren",
 			"disable-homepage": "Startseite deaktivieren",
-			"allow-http": "HTTP (unsicher) erlauben"
+			"allow-http": "HTTP (unsicher) erlauben",
+			"custom-home-redirect":"Startseiten-Weiterleitung"
 		},
 		"helpers": {
 			"signups": "Externe Registrierungen über das Frontend aktivieren.",

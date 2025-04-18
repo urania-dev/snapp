@@ -27,10 +27,12 @@ export const load = async ({ locals: { prisma, theme, user } }) => {
 	const settings = await getSettings();
 	const isAdmin = user.role === 'admin' || user.role === 'root';
 	const parsed = settings.list();
+
 	return {
 		allowUnsecureHTTP: parsed.ALLOW_UNSECURE_HTTP as boolean,
 		availableLanguages: parsed.AVAILABLE_LANGUAGES as string | undefined,
 		blackListForm: isAdmin && (await superValidate(zod(blackListSchema))),
+		customRedirect: isAdmin && parsed.CUSTOM_REDIRECT as string||null,
 		disableHome: isAdmin && (parsed.DISABLE_HOME as boolean),
 		enableLimits: isAdmin && (parsed.ENABLE_LIMITS as boolean),
 		enableSignup: isAdmin && (parsed.ENABLE_SIGNUP as boolean),
@@ -168,6 +170,31 @@ export const actions = {
 		return {
 			blackListForm
 		};
+	},
+	customRedirect: async ({locals:{prisma,user}, request}) => {
+		if (!user) redirect(302, '/auth/sign-in');
+		if (!['admin', 'root'].includes(user.role)) {
+			return fail(403, { message: 'errors.unauthorized' });
+		}
+		const form = await request.formData();
+		const customRedirect = form.get('customRedirect')?.toString();
+		if (customRedirect !== undefined) {
+			await prisma.setting.upsert({
+				create: {
+					field: 'CUSTOM_REDIRECT',
+					id: 'CUSTOM_REDIRECT',
+					userId: null,
+					value: customRedirect
+				},
+				update: { value: customRedirect },
+				where: { field: 'CUSTOM_REDIRECT', id: 'CUSTOM_REDIRECT', userId: null }
+			});
+
+			const settings = await getSettings();
+			await settings.updateDB();
+			return { message: 'globals.saved' };
+		}
+
 	},
 	enableSignup: async ({ locals: { prisma, user }, request }) => {
 		if (!user) redirect(302, '/auth/sign-in');

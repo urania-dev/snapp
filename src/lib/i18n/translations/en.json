@@ -214,7 +214,8 @@
 			"enable-limits": "Enable Limits",
 			"enable-signup": "Enable Signups",
 			"disable-homepage": "Disable Homepage",
-			"allow-http": "Allow Insecure HTTP"
+			"allow-http": "Allow Insecure HTTP",
+			"custom-home-redirect":"Homepage Redirect"
 		},
 		"helpers": {
 			"signups": "Allow external signups from the front-end.",

@@ -2,6 +2,7 @@
 	import type { Usage } from '@prisma/client';
 
 	import { getLocalTimeZone } from '@internationalized/date';
+	import { browser } from '$app/environment';
 	import { page } from '$app/state';
 	import { getTranslations } from '$lib/i18n/index.svelte';
 	import { getMetricsStore } from '$lib/stores/metrics.svelte';
@@ -14,6 +15,7 @@
 		[]
 	);
 	const loadData = async () => {
+		if(!browser) return
 		try {
 			
 		const res = (await (

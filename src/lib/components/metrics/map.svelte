@@ -3,6 +3,7 @@
 	import type { Usage } from '@prisma/client';
 
 	import { getLocalTimeZone } from '@internationalized/date';
+	import { browser } from '$app/environment';
 	import { page } from '$app/state';
 	import { getMetricsStore } from '$lib/stores/metrics.svelte';
 	import { mode } from 'mode-watcher';
@@ -16,6 +17,7 @@
 	const mstore = getMetricsStore();
 
 	const loadData = async () => {
+		if(!browser) return
 		const alpha2 = (await import('iso-3166-1-alpha-2')).default;
 		try {
 			const res = (await (
@@ -46,7 +48,7 @@
 	};
 
 	const initMap = async () => {
-		if (!container) return;
+		if (!browser||!container) return;
 
 		const am5 = await import('@amcharts/amcharts5');
 		const am5Map = await import('@amcharts/amcharts5/map');
@@ -98,7 +100,7 @@
 	};
 	$effect(() => {
 		return () => {
-			root?.dispose();
+			root?.dispose?.();
 			root = undefined;
 		};
 	});

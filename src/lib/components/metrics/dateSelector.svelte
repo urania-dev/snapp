@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { CalendarDate, getLocalTimeZone } from '@internationalized/date';
 	import { page } from '$app/state';
-	import * as Select from '$lib/components/ui/select/index.js';
+	import * as Select from '$lib/components/ui/select';
 	import { getTranslations } from '$lib/i18n/index.svelte';
 	import { getMetricsStore } from '$lib/stores/metrics.svelte';
 	import { cn } from '$lib/utils';
@@ -19,7 +19,7 @@
 
 	let presets = $state<{ label: string; pick: () => { end: Date; start: Date }; value: string }[]>([
 		{
-			label: i18n.t('date-picker.values.last-week'),
+			label: i18n.t('date-pindexicker.values.last-week'),
 			pick: () => {
 				const end = new Date();
 				const start = new Date();

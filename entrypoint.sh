@@ -5,9 +5,18 @@ apt-get update -y && apt-get install -y curl
 # Determine which schema to use
 case "$DATABASE_PROVIDER" in
   "sqlite")
-    echo "-- Default SQLITE Provider --"
+      echo "-- Default SQLITE Provider --"
     cp /app/zenstack/sqlite /app/node_modules/.zenstack -r
     bunx prisma generate --schema dbschema/sqlite/prisma/schema.prisma
+
+    # Extract path from DATABASE_URL (e.g., file:./db.sqlite)
+    SQLITE_PATH="/app/dbschema/sqlite/prisma/db.sqlite"
+
+    # Create sqlite file if it doesn't exist
+    if [ ! -f "$SQLITE_PATH" ]; then
+      echo "SQLite DB file not found at $SQLITE_PATH. Creating it..."
+      touch "$SQLITE_PATH"
+    fi
     bunx prisma migrate deploy --schema dbschema/sqlite/prisma/schema.prisma
     ;;
   "mysql"|"mariadb")
