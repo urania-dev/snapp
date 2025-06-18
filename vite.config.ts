@@ -11,12 +11,11 @@ export default defineConfig({
 	},
 	plugins: [sveltekit()],
 	server: {
-		allowedHosts: [config.HOST as string],
+		allowedHosts: true,
 		fs: {
 			allow: [searchForWorkspaceRoot(process.cwd()), './maxmind', './output']
 		},
 		origin: config.ORIGIN as string,
 		port: config.PORT as number,
-		
 	}
 });

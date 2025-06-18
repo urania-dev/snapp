@@ -1,13 +1,12 @@
 #!/bin/sh
 
 : ${DATABASE_PROVIDER:="sqlite"}
-apt-get update -y && apt-get install -y curl
 # Determine which schema to use
 case "$DATABASE_PROVIDER" in
   "sqlite")
       echo "-- Default SQLITE Provider --"
     cp /app/zenstack/sqlite /app/node_modules/.zenstack -r
-    bunx prisma generate --schema dbschema/sqlite/prisma/schema.prisma
+    bunx prisma generate --schema /app/dbschema/sqlite/prisma/schema.prisma
 
     # Extract path from DATABASE_URL (e.g., file:./db.sqlite)
     SQLITE_PATH="/app/dbschema/sqlite/prisma/db.sqlite"
@@ -17,19 +16,19 @@ case "$DATABASE_PROVIDER" in
       echo "SQLite DB file not found at $SQLITE_PATH. Creating it..."
       touch "$SQLITE_PATH"
     fi
-    bunx prisma migrate deploy --schema dbschema/sqlite/prisma/schema.prisma
+    bunx prisma migrate deploy --schema /app/dbschema/sqlite/prisma/schema.prisma
     ;;
   "mysql"|"mariadb")
     echo "######## This Configuration require to regenerate Prisma Client"
     cp /app/zenstack/mysql /app/node_modules/.zenstack -r
-    bunx prisma generate --schema dbschema/mysql/prisma/schema.prisma
-    bunx prisma migrate deploy --schema dbschema/mysql/prisma/schema.prisma
+    bunx prisma generate --schema /app/dbschema/mysql/prisma/schema.prisma
+    bunx prisma migrate deploy --schema /app/dbschema/mysql/prisma/schema.prisma
     ;;
   "postgres")
     echo "######## This Configuration require to regenerate Prisma Client"
     cp /app/zenstack/postgres /app/node_modules/.zenstack -r
-    bunx prisma generate --schema dbschema/postgres/prisma/schema.prisma
-    bunx prisma migrate deploy --schema dbschema/postgres/prisma/schema.prisma
+    bunx prisma generate --schema /app/dbschema/postgres/prisma/schema.prisma
+    bunx prisma migrate deploy --schema /app/dbschema/postgres/prisma/schema.prisma
     ;;
   *)
     echo "Unsupported DATABASE_PROVIDER: $DATABASE_PROVIDER"

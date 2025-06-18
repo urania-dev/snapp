@@ -54,6 +54,8 @@ FROM oven/bun:slim
 WORKDIR /app
 
 RUN apt-get update -y && apt-get install -y openssl
+RUN apt-get install -y curl
+
 
 
 # Copy the built output (adjust path if necessary)

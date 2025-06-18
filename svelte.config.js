@@ -12,7 +12,6 @@ const config = {
 			out: 'build',
 			precompress: true
 		}),
-
 		csrf: {
 			checkOrigin: false
 		},
