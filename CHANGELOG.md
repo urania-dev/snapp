@@ -276,3 +276,5 @@
   - Fixed (i hope): [#113 Errors while using it in Production](https://github.com/urania-dev/snapp/issues/113) fixed error in metrics pages due to misrendering across serverside and client side
   - [#112 sqlite file not copied](https://github.com/urania-dev/snapp/issues/112) entrypoint.sh should now check if sqlite db exists or create it
   - [#111 Default page redirection](https://github.com/urania-dev/snapp/issues/111) now added a field in settings for this
+- 0.9-rc-020
+  - Cleaned up some issues regarding docker image, auth and smtp msising configuration (now it logs) and some other minor issues
