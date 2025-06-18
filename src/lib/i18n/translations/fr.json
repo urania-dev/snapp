@@ -81,7 +81,8 @@
 			"password-unmatch": "Le mot de passe et la confirmation du mot de passe ne correspondent pas.",
 			"username-invalid": "Le nom d'utilisateur est invalide. Veuillez fournir un nom d'au moins trois caractères pour votre profil.",
 			"user-already-exists": "Nom d'utilisateur déjà pris. Veuillez en essayer un autre.",
-			"reset-token-expired": "Le jeton de réinitialisation de mot de passe a expiré."
+			"reset-token-expired": "Le jeton de réinitialisation de mot de passe a expiré.",
+			"blacklisted":"Cet e-mail n’est pas autorisé sur la plateforme, essayez de contacter l’administrateur de la plateforme."
 		},
 		"generic": "Erreur non reconnue, veuillez réessayer plus tard.",
 		"oidc-client-unavailable": "Erreur avec {provider} : ce fournisseur n'est pas disponible pour le moment.",
@@ -336,7 +337,8 @@
 				"mfa": "Activez l'authentification à deux facteurs avec un mot de passe à usage unique basé sur le temps (TOTP). Les utilisateurs enregistreront un authentificateur de leur choix pour accéder à leur compte.",
 				"mfa-single": "Activez l'authentification à deux facteurs avec un mot de passe à usage unique basé sur le temps (TOTP).",
 				"reset-mfa": "Cela déconnectera votre profil de l'authentificateur actuel. Un nouveau code QR sera nécessaire.",
-				"set-new-password": "Définissez un mot de passe pour votre compte."
+				"set-new-password": "Définissez un mot de passe pour votre compte.",
+				"confirm-delete":"Supprimer cet utilisateur entraînera la suppression de tous ses snapps et des analyses associées. Voulez-vous vraiment continuer ?"
 			},
 			"reset-mfa": "Réinitialiser l'authentification multi-facteurs",
 			"resend-verify-email": "Renvoyer l'e-mail de vérification",

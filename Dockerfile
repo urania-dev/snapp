@@ -23,7 +23,7 @@ ENV DATABASE_URL=file:./db.sqlite \
     PUBLIC_EXTRA_GROUPS_EDITABLE=false \
     URLS_VIA_GROUPS_ONLY=false \
     APPNAME="Snapp.li" \
-    PUBLIC_SNAPP_VERSION="0.9-rc-016"
+    PUBLIC_SNAPP_VERSION="0.9-rc-020"
     
 # Run build commands
 ENV DATABASE_URL=mysql://root:password@localhost:3306/snapp \
@@ -35,9 +35,10 @@ ENV DATABASE_URL=postgres://root:password@localhost:5432/snapp \
 RUN bunx zenstack generate --schema dbschema/postgres/schema.zmodel --output /app/zenstack/postgres
 
 ENV DATABASE_URL=file:./dev.sqlite\
-    DATABASE_PROVIDER=sqlite
+    DATABASE_PROVIDER=sqlite 
 
 RUN bunx zenstack generate --schema dbschema/sqlite/schema.zmodel
+RUN bunx zenstack generate --schema dbschema/sqlite/schema.zmodel --output /app/zenstack/sqlite
 
 RUN bunx prisma migrate deploy --schema dbschema/sqlite/prisma/schema.prisma 
 RUN --mount=type=secret,id=ADMIN_PASSWORD \
@@ -64,7 +65,6 @@ COPY --from=builder /app/dbschema ./dbschema
 COPY --from=builder /app/maxmind ./maxmind
 COPY --from=builder /app/static ./static
 COPY --from=builder /app/zenstack ./zenstack
-COPY --from=builder /app/node_modules/.zenstack ./zenstack/sqlite
 
 # Copy package files to reinstall production dependencies
 COPY package*.json ./
@@ -96,7 +96,7 @@ ENV DATABASE_URL=file:./db.sqlite \
     URLS_VIA_GROUPS_ONLY=false \
     PUBLIC_EXTRA_GROUPS_EDITABLE=false \
     APPNAME="Snapp.li" \
-    PUBLIC_SNAPP_VERSION="0.9-rc-016"
+    PUBLIC_SNAPP_VERSION="0.9-rc-020"
 
 EXPOSE 3000
     

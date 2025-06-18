@@ -19,7 +19,7 @@
 
 	let presets = $state<{ label: string; pick: () => { end: Date; start: Date }; value: string }[]>([
 		{
-			label: i18n.t('date-pindexicker.values.last-week'),
+			label: i18n.t('date-picker.values.last-week'),
 			pick: () => {
 				const end = new Date();
 				const start = new Date();

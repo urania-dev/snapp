@@ -81,7 +81,8 @@
 			"password-unmatch": "La password e la conferma non corrispondono.",
 			"username-invalid": "Username non valido. Deve contenere almeno 3 caratteri.",
 			"user-already-exists": "Username già in uso. Prova un altro.",
-			"reset-token-expired": "Il token per il reset è scaduto."
+			"reset-token-expired": "Il token per il reset è scaduto.",
+			"blacklisted":"Questa email non è autorizzata sulla piattaforma, prova a contattare l'amministratore della piattaforma"
 		},
 		"generic": "Errore non riconosciuto. Riprova più tardi.",
 		"oidc-client-unavailable": "Errore con {provider}: questo provider non è disponibile in questo momento.",
@@ -337,7 +338,8 @@
 				"mfa": "Abilita l'autenticazione a due fattori con OTP basato sul tempo (TOTP). Gli utenti configureranno un autenticatore a loro scelta per accedere al proprio account.",
 				"mfa-single": "Abilita l'autenticazione a due fattori (TOTP).",
 				"reset-mfa": "Questo disassocerà il tuo account dall'autenticatore attuale. Ti verrà richiesto un nuovo QR code.",
-				"set-new-password": "Imposta una nuova password per il tuo account."
+				"set-new-password": "Imposta una nuova password per il tuo account.",
+				"confirm-delete":"Cancellando questo utente rimuoverai tutti i suoi snapp e relative analitiche, vuoi davvero continuare?"
 			},
 			"reset-mfa": "Reimposta MFA",
 			"resend-verify-email": "Reinvia email di verifica",

@@ -81,7 +81,8 @@
       "password-unmatch": "La contraseña y la confirmación de la contraseña no coinciden.",
       "username-invalid": "El nombre de usuario es inválido. Por favor, proporciona un nombre de al menos tres caracteres para tu perfil.",
       "user-already-exists": "El nombre de usuario ya está en uso. Por favor, prueba con otro.",
-      "reset-token-expired": "El token de recuperación de contraseña ha expirado."
+      "reset-token-expired": "El token de recuperación de contraseña ha expirado.",
+      "blacklisted":"Este correo electrónico no está autorizado en la plataforma, intenta contactar con el administrador de la plataforma."
     },
     "generic": "Error no reconocido, por favor inténtalo de nuevo más tarde.",
     "oidc-client-unavailable":  "Erro con {provider}: este provedor non está dispoñible agora mesmo.",
@@ -336,7 +337,8 @@
         "mfa": "Habilita la autenticación de dos factores con una contraseña de un solo uso basada en tiempo (TOTP). Los usuarios registrarán un autenticador de su elección para acceder a su cuenta.",
         "mfa-single": "Habilita la autenticación de dos factores con una contraseña de un solo uso basada en tiempo (TOTP).",
         "reset-mfa": "Esto desconectará tu perfil del autenticador actual. Se requerirá un nuevo código QR.",
-        "set-new-password": "Establece una contraseña para tu cuenta."
+        "set-new-password": "Establece una contraseña para tu cuenta.",
+        "confirm-delete":"Al eliminar a este usuario, se eliminarán todos sus snapps y las analíticas asociadas. ¿Estás seguro de que deseas continuar?"
       },
       "reset-mfa": "Restablecer MFA",
       "resend-verify-email": "Reenviar correo de verificación",

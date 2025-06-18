@@ -51,9 +51,8 @@ export const actions = {
 
 			const validEmail = await watchLists.checkEmail(form.data.email);
 			const validUsername = await watchLists.checkUsername(form.data.username);
-
 			if (!validEmail || !validUsername) {
-				return fail(400, { form, message: 'errors.blacklisted.user' });
+				return fail(400, { form, message: 'errors.auth.blacklisted' });
 			}
 			const existsMail = await prisma.user.findFirst({
 				where: { email: form.data.email }

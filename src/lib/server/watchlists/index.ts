@@ -24,16 +24,31 @@ class WatchLists {
 		return [whiteListed?.allowed === true || false, blackListed?.allowed === false || false];
 	};
 	checkEmail = async (email: string) => {
-		const [username, domain] = email.split('@');
-		const res = await prisma.watchList.findFirst({
-			where: {
-				OR: [
-					{ domain, username: '*' },
-					{ domain, username }
-				]
+		return await prisma.$transaction(async (tx) => {
+			const [username, domain] = email.split('@');
+			const whiteList = await tx.watchList.findMany({
+				where: {
+					OR: [{ allowed: true }]
+				}
+			});
+
+			const whiteListed = whiteList?.filter((d) => d.allowed);
+			if (whiteListed.length) {
+				const isWhitelisted = whiteListed.find((w) => w.domain === domain) !== undefined || false;
+				return isWhitelisted;
 			}
+
+			const res = await tx.watchList.findFirst({
+				where: {
+					OR: [
+						{ domain, username: '*' },
+						{ domain, username }
+					]
+				}
+			});
+
+			return (res?.allowed === true || res === null || false) as boolean;
 		});
-		return (res?.allowed === true || res === null || false) as boolean;
 	};
 	checkUsername = async (username: string) => {
 		const res = await prisma.watchList.findFirst({
@@ -47,55 +62,52 @@ class WatchLists {
 		const yesterday = new Date();
 		yesterday.setDate(yesterday.getDate() - 1);
 		try {
-			
-		
-		const exists = await prisma.setting.findFirst({
-			where: { id: 'VTAPI_STATUS' }
-		});
-
-		if (exists && exists.created > yesterday) {
-			return true;
-		}
-		const domain = 'www.virustotal.com';
-		const encodedParams = new URLSearchParams();
-		encodedParams.set('url', domain);
-		const _url = 'https://www.virustotal.com/api/v3/urls';
-		const _options = {
-			body: encodedParams,
-			headers: {
-				accept: 'application/json',
-				'content-type': 'application/x-www-form-urlencoded',
-				'x-apikey': key
-			},
-			method: 'POST'
-		};
-		const res = await (await f(_url, { ..._options })).json();
-		
-		if (!res?.data?.links) return false;
-		await sleep(500);
-		const analysis = await (
-			await f(res.data.links.self, {
-				headers: {
-					'x-apikey': key
-				}
-			})
-		).json();
-		if (typeof analysis === 'object') {
-			await prisma.setting.upsert({
-				create: { field: 'VTAPI_STATUS', id: 'VTAPI_STATUS', value: 'true' },
-				update: { value: 'true' },
+			const exists = await prisma.setting.findFirst({
 				where: { id: 'VTAPI_STATUS' }
 			});
-			return true;
-		} else {
-			await prisma.setting.delete({ where: { id: 'VTAPI_STATUS' } });
-			return false;
-		}
 
-	} catch (error) {
-			log.error(error)
-	}
-	return false
+			if (exists && exists.created > yesterday) {
+				return true;
+			}
+			const domain = 'www.virustotal.com';
+			const encodedParams = new URLSearchParams();
+			encodedParams.set('url', domain);
+			const _url = 'https://www.virustotal.com/api/v3/urls';
+			const _options = {
+				body: encodedParams,
+				headers: {
+					accept: 'application/json',
+					'content-type': 'application/x-www-form-urlencoded',
+					'x-apikey': key
+				},
+				method: 'POST'
+			};
+			const res = await (await f(_url, { ..._options })).json();
+
+			if (!res?.data?.links) return false;
+			await sleep(500);
+			const analysis = await (
+				await f(res.data.links.self, {
+					headers: {
+						'x-apikey': key
+					}
+				})
+			).json();
+			if (typeof analysis === 'object') {
+				await prisma.setting.upsert({
+					create: { field: 'VTAPI_STATUS', id: 'VTAPI_STATUS', value: 'true' },
+					update: { value: 'true' },
+					where: { id: 'VTAPI_STATUS' }
+				});
+				return true;
+			} else {
+				await prisma.setting.delete({ where: { id: 'VTAPI_STATUS' } });
+				return false;
+			}
+		} catch (error) {
+			log.error(error);
+		}
+		return false;
 	};
 	domainFromUrl = (url: string) => {
 		let result: string = '';
@@ -126,7 +138,7 @@ class WatchLists {
 			method: 'POST'
 		};
 		const res = await (await _fetch(_url, _options)).json();
-	
+
 		const analysis = await (
 			await _fetch(res.data.links.self, {
 				headers: {
@@ -151,7 +163,6 @@ class WatchLists {
 				`${defaultMaxSnapps}` ||
 				'0'
 		);
-
 		return snappsByUser > 0 && userSpecificMaxSnapps > 0 && snappsByUser > userSpecificMaxSnapps;
 	};
 	testHTTPS = (domain: string, settings: ServerWideSettings) => {
@@ -213,9 +224,9 @@ class WatchLists {
 		if (!vtApiKey) return true;
 
 		try {
-		await prisma.vtApiCache.deleteMany({
-			where: { createdAt: { lt: _30DaysAgo_ } }
-		});
+			await prisma.vtApiCache.deleteMany({
+				where: { createdAt: { lt: _30DaysAgo_ } }
+			});
 			const cached = await prisma.vtApiCache.findFirst({ where: { domain } });
 			const response = cached
 				? JSON.parse(cached.result)

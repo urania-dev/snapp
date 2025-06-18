@@ -31,17 +31,18 @@ export const actions = {
 		if (auth) {
 			const validEmail = await watchLists.checkEmail(form.data.email);
 			const validUsername = await watchLists.checkUsername(auth.username);
-
+			console.log('hello')
+			console.log(validEmail,validUsername)
 			if (!validEmail || !validUsername) {
-				return fail(400, { form, message: 'errors.blacklisted.user' });
+				return fail(400, { form, message: 'errors.auth.blacklisted' });
 			}
-
+			console.log('hello')
 			const { tokenHash } = await createPasswordResetToken(auth.id);
 			const recoveryURL = `${event.url.origin}/auth/recover-password?token=${tokenHash}`;
 			const appname = settings.get<string>('appname') || 'Snapp';
 			const ip = event.request.headers.get('X-FORWARDED-FOR') || '[no ip traceable.]';
 
-			sendEmail(
+			await sendEmail(
 				ForgotPasswordEmail,
 				{ appname, ip, recoveryURL },
 				auth.email,

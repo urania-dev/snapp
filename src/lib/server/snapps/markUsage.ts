@@ -77,7 +77,7 @@ export const markUsage = async (
 
 	const umamiURL = settings.get<string>('PUBLIC_UMAMI_WEBSITE_URL');
 	const umamiID = settings.get<string>('PUBLIC_UMAMI_WEBSITE_ID');
-	
+
 	if (!!umamiID && !!umamiURL) {
 
 		const url = new URL(event.url)
@@ -99,14 +99,13 @@ export const markUsage = async (
 				referrer,
 				screen: '--SSR',
 				title: `/${snapp.shortcode}`,
-				url,
-				website: umamiID
-			
+				url:url.toString(),
+				website: umamiID,
 		};
 
 		try {
 			const umami = getUmami(umamiURL,umamiID,userAgent)
-				await umami.track(payload)
+				await umami?.track(payload)
 			} catch (error) {
 				if(env.LOG_LEVEL==='debug')log.error(error)
 			}

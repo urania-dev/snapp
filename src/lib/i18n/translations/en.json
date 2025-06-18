@@ -82,7 +82,8 @@
 			"password-unmatch": "Password and confirmation password do not match.",
 			"username-invalid": "Username is invalid. Please provide at least a three-character long name for your profile.",
 			"user-already-exists": "Username already taken. Please try another one.",
-			"reset-token-expired": "Password recovery reset token has expired."
+			"reset-token-expired": "Password recovery reset token has expired.",
+			"blacklisted":"This email is not authorized on the platform, try contacting the platform administrator."
 		},
 		"generic": "Unrecognized Error, please try again later.",
 		"oidc-client-unavailable":"Error with {provider}: this provider is not available right now.",
@@ -337,7 +338,8 @@
 				"mfa": "Enable two-factor authentication with a time-based one-time password (TOTP). Users will register an authenticator of their choice to access their account.",
 				"mfa-single": "Enable two-factor authentication with a time-based one-time password (TOTP).",
 				"reset-mfa": "This will disconnect your profile from the current authenticator. A new QR code will be required.",
-				"set-new-password": "Set a password for your account."
+				"set-new-password": "Set a password for your account.",
+				"confirm-delete":"Deleting this user will remove all their snapps and related analytics, are you sure you want to continue?"
 			},
 			"reset-mfa": "Reset MFA",
 			"resend-verify-email": "Resend verification email",

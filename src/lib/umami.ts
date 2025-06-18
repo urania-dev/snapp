@@ -9,7 +9,7 @@ import { log } from './server/log';
 
 
 export const getUmami = (hostUrl:string, websiteId:string, userAgent?:string)=>{
-
+	if(!hostUrl||hostUrl.trim() === '') return
     //~ init
     const umamiClient = new Umami({
         hostUrl, 
@@ -41,7 +41,7 @@ export const logSnappNotFound = async (event: RequestEvent) => {
 		const userAgent = event.request.headers.get('user-agent')?.toString()
 		try {
 			const umami = getUmami(umamiURL, umamiID, userAgent)
-			await umami.track(payload)
+			await umami?.track(payload)
 		} catch (error) {
 			if (privateEnv.LOG_LEVEL === 'debug')
 				log.error(error)
@@ -70,7 +70,7 @@ export const logSecretInvalidOnSnapp = async (event: RequestEvent) => {
 		const userAgent = event.request.headers.get('user-agent')?.toString()
 		try {
 			const umami = getUmami(umamiURL, umamiID, userAgent)
-			await umami.track(payload)
+			await umami?.track(payload)
 		} catch (error) {
 			if (privateEnv.LOG_LEVEL === 'debug')
 				log.error(error)
@@ -99,7 +99,7 @@ export const logDatabaseNotAvailable = async(event:RequestEvent)=>{
 		const userAgent = event.request.headers.get('user-agent')?.toString()
 		try {
 			const umami = getUmami(umamiURL,umamiID,userAgent)
-				await umami.track(payload)
+				await umami?.track(payload)
 			} catch (error) {
 				if(privateEnv.LOG_LEVEL==='debug')
 					log.error(error)
@@ -128,7 +128,7 @@ export const logInvalidLoginAttempt = async(event:RequestEvent)=>{
 		const userAgent = event.request.headers.get('user-agent')?.toString()
 		try {
 			const umami = getUmami(umamiURL,umamiID,userAgent)
-				await umami.track(payload)
+				await umami?.track(payload)
 			} catch (error) {
 				if(privateEnv.LOG_LEVEL==='debug')
 					log.error(error)

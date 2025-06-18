@@ -16,9 +16,6 @@ services:
       # DATABASE_URL: postgres://root:password@postgres:5432/snapp
       # DATABASE_URL: mysql://root:password@mariadb:3306/snapp
       TOKEN_SECRET: $(openssl rand --base64 32)
-    volumes: 
-      - snapp:/app
-      - ./entrypoint.sh:/usr/local/bin/entrypoint.sh
   # mariadb:
   #   image: mariadb:latest
   #   ports:
@@ -35,16 +32,16 @@ services:
   #     interval: 1m
   #     timeout: 5s
   #     retries: 3
-  postgres:
-    image: postgres:17.4-alpine
-    ports:
-      - 5432:5432
-    volumes:
-      - ../postgres:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_USER=root
-      - POSTGRES_DB=snapp
+  # postgres:
+  #   image: postgres:17.4-alpine
+  #   ports:
+  #     - 5432:5432
+  #   volumes:
+  #     - ../postgres:/var/lib/postgresql/data
+  #   environment:
+  #     - POSTGRES_PASSWORD=password
+  #     - POSTGRES_USER=root
+  #     - POSTGRES_DB=snapp
  
 volumes:
   snapp:

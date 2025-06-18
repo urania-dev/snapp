@@ -81,7 +81,8 @@
 			"password-unmatch": "Passwort und Bestätigung stimmen nicht überein.",
 			"username-invalid": "Ungültiger Benutzername. Bitte wählen Sie einen Benutzernamen mit mindestens 3 Zeichen.",
 			"user-already-exists": "Benutzername bereits vergeben. Bitte einen anderen wählen.",
-			"reset-token-expired": "Das Passwort-Zurücksetzungstoken ist abgelaufen."
+			"reset-token-expired": "Das Passwort-Zurücksetzungstoken ist abgelaufen.",
+			"blacklisted":"Diese E-Mail ist auf der Plattform nicht autorisiert. Bitte kontaktiere den Plattformadministrator."
 		},
 		"generic": "Unbekannter Fehler. Bitte versuchen Sie es später erneut.",
 		"oidc-client-unavailable":"Fehler mit {provider}: Dieser Anbieter ist derzeit nicht verfügbar.",
@@ -337,7 +338,8 @@
 				"mfa": "Aktivieren Sie TOTP-basierte Zwei-Faktor-Authentifizierung. Benutzer können ihren bevorzugten Authenticator registrieren.",
 				"mfa-single": "TOTP-basierte Zwei-Faktor-Authentifizierung aktivieren.",
 				"reset-mfa": "MFA zurücksetzen: Entfernt den aktuellen Authenticator; ein neuer QR-Code wird erstellt.",
-				"set-new-password": "Legen Sie ein Passwort für Ihr Konto fest."
+				"set-new-password": "Legen Sie ein Passwort für Ihr Konto fest.",
+				"confirm-delete":"Wenn du diesen Benutzer löscht, werden alle seine Snapps und zugehörigen Analysen entfernt. Möchtest du wirklich fortfahren?"
 			},
 			"reset-mfa": "MFA zurücksetzen",
 			"resend-verify-email": "Bestätigungs-E-Mail erneut senden",

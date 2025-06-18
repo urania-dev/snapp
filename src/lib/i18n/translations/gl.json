@@ -81,7 +81,8 @@
 			"password-unmatch": "A contrasinal e a confirmación da contrasinal non coinciden.",
 			"username-invalid": "O nome de usuario é inválido. Por favor, proporciona un nome de ao menos tres caracteres para o teu perfil.",
 			"user-already-exists": "O nome de usuario xa está en uso. Por favor, proba cun outro.",
-			"reset-token-expired": "O token de recuperación de contrasinal expirou."
+			"reset-token-expired": "O token de recuperación de contrasinal expirou.",
+			"blacklisted":"Este correo electrónico non está autorizado na plataforma, tenta contactar co administrador da plataforma."
 		},
 		"generic": "Erro non recoñecido, por favor inténtao de novo máis tarde.",
 		"oidc-client-unavailable": "Error con {provider}: este proveedor no está disponible en este momento.",
@@ -336,7 +337,8 @@
 				"mfa": "Active a autenticación de dous factores cun contrasinal temporal (TOTP). Os usuarios rexistrarán un autenticador de súa elección para acceder á súa conta.",
 				"mfa-single": "Active a autenticación de dous factores cun contrasinal temporal (TOTP).",
 				"reset-mfa": "Isto desconectará o seu perfil do autenticador actual. Será necesario un novo código QR.",
-				"set-new-password": "Estableza unha contrasinal para a súa conta."
+				"set-new-password": "Estableza unha contrasinal para a súa conta.",
+				"confirm-delete":"Ao eliminar este usuario eliminaranse todos os seus snapps e análises relacionadas, estás seguro de querer continuar?"
 			},
 			"reset-mfa": "Restablecer MFA",
 			"resend-verify-email": "Volver a enviar o correo de verificación",

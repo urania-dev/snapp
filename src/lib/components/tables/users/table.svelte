@@ -389,7 +389,7 @@
 				{i18n.t('globals.sure-ask')}
 			</Dialog.Title>
 			<Dialog.Description class="text-balance">
-				{i18n.t('snapps.actions.confirm-delete')}
+				{i18n.t('users.auth.helpers.confirm-delete')}
 			</Dialog.Description>
 		</Dialog.Header>
 		<div class="flex w-full justify-between gap-4">

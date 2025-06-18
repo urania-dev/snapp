@@ -81,7 +81,8 @@
 			"password-unmatch": "密码和确认密码不匹配。",
 			"username-invalid": "用户名无效。请提供至少三个字符的名称作为您的个人资料。",
 			"user-already-exists": "用户名已被占用。请尝试其他名称。",
-			"reset-token-expired": "密码恢复重置令牌已过期。"
+			"reset-token-expired": "密码恢复重置令牌已过期。",
+			"blacklisted":"此电子邮件未被授权使用该平台，请尝试联系平台管理员。"
 		},
 		"generic": "未知错误，请稍后再试。",
 		"oidc-client-unavailable":  "与 {provider} 出现错误：该提供商当前不可用。",
@@ -336,7 +337,8 @@
 				"mfa": "使用基于时间的一次性密码 (TOTP) 启用双因素身份验证。用户可以注册其首选的身份验证器以访问其账户。",
 				"mfa-single": "使用基于时间的一次性密码 (TOTP) 启用双因素身份验证。",
 				"reset-mfa": "这将使您的账户与当前的身份验证器断开连接。用户需要扫描新的二维码。",
-				"set-new-password": "为您的账户设置新密码。"
+				"set-new-password": "为您的账户设置新密码。",
+				"confirm-delete":"删除此用户将会移除其所有 Snapp 和相关分析数据，您确定要继续吗 "
 			},
 			"reset-mfa": "重置 MFA",
 			"resend-verify-email": "重新发送验证邮件",

@@ -46,5 +46,4 @@
 
 <CreateUser createForm={data.createForm} bind:open={createDialog} />
 
-
 <SvelteSeo title={`${(data.appname||'Snapp')} | ${i18n.t('menu.users')}`} />

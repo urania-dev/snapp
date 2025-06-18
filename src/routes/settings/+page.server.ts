@@ -17,7 +17,7 @@ import {
 	updateLimiterConfigPerMinute
 } from '$lib/server/limits/handle.js';
 import { log } from '$lib/server/log';
-import { sendEmail, testTransport } from '$lib/server/smtp';
+import { sendEmail } from '$lib/server/smtp';
 import * as shiki from 'shiki';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
@@ -410,7 +410,7 @@ export const actions = {
 			const settings = await getSettings();
 			const ip = event.request.headers.get('X-FORWARDED-FOR') || '[no ip traceable.]';
 			const appname = settings.get<string>('appname') || 'Snapp';
-			await testTransport(SmtpTest, { ip }, user.email, appname + ' | Testing SMTP Transport');
+			await sendEmail(SmtpTest, { ip }, user.email, appname + ' | Testing SMTP Transport');
 			return {
 				message: 'users.auth.post-email-message',
 				success: true

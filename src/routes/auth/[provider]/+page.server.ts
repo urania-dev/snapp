@@ -10,20 +10,18 @@ import {
 } from 'openid-client';
 
 export const load = async ({ cookies, params: { provider } }) => {
-	const providers = await getProviders()
-	const config = getOIDCConfig(provider!,providers);
+	const providers = await getProviders();
+	const config = getOIDCConfig(provider!, providers);
 
-	if (!config) 
-		throw error(400, 'Provider not found');
-	
+	if (!config) throw error(400, 'Provider not found');
 
 	const redirectUri = `${env.ORIGIN}/auth/${config.identity}/callback`;
 
 	const codeVerifier = randomPKCECodeVerifier();
 	const codeChallenge = await calculatePKCECodeChallenge(codeVerifier);
 	const state = randomState();
-	
-	const getAuthorizationUrl = ()=>{
+
+	const getAuthorizationUrl = () => {
 		try {
 			return buildAuthorizationUrl(config.configuration, {
 				code_challenge: codeChallenge,
@@ -32,12 +30,11 @@ export const load = async ({ cookies, params: { provider } }) => {
 				scope: config.rawConfig.scope,
 				state
 			});
-			
 		} catch (error) {
-			if(process.env.LOG_LEVEL === 'debug') log.error(error)
+			if (process.env.LOG_LEVEL === 'debug') log.error(error);
 		}
-	}
-	const authorizationUrl = getAuthorizationUrl()
+	};
+	const authorizationUrl = getAuthorizationUrl();
 	cookies.set('oauth_state', state, {
 		httpOnly: true,
 		maxAge: 60 * 10,
@@ -59,11 +56,10 @@ export const load = async ({ cookies, params: { provider } }) => {
 		sameSite: 'lax',
 		secure: process.env.NODE_ENV !== 'development'
 	});
-	if(authorizationUrl)
-	redirect(302, authorizationUrl);
+	if (authorizationUrl) redirect(302, authorizationUrl);
 
 	return {
 		error: 'errors.oidc-client-unavailable',
 		provider
-	}
+	};
 };

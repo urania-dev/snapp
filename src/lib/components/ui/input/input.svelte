@@ -19,7 +19,7 @@
 
 <div
 	class={cn(
-		'group m-[1px] flex h-10 w-full items-center gap-2 rounded border border-input px-2 py-0.5 focus-within:outline-none focus-within:ring-2',
+		'group m-[1px] flex h-10 w-full overflow-clip items-center gap-2 rounded border border-input px-2 py-0.5 focus-within:outline-none focus-within:ring-2',
 		container
 	)}
 >
@@ -65,7 +65,7 @@
 	input:-webkit-autofill:hover,
 	input:-webkit-autofill:focus,
 	input:-webkit-autofill:active {
-		-webkit-box-shadow: 0 0 0 30px hsl(var(--background)) inset !important;
+		-webkit-box-shadow: 0 0 0 28px hsl(var(--background)) inset !important;
 		-webkit-text-fill-color: hsl(var(--foreground)) !important;
 	}
 </style>

@@ -50,7 +50,7 @@ export const actions = {
 		const validUsername = await watchLists.checkUsername(form.data.username);
 
 		if (!validEmail || !validUsername)
-			return fail(400, { form, message: 'errors.blacklisted.user' });
+			return fail(400, { form, message: 'errors.auth.blacklisted' });
 
 		const validPassword = bcrypt.compareSync(form.data.password, auth.password);
 
