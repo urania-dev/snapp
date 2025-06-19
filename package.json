@@ -68,7 +68,6 @@
 		"@phosphor-icons/web": "^2.1.1",
 		"@prisma/client": "6.5.0",
 		"@tanstack/table-core": "^8.21.2",
-		"@types/bun": "^1.2.5",
 		"@types/turndown": "^5.0.5",
 		"@umami/node": "^0.4.0",
 		"@uraniadev/emailer": "^0.0.8",
