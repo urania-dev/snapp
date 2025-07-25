@@ -9,6 +9,7 @@ import { whiteListSchema } from '$lib/components/settings/watchlists/whitelists/
 import { prisma } from '$lib/db/prisma.js';
 import { createPasswordResetToken, deleteSessionTokenCookie, invalidateSessions } from '$lib/server/auth';
 import { createToken } from '$lib/server/auth/db.js';
+import { convertTtlToString } from '$lib/utils';
 import { getSettings } from '$lib/server/config';
 import ForgotPasswordEmail from '$lib/server/emails/auth/forgotPasswordEmail.svelte';
 import SmtpTest from '$lib/server/emails/smtpTest.svelte';
@@ -21,6 +22,7 @@ import { sendEmail } from '$lib/server/smtp';
 import * as shiki from 'shiki';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
+import type { StringValue } from 'ms';
 
 export const load = async ({ locals: { prisma, theme, user } }) => {
 	if (!user) redirect(302, '/dashboard');
@@ -544,10 +546,16 @@ export const actions = {
 		await settings.updateDB();
 		return { message: 'globals.saved' };
 	},
-	tokenGenerate: async ({ locals: { prisma, user } }) => {
+	tokenGenerate: async ({ locals: { prisma, user }, request }) => {
 		if (!user) redirect(302, '/auth/sign-in');
+		
+		const form = await request.formData();
+		const ttlValue = Number(form.get('ttlValue')) || 7;
+		const ttlUnit = form.get('ttlUnit')?.toString() || 'days';
+		const expiresIn = convertTtlToString(ttlValue, ttlUnit) as StringValue;
+
 		await prisma.token.deleteMany({ where: { userId: user.id } });
-		const token = createToken(user);
+		const token = createToken(user, expiresIn);
 		await prisma.token.create({ data: { key: token, userId: user.id } });
 		return { message: 'globals.saved' };
 	},

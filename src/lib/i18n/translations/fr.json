@@ -310,7 +310,14 @@
 		"helper": "Autorisez les appels API avec un en-tête Authorization contenant le jeton généré. Les clés API sont uniques et liées au compte utilisateur, partageant les rôles de la base de données.",
 		"fields": {
 			"key": "Jeton",
-			"created": "Créé"
+			"created": "Créé",
+			"jwt-ttl": "Expiration"
+		},
+		"units": {
+			"minutes": "Minutes",
+			"hours": "Heures",
+			"days": "Jours",
+			"months": "Mois"
 		},
 		"placeholder": "Votre clé API apparaîtra ici...",
 		"copied": "Jeton copié dans le presse-papiers.",

@@ -41,7 +41,7 @@ export const columns = (i18n: TranslationsStoreType) => {
 						const { username } = getProps();
 						return {
 							render: () =>
-								`<a href="/users/${username}" class="text-xs flex shrink-0 uppercase justify-center font-medium text-muted-foreground hover:text-foreground w-full text-center">${username}</a>`
+								`<a href="/users/${username}" class="text-xs flex shrink-0 justify-center font-medium text-muted-foreground hover:text-foreground w-full text-center">${username}</a>`
 						};
 					}
 				);

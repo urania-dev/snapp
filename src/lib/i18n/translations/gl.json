@@ -310,7 +310,14 @@
 		"helper": "Autorice as chamadas á API cun cabeceira de Autorización que contén o Token xerado. As claves da API son únicas e vinculadas á conta de usuario, compartindo os roles da base de datos.",
 		"fields": {
 			"key": "Token",
-			"created": "Creado"
+			"created": "Creado",
+			"jwt-ttl": "Caducidade"
+		},
+		"units": {
+			"minutes": "Minutos",
+			"hours": "Horas",
+			"days": "Días",
+			"months": "Meses"
 		},
 		"placeholder": "A súa clave API aparecerá aquí...",
 		"copied": "Token copiado ao portapapeis.",

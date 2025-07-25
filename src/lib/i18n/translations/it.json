@@ -216,7 +216,6 @@
 			"disable-homepage": "Disabilita Homepage",
 			"allow-http": "Permetti HTTP non sicuro",
 			"custom-home-redirect":"Reindirizzamento Homepage"
-
 		},
 		"helpers": {
 			"signups": "Abilita le registrazioni dal frontend.",
@@ -311,7 +310,14 @@
 		"helper": "Usa questo token nell'intestazione Authorization per autenticare le chiamate API. I token sono univoci per ogni utente e riflettono i ruoli nel database.",
 		"fields": {
 			"key": "Token",
-			"created": "Creato"
+			"created": "Creato",
+			"jwt-ttl": "Scadenza"
+		},
+		"units": {
+			"minutes": "Minuti",
+			"hours": "Ore",
+			"days": "Giorni",
+			"months": "Mesi"
 		},
 		"placeholder": "Il tuo token API apparirà qui...",
 		"copied": "Token copiato negli appunti.",

@@ -67,7 +67,7 @@ export const columns = (i18n: TranslationsStoreType) => {
 					const { slug } = getProps();
 					return {
 						render: () =>
-							`<a href="/dashboard/?tag=${slug}" class="text-xs flex shrink-0 uppercase justify-center font-medium  hover:text-foreground w-full text-center">${slug}</a>`
+							`<a href="/dashboard/?tag=${slug}" class="text-xs flex shrink-0 justify-center font-medium  hover:text-foreground w-full text-center">${slug}</a>`
 					};
 				});
 				return renderSnippet(getContent, {

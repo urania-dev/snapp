@@ -310,7 +310,14 @@
 		"helper": "使用 Authorization 头包含生成的令牌来授权 API 调用。API 密钥是唯一的，并与用户账户绑定，共享数据库角色。",
 		"fields": {
 			"key": "令牌",
-			"created": "创建时间"
+			"created": "创建时间",
+			"jwt-ttl": "过期时间"
+		},
+		"units": {
+			"minutes": "分钟",
+			"hours": "小时",
+			"days": "天",
+			"months": "月"
 		},
 		"placeholder": "您的 API 密钥将在此处显示...",
 		"copied": "令牌已复制到剪贴板。",

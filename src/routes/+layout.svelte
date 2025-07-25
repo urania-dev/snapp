@@ -51,7 +51,7 @@
 			role={data.role}
 			url={new URL(data.url)}
 		/>
-		<main class="flex h-full w-full flex-col overflow-hidden">
+		<main class="flex h-full w-full flex-col overflow-y-auto">
 			{#if SHOW_MENU}
 				<div class="flex h-14 w-full shrink-0 items-center gap-2 border-b px-2">
 					<Sidebar.Trigger class="h-10 w-10"></Sidebar.Trigger>

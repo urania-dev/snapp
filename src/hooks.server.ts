@@ -8,6 +8,7 @@ import { getPrisma } from '$lib/server/auth/db';
 import { authHandle } from '$lib/server/auth/handle';
 import { getSettings } from '$lib/server/config';
 import { handleRateLimits } from '$lib/server/limits/handle';
+import { customAlphabet } from 'nanoid';
 import { log } from '$lib/server/log';
 import bcrypt from 'bcryptjs';
 import { readdir } from 'fs/promises';
@@ -99,10 +100,63 @@ const handleErrorWithDB: Handle = async ({ event, resolve }) => {
 	return resolve(event);
 };
 
+const transformShortcodeMiddleware: Handle = async ({ event, resolve }) => {
+	const pathname = new URL(event.request.url).pathname;
+
+	if (event.request.method !== 'POST' || pathname !== '/api/snapp/create') {
+		return resolve(event);
+	}
+
+	try {
+		const cloned = event.request.clone();
+		const json = await cloned.json();
+
+		if (typeof json?.data !== 'object' || !json.data.originalUrl || json.data.shortcode) {
+			return resolve(event);
+		}
+
+		const data = json.data;
+
+		if (!data.shortcode) {
+			const alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+			const len = Math.max(4, Math.min(20, Number(data.shortLength) || 5));
+			const gen = customAlphabet(alphabet, len);
+
+			let candidate: string;
+			let attempts = 0;
+			let exists: number;
+			do {
+				candidate = gen();
+				exists = await prisma.snapp.count({ where: { shortcode: candidate } });
+				attempts++;
+				if (attempts > 10) {
+					return resolve(event);
+				}
+			} while (exists > 0);
+
+			data.shortcode = candidate;
+		}
+
+		delete data.shortLength;
+
+		// rebuild request with correct shape
+		event.request = new Request(event.request.url, {
+			method: event.request.method,
+			headers: event.request.headers,
+			body: JSON.stringify({ data })
+		});
+	} catch (err: any) {
+		log.error('Error in transformShortcodeMiddleware', err);
+	}
+
+	return resolve(event);
+};
+
 export const handle = sequence(
 	handleErrorWithDB,
 	handleRateLimits,
 	authHandle,
+	transformShortcodeMiddleware,
 	apiHandle,
 	themeHandle
 );
