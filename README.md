@@ -120,45 +120,126 @@ left.
 ## ENV Variables
 
 Some configuration moved from envs variable to settings page in-app, thou there
-are some ENV that could be set as default on first launch:
+are some ENV that could be set as default on first launch, here's the complete list with the page using the env variable:
 
-```
-APPNAME=Snapp # can be customized on startup before database initiation
-ADMIN_EMAIL=admin@example.org
-ADMIN_PASSWORD=password
-ADMIN_USERNAME=admin
-AUTH_PROVIDERS=
-AUTH_AUTHELIA_CLIENT_ID=
-AUTH_AUTHELIA_CLIENT_SECRET=
-AUTH_AUTHELIA_ISSUER=
-AUTH_GOOGLE_CLIENT_ID=
-AUTH_GOOGLE_CLIENT_SECRET=
-AUTH_GOOGLE_ISSUER=
-AUTH_KEYCLOAK_CLIENT_ID=
-AUTH_KEYCLOAK_CLIENT_SECRET=
-AUTH_KEYCLOAK_CLIENT_SCOPE=
-AUTH_KEYCLOAK_ISSUER=
-DATABASE_PROVIDER=
-DATABASE_URL=
-DISABLE_HOME=
-DISABLED_EMAIL_AND_PASSWORD=
-ENABLE_SIGNUP=
-ENABLED_MFA=
-LOG_LEVEL=
-ORIGIN=
-PORT=
-PUBLIC_ADMIN_CONTACT=
-PUBLIC_UMAMI_URL=
-PUBLIC_UMAMI_WEBSITE_ID=
-PUBLIC_URL=
-SMTP_FROM=
-SMTP_HOST=
-SMTP_PASS=
-SMTP_PORT=
-SMTP_SSL=
-SMTP_USER=
-VTAPI_KEY=
-TOKEN_SECRET=
+```bash
+ADMIN_PASSWORD= 
+# src\hooks.server.ts
+ADMIN_EMAIL= 
+# src\hooks.server.ts
+# src\routes\db-error\+page.server.ts
+ADMIN_USERNAME= 
+# src\hooks.server.ts
+LOG_LEVEL= 
+# src\hooks.server.ts
+# src\lib\server\auth\oidc\config.ts
+# src\lib\server\config\index.ts
+# src\lib\server\smtp\index.ts
+# src\lib\server\snapps\markUsage.ts
+# src\lib\server\watchlists\index.ts
+# src\routes\+page.server.ts
+# src\routes\admin\check-export\[id]\+server.ts
+# src\routes\admin\check-vt-api\+server.ts
+# src\routes\admin\refresh-export\[id]\+server.ts
+# src\routes\auth\sign-up\+page.server.ts
+# src\routes\auth\[provider]\+page.server.ts
+# src\routes\dashboard\+page.server.ts
+# src\routes\db-error\+page.server.ts
+# src\routes\settings\+page.server.ts
+DEBUG= 
+# src\lib\server\auth\db.ts
+NODE_ENV= 
+# src\lib\server\auth\index.ts
+# src\lib\server\params\index.ts
+# src\routes\+page.server.ts
+# src\routes\auth\mfa\setup\+page.server.ts
+# src\routes\auth\[provider]\+page.server.ts
+# src\routes\settings\+page.server.ts
+ALLOW_UNSECURE_HTTP= 
+# src\lib\server\config\index.ts
+APPNAME= 
+# src\lib\server\config\index.ts
+DISABLE_HOME= 
+# src\lib\server\config\index.ts
+ENABLE_LIMITS= 
+# src\lib\server\config\index.ts
+MAX_SNAPPS_PER_USER= 
+# src\lib\server\config\index.ts
+PUBLIC_UMAMI_WEBSITE_ID= 
+# src\lib\server\config\index.ts
+# src\lib\umami.ts
+PUBLIC_UMAMI_WEBSITE_URL= 
+# src\lib\server\config\index.ts
+# src\lib\umami.ts
+RPD_REQUESTS= 
+# src\lib\server\config\index.ts
+RPM_REQUESTS= 
+# src\lib\server\config\index.ts
+SMTP_FROM= 
+# src\lib\server\config\index.ts
+SMTP_HOST= 
+# src\lib\server\config\index.ts
+SMTP_PASS= 
+# src\lib\server\config\index.ts
+SMTP_PORT= 
+# src\lib\server\config\index.ts
+SMTP_SSL= 
+# src\lib\server\config\index.ts
+SMTP_USER= 
+# src\lib\server\config\index.ts
+# src\lib\server\smtp\index.ts
+PUBLIC_URL= 
+# src\lib\server\emails\auth\forgotPasswordEmail.svelte
+# src\lib\server\emails\auth\resetPasswordEmail.svelte
+# src\lib\server\emails\auth\signupEmail.svelte
+# src\lib\server\emails\auth\verificationEmail.svelte
+# src\lib\server\emails\dbErrorEmail.svelte
+# src\lib\server\emails\invitationEmail.svelte
+# src\lib\server\emails\smtpTest.svelte
+# src\routes\+layout.svelte
+PUBLIC_SNAPP_VERSION= 
+# src\routes\+page.svelte
+DISABLED_EMAIL_AND_PASSWORD= 
+# src\routes\auth\sign-in\+page.server.ts, src\routes\auth\sign-up\+page.server.ts
+ORIGIN= 
+# src\routes\auth\[provider]\+page.server.ts, src\routes\auth\[provider]\callback\+server.ts
+PROD= 
+# src\routes\auth\[provider]\callback\+server.ts
+URLS_VIA_GROUPS_ONLY= 
+# src\routes\dashboard\shorten\+page.server.ts
+PUBLIC_ADMIN_CONTACT= 
+# src\routes\db-error\+page.svelte
+
+# AUTH_PROVIDERS is a list like 
+# AUTH_PROVIDERS=GOOGLE,KEYCLOAK,AUTHELIA
+AUTH_PROVIDERS= 
+# src\lib\server\auth\oidc\config.ts
+
+# AUTH follow AUTH_[PROVIDER]_ENV_NAME so
+AUTH_AUTHELIA_CLIENT_ID= 
+# src\lib\server\auth\oidc\config.ts
+AUTH_AUTHELIA_CLIENT_SECRET= 
+# src\lib\server\auth\oidc\config.ts
+AUTH_AUTHELIA_ISSUER= 
+# src\lib\server\auth\oidc\config.ts
+
+# ---
+AUTH_GOOGLE_CLIENT_ID= 
+# src\lib\server\auth\oidc\config.ts
+AUTH_GOOGLE_CLIENT_SECRET= 
+# src\lib\server\auth\oidc\config.ts
+AUTH_GOOGLE_ISSUER= 
+# src\lib\server\auth\oidc\config.ts
+
+# ---
+AUTH_KEYCLOAK_CLIENT_ID= 
+# src\lib\server\auth\oidc\config.ts
+AUTH_KEYCLOAK_CLIENT_SECRET= 
+# src\lib\server\auth\oidc\config.ts
+AUTH_KEYCLOAK_CLIENT_SCOPE= 
+# src\lib\server\auth\oidc\config.ts
+AUTH_KEYCLOAK_ISSUER= 
+# src\lib\server\auth\oidc\config.ts
 ```
 
 ## OAUTH2.0 & OIDC

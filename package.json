@@ -27,6 +27,7 @@
 		"@sveltejs/vite-plugin-svelte": "^5.0.0",
 		"@tailwindcss/typography": "^0.5.16",
 		"@types/bcryptjs": "^2.4.6",
+		"@types/bun": "^1.2.19",
 		"@types/d3-array": "^3.2.1",
 		"@types/d3-scale": "^4.0.9",
 		"@types/iso-3166-1-alpha-2": "^1.0.2",
