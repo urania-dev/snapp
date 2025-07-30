@@ -64,8 +64,7 @@ Snapp already includes many features you would expect from a mature URL shortene
 
 Create a file called docker-compose.yml and paste the following service definition. Replace the environment values with your own secrets.
 
-```
-version: "3"  
+``` docker
 services:  
   snapp:  
     image: uraniadev/snapp:0.9-rc-020 # will become uraniadev/snapp:1.0 when v1 is released  
@@ -76,6 +75,7 @@ services:
       DATABASE_URL: "file:./db.sqlite"  # or connection string for postgres/mysql  
       TOKEN_SECRET: "$(openssl rand \-base64 32)"  
       ORIGIN: "https://example.com"  
+      PUBLIC_URL: "https://example.com"  
       ADMIN_USERNAME: admin             # set your own admin credentials  
       ADMIN_PASSWORD: strongpassword    # environment default is admin/password 
       ENABLE_SIGNUP: true               # allow public sign‑ups  
