@@ -1,8 +1,7 @@
-<div style="display:flex; align-items:center; gap: 1rem; border-bottom:1px solid rgba(255,255,255,.25); margin-bottom:1rem">
+
 <img src="static/favicon.png" alt="Alt text" style="width:100px; height:auto;" />
 
-<h2 style="border:none"> Snapp – on the road to v1.0 </h2>
-</div>
+## Snapp – on the road to v1.0
 
 **Snapp** is a self‑hosted URL‑shortening platform with a built‑in dashboard, fine‑grained access control and a REST API. It began as a personal project to explore Svelte technology and has since evolved into a mature service ready for a 1.0 release. This document summarises the project in its current release‑candidate state and lays out what you need to know to prepare for **version 1.0**.
 
