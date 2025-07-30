@@ -1,290 +1,183 @@
-# Snapp
+<div style="display:flex; align-items:center; gap: 1rem; border-bottom:1px solid rgba(255,255,255,.25); margin-bottom:1rem">
+<img src="static/favicon.png" alt="Alt text" style="width:100px; height:auto;" />
 
-If you're seeking a self-hosted URL shortening solution, Snapp might be what you
-need. It's designed for those who value control over their URL management and
-want to explore various technologies.
+<h2 style="border:none"> Snapp – on the road to v1.0 </h2>
+</div>
+**Snapp** is a self‑hosted URL‑shortening platform with a built‑in dashboard, fine‑grained access control and a REST API. It began as a personal project to explore Svelte technology and has since evolved into a mature service ready for a 1.0 release. This document summarises the project in its current release‑candidate state and lays out what you need to know to prepare for **version 1.0**.
 
-## A Brief Introduction
+## Why Snapp?
 
-This project began as a personal endeavor to explore new technologies and make
-use of free time. With version 0.7, some development issues emerged, prompting a
-complete redesign and rebuild. By version 0.8, we've laid the groundwork for
-what will become the first version 1.
+* **Control your links** – host the service yourself, choose your own database, configure optional VirusTotal checks, and decide who can access what.
 
-Currently, you can migrate URLs between versions using a CSV export tool. Note
-that these files are only valid for direct transitions from one version to the
-next; for example, exports from version 0.6 to 0.7 won't work for moving from
-0.7 to 0.8. We’ve reverted to using Prisma to ensure a more stable and
-maintainable platform going forward.
+* **Modern stack** – Snapp is built on Svelte Kit 5, Tailwind CSS and ShadCN‑Svelte for the UI, while the backend uses **Prisma** with the **ZenStack** policy engine for column‑level security. Authentication is managed by **Lucia Auth** with JWTs.
 
-This latest version supports multiple architectures, including ARM and ARM64
-platforms, and offers integration with various databases, now accessible with
-just a ENV Variable.
+* **Easy to extend** – a clear REST API and an internal policy layer make it simple to integrate Snapp into your existing services.
 
-### 2025 Update
+## Feature overview
 
-The app has undergone a major refactor, bringing numerous improvements,
-including a fresh UI built with ShadCN and Svelte. The platform is now stable
-and mature enough to be considered a release candidate. This will need a new
-reinitiation of a plain database, so export your URL and be prepared to a new
-importer that should be able to guide you assign any kind of CSV to the
-platform.
+Snapp already includes many features you would expect from a mature URL shortener. Version 0.9 adds new capabilities and version 1.0 will polish them further.
 
-Please, note that for the time being the release candidate will be updated as
-fixed version. Once stable will be released as Latest and v.1.0.0.
+* **User‑friendly interface** – intuitive dashboard for shortening and managing links[\[1\]](https://github.com/urania-dev/snapp/blob/0.9-rc/README.md#L36-L51).
 
-## Features
+* **Authentication & authorisation** – secure sessions and role‑based access control; administrators and “root” users can manage other users[\[2\]](https://github.com/urania-dev/snapp/blob/0.9-rc/POLICIES.md#L20-L85).
 
-- **Intuitive User Interface:** Snapp offers a user-friendly interface for easy
-  link shortening.
-- **Secure Authentication:** Enjoy secure sessions for your user. Their
-  information is protected.
-- **Custom Short Codes:** Personalize your short codes to make your links
-  memorable and easy to share.
-- **Expiration Dates:** Manage link lifespans with expiration dates. You can set
-  expiry dates for added security or let links remain active indefinitely.
-- **Secret Links:** Enhance security with secret links, allowing you to share
-  with a select audience using unique secrets.
-- **Usage Analytics:** Access detailed, anonymous analytics for your links.
-  Snapp provides insights into link engagements.
-- **Extended Metrics:** Integrate Snapp with your self-hosted or cloud-based
-  Umami Analytics for advanced metrics.
-- **URL Reputation Check:** Ensure the safety of links with VirusTotal API
-  reputation checks.
-- **REST API:** Community-requested REST API endpoints enable remote management
-  of your Snapp instance. Find all Scalar Docs [here](https://snapp.li/docs).
+* **Custom codes & expiration** – choose your own shortcodes and set optional expiry dates[\[3\]](https://github.com/urania-dev/snapp/blob/0.9-rc/README.md#L42-L45).
 
----
-## This is a major refactor, the database has been rewritten
-### Always backup before attempting any update
----
+* **Secrets** – protect private links with secret tokens[\[4\]](https://github.com/urania-dev/snapp/blob/0.9-rc/README.md#L46-L48).
 
-## Getting Started
+* **Analytics & usage** – Snapp logs every click, capturing browser/device information and geolocation, and writes it to a Usage table. Anonymous metrics can also be sent to **Umami** for advanced dashboards[\[5\]](https://github.com/urania-dev/snapp/blob/0.9-rc/src/lib/umami.ts#L24-L79).
 
-Snapp is an open-source platform you can host yourself.
+* **Extended metrics** – optional UTM parameters are appended before sending events to Umami[\[6\]](https://github.com/urania-dev/snapp/blob/0.9-rc/src/lib/umami.ts#L81-L103).
 
-```yml
-services:
-  snapp:
-    image: uraniadev/snapp:0.9-rc-020
-    ports:
-      - 3000:3000
-    environment:
-      DATABASE_URL: "file:./db.sqlite"
-      DATABASE_PROVIDER: sqlite # mysql | sqlite | postgres
-      TOKEN_SECRET: # openssl rand -base64 32
-      ORIGIN: https://example.com
-```
+* **Tags & groups** – users can organise snapps with multiple tags. When `TAGS_AS_PREFIX` is enabled, tags become URL prefixes (e.g. `example.com/blog/abc`)[\[7\]](https://github.com/urania-dev/snapp/blob/0.9-rc/CHANGELOG.md#L165-L173). Snapp 0.9 converts “tags” into **groups** to allow membership‑based access (one group per user or shared across users)[\[8\]](https://github.com/urania-dev/snapp/blob/0.9-rc/CHANGELOG.md#L228-L232).
 
-**Note**: SQLite database is located in
-/app/dbschema/sqlite/prisma/{DATABASE_URL} if you want to mount it
+* **Multi‑Factor Authentication (MFA)** – time‑based one‑time passwords (TOTP) can be enabled from the UI or via the `ENABLED_MFA` environment variable[\[9\]](https://github.com/urania-dev/snapp/blob/0.9-rc/CHANGELOG.md#L174-L176). Recent releases added a failsafe when a QR code is missed, prompting a new token[\[10\]](https://github.com/urania-dev/snapp/blob/0.9-rc/CHANGELOG.md#L212-L215).
 
-**_Update8.1_**: ~~In order to make it actually work it ended up requiring
-better~~ ~~specification of schemas for Prisma Clients, the combinations are:~~
+* **OIDC/OAuth 2.0 support** – integrate with external identity providers such as Google, Keycloak or Authelia. Providers are configured through `AUTH_PROVIDERS` and related `AUTH_*` variables. Generic OIDC support was added in 0.8.7.3[\[11\]](https://github.com/urania-dev/snapp/blob/0.9-rc/CHANGELOG.md#L180-L187).
 
-**_Update0.9-rc_**: Now integrate Zenstack and improved ENV definition to
-restrict:
+* **Watchlists & safety checks** – Snapp validates every original URL before creating a short link. It checks that HTTPS is used, verifies against custom allow/deny lists and queries the VirusTotal API for reputation[\[12\]](https://github.com/urania-dev/snapp/blob/0.9-rc/src/lib/server/watchlists/index.ts#L204-L218). Domains are cached and re‑checked regularly to avoid API overuse[\[13\]](https://github.com/urania-dev/snapp/blob/0.9-rc/src/lib/server/watchlists/index.ts#L221-L250).
 
-```sh
-DATABASE_PROVIDER=sqlite # postgres | mysql
-DATABASE_URL=file:./db.sqlite
-# DATABASE_URL=mysql://root:password@localhost:3306/db
-# DATABASE_URL=postgres://root:password@localhost:5432/db
-```
+* **Rate‑limiting** – requests per minute and per day can be limited through `RPM_REQUESTS` and `RPD_REQUESTS` variables. When enabled, Snapp tracks per‑user quotas and returns an error when exceeded.
 
-## Default Admin Authentication
+* **Import/export** – CSV import/export tools allow migrating links between versions; the exporter writes the current schema and the importer guides you through mapping columns.
 
-If ENV variables ADMIN_USERNAME and ADMIN_PASSWORD are not set it defaults to
-the very secure:
+* **REST API** – a comprehensive REST interface powered by ZenStack policies allows programmatic management of snapps, users and groups[\[14\]](https://github.com/urania-dev/snapp/blob/0.9-rc/README.md#L52-L55). Documentation is published via Scalar at `/docs`.
+
+* **Internationalisation** – translations for Italian, English, German, French, Spanish, Galician and Chinese are included; more can be added via community contributions[\[15\]](https://github.com/urania-dev/snapp/blob/0.9-rc/CHANGELOG.md#L152-L153).
+
+## Technology stack
+
+| Area | Implementation |
+| :---- | :---- |
+| Front‑end | Svelte Kit 5, Tailwind CSS, ShadCN‑Svelte |
+| State management | Svelte stores |
+| Authentication | Lucia Auth (JWT), optional OIDC/OAuth integration |
+| Database | Prisma ORM with adapters for SQLite, MySQL & Postgres[\[16\]](https://github.com/urania-dev/snapp/blob/0.9-rc/CHANGELOG.md#L109-L116) |
+| Policy engine | ZenStack (fine‑grained, column‑level access control)[\[8\]](https://github.com/urania-dev/snapp/blob/0.9-rc/CHANGELOG.md#L228-L232) |
+| Metrics & analytics | Custom usage log \+ optional Umami integration |
+| Mailer | Nodemailer via configurable SMTP |
+| Container images | Multi‑arch (`x86_64`, arm, arm64) Docker images |
+
+## Getting started
+
+### Quick start with Docker
+
+Create a file called docker-compose.yml and paste the following service definition. Replace the environment values with your own secrets.
 
 ```
-username: admin
-password: password
+version: "3"  
+services:  
+  snapp:  
+    image: uraniadev/snapp:0.9-rc-020 # will become uraniadev/snapp:1.0 when v1 is released  
+    ports:  
+      - "3000:3000"  
+    environment:  
+      DATABASE_PROVIDER: sqlite         # sqlite | postgres | mysql  
+      DATABASE_URL: "file:./db.sqlite"  # or connection string for postgres/mysql  
+      TOKEN_SECRET: "$(openssl rand \-base64 32)"  
+      ORIGIN: "https://example.com"  
+      ADMIN_USERNAME: admin             # set your own admin credentials  
+      ADMIN_PASSWORD: strongpassword    # environment default is admin/password 
+      ENABLE_SIGNUP: true               # allow public sign‑ups  
+      ENABLED_MFA: true                 # enable multi‑factor auth
 ```
 
-You can always set a SMTP server and use password recovery process to change it
-later. (not very secure tho...)
+The SQLite database is stored inside the container at `/app/dbschema/sqlite/prisma/db.sqlite`. You can mount that file to persist data across restarts[\[19\]](https://github.com/urania-dev/snapp/blob/0.9-rc/README.md#L79-L81). To use MySQL or Postgres, set `DATABASE_PROVIDER` accordingly and supply a connection string, as shown in the sample configuration[\[17\]](https://github.com/urania-dev/snapp/blob/0.9-rc/README.md#L88-L93).
 
-## I18N
+### Node/Bun environment
 
-Snapp at his version 0.8 includes from start Italian, English, German, French,
-Spanish and Galician. This are very amateurish translation with the help of
-ChatGPT, so errors are to be expected, feel free to open a related issue if any
+Snapp uses Bun during development and Node.js for deployment. Clone the repository, install dependencies with bun install or pnpm install, then run bun run dev. When deploying to production you should run bun run build and bun start or use the provided Dockerfile.
 
-## Migration
+## Environment variables
 
-The latest versions of Snapp include CSV Export to facilitate migration. Simply
-log in and import your URLs from the dashboard, and continue from where you
-left.
+Snapp relies on environment variables for configuration. Some settings can be modified through the web interface, but critical options must be set at start‑up. The configuration module enforces that the following variables are defined[\[20\]](https://github.com/urania-dev/snapp/blob/0.9-rc/src/lib/server/config/index.ts#L42-L54):
 
-## ENV Variables
+| Variable | Purpose (concise) |
+| :---- | :---- |
+| `HOST` | host binding for the HTTP server |
+| `PORT` | port number (defaults to 3000\) |
+| `ORIGIN` | public URL of your instance |
+| `DATABASE_PROVIDER` | one of sqlite, postgres, mysql |
+| `DATABASE_URL` | connection string or SQLite path |
+| `TOKEN_SECRET` | random secret for JWT signing |
+| `ADMIN_USERNAME` | initial administrator username |
+| `ADMIN_EMAIL` | initial administrator e‑mail address |
+| `ADMIN_PASSWORD` | initial administrator password |
+| `ENABLE_SIGNUP` | allow self‑registration of users |
+| `ENABLED_MFA` | enable TOTP MFA globally |
 
-Some configuration moved from envs variable to settings page in-app, thou there
-are some ENV that could be set as default on first launch, here's the complete list with the page using the env variable:
+Additional optional variables control advanced behaviour[\[21\]](https://github.com/urania-dev/snapp/blob/0.9-rc/src/lib/server/config/index.ts#L127-L147):
 
-```bash
-ADMIN_PASSWORD= 
-# src\hooks.server.ts
-ADMIN_EMAIL= 
-# src\hooks.server.ts
-# src\routes\db-error\+page.server.ts
-ADMIN_USERNAME= 
-# src\hooks.server.ts
-LOG_LEVEL= 
-# src\hooks.server.ts
-# src\lib\server\auth\oidc\config.ts
-# src\lib\server\config\index.ts
-# src\lib\server\smtp\index.ts
-# src\lib\server\snapps\markUsage.ts
-# src\lib\server\watchlists\index.ts
-# src\routes\+page.server.ts
-# src\routes\admin\check-export\[id]\+server.ts
-# src\routes\admin\check-vt-api\+server.ts
-# src\routes\admin\refresh-export\[id]\+server.ts
-# src\routes\auth\sign-up\+page.server.ts
-# src\routes\auth\[provider]\+page.server.ts
-# src\routes\dashboard\+page.server.ts
-# src\routes\db-error\+page.server.ts
-# src\routes\settings\+page.server.ts
-DEBUG= 
-# src\lib\server\auth\db.ts
-NODE_ENV= 
-# src\lib\server\auth\index.ts
-# src\lib\server\params\index.ts
-# src\routes\+page.server.ts
-# src\routes\auth\mfa\setup\+page.server.ts
-# src\routes\auth\[provider]\+page.server.ts
-# src\routes\settings\+page.server.ts
-ALLOW_UNSECURE_HTTP= 
-# src\lib\server\config\index.ts
-APPNAME= 
-# src\lib\server\config\index.ts
-DISABLE_HOME= 
-# src\lib\server\config\index.ts
-ENABLE_LIMITS= 
-# src\lib\server\config\index.ts
-MAX_SNAPPS_PER_USER= 
-# src\lib\server\config\index.ts
-PUBLIC_UMAMI_WEBSITE_ID= 
-# src\lib\server\config\index.ts
-# src\lib\umami.ts
-PUBLIC_UMAMI_WEBSITE_URL= 
-# src\lib\server\config\index.ts
-# src\lib\umami.ts
-RPD_REQUESTS= 
-# src\lib\server\config\index.ts
-RPM_REQUESTS= 
-# src\lib\server\config\index.ts
-SMTP_FROM= 
-# src\lib\server\config\index.ts
-SMTP_HOST= 
-# src\lib\server\config\index.ts
-SMTP_PASS= 
-# src\lib\server\config\index.ts
-SMTP_PORT= 
-# src\lib\server\config\index.ts
-SMTP_SSL= 
-# src\lib\server\config\index.ts
-SMTP_USER= 
-# src\lib\server\config\index.ts
-# src\lib\server\smtp\index.ts
-PUBLIC_URL= 
-# src\lib\server\emails\auth\forgotPasswordEmail.svelte
-# src\lib\server\emails\auth\resetPasswordEmail.svelte
-# src\lib\server\emails\auth\signupEmail.svelte
-# src\lib\server\emails\auth\verificationEmail.svelte
-# src\lib\server\emails\dbErrorEmail.svelte
-# src\lib\server\emails\invitationEmail.svelte
-# src\lib\server\emails\smtpTest.svelte
-# src\routes\+layout.svelte
-PUBLIC_SNAPP_VERSION= 
-# src\routes\+page.svelte
-DISABLED_EMAIL_AND_PASSWORD= 
-# src\routes\auth\sign-in\+page.server.ts, src\routes\auth\sign-up\+page.server.ts
-ORIGIN= 
-# src\routes\auth\[provider]\+page.server.ts, src\routes\auth\[provider]\callback\+server.ts
-PROD= 
-# src\routes\auth\[provider]\callback\+server.ts
-URLS_VIA_GROUPS_ONLY= 
-# src\routes\dashboard\shorten\+page.server.ts
-PUBLIC_ADMIN_CONTACT= 
-# src\routes\db-error\+page.svelte
+| Variable | Description (concise) |
+| :---- | :---- |
+| `ALLOW_UNSECURE_HTTP` | allow shortening of non‑HTTPS URLs |
+| `APPNAME` | custom application name |
+| `ENABLE_LIMITS` | enable per‑user snapp limits |
+| `MAX_SNAPPS_PER_USER` | default number of snapps per user |
+| `PUBLIC_UMAMI_WEBSITE_ID` | site ID for Umami analytics |
+| `PUBLIC_UMAMI_WEBSITE_URL` | base URL for Umami server |
+| `RPD_REQUESTS` | requests‑per‑day limit |
+| `RPM_REQUESTS` | requests‑per‑minute limit |
+| `SMTP_HOST/PORT/USER/PASS` | SMTP server configuration for outgoing e‑mails |
+| `SMTP_FROM` | default “from” address for e‑mails |
+| `DISABLED_EMAIL_AND_PASSWORD` | disable e‑mail/password signup when using OIDC |
+| `URLS_VIA_GROUPS_ONLY` | require that all snapps are assigned to a group |
+| `AUTH_PROVIDERS` | comma‑separated list of OIDC providers (e.g. GOOGLE,KEYCLOAK) |
+| `AUTH_<PROVIDER>_*` | client ID, secret, issuer etc. for each OIDC provider |
+| `VTAPI_KEY` | VirusTotal API key for domain reputation checks |
 
-# AUTH_PROVIDERS is a list like 
-# AUTH_PROVIDERS=GOOGLE,KEYCLOAK,AUTHELIA
-AUTH_PROVIDERS= 
-# src\lib\server\auth\oidc\config.ts
+For a complete list, refer to the .env.example file in the repository[\[22\]](https://github.com/urania-dev/snapp/blob/0.9-rc/.env.example#L1-L29).
 
-# AUTH follow AUTH_[PROVIDER]_ENV_NAME so
-AUTH_AUTHELIA_CLIENT_ID= 
-# src\lib\server\auth\oidc\config.ts
-AUTH_AUTHELIA_CLIENT_SECRET= 
-# src\lib\server\auth\oidc\config.ts
-AUTH_AUTHELIA_ISSUER= 
-# src\lib\server\auth\oidc\config.ts
+## Database and policies
 
-# ---
-AUTH_GOOGLE_CLIENT_ID= 
-# src\lib\server\auth\oidc\config.ts
-AUTH_GOOGLE_CLIENT_SECRET= 
-# src\lib\server\auth\oidc\config.ts
-AUTH_GOOGLE_ISSUER= 
-# src\lib\server\auth\oidc\config.ts
+Snapp uses **Prisma** for data access and **ZenStack** to enforce row‑ and column‑level security. Policies are defined in POLICIES.md and compiled into the Prisma schema. For example, ordinary users can read and modify only their own data, while administrators and root users have full access[\[2\]](https://github.com/urania-dev/snapp/blob/0.9-rc/POLICIES.md#L20-L85). The Snapp model allows anyone to read public snapps but enforces ownership and group membership for modifications[\[23\]](https://github.com/urania-dev/snapp/blob/0.9-rc/POLICIES.md#L76-L86). These policies also govern the REST API, so your custom integrations automatically follow the same access rules[\[24\]](https://github.com/urania-dev/snapp/blob/0.9-rc/POLICIES.md#L138-L140).
 
-# ---
-AUTH_KEYCLOAK_CLIENT_ID= 
-# src\lib\server\auth\oidc\config.ts
-AUTH_KEYCLOAK_CLIENT_SECRET= 
-# src\lib\server\auth\oidc\config.ts
-AUTH_KEYCLOAK_CLIENT_SCOPE= 
-# src\lib\server\auth\oidc\config.ts
-AUTH_KEYCLOAK_ISSUER= 
-# src\lib\server\auth\oidc\config.ts
-```
+When upgrading to v1.0 you must initialise a new database. Use the export tool from your current version to generate a CSV of existing links and then import it into v1.0. Because schema changes are significant, direct migrations are not supported across major versions.
 
-## OAUTH2.0 & OIDC
+## URL validation & watchlists
 
-Snapp can now integrate Oauth & OIDC compatible SSO. It requires env variables
-prefixed with AUTH as the example above Users are checked on email, unregistered
-user will rejected if sign ups are disabled. Registered callback URI at
-`/auth/{provider}/callback`
+To protect both you and your users, Snapp validates the destination URL before shortening it. Validation consists of several steps:
 
-## SMTP Configuration
+1. **HTTPS enforcement** – if `ALLOW_UNSECURE_HTTP` is not set, only HTTPS links are accepted[\[25\]](https://github.com/urania-dev/snapp/blob/0.9-rc/src/lib/server/watchlists/index.ts#L206-L215).
 
-If you find yourself limited by the UI configuration for your SMTP Server should
-be enough to change `smtp.config.cjs` file
+2. **Allow/deny lists** – domains, e‑mail domains and usernames can be whitelisted or blacklisted via the admin UI or the API. Whitelisted domains bypass other checks; blacklisted domains cause the snapp to be disabled[\[12\]](https://github.com/urania-dev/snapp/blob/0.9-rc/src/lib/server/watchlists/index.ts#L204-L218).
 
-```yml
-services:
-  snapp:
-    image: uraniadev/snapp:0.9-rc-020
-    ports:
-      - 3000:3000
-    volumes:
-      - ./smtp.config.cjs:/app/smtp.config.cjs
-    environment:
-      TOKEN_SECRET: # openssh rand --base64 32
-```
+3. **VirusTotal reputation** – when you provide a `VTAPI_KEY`, Snapp submits the domain to VirusTotal. The result is cached and rechecked periodically; only domains with more harmless votes than malicious votes are allowed[\[13\]](https://github.com/urania-dev/snapp/blob/0.9-rc/src/lib/server/watchlists/index.ts#L221-L250).
 
-The file should export a promise that returns a Nodemailer's TransportOptions
-type, the original one requires the promise to pick up config from db.
+4. **Rate limits** – per‑user quotas ensure that spammy users cannot create unlimited snapps.
 
-```js
-module.exports = async () => ({
-	host: 'smtp.example.com',
-	port: '587',
-	secure: false,
-	auth: {
-		user: 'username',
-		pass: 'password'
-	},
-  tls:{
-    ...
-  }
-});
-```
+These checks also run when a user visits a snapp. If a previously good domain becomes malicious, the snapp is automatically disabled and visits return an error.
 
-This could lead to trouble, so test carefully.
+## REST API
+
+Snapp’s API mirrors the functionality of the UI. It is documented using Swagger/Scalar and available at /docs once your server is running. The API supports operations such as:
+
+* Creating, updating and deleting snapps
+
+* Managing tags/groups
+
+* Querying usage statistics
+
+* Managing users, invitations and roles
+
+* Retrieving and modifying settings
+
+API requests require an authentication token, which users can generate in the settings page. Rate‑limits apply to API requests as well.
+
+## Internationalisation
+
+Snapp supports multiple languages out of the box and falls back to English if a translation is missing. To add or improve translations, edit files under src/lib/i18n and submit a pull request.
+
+## Contributing and roadmap
+
+Contributions are welcome\! Please check the open issues and discussions for tasks that need help.
+
+Snapp is released under the MIT licence. See LICENSE.md for details.
+
+## Acknowledgements
+
+This project would not have been possible without the Svelte and Prisma communities. Special thanks to all contributors who reported issues, suggested features and provided translations.
+
 
 ## The Stack
 
