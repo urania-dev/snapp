@@ -4,7 +4,7 @@
 # Determine which schema to use
 case "$DATABASE_PROVIDER" in
   "sqlite")
-      echo "-- Default SQLITE Provider --"
+    echo "-- Default SQLITE Provider --"
     cp /app/zenstack/sqlite /app/node_modules/.zenstack -r
     bunx prisma generate --schema /app/dbschema/sqlite/prisma/schema.prisma
 
