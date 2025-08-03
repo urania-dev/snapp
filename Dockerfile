@@ -2,6 +2,7 @@
 # Build stage: install all dependencies and bu  ild the application
 FROM oven/bun:slim AS builder
 WORKDIR /app
+RUN apt-get update -y && apt-get install -y openssl curl
 
 # Copy package files and install all dependencies (including dev)
 COPY package*.json ./
@@ -28,17 +29,18 @@ ENV DATABASE_URL=file:./db.sqlite \
 # Run build commands
 ENV DATABASE_URL=mysql://root:password@localhost:3306/snapp \
     DATABASE_PROVIDER=mysql
-RUN bunx zenstack generate --schema dbschema/mysql/schema.zmodel --output /app/zenstack/mysql
+RUN bunx zenstack generate --schema dbschema/mysql/schema.zmodel --output /app/zenstack/mysql --no-compile
 
 ENV DATABASE_URL=postgres://root:password@localhost:5432/snapp \
     DATABASE_PROVIDER=postgres
-RUN bunx zenstack generate --schema dbschema/postgres/schema.zmodel --output /app/zenstack/postgres
+RUN bunx zenstack generate --schema dbschema/postgres/schema.zmodel --output /app/zenstack/postgres --no-compile
 
 ENV DATABASE_URL=file:./dev.sqlite\
     DATABASE_PROVIDER=sqlite 
 
-RUN bunx zenstack generate --schema dbschema/sqlite/schema.zmodel
-RUN bunx zenstack generate --schema dbschema/sqlite/schema.zmodel --output /app/zenstack/sqlite
+RUN bunx zenstack generate --schema dbschema/sqlite/schema.zmodel --no-compile
+RUN bunx zenstack generate --schema dbschema/sqlite/schema.zmodel --output /app/zenstack/sqlite --no-compile
+
 
 RUN bunx prisma migrate deploy --schema dbschema/sqlite/prisma/schema.prisma 
 RUN --mount=type=secret,id=ADMIN_PASSWORD \
@@ -52,10 +54,7 @@ RUN touch /app/dbschema/sqlite/prisma/db.sqlite
 # Final stage: set up a lean runtime environment and reinstall production dependencies
 FROM oven/bun:slim
 WORKDIR /app
-
-RUN apt-get update -y && apt-get install -y openssl
-RUN apt-get install -y curl
-
+RUN apt-get update -y && apt-get install -y openssl curl
 
 
 # Copy the built output (adjust path if necessary)
@@ -81,6 +80,7 @@ RUN bun install --production
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 RUN rm /app/dbschema/sqlite/prisma/dev.sqlite
+RUN rm /app/dbschema/sqlite/prisma/db.sqlite
 RUN touch /app/dbschema/sqlite/prisma/db.sqlite
 
 # Set runtime environment variables
