@@ -64,8 +64,7 @@
 			"unallowed-not-https": "The original URL must be a secure https link",
 			"unallowed-not-group": "The administrator has configured the platform to be used exclusively through groups. Please select at least one group to continue.",
 			"original-url-missing": "An Original URL must be provided for redirection",
-			"original-url-blacklisted": "This URL has been blacklisted or flagged by VirusTotal API",
-		   
+			"original-url-blacklisted": "This URL has been blacklisted or flagged by VirusTotal API",		   
 			"not-found": "URL not found.",
 			"disabled": "This URL may have been deleted or disabled by the user, or it may have reached a set threshold. If you believe this is an error, please contact the administrator."
 		},
@@ -311,7 +310,14 @@
 		"helper": "Authorise API calls with an Authorization header containing the generated Token. API keys are unique and tied to the user account, sharing the database roles.",
 		"fields": {
 			"key": "Token",
-			"created": "Created"
+			"created": "Created",
+			"jwt-ttl": "Expiration"
+		},
+		"units": {
+			"minutes": "Minutes",
+			"hours": "Hours",
+			"days": "Days",
+			"months": "Months"
 		},
 		"placeholder": "Your API key will appear here...",
 		"copied": "Token copied to clipboard.",

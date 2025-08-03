@@ -45,6 +45,24 @@ export function slugify(text: string = '') {
 		.replace(/-+/g, '-'); // remove consecutive hyphens
 }
 
+export const convertTtlToString = (value: unknown, unit: unknown): string => {
+	const v = Number(value);
+	const u = String(unit).toLowerCase();
+
+	if (!Number.isFinite(v) || v <= 0) return '7d'; // fallback
+
+	switch (u) {
+		case 'minutes':
+		case 'hours':
+		case 'days':
+			return `${v}${u[0]}`;
+		case 'months':
+			return `${v * 30}d`;
+		default:
+			return `${v}d`;
+	}
+};
+
 export function translateCountry(locale: string, languageCode: string) {
 	const displayNames = new Intl.DisplayNames(locale, { type: 'region' });
 	return displayNames.of(languageCode) || '';

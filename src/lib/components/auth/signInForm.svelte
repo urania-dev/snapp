@@ -54,9 +54,10 @@
 						bind:value={$formData.username}
 						oninput={(e) => {
 							$formData.username = e.currentTarget.value
-								.replaceAll(' ', '-')
-								.replace(/[^a-z,-]/g, '')
-								.replace('--', '-');
+								.toLowerCase()
+								.replace(/\s+/g, '-')
+								.replace(/[^a-z0-9_-]/g, '')
+								.replace(/-+/g, '-');
 						}}
 					/>
 				{/snippet}

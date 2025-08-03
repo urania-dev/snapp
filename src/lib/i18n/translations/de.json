@@ -87,7 +87,6 @@
 		"generic": "Unbekannter Fehler. Bitte versuchen Sie es später erneut.",
 		"oidc-client-unavailable":"Fehler mit {provider}: Dieser Anbieter ist derzeit nicht verfügbar.",
 		"unauthorized": "Nicht autorisiert"
-
 	},
 	"globals": {
 		"cancel": "Abbrechen",
@@ -311,7 +310,14 @@
 		"helper": "Nutzen Sie den Authorization-Header mit Ihrem individuellen API-Token zur Authentifizierung. Diese Schlüssel sind einzigartig und an Ihr Benutzerkonto gebunden, mit geteilten Datenbankrollen.",
 		"fields": {
 			"key": "Token",
-			"created": "Erstellt"
+			"created": "Erstellt",
+			"jwt-ttl": "Ablauf"
+		},
+		"units": {
+			"minutes": "Minuten",
+			"hours": "Stunden",
+			"days": "Tage",
+			"months": "Monate"
 		},
 		"placeholder": "Ihr API-Schlüssel erscheint hier...",
 		"copied": "Token in die Zwischenablage kopiert.",

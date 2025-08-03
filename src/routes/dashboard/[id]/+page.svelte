@@ -73,7 +73,7 @@
 	<div class="flex w-full items-center justify-between px-4">
 		<div class="flex h-20 shrink-0 items-center gap-2">
 			<i class="ph-duotone ph-link-simple-horizontal text-[32px]"></i>
-			<H2 class="m-0 p-0 uppercase">{data.snapp?.shortcode}</H2>
+			<H2 class="m-0 p-0">{data.snapp?.shortcode}</H2>
 		</div>
 		<div class="flex gap-2">
 			<Dialog.Root>
