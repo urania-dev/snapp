@@ -278,3 +278,5 @@
   - [#111 Default page redirection](https://github.com/urania-dev/snapp/issues/111) now added a field in settings for this
 - 0.9-rc-020
   - Cleaned up some issues regarding docker image, auth and smtp msising configuration (now it logs) and some other minor issues
+- 0.9-rc-021
+  - Merge pull request #125 from gtmaurtw33/0.9-rc

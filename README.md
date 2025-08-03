@@ -67,7 +67,7 @@ Create a file called docker-compose.yml and paste the following service definiti
 ``` docker
 services:  
   snapp:  
-    image: uraniadev/snapp:0.9-rc-020 # will become uraniadev/snapp:1.0 when v1 is released  
+    image: uraniadev/snapp:0.9-rc-021 # will become uraniadev/snapp:1.0 when v1 is released  
     ports:  
       - "3000:3000"  
     environment:  
