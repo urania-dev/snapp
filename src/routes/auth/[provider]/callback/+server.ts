@@ -100,21 +100,21 @@ export const GET = async (event) => {
 		maxAge: 60 * 10,
 		path: '/',
 		sameSite: 'strict',
-		secure: import.meta.env.PROD
+		secure: env.NODE_ENV==="production"||true
 	});
 	cookies.delete('oauth_state', {
 		httpOnly: true,
 		maxAge: 60 * 10,
 		path: '/',
 		sameSite: 'strict',
-		secure: import.meta.env.PROD
+		secure: env.NODE_ENV==="production"||true
 	});
 	cookies.delete('oauth_identity', {
 		httpOnly: true,
 		maxAge: 60 * 10,
 		path: '/',
 		sameSite: 'strict',
-		secure: import.meta.env.PROD
+		secure: env.NODE_ENV==="production"||true
 	});
 	redirect(302, '/dashboard');
 };

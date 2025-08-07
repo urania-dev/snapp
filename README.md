@@ -17,13 +17,13 @@
 
 Snapp already includes many features you would expect from a mature URL shortener. Version 0.9 adds new capabilities and version 1.0 will polish them further.
 
-* **User‑friendly interface** – intuitive dashboard for shortening and managing links[\[1\]](https://github.com/urania-dev/snapp/blob/0.9-rc/README.md#L36-L51).
+* **User‑friendly interface** – intuitive dashboard for shortening and managing links[\[1\]](https://github.com/urania-dev/snapp/blob/0.9-rc/README_OLD.md#L36-L51).
 
 * **Authentication & authorisation** – secure sessions and role‑based access control; administrators and “root” users can manage other users[\[2\]](https://github.com/urania-dev/snapp/blob/0.9-rc/POLICIES.md#L20-L85).
 
-* **Custom codes & expiration** – choose your own shortcodes and set optional expiry dates[\[3\]](https://github.com/urania-dev/snapp/blob/0.9-rc/README.md#L42-L45).
+* **Custom codes & expiration** – choose your own shortcodes and set optional expiry dates[\[3\]](https://github.com/urania-dev/snapp/blob/0.9-rc/README_OLD.md#L42-L45).
 
-* **Secrets** – protect private links with secret tokens[\[4\]](https://github.com/urania-dev/snapp/blob/0.9-rc/README.md#L46-L48).
+* **Secrets** – protect private links with secret tokens[\[4\]](https://github.com/urania-dev/snapp/blob/0.9-rc/README_OLD.md#L46-L48).
 
 * **Analytics & usage** – Snapp logs every click, capturing browser/device information and geolocation, and writes it to a Usage table. Anonymous metrics can also be sent to **Umami** for advanced dashboards[\[5\]](https://github.com/urania-dev/snapp/blob/0.9-rc/src/lib/umami.ts#L24-L79).
 
@@ -41,7 +41,7 @@ Snapp already includes many features you would expect from a mature URL shortene
 
 * **Import/export** – CSV import/export tools allow migrating links between versions; the exporter writes the current schema and the importer guides you through mapping columns.
 
-* **REST API** – a comprehensive REST interface powered by ZenStack policies allows programmatic management of snapps, users and groups[\[14\]](https://github.com/urania-dev/snapp/blob/0.9-rc/README.md#L52-L55). Documentation is published via Scalar at `/docs`.
+* **REST API** – a comprehensive REST interface powered by ZenStack policies allows programmatic management of snapps, users and groups[\[14\]](https://github.com/urania-dev/snapp/blob/0.9-rc/README_OLD.md#L52-L55). Documentation is published via Scalar at `/docs`.
 
 * **Internationalisation** – translations for Italian, English, German, French, Spanish, Galician and Chinese are included; more can be added via community contributions[\[15\]](https://github.com/urania-dev/snapp/blob/0.9-rc/CHANGELOG.md#L152-L153).
 
@@ -67,7 +67,7 @@ Create a file called docker-compose.yml and paste the following service definiti
 ``` docker
 services:  
   snapp:  
-    image: uraniadev/snapp:0.9-rc-021 # will become uraniadev/snapp:1.0 when v1 is released  
+    image: uraniadev/snapp:0.9-rc-022 # will become uraniadev/snapp:1.0 when v1 is released  
     ports:  
       - "3000:3000"  
     environment:  
@@ -82,7 +82,7 @@ services:
       ENABLED_MFA: true                 # enable multi‑factor auth
 ```
 
-The SQLite database is stored inside the container at `/app/dbschema/sqlite/prisma/db.sqlite`. You can mount that file to persist data across restarts[\[19\]](https://github.com/urania-dev/snapp/blob/0.9-rc/README.md#L79-L81). To use MySQL or Postgres, set `DATABASE_PROVIDER` accordingly and supply a connection string, as shown in the sample configuration[\[17\]](https://github.com/urania-dev/snapp/blob/0.9-rc/README.md#L88-L93).
+The SQLite database is stored inside the container at `/app/dbschema/sqlite/prisma/db.sqlite`. You can mount that file to persist data across restarts[\[19\]](https://github.com/urania-dev/snapp/blob/0.9-rc/README_OLD.md#L79-L81). To use MySQL or Postgres, set `DATABASE_PROVIDER` accordingly and supply a connection string, as shown in the sample configuration[\[17\]](https://github.com/urania-dev/snapp/blob/0.9-rc/README_OLD.md#L88-L93).
 
 ### Node/Bun environment
 
@@ -94,17 +94,17 @@ Snapp relies on environment variables for configuration. Some settings can be mo
 
 | Variable | Purpose (concise) |
 | :---- | :---- |
-| `HOST` | host binding for the HTTP server |
-| `PORT` | port number (defaults to 3000\) |
-| `ORIGIN` | public URL of your instance |
+| `ORIGIN` | origin URL of your instance |
+| `PUBLIC_URL` | public URL of your instance for frontend access to env |
 | `DATABASE_PROVIDER` | one of sqlite, postgres, mysql |
 | `DATABASE_URL` | connection string or SQLite path |
 | `TOKEN_SECRET` | random secret for JWT signing |
-| `ADMIN_USERNAME` | initial administrator username |
-| `ADMIN_EMAIL` | initial administrator e‑mail address |
-| `ADMIN_PASSWORD` | initial administrator password |
+| `ADMIN_USERNAME` | initial administrator username. defaults to admin |
+| `ADMIN_EMAIL` | initial administrator e‑mail address. defaults to email@example.org |
+| `ADMIN_PASSWORD` | initial administrator password. defaults to password |
 | `ENABLE_SIGNUP` | allow self‑registration of users |
 | `ENABLED_MFA` | enable TOTP MFA globally |
+| `PORT` | port number (defaults to 3000\) |
 
 Additional optional variables control advanced behaviour[\[21\]](https://github.com/urania-dev/snapp/blob/0.9-rc/src/lib/server/config/index.ts#L127-L147):
 

@@ -41,9 +41,7 @@ const checkEnvVars = (...requiredVars: string[]): Record<string, boolean | numbe
 
 export const getConfig = () => {
 	const requiredVars = [
-		'HOST',
 		'ORIGIN',
-		'PORT',
 		'DATABASE_PROVIDER',
 		'TOKEN_SECRET',
 		'ADMIN_USERNAME',

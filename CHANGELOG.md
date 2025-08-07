@@ -280,3 +280,5 @@
   - Cleaned up some issues regarding docker image, auth and smtp msising configuration (now it logs) and some other minor issues
 - 0.9-rc-021
   - Merge pull request #125 from gtmaurtw33/0.9-rc
+- 0.9-rc-022
+  - [#126 Revoked JWT tokens are still valid](https://github.com/urania-dev/snapp/issues/126) JWT get now verified against db after validation to ensure expired or removed tokens don't work anymore via api 

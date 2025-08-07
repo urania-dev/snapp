@@ -24,22 +24,21 @@ ENV DATABASE_URL=file:./db.sqlite \
     PUBLIC_EXTRA_GROUPS_EDITABLE=false \
     URLS_VIA_GROUPS_ONLY=false \
     APPNAME="Snapp.li" \
-    PUBLIC_SNAPP_VERSION="0.9-rc-021"
+    PUBLIC_SNAPP_VERSION="0.9-rc-022"
     
 # Run build commands
 ENV DATABASE_URL=mysql://root:password@localhost:3306/snapp \
     DATABASE_PROVIDER=mysql
-RUN bunx zenstack generate --schema dbschema/mysql/schema.zmodel --output /app/zenstack/mysql --no-compile
+RUN bunx zenstack generate --schema dbschema/mysql/schema.zmodel --output /app/zenstack/mysql 
 
 ENV DATABASE_URL=postgres://root:password@localhost:5432/snapp \
     DATABASE_PROVIDER=postgres
-RUN bunx zenstack generate --schema dbschema/postgres/schema.zmodel --output /app/zenstack/postgres --no-compile
+RUN bunx zenstack generate --schema dbschema/postgres/schema.zmodel --output /app/zenstack/postgres 
 
 ENV DATABASE_URL=file:./dev.sqlite\
     DATABASE_PROVIDER=sqlite 
-
-RUN bunx zenstack generate --schema dbschema/sqlite/schema.zmodel --no-compile
-RUN bunx zenstack generate --schema dbschema/sqlite/schema.zmodel --output /app/zenstack/sqlite --no-compile
+RUN bunx zenstack generate --schema dbschema/sqlite/schema.zmodel 
+RUN bunx zenstack generate --schema dbschema/sqlite/schema.zmodel --output /app/zenstack/sqlite 
 
 
 RUN bunx prisma migrate deploy --schema dbschema/sqlite/prisma/schema.prisma 
@@ -98,7 +97,7 @@ ENV DATABASE_URL=file:./db.sqlite \
     URLS_VIA_GROUPS_ONLY=false \
     PUBLIC_EXTRA_GROUPS_EDITABLE=false \
     APPNAME="Snapp.li" \
-    PUBLIC_SNAPP_VERSION="0.9-rc-021"
+    PUBLIC_SNAPP_VERSION="0.9-rc-022"
 
 EXPOSE 3000
     
