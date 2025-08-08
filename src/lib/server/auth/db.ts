@@ -31,17 +31,18 @@ export const getPrisma = async ({ locals, request }: RequestEvent) => {
 			role: string;
 			userId: string;
 		};
-		const exists = await prisma.token.findFirst({where: {key:token, userId: user.userId}})
+		const exists = await prisma.token.findFirst({ where: { key: token, userId: user.userId } });
+		
 		if(!exists)
 			throw error(401, {
 				message:"This token is expired, please try renew or get a new one from the dashboard"
-			})
+			});
 		
 		return enhance(prisma, {
 			user: user && 'userId' in user ? { id: user?.userId } : undefined
 		});
 	} catch (e) {
-		if (env.DEBUG.toLowerCase() === "true") log.error(e);
+		if (env.LOG_LEVEL === 'debug') log.error(e);
 		if (locals.user) return enhance(prisma, { user: locals.user });
 		throw error(403, {
 			message: (e as any)?.body?.message ?? 'This is a private service. Please provide correct credentials'
