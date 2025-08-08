@@ -55,12 +55,34 @@ const apiHandle = SvelteKitHandler({
 	zodSchemas: true
 });
 
-const themeHandle: Handle = ({ event, resolve }) => {
-	const lang = event.cookies.get('language')?.toString() || 'en';
+const themeHandle: Handle = async ({ event, resolve }) => {
 	const theme = event.cookies.get('theme')?.toString() || 'dark';
+	event.locals.theme = theme;
 
-	if (theme) event.locals.theme = theme;
-	if (lang) event.locals.lang = lang;
+	let lang = event.cookies.get('language')?.toString();
+	let supportedLangs: string[] = ['en'];
+
+	if (!lang) {
+		try {
+			const acceptLangHeader = event.request.headers.get('accept-language');
+			const acceptLang = acceptLangHeader?.split(',')[0]?.trim().slice(0, 2).toLowerCase() || 'en';
+			lang = acceptLang.split(',')[0]?.trim().slice(0, 2).toLowerCase();
+
+			const settings = await getSettings();
+			const rawLangs = settings?.get<string>('AVAILABLE_LANGUAGES') as string;
+
+			supportedLangs = rawLangs.split(',');
+		} catch (error) {
+			console.error('Failed to load AVAILABLE_LANGUAGES:', error);
+			lang = 'en';
+		}
+
+		if (!supportedLangs.includes(lang)) {
+			lang = 'en';
+		}
+	}
+
+	event.locals.lang = lang;	
 
 	return resolve(event, {
 		transformPageChunk({ html }) {

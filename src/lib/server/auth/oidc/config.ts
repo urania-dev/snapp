@@ -32,7 +32,7 @@ const fetchClientConfig = async (oidcConfig: OidcConfig): Promise<Configuration>
 			);
 			return config;
 		} catch (error) {
-			if (env.LOG_LEVEL === 'true') log.error(error);
+			if (env.LOG_LEVEL === 'debug') log.error(error);
 		}
 
 	return new Configuration(
