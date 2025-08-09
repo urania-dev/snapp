@@ -12,6 +12,9 @@
 	<Tooltip.Provider>
 		<Tooltip.Root delayDuration={300} bind:open={openTooltip}>
 			<Tooltip.Trigger
+				onclick={()=>{
+					if(url)window.open(url,'_blank')
+				}}
 				onmouseleave={() => {
 					setTimeout(() => {
 						if (openTooltip) openTooltip = false;

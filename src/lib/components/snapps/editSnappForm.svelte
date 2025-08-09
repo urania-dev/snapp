@@ -4,7 +4,6 @@
 	import * as Form from '$lib/components/ui/form';
 	import * as Tabs from '$lib/components/ui/tabs';
 	import { getTranslations } from '$lib/i18n/index.svelte';
-	import { slugify } from '$lib/utils';
 	import { decode } from 'html-entities';
 	import { toast } from 'svelte-sonner';
 	import { SvelteMap } from 'svelte/reactivity';
@@ -136,7 +135,7 @@
 							{...props}
 							oninput={(e)=>{
 								const value = e.currentTarget.value
-								if(value.trim()!=='') $formData.shortcode=slugify(value)
+								if(value.trim()!=='') $formData.shortcode=value.replace(/\s+/g, '-')
 							}}
 							bind:value={$formData.shortcode}
 						/>

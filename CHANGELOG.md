@@ -284,4 +284,7 @@
   - [#126 Revoked JWT tokens are still valid](https://github.com/urania-dev/snapp/issues/126) JWT get now verified against db after validation to ensure expired or removed tokens don't work anymore via api 
 - 0.9-rc-023
   - [#127 fix(env), feat(i18n)](https://github.com/urania-dev/snapp/pull/127) logging fix and browser language
-  
+- 0.9-rc-024
+  - [#128 Bad behavior for manual shortcode](https://github.com/urania-dev/snapp/issues/128) fixed script and now will check on FE before submitting if exists
+- 0.9-rc-025
+  - [#128 Bad behavior for manual shortcode](https://github.com/urania-dev/snapp/issues/128) shortcode is not slugified by default anymore for consistencies between API and frontend UI. 

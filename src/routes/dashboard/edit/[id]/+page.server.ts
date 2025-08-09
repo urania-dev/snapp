@@ -58,16 +58,17 @@ export const actions = {
 
 		const originalURL = snapp.originalUrl
 
-		const { errors, valid } = await watchLists.validateURL(originalURL);
 
-		const exists = snapp.shortcode
-			? await prisma.snapp.count({
-				where: {
-					id: { not: event.params.id },
-					shortcode: { startsWith: snapp.shortcode.toLowerCase() }
-				}
-			})
-			: null;
+			const { errors, valid } = await watchLists.validateURL(snapp.originalUrl);
+				const exists = snapp.shortcode
+					? await prisma.snapp.findFirst({
+						where: { AND:[{shortcode:  snapp.shortcode }, {id:{not:event.params.id}}]}
+					})
+					: null;
+		
+			  const siblings = exists !== null && await prisma.snapp.count({
+				where: { shortcode: { startsWith: `${snapp.shortcode}` } },
+			  }) || 0;
 		const old = snapp.shortcode
 			? await prisma.snapp.findFirst({
 				where: {
@@ -104,7 +105,7 @@ export const actions = {
 						: null,
 					shortcode:
 						(snapp.shortcode &&
-							(exists && exists > 0 ? `${snapp.shortcode}-${exists}` : snapp.shortcode)) ||
+							(exists && siblings > 0 ? `${snapp.shortcode}-${siblings}` : snapp.shortcode)) ||
 						nanoid(5),
 					tag: tags?.length
 						? {

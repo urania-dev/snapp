@@ -248,6 +248,7 @@
 			"not-max-usages": "Sen límite",
 			"original-url": "Isto debe ser un enlace válido <code>https://</code>",
 			"shortcode": "Isto xerase automaticamente se non se especifica",
+			"shortcode-exists": "O shortcode xa está en uso, engadirase un sufixo para distinguilo",
 			"has-secret": "Especifique un segredo para protexer a URL contra accesos non autorizados",
 			"expiration": "Especifique unha data de caducidade para desactivar automaticamente a súa URL",
 			"max-usages": "Especifique un número limitado de usos para esta URL. Unha vez alcanzado o límite, a URL será desactivada",

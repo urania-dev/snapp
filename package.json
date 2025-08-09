@@ -1,6 +1,6 @@
 {
 	"name": "snapp",
-	"version": "0.9-rc-023",
+	"version": "0.9-rc-025",
 	"author": {
 		"name": "Urania",
 		"email": "m.isaia@urania.dev",
@@ -76,6 +76,7 @@
 		"@zenstackhq/server": "^2.17.2",
 		"bcryptjs": "^3.0.2",
 		"bits-ui": "^1.8.0",
+		"caniuse-lite": "^1.0.30001733",
 		"d3-array": "^3.2.4",
 		"d3-scale": "^4.0.2",
 		"dotenv": "^16.6.1",

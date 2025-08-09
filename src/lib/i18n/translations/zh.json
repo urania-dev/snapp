@@ -248,6 +248,7 @@
 			"not-max-usages": "无限制",
 			"original-url": "必须是有效链接，例如 <code>https://</code>",
 			"shortcode": "如果未指定，将自动生成",
+			"shortcode-exists": "短代码已被使用，将添加后缀以进行区分",
 			"has-secret": "设置密钥以防止未经授权的访问",
 			"expiration": "设置到期日期，到期后 URL 将自动禁用",
 			"max-usages": "设置此 URL 的最大使用次数，达到限制后 URL 将被禁用",

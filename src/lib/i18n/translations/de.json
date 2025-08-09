@@ -248,6 +248,7 @@
 			"not-max-usages": "Keine Begrenzung",
 			"original-url": "Die Original-URL muss ein gültiger HTTPS-Link sein",
 			"shortcode": "Wird automatisch generiert, falls nicht manuell definiert.",
+			"shortcode-exists": "Shortcode bereits vergeben, es wird ein Suffix hinzugefügt, um ihn zu unterscheiden",
 			"has-secret": "Definieren Sie einen Geheimcode, um unautorisierten Zugriff zu verhindern.",
 			"expiration": "Setzen Sie ein Verfallsdatum, um die URL automatisch zu deaktivieren.",
 			"max-usages": "Begrenzen Sie die Nutzungen dieser URL. Wird das Limit erreicht, deaktiviert sich die URL.",

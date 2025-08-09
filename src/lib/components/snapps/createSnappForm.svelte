@@ -1,10 +1,11 @@
 <script lang="ts">
+	import { type Snapp } from '@prisma/client'; 
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import * as Form from '$lib/components/ui/form';
 	import * as Tabs from '$lib/components/ui/tabs';
 	import { getTranslations } from '$lib/i18n/index.svelte';
-	import { slugify } from '$lib/utils';
+	import { Debouncer } from '$lib/stores/debounce.svelte';
 	import { decode } from 'html-entities';
 	import { nanoid } from 'nanoid';
 	import { toast } from 'svelte-sonner';
@@ -28,7 +29,7 @@
 	import { snappSchema, type SnappSchema } from './schema';
 
 	const { formSchema }: { formSchema: SuperValidated<Infer<SnappSchema>> } = $props();
-
+	const d = new Debouncer();
 	const form = superForm(formSchema, {
 		applyAction: true,
 		invalidateAll: true,
@@ -39,10 +40,10 @@
 			if (result.status !== 200) return;
 			await goto('/dashboard');
 		},
-		onSubmit: ({ formData:fd }) => {
-			if(!$formData.shortcode) fd.set('shortcode', nanoid(5))
-			if(hasSecret&&$formData?.secret) fd.set('secret',$formData.secret)
-			else fd.delete('secret')
+		onSubmit: ({ formData: fd }) => {
+			if (!$formData.shortcode) fd.set('shortcode', nanoid(5));
+			if (hasSecret && $formData?.secret) fd.set('secret', $formData.secret);
+			else fd.delete('secret');
 			for (const tag of tags) fd.append('tags', tag);
 			for (const group of groups) fd.append('groups', group);
 			for (const [, params] of utmParams)
@@ -59,9 +60,9 @@
 	let hasSecret = $state(false);
 	let hasExpiration = $state(false);
 	let hasMaxUsages = $state(false);
+	let slugExists = $state(false)
 
 	let activeTab = $state('notes');
-
 	let tags = $state<string[]>([]);
 	let groups = $state<string[]>([]);
 	let utmParams = $state(
@@ -121,14 +122,31 @@
 							placeholder={i18n.t('snapps.placeholders.shortcode')}
 							{...props}
 							bind:value={$formData.shortcode}
-							oninput={(e)=>{
-								const value = e.currentTarget.value
-								if(value.trim()!=='') $formData.shortcode=slugify(value)
+							oninput={(e) => {
+								const value = e.currentTarget.value;
+								if (value.trim() !== '') {
+									$formData.shortcode = value.replace(/\s+/g, '-');
+
+									const f = page.data.fetch as typeof fetch;
+									d.debounce(async () => {
+										const {data,error} = (await(await f(`/api/snapp/findFirst?q=${JSON.stringify({where:{shortcode:value}})}`)).json() as {data?: null|Snapp, error?:{message:string}}) || {data:null, error:{message:"errors.generic"}};
+										if(error) toast.error(error?.message)
+										if(data){
+											slugExists = true
+											return
+										}
+										slugExists = false
+									}, 500)();
+								}
 							}}
 						/>
 					{/snippet}
 				</Form.Control>
+				{#if slugExists}
+				<Form.Description class="px-2 text-destructive">{@html i18n.t('snapps.helpers.shortcode-exists')}</Form.Description>
+				{:else}
 				<Form.Description class="px-2">{@html i18n.t('snapps.helpers.shortcode')}</Form.Description>
+				{/if}
 				<Form.FieldErrors />
 			</Form.Field>
 			<Separator />
@@ -146,7 +164,7 @@
 			<Separator />
 		</div>
 		<Separator orientation="vertical" class="hidden lg:block" />
-		<Tabs.Root bind:value={activeTab} class="w-full pt-0 lg:pt-3 p-3">
+		<Tabs.Root bind:value={activeTab} class="w-full p-3 pt-0 lg:pt-3">
 			<Tabs.List class="grid h-max w-full grid-cols-2 gap-2">
 				<Tabs.Trigger class="min-w-max" value="notes">{i18n.t('snapps.fields.notes')}</Tabs.Trigger>
 				<Tabs.Trigger class="min-w-max" value="advanced">{i18n.t('globals.advanced')}</Tabs.Trigger>
@@ -165,7 +183,7 @@
 				<div class="grid">
 					<Label class="mb-2 p-2">{i18n.t('snapps.labels.utm-params')}</Label>
 					<UTMParams bind:params={utmParams} />
-					<Label class="mt-4 mb-2 p-2">{i18n.t('menu.tags')}</Label>
+					<Label class="mb-2 mt-4 p-2">{i18n.t('menu.tags')}</Label>
 					<TagSelector bind:tags f={page.data.fetch} />
 					<Label class="mb-2 mt-4 p-2">{i18n.t('menu.groups')}</Label>
 					<GroupSelector bind:groups f={page.data.fetch} />
