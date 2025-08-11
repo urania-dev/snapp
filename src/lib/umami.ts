@@ -1,25 +1,11 @@
 import type { RequestEvent } from '@sveltejs/kit';
 
-import {Umami} from '@umami/node';
 import { env as privateEnv } from '$env/dynamic/private';
 import { env } from '$env/dynamic/public';
 
 import { getSettings } from './server/config';
 import { log } from './server/log';
-
-
-export const getUmami = (hostUrl:string, websiteId:string, userAgent?:string)=>{
-	if(!hostUrl||hostUrl.trim() === '') return
-    //~ init
-    const umamiClient = new Umami({
-        hostUrl, 
-        userAgent,
-        websiteId
-    });
-    
- 
-    return umamiClient
-}
+import  { getUmami } from './umami-client';
 
 export const logSnappNotFound = async (event: RequestEvent) => {
 	const settings = await getSettings()
@@ -70,7 +56,7 @@ export const logSecretInvalidOnSnapp = async (event: RequestEvent) => {
 		const userAgent = event.request.headers.get('user-agent')?.toString()
 		try {
 			const umami = getUmami(umamiURL, umamiID, userAgent)
-			await umami?.track(payload)
+			await umami?.track(payload, {})
 		} catch (error) {
 			if (privateEnv.LOG_LEVEL === 'debug')
 				log.error(error)

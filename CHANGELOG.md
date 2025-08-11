@@ -288,3 +288,5 @@
   - [#128 Bad behavior for manual shortcode](https://github.com/urania-dev/snapp/issues/128) fixed script and now will check on FE before submitting if exists
 - 0.9-rc-025
   - [#128 Bad behavior for manual shortcode](https://github.com/urania-dev/snapp/issues/128) shortcode is not slugified by default anymore for consistencies between API and frontend UI. 
+- 0.9-rc-026
+  - [#129 Umami fixes](https://github.com/urania-dev/snapp/issues/129) fixed some umami callback not fetching location of client

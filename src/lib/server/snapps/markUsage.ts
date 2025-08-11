@@ -3,7 +3,6 @@ import type { Snapp } from '@prisma/client';
 import { type RequestEvent } from '@sveltejs/kit';
 import { env } from '$env/dynamic/private';
 import { prisma } from '$lib/db/prisma';
-import { getUmami } from '$lib/umami';
 import { UAParser } from 'ua-parser-js';
 
 import { getSettings } from '../config';
@@ -104,8 +103,7 @@ export const markUsage = async (
 		};
 
 		try {
-			const umami = getUmami(umamiURL,umamiID,userAgent)
-				await umami?.track(payload)
+			await event.fetch(umamiURL + '/api/send', {method:"POST", body:JSON.stringify({payload, type:"event"})})
 			} catch (error) {
 				if(env.LOG_LEVEL==='debug')log.error(error)
 			}
