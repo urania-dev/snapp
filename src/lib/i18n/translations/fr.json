@@ -82,7 +82,7 @@
 			"username-invalid": "Le nom d'utilisateur est invalide. Veuillez fournir un nom d'au moins trois caractères pour votre profil.",
 			"user-already-exists": "Nom d'utilisateur déjà pris. Veuillez en essayer un autre.",
 			"reset-token-expired": "Le jeton de réinitialisation de mot de passe a expiré.",
-			"blacklisted":"Cet e-mail n’est pas autorisé sur la plateforme, essayez de contacter l’administrateur de la plateforme."
+			"blacklisted": "Cet e-mail n’est pas autorisé sur la plateforme, essayez de contacter l’administrateur de la plateforme."
 		},
 		"generic": "Erreur non reconnue, veuillez réessayer plus tard.",
 		"oidc-client-unavailable": "Erreur avec {provider} : ce fournisseur n'est pas disponible pour le moment.",
@@ -115,7 +115,7 @@
 		"refresh": "Rafraîchir"
 	},
 	"homepage": {
-		"feedback":"Ton avis compte",
+		"feedback": "Ton avis compte",
 		"intro": "Une solution <em>open-source et auto-hébergée</em> pour stocker et gérer vos URLs",
 		"hero": {
 			"headline": "Simplifiez la gestion de vos URLs",
@@ -215,7 +215,7 @@
 			"enable-signup": "Activer les inscriptions",
 			"disable-homepage": "Désactiver la page d'accueil",
 			"allow-http": "Autoriser HTTP non sécurisé",
-			"custom-home-redirect":"Redirection vers la page d'accueil"
+			"custom-home-redirect": "Redirection vers la page d'accueil"
 		},
 		"helpers": {
 			"signups": "Autoriser les inscriptions externes depuis l'interface.",
@@ -346,7 +346,7 @@
 				"mfa-single": "Activez l'authentification à deux facteurs avec un mot de passe à usage unique basé sur le temps (TOTP).",
 				"reset-mfa": "Cela déconnectera votre profil de l'authentificateur actuel. Un nouveau code QR sera nécessaire.",
 				"set-new-password": "Définissez un mot de passe pour votre compte.",
-				"confirm-delete":"Supprimer cet utilisateur entraînera la suppression de tous ses snapps et des analyses associées. Voulez-vous vraiment continuer ?"
+				"confirm-delete": "Supprimer cet utilisateur entraînera la suppression de tous ses snapps et des analyses associées. Voulez-vous vraiment continuer ?"
 			},
 			"reset-mfa": "Réinitialiser l'authentification multi-facteurs",
 			"resend-verify-email": "Renvoyer l'e-mail de vérification",

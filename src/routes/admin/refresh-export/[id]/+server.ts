@@ -19,7 +19,7 @@ export const GET = async ({ fetch, locals: { user }, params: { id } }) => {
 	try {
 		await fetch('/admin/check-export/' + id);
 	} catch (error) {
-		log.error(error)
+		log.error(error);
 	}
 
 	return json({ success: true });

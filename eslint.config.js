@@ -30,13 +30,12 @@ export default ts.config(
 			parserOptions: {
 				parser: ts.parser,
 				svelteFeatures: {
-					experimentalGenerics: true,  // THIS FIXES THE TS ERROR
-				  }
+					experimentalGenerics: true // THIS FIXES THE TS ERROR
+				}
 			}
 		},
-        rules:{
-			'svelte/no-at-html-tags': 'off',
-		},
-  
+		rules: {
+			'svelte/no-at-html-tags': 'off'
+		}
 	}
 );

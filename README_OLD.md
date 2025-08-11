@@ -55,8 +55,11 @@ fixed version. Once stable will be released as Latest and v.1.0.0.
   of your Snapp instance. Find all Scalar Docs [here](https://snapp.li/docs).
 
 ---
+
 ## This is a major refactor, the database has been rewritten
+
 ### Always backup before attempting any update
+
 ---
 
 ## Getting Started
@@ -70,7 +73,7 @@ services:
     ports:
       - 3000:3000
     environment:
-      DATABASE_URL: "file:./db.sqlite"
+      DATABASE_URL: 'file:./db.sqlite'
       DATABASE_PROVIDER: sqlite # mysql | sqlite | postgres
       TOKEN_SECRET: # openssl rand -base64 32
       ORIGIN: https://example.com
@@ -123,14 +126,14 @@ Some configuration moved from envs variable to settings page in-app, thou there
 are some ENV that could be set as default on first launch, here's the complete list with the page using the env variable:
 
 ```bash
-ADMIN_PASSWORD= 
+ADMIN_PASSWORD=
 # src\hooks.server.ts
-ADMIN_EMAIL= 
+ADMIN_EMAIL=
 # src\hooks.server.ts
 # src\routes\db-error\+page.server.ts
-ADMIN_USERNAME= 
+ADMIN_USERNAME=
 # src\hooks.server.ts
-LOG_LEVEL= 
+LOG_LEVEL=
 # src\hooks.server.ts
 # src\lib\server\auth\oidc\config.ts
 # src\lib\server\config\index.ts
@@ -146,49 +149,49 @@ LOG_LEVEL=
 # src\routes\dashboard\+page.server.ts
 # src\routes\db-error\+page.server.ts
 # src\routes\settings\+page.server.ts
-DEBUG= 
+DEBUG=
 # src\lib\server\auth\db.ts
-NODE_ENV= 
+NODE_ENV=
 # src\lib\server\auth\index.ts
 # src\lib\server\params\index.ts
 # src\routes\+page.server.ts
 # src\routes\auth\mfa\setup\+page.server.ts
 # src\routes\auth\[provider]\+page.server.ts
 # src\routes\settings\+page.server.ts
-ALLOW_UNSECURE_HTTP= 
+ALLOW_UNSECURE_HTTP=
 # src\lib\server\config\index.ts
-APPNAME= 
+APPNAME=
 # src\lib\server\config\index.ts
-DISABLE_HOME= 
+DISABLE_HOME=
 # src\lib\server\config\index.ts
-ENABLE_LIMITS= 
+ENABLE_LIMITS=
 # src\lib\server\config\index.ts
-MAX_SNAPPS_PER_USER= 
+MAX_SNAPPS_PER_USER=
 # src\lib\server\config\index.ts
-PUBLIC_UMAMI_WEBSITE_ID= 
-# src\lib\server\config\index.ts
-# src\lib\umami.ts
-PUBLIC_UMAMI_WEBSITE_URL= 
+PUBLIC_UMAMI_WEBSITE_ID=
 # src\lib\server\config\index.ts
 # src\lib\umami.ts
-RPD_REQUESTS= 
+PUBLIC_UMAMI_WEBSITE_URL=
 # src\lib\server\config\index.ts
-RPM_REQUESTS= 
+# src\lib\umami.ts
+RPD_REQUESTS=
 # src\lib\server\config\index.ts
-SMTP_FROM= 
+RPM_REQUESTS=
 # src\lib\server\config\index.ts
-SMTP_HOST= 
+SMTP_FROM=
 # src\lib\server\config\index.ts
-SMTP_PASS= 
+SMTP_HOST=
 # src\lib\server\config\index.ts
-SMTP_PORT= 
+SMTP_PASS=
 # src\lib\server\config\index.ts
-SMTP_SSL= 
+SMTP_PORT=
 # src\lib\server\config\index.ts
-SMTP_USER= 
+SMTP_SSL=
+# src\lib\server\config\index.ts
+SMTP_USER=
 # src\lib\server\config\index.ts
 # src\lib\server\smtp\index.ts
-PUBLIC_URL= 
+PUBLIC_URL=
 # src\lib\server\emails\auth\forgotPasswordEmail.svelte
 # src\lib\server\emails\auth\resetPasswordEmail.svelte
 # src\lib\server\emails\auth\signupEmail.svelte
@@ -197,48 +200,48 @@ PUBLIC_URL=
 # src\lib\server\emails\invitationEmail.svelte
 # src\lib\server\emails\smtpTest.svelte
 # src\routes\+layout.svelte
-PUBLIC_SNAPP_VERSION= 
+PUBLIC_SNAPP_VERSION=
 # src\routes\+page.svelte
-DISABLED_EMAIL_AND_PASSWORD= 
+DISABLED_EMAIL_AND_PASSWORD=
 # src\routes\auth\sign-in\+page.server.ts, src\routes\auth\sign-up\+page.server.ts
-ORIGIN= 
+ORIGIN=
 # src\routes\auth\[provider]\+page.server.ts, src\routes\auth\[provider]\callback\+server.ts
-PROD= 
+PROD=
 # src\routes\auth\[provider]\callback\+server.ts
-URLS_VIA_GROUPS_ONLY= 
+URLS_VIA_GROUPS_ONLY=
 # src\routes\dashboard\shorten\+page.server.ts
-PUBLIC_ADMIN_CONTACT= 
+PUBLIC_ADMIN_CONTACT=
 # src\routes\db-error\+page.svelte
 
-# AUTH_PROVIDERS is a list like 
+# AUTH_PROVIDERS is a list like
 # AUTH_PROVIDERS=GOOGLE,KEYCLOAK,AUTHELIA
-AUTH_PROVIDERS= 
+AUTH_PROVIDERS=
 # src\lib\server\auth\oidc\config.ts
 
 # AUTH follow AUTH_[PROVIDER]_ENV_NAME so
-AUTH_AUTHELIA_CLIENT_ID= 
+AUTH_AUTHELIA_CLIENT_ID=
 # src\lib\server\auth\oidc\config.ts
-AUTH_AUTHELIA_CLIENT_SECRET= 
+AUTH_AUTHELIA_CLIENT_SECRET=
 # src\lib\server\auth\oidc\config.ts
-AUTH_AUTHELIA_ISSUER= 
-# src\lib\server\auth\oidc\config.ts
-
-# ---
-AUTH_GOOGLE_CLIENT_ID= 
-# src\lib\server\auth\oidc\config.ts
-AUTH_GOOGLE_CLIENT_SECRET= 
-# src\lib\server\auth\oidc\config.ts
-AUTH_GOOGLE_ISSUER= 
+AUTH_AUTHELIA_ISSUER=
 # src\lib\server\auth\oidc\config.ts
 
 # ---
-AUTH_KEYCLOAK_CLIENT_ID= 
+AUTH_GOOGLE_CLIENT_ID=
 # src\lib\server\auth\oidc\config.ts
-AUTH_KEYCLOAK_CLIENT_SECRET= 
+AUTH_GOOGLE_CLIENT_SECRET=
 # src\lib\server\auth\oidc\config.ts
-AUTH_KEYCLOAK_CLIENT_SCOPE= 
+AUTH_GOOGLE_ISSUER=
 # src\lib\server\auth\oidc\config.ts
-AUTH_KEYCLOAK_ISSUER= 
+
+# ---
+AUTH_KEYCLOAK_CLIENT_ID=
+# src\lib\server\auth\oidc\config.ts
+AUTH_KEYCLOAK_CLIENT_SECRET=
+# src\lib\server\auth\oidc\config.ts
+AUTH_KEYCLOAK_CLIENT_SCOPE=
+# src\lib\server\auth\oidc\config.ts
+AUTH_KEYCLOAK_ISSUER=
 # src\lib\server\auth\oidc\config.ts
 ```
 

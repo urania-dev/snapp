@@ -13,14 +13,14 @@
 
 	let {
 		allowUnsecureHTTP,
-		customRedirect=$bindable(),
+		customRedirect = $bindable(),
 		disableHome,
 		enabledMFA,
 		enableLimits,
-		enableSignup,
+		enableSignup
 	}: {
 		allowUnsecureHTTP: boolean;
-		customRedirect:null|string,
+		customRedirect: null | string;
 		disableHome: boolean;
 		enabledMFA: boolean;
 		enableLimits: boolean;
@@ -59,8 +59,6 @@
 			value: enabledMFA === true || false
 		}
 	]);
-
-
 </script>
 
 {#each items as item}
@@ -83,22 +81,34 @@
 			/>
 		</div>
 	</div>
-	{#if item.id ==="DisableHome" && disableHome === true}
-	<form class="w-full flex flex-col" transition:fly|global={{delay: prefersReducedMotion.current ? 0: 400, y: prefersReducedMotion.current ? 0:12}}	
-	method="post"
-	id="customRedirect"
-	action="?/customRedirect"
-	use:enhance={({ formData }) => {
-		if(customRedirect) formData.set('customRedirect',customRedirect );
-		return async ({ result }) => {
-			await applyAction(result);
-			await invalidateAll();
-		};
-	}}><Label class="pb-2">{i18n.t('settings.label.custom-home-redirect')}</Label>
-	<Input name="customRedirect" onchange={async()=>{
-		document.forms.namedItem('customRedirect')?.requestSubmit()
-	}} type="text" bind:value={customRedirect} />
-	</form>
+	{#if item.id === 'DisableHome' && disableHome === true}
+		<form
+			class="flex w-full flex-col"
+			transition:fly|global={{
+				delay: prefersReducedMotion.current ? 0 : 400,
+				y: prefersReducedMotion.current ? 0 : 12
+			}}
+			method="post"
+			id="customRedirect"
+			action="?/customRedirect"
+			use:enhance={({ formData }) => {
+				if (customRedirect) formData.set('customRedirect', customRedirect);
+				return async ({ result }) => {
+					await applyAction(result);
+					await invalidateAll();
+				};
+			}}
+		>
+			<Label class="pb-2">{i18n.t('settings.label.custom-home-redirect')}</Label>
+			<Input
+				name="customRedirect"
+				onchange={async () => {
+					document.forms.namedItem('customRedirect')?.requestSubmit();
+				}}
+				type="text"
+				bind:value={customRedirect}
+			/>
+		</form>
 	{/if}
 	<Separator />
 {/each}

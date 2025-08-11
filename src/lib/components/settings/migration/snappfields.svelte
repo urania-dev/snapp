@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import P from '$lib/components/typography/text/p.svelte';
 	import { getTranslations } from '$lib/i18n/index.svelte';
 

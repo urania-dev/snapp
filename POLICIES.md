@@ -142,4 +142,3 @@ The API, now regulated by these new policies, will ensure secure and structured 
 ## Conclusion
 
 These policies, powered by ZenStack for Prisma, provide a robust security layer for the Snapp database. By enforcing strict access control while enabling necessary operations, they enhance security and regulatory compliance in managing user data and API interactions.
-

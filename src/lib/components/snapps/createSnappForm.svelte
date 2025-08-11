@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { type Snapp } from '@prisma/client'; 
+	import { type Snapp } from '@prisma/client';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import * as Form from '$lib/components/ui/form';
@@ -60,7 +60,7 @@
 	let hasSecret = $state(false);
 	let hasExpiration = $state(false);
 	let hasMaxUsages = $state(false);
-	let slugExists = $state(false)
+	let slugExists = $state(false);
 
 	let activeTab = $state('notes');
 	let tags = $state<string[]>([]);
@@ -129,13 +129,20 @@
 
 									const f = page.data.fetch as typeof fetch;
 									d.debounce(async () => {
-										const {data,error} = (await(await f(`/api/snapp/findFirst?q=${JSON.stringify({where:{shortcode:value}})}`)).json() as {data?: null|Snapp, error?:{message:string}}) || {data:null, error:{message:"errors.generic"}};
-										if(error) toast.error(error?.message)
-										if(data){
-											slugExists = true
-											return
+										const { data, error } = ((await (
+											await f(
+												`/api/snapp/findFirst?q=${JSON.stringify({ where: { shortcode: value } })}`
+											)
+										).json()) as { data?: null | Snapp; error?: { message: string } }) || {
+											data: null,
+											error: { message: 'errors.generic' }
+										};
+										if (error) toast.error(error?.message);
+										if (data) {
+											slugExists = true;
+											return;
 										}
-										slugExists = false
+										slugExists = false;
 									}, 500)();
 								}
 							}}
@@ -143,9 +150,13 @@
 					{/snippet}
 				</Form.Control>
 				{#if slugExists}
-				<Form.Description class="px-2 text-destructive">{@html i18n.t('snapps.helpers.shortcode-exists')}</Form.Description>
+					<Form.Description class="px-2 text-destructive"
+						>{@html i18n.t('snapps.helpers.shortcode-exists')}</Form.Description
+					>
 				{:else}
-				<Form.Description class="px-2">{@html i18n.t('snapps.helpers.shortcode')}</Form.Description>
+					<Form.Description class="px-2"
+						>{@html i18n.t('snapps.helpers.shortcode')}</Form.Description
+					>
 				{/if}
 				<Form.FieldErrors />
 			</Form.Field>

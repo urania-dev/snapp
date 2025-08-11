@@ -13,7 +13,7 @@
 
 	let data = $state<{ id: null | string; name: null | string; value: number }[]>([]);
 	const loadData = async () => {
-		if(!browser) return
+		if (!browser) return;
 
 		try {
 			const res = (await (
@@ -37,7 +37,7 @@
 				data = res.data.map((d) => ({ id: d.country, name: d.country, value: d._count.country }));
 			}
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
 	};
 

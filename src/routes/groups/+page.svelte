@@ -8,7 +8,7 @@
 	import { getTranslations } from '$lib/i18n/index.svelte';
 	const { data } = $props();
 	const i18n = getTranslations();
-	import SvelteSeo from "svelte-seo";
+	import SvelteSeo from 'svelte-seo';
 
 	let createDialog = $state(false);
 </script>
@@ -49,4 +49,4 @@
 {#if data.user.role !== 'user'}
 	<CreateGroup createForm={data.createForm} bind:open={createDialog} />
 {/if}
-<SvelteSeo title={`${(data.appname||'Snapp')} | ${i18n.t('menu.groups')}`} />
+<SvelteSeo title={`${data.appname || 'Snapp'} | ${i18n.t('menu.groups')}`} />

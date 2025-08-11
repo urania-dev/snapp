@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import { page } from '$app/state';
 	import P from '$lib/components/typography/text/p.svelte';
 	import { Button } from '$lib/components/ui/button';
@@ -8,12 +7,11 @@
 	const f = $derived(page.data.fetch as typeof fetch);
 	const checkCSV = async () => {
 		try {
-			
 			const res = await (await f('/admin/check-export/' + page.data.user.id)).json();
 			if (res.available) ready = true;
 			else ready = false;
 		} catch (error) {
-			console.error(error)
+			console.error(error);
 		}
 	};
 

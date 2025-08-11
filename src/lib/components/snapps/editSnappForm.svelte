@@ -31,7 +31,7 @@
 		applyAction: true,
 		invalidateAll: true,
 		onError: async () => {
-			console.log(Object.fromEntries(page.form.entries()))
+			console.log(Object.fromEntries(page.form.entries()));
 			if (page.form?.message) toast.info(decode(i18n.t(page.form.message)));
 		},
 		onResult: async ({ result }) => {
@@ -133,9 +133,9 @@
 							icon="link-simple"
 							placeholder={i18n.t('snapps.placeholders.shortcode')}
 							{...props}
-							oninput={(e)=>{
-								const value = e.currentTarget.value
-								if(value.trim()!=='') $formData.shortcode=value.replace(/\s+/g, '-')
+							oninput={(e) => {
+								const value = e.currentTarget.value;
+								if (value.trim() !== '') $formData.shortcode = value.replace(/\s+/g, '-');
 							}}
 							bind:value={$formData.shortcode}
 						/>
@@ -159,7 +159,7 @@
 			<Separator />
 		</div>
 		<Separator orientation="vertical" class="hidden lg:block" />
-		<Tabs.Root bind:value={activeTab} class="w-full pt-0 lg:pt-3 p-3">
+		<Tabs.Root bind:value={activeTab} class="w-full p-3 pt-0 lg:pt-3">
 			<Tabs.List class="grid h-max w-full grid-cols-2 gap-2">
 				<Tabs.Trigger class="min-w-max" value="notes">{i18n.t('snapps.fields.notes')}</Tabs.Trigger>
 				<Tabs.Trigger class="min-w-max" value="advanced">{i18n.t('globals.advanced')}</Tabs.Trigger>

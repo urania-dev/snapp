@@ -1,8 +1,7 @@
-
 export { default as AdminPanel } from './component.svelte';
 
 export const checkVTApiKey = async (f: typeof fetch, key?: null | string) => {
-	if (!key||key?.trim()==='') return false;
+	if (!key || key?.trim() === '') return false;
 	const weekAgo = new Date();
 	weekAgo.setDate(weekAgo.getDate() - 7);
 
@@ -23,7 +22,6 @@ export const checkVTApiKey = async (f: typeof fetch, key?: null | string) => {
 	if (!res?.data?.links) return false;
 
 	try {
-		
 		const analysis = await (
 			await f(res.data.links.self, {
 				headers: {
@@ -31,12 +29,12 @@ export const checkVTApiKey = async (f: typeof fetch, key?: null | string) => {
 				}
 			})
 		).json();
-		
+
 		if (typeof analysis === 'object') {
 			return true;
 		} else return false;
 	} catch (error) {
-		console.error(error)
+		console.error(error);
 	}
-	return false	
+	return false;
 };

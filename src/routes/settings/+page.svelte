@@ -11,14 +11,14 @@
 	import { SMTPSettings } from '$lib/components/settings/smtpSettings';
 	import { WatchLists } from '$lib/components/settings/watchlists';
 	import SettingsSidebar from '$lib/components/sidebar/settingsSidebar.svelte';
-	import UTMGlobalParams from "$lib/components/snapps/utmGlobalParams.svelte"
+	import UTMGlobalParams from '$lib/components/snapps/utmGlobalParams.svelte';
 	import H2 from '$lib/components/typography/heading/h2.svelte';
 	import H4 from '$lib/components/typography/heading/h4.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { Separator } from '$lib/components/ui/separator';
 	import { getTranslations } from '$lib/i18n/index.svelte';
 	import { decode } from 'html-entities';
-	import SvelteSeo from "svelte-seo";
+	import SvelteSeo from 'svelte-seo';
 	import { toast } from 'svelte-sonner';
 	import { prefersReducedMotion } from 'svelte/motion';
 	import { SvelteURL } from 'svelte/reactivity';
@@ -35,25 +35,23 @@
 	});
 </script>
 
-<div class="flex w-full items-center flex-row px-4">
+<div class="flex w-full flex-row items-center px-4">
 	<div class="flex h-20 w-full items-center gap-2">
 		<i class="ph-duotone ph-gear text-[32px]"></i>
 		<H2 class="m-0 p-0">{i18n.t('menu.settings')}</H2>
 	</div>
-	<form action="?/signOut" use:enhance method=post>
-		<Button
-		type="submit"
-		>
-		<i class="ph-bold ph-sign-out"></i>
-		<span class="hidden md:block">
-			{i18n.t('users.auth.sign-out')}
-		</span>
-	</Button>
-</form>
+	<form action="?/signOut" use:enhance method="post">
+		<Button type="submit">
+			<i class="ph-bold ph-sign-out"></i>
+			<span class="hidden md:block">
+				{i18n.t('users.auth.sign-out')}
+			</span>
+		</Button>
+	</form>
 </div>
 <Separator />
 <div class="flex h-full w-full flex-col md:flex-row">
-	<SettingsSidebar	
+	<SettingsSidebar
 		bind:url
 		{active}
 		isAdmin={data.user.role !== 'user'}
@@ -101,10 +99,7 @@
 				{/if}
 				{#if active === '#smtp' && data.smtpForm}
 					<H4 class="mt-4 hidden md:block">{i18n.t('admin.labels.smtp')}</H4>
-					<SMTPSettings
-						smtpForm={data.smtpForm}
-						SMTP_SSL={data.smtp.ssl as boolean | false}
-					/>
+					<SMTPSettings smtpForm={data.smtpForm} SMTP_SSL={data.smtp.ssl as boolean | false} />
 				{/if}
 				{#if active === '#watchlists' && data.blackListForm && data.whiteListForm}
 					<H4 class="mt-4 hidden md:block">{i18n.t('admin.labels.watchlists')}</H4>
@@ -117,13 +112,13 @@
 				{#if active === '#migration'}
 					<H4 class="mt-4 hidden md:block">{i18n.t('migrations.label')}</H4>
 					<MigrationPanel user={data.user} />
-					{/if}
-					{#if active === '#utmParams'}
+				{/if}
+				{#if active === '#utmParams'}
 					<UTMGlobalParams />
-					{/if}
+				{/if}
 			</div>
 		{/key}
 	</div>
 </div>
 
-<SvelteSeo title={`${(data.appname||'Snapp')} | ${i18n.t('menu.settings')}`} />
+<SvelteSeo title={`${data.appname || 'Snapp'} | ${i18n.t('menu.settings')}`} />

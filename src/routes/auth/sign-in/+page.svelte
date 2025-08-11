@@ -18,13 +18,17 @@
 			</div>
 		</Card.Header>
 		<Card.Content class="px-8">
-			<SignInForm emailDisabled={data.emailDisabled} providers={data.providers} signInForm={data.form} />
+			<SignInForm
+				emailDisabled={data.emailDisabled}
+				providers={data.providers}
+				signInForm={data.form}
+			/>
 		</Card.Content>
 		<Card.Footer>
 			{#if data.emailDisabled === false}
-			<P class="text-center text-sm">
-				{@html i18n.t('users.auth.go-to-signup', { url: '/auth/sign-up' })}
-			</P>
+				<P class="text-center text-sm">
+					{@html i18n.t('users.auth.go-to-signup', { url: '/auth/sign-up' })}
+				</P>
 			{/if}
 		</Card.Footer>
 	</Card.Root>

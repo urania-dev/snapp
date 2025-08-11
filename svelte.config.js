@@ -3,7 +3,7 @@ import adapter from 'svelte-adapter-bun';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	extensions: ['.svelte',],
+	extensions: ['.svelte'],
 
 	kit: {
 		adapter: adapter({
@@ -18,10 +18,7 @@ const config = {
 		}
 	},
 
-	preprocess: [
-		vitePreprocess(),
-	]
+	preprocess: [vitePreprocess()]
 };
-
 
 export default config;

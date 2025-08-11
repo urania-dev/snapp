@@ -10,7 +10,7 @@
 
 	let {
 		snappStructure = $bindable(),
-		structuredFields = $bindable(),
+		structuredFields = $bindable()
 	}: {
 		snappStructure: {
 			createdAt: string | undefined;

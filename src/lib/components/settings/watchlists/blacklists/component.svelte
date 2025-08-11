@@ -33,7 +33,7 @@
 				await f(`${apiBase}/findMany?q=${blackListQueryUsernames}`, { credentials: 'include' })
 			).json()) as { data: WatchList[]; error: { message: string } };
 			if (error) toast.error(error.message);
-			return data 
+			return data;
 		} catch (err) {
 			console.error(err);
 		}
@@ -45,7 +45,7 @@
 				await f(`${apiBase}/findMany?q=${blackListQueryEmails}`, { credentials: 'include' })
 			).json()) as { data: WatchList[]; error: { message: string } };
 			if (error) toast.error(error.message);
-			return data 
+			return data;
 		} catch (err) {
 			console.error(err);
 		}
@@ -57,7 +57,7 @@
 				await f(`${apiBase}/findMany?q=${blackListQueryDomains}`, { credentials: 'include' })
 			).json()) as { data: WatchList[]; error: { message: string } };
 			if (error) toast.error(error.message);
-			return data 
+			return data;
 		} catch (err) {
 			console.error(err);
 		}

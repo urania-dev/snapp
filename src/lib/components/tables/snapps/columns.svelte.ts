@@ -228,15 +228,14 @@ export const columns = (i18n: TranslationsStoreType, isPrivateView: boolean = tr
 			accessorKey: 'utmParams',
 			cell: ({ row }) =>
 				renderComponent(UTMColumn, {
-					utms: row.original.utmParams||"[]"
+					utms: row.original.utmParams || '[]'
 				}),
 			enableHiding: true,
 			enableSorting: true,
 			header: () => {
 				const getHeader = createRawSnippet<[]>(() => {
 					return {
-						render: () =>
-							`<div class="capitalize w-full text-center">UTM</div>`
+						render: () => `<div class="capitalize w-full text-center">UTM</div>`
 					};
 				});
 				return renderSnippet(getHeader, {});

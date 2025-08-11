@@ -29,9 +29,9 @@ export const GET = async (event) => {
 		throw error(400, 'Provider not found in cookie');
 	}
 
-	const providers = await getProviders()
-	const config = getOIDCConfig(provider!,providers);
-	
+	const providers = await getProviders();
+	const config = getOIDCConfig(provider!, providers);
+
 	if (!config) {
 		throw error(400, 'Provider not found');
 	}
@@ -100,21 +100,21 @@ export const GET = async (event) => {
 		maxAge: 60 * 10,
 		path: '/',
 		sameSite: 'strict',
-		secure: env.NODE_ENV==="production"||true
+		secure: env.NODE_ENV === 'production' || true
 	});
 	cookies.delete('oauth_state', {
 		httpOnly: true,
 		maxAge: 60 * 10,
 		path: '/',
 		sameSite: 'strict',
-		secure: env.NODE_ENV==="production"||true
+		secure: env.NODE_ENV === 'production' || true
 	});
 	cookies.delete('oauth_identity', {
 		httpOnly: true,
 		maxAge: 60 * 10,
 		path: '/',
 		sameSite: 'strict',
-		secure: env.NODE_ENV==="production"||true
+		secure: env.NODE_ENV === 'production' || true
 	});
 	redirect(302, '/dashboard');
 };

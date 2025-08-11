@@ -81,12 +81,17 @@
 		}
 	]);
 
-	const isRTL = $derived(i18n.locale === 'ar')
+	const isRTL = $derived(i18n.locale === 'ar');
 </script>
 
 {#if SHOW_MENU}
 	<div class="relative">
-		<Sidebar.Root id="settings" collapsible="icon" side={isRTL ? 'right':'left'} --sidebar-width-icon="48px">
+		<Sidebar.Root
+			id="settings"
+			collapsible="icon"
+			side={isRTL ? 'right' : 'left'}
+			--sidebar-width-icon="48px"
+		>
 			<Sidebar.Content>
 				<Sidebar.Group class="!gap-2 p-0">
 					{#each menuItems as item}

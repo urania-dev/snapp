@@ -19,7 +19,7 @@
 
 <div
 	class={cn(
-		'group m-[1px] flex h-10 w-full overflow-clip items-center gap-2 rounded border border-input px-2 py-0.5 focus-within:outline-none focus-within:ring-2',
+		'group m-[1px] flex h-10 w-full items-center gap-2 overflow-clip rounded border border-input px-2 py-0.5 focus-within:outline-none focus-within:ring-2',
 		container
 	)}
 >

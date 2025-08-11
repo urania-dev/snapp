@@ -14,7 +14,7 @@
 
 	let data = $state<{ id: null | string; name: null | string; value: number }[]>([]);
 	const loadData = async () => {
-		if(!browser) return
+		if (!browser) return;
 
 		try {
 			const res = (await (

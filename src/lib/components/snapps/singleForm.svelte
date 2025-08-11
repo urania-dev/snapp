@@ -19,7 +19,7 @@
 		onError: async () => {
 			if (page.form?.message) toast.info(decode(i18n.t(page.form.message)));
 		},
-		onResult:async()=>{
+		onResult: async () => {
 			if (page.form?.message) toast.info(decode(i18n.t(page.form.message)));
 		},
 		validators: zodClient(singleSchema)

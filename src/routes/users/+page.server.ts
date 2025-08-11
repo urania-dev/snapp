@@ -4,7 +4,7 @@ import { fail, redirect } from '@sveltejs/kit';
 import { createUserSchema } from '$lib/components/auth/schema.js';
 import { createPasswordResetToken } from '$lib/server/auth';
 import { getSettings } from '$lib/server/config';
-import InvitationEmail from '$lib/server/emails/invitationEmail.svelte'
+import InvitationEmail from '$lib/server/emails/invitationEmail.svelte';
 import { ParamsHandler } from '$lib/server/params/index.js';
 import { sendEmail } from '$lib/server/smtp';
 import { superValidate } from 'sveltekit-superforms';
@@ -113,15 +113,15 @@ export const actions = {
 		const settings = await getSettings();
 
 		const { tokenHash } = await createPasswordResetToken(guest.id);
-			const recoveryURL = `${event.url.origin}/auth/recover-password?token=${tokenHash}`;
-			const appname = settings.get<string>('appname') || 'Snapp';
+		const recoveryURL = `${event.url.origin}/auth/recover-password?token=${tokenHash}`;
+		const appname = settings.get<string>('appname') || 'Snapp';
 
-			sendEmail(
-				InvitationEmail,
-				{ appname, recoveryURL },
-				guest.email,
-				appname + ' | You have been invited'
-			);
+		sendEmail(
+			InvitationEmail,
+			{ appname, recoveryURL },
+			guest.email,
+			appname + ' | You have been invited'
+		);
 		return { form };
 	},
 	delete: async (event) => {

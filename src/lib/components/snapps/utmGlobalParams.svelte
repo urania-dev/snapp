@@ -8,7 +8,7 @@
 	import { toast } from 'svelte-sonner';
 	import { prefersReducedMotion } from 'svelte/motion';
 	import { SvelteMap } from 'svelte/reactivity';
-	import {  fly } from 'svelte/transition';
+	import { fly } from 'svelte/transition';
 
 	import H4 from '../typography/heading/h4.svelte';
 	import P from '../typography/text/p.svelte';
@@ -62,8 +62,8 @@
 			console.error(error);
 			toast.error('errors.generic');
 		}
-		loading = false
-		saving = false
+		loading = false;
+		saving = false;
 	};
 
 	$effect(() => {
@@ -73,7 +73,7 @@
 	});
 
 	const updateParams = async () => {
-		saving = true
+		saving = true;
 		const f = page.data.fetch as typeof fetch;
 		try {
 			const data = [];
@@ -106,29 +106,29 @@
 			console.error(error);
 			toast.error('errors.generic');
 		}
-		loading = false
-		saving = false
+		loading = false;
+		saving = false;
 	};
 
-	let loading = $state(true)
-	let saving = $state(true)
+	let loading = $state(true);
+	let saving = $state(true);
 </script>
 
 <div class="mb-4 grid content-start gap-0">
-	<div class="flex mt-2 items-center w-full justify-between">
+	<div class="mt-2 flex w-full items-center justify-between">
 		<H4 class="hidden md:block">{i18n.t('snapps.labels.utm-params')}</H4>
 		<Button disabled={saving} class="w-full md:max-w-max" onclick={updateParams}>
-			<div class="flex gap-2 items-center">
+			<div class="flex items-center gap-2">
 				<span>
-				{i18n.t('globals.save')}
+					{i18n.t('globals.save')}
 				</span>
 				{#if saving}
-				<div class="animate-spin w-5 h-5 flex items-center">
-					<i class="ph-duotone ph-spinner text-[20px]"></i>
-				</div>
+					<div class="flex h-5 w-5 animate-spin items-center">
+						<i class="ph-duotone ph-spinner text-[20px]"></i>
+					</div>
 				{:else}
-				<i class="ph-duotone ph-floppy-disk text-[20px]"></i>
-{/if}
+					<i class="ph-duotone ph-floppy-disk text-[20px]"></i>
+				{/if}
 			</div>
 		</Button>
 	</div>
@@ -137,95 +137,85 @@
 		>{i18n.t('snapps.helpers.utm-global-params')}</P
 	>
 	{#if loading}
-	<div class="flex h-full min-h-[100px] w-full items-center justify-center">
-		<div class="h-5 w-5 animate-spin duration-1000">
-			<i class="ph ph-spinner text-[20px]"></i>
+		<div class="flex h-full min-h-[100px] w-full items-center justify-center">
+			<div class="h-5 w-5 animate-spin duration-1000">
+				<i class="ph ph-spinner text-[20px]"></i>
+			</div>
 		</div>
-	</div>
 	{:else}
-	<div in:fly={{opacity: prefersReducedMotion.current ? 1 :0,x:0, y:0}}>
-
-		<Table.Root>
-			<Table.Header>
-				<Table.Row>
-					<Table.Head class="h-10 w-8 p-1"></Table.Head>
-					<Table.Head class="h-10">
-						<span class="p-1 px-2 text-sm">{i18n.t('snapps.labels.utm.name')}</span>
-					</Table.Head>
-					<Table.Head class="h-10">
-						<span class="p-1 px-2 text-sm">{i18n.t('snapps.labels.utm.key')}</span>
-					</Table.Head>
-					<Table.Head class="h-10">
-						<span class="p-1 px-2 text-sm">{i18n.t('snapps.labels.utm.value')}</span>
-					</Table.Head>
-				</Table.Row>
-			</Table.Header>
-		<Table.Body>
-			{#each params.entries() as [paramKey, param] ([param.name, param.key].join('_'))}
-			<Table.Row>
-				<Table.Cell class="p-1"
-				><Button
-				variant="ghost"
-				class="h-8 w-8"
-				onclick={() => {
-					params.delete(paramKey);
-				}}><i class="ph ph-minus text-[20px]"></i></Button
-						></Table.Cell
-						>
-						<Table.Cell class="p-1">
-							<Input disabled={saving}
-							type="text"
-							value={param.name}
-							onchange={(e) => {
-								const p = param
-								params.delete(paramKey)
-								const value = e.currentTarget.value;
-								params.set(value, { ...p, name: value });
-							}}
-						/>
-					</Table.Cell>
-					<Table.Cell class="p-1">
-						<Input disabled={saving}
-						type="text"
-						bind:value={param.key}
-						
-						/>
-					</Table.Cell>
-					<Table.Cell class="p-1">
-						<Input disabled={saving}
-						type="text"
-						bind:value={param.value}
-						
-						/>
-					</Table.Cell>
-					
-				</Table.Row>
-				{/each}
-			</Table.Body>
-			{#if showFooter}
-			<Table.Footer class="bg-muted/20">
-				<Table.Row>
-					<Table.Cell class="p-1"
-						><Button
-						variant="ghost"
-						class="h-8 w-8"
-						onclick={() => {
-							params.set(`NEW_UTM_${params.size}`, {
-								key: 'utm_',
-								name: `NEW_UTM_${params.size}`,
-								value: ''
-							});
-						}}><i class="ph ph-plus text-[20px]"></i></Button
-						></Table.Cell
-						>
-					<Table.Cell class="p-1"></Table.Cell>
-					<Table.Cell class="p-1"></Table.Cell>
-					<Table.Cell class="p-1" colspan={2}></Table.Cell>
-				</Table.Row>
-			</Table.Footer>
-			{/if}
-		</Table.Root>
-	</div>
-		{/if}
-	</div>
-	
+		<div in:fly={{ opacity: prefersReducedMotion.current ? 1 : 0, x: 0, y: 0 }}>
+			<Table.Root>
+				<Table.Header>
+					<Table.Row>
+						<Table.Head class="h-10 w-8 p-1"></Table.Head>
+						<Table.Head class="h-10">
+							<span class="p-1 px-2 text-sm">{i18n.t('snapps.labels.utm.name')}</span>
+						</Table.Head>
+						<Table.Head class="h-10">
+							<span class="p-1 px-2 text-sm">{i18n.t('snapps.labels.utm.key')}</span>
+						</Table.Head>
+						<Table.Head class="h-10">
+							<span class="p-1 px-2 text-sm">{i18n.t('snapps.labels.utm.value')}</span>
+						</Table.Head>
+					</Table.Row>
+				</Table.Header>
+				<Table.Body>
+					{#each params.entries() as [paramKey, param] ([param.name, param.key].join('_'))}
+						<Table.Row>
+							<Table.Cell class="p-1"
+								><Button
+									variant="ghost"
+									class="h-8 w-8"
+									onclick={() => {
+										params.delete(paramKey);
+									}}><i class="ph ph-minus text-[20px]"></i></Button
+								></Table.Cell
+							>
+							<Table.Cell class="p-1">
+								<Input
+									disabled={saving}
+									type="text"
+									value={param.name}
+									onchange={(e) => {
+										const p = param;
+										params.delete(paramKey);
+										const value = e.currentTarget.value;
+										params.set(value, { ...p, name: value });
+									}}
+								/>
+							</Table.Cell>
+							<Table.Cell class="p-1">
+								<Input disabled={saving} type="text" bind:value={param.key} />
+							</Table.Cell>
+							<Table.Cell class="p-1">
+								<Input disabled={saving} type="text" bind:value={param.value} />
+							</Table.Cell>
+						</Table.Row>
+					{/each}
+				</Table.Body>
+				{#if showFooter}
+					<Table.Footer class="bg-muted/20">
+						<Table.Row>
+							<Table.Cell class="p-1"
+								><Button
+									variant="ghost"
+									class="h-8 w-8"
+									onclick={() => {
+										params.set(`NEW_UTM_${params.size}`, {
+											key: 'utm_',
+											name: `NEW_UTM_${params.size}`,
+											value: ''
+										});
+									}}><i class="ph ph-plus text-[20px]"></i></Button
+								></Table.Cell
+							>
+							<Table.Cell class="p-1"></Table.Cell>
+							<Table.Cell class="p-1"></Table.Cell>
+							<Table.Cell class="p-1" colspan={2}></Table.Cell>
+						</Table.Row>
+					</Table.Footer>
+				{/if}
+			</Table.Root>
+		</div>
+	{/if}
+</div>

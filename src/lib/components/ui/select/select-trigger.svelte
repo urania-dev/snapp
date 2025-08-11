@@ -2,14 +2,13 @@
 	import { cn } from '$lib/utils';
 	import { Select as SelectPrimitive, type WithoutChild } from 'bits-ui';
 
-
 	let {
 		children,
 		class: className,
 		ref = $bindable(null),
-		showArrow=true,
+		showArrow = true,
 		...restProps
-	}: {showArrow?:boolean} & WithoutChild<SelectPrimitive.TriggerProps> = $props();
+	}: { showArrow?: boolean } & WithoutChild<SelectPrimitive.TriggerProps> = $props();
 </script>
 
 <SelectPrimitive.Trigger
@@ -21,8 +20,7 @@
 	{...restProps}
 >
 	{@render children?.()}
-	{#if showArrow &&
-	 restProps.disabled}
+	{#if showArrow && restProps.disabled}
 		<i class="ph ph-lock text-[20px]"></i>
 	{:else if showArrow}
 		<i class="ph ph-caret-down text-[20px]"></i>

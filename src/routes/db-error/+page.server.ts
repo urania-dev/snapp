@@ -5,8 +5,6 @@ import { log } from '$lib/server/log';
 import { sendEmail } from '$lib/server/smtp';
 import { logDatabaseNotAvailable } from '$lib/umami';
 
-
-
 const hasSentEmail = {
 	sent: null as Date | null
 };
@@ -23,9 +21,8 @@ export const load = async (event) => {
 			await sendEmail(DbErrorEmail, {}, process.env.ADMIN_EMAIL || '', 'SNAPP DB OFFLINE');
 			hasSentEmail.sent = new Date();
 		}
-		logDatabaseNotAvailable(event)
+		logDatabaseNotAvailable(event);
 	} catch (error) {
 		if (process.env.LOG_LEVEL === 'debug') log.error(error);
 	}
 };
-

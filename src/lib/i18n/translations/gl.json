@@ -82,7 +82,7 @@
 			"username-invalid": "O nome de usuario é inválido. Por favor, proporciona un nome de ao menos tres caracteres para o teu perfil.",
 			"user-already-exists": "O nome de usuario xa está en uso. Por favor, proba cun outro.",
 			"reset-token-expired": "O token de recuperación de contrasinal expirou.",
-			"blacklisted":"Este correo electrónico non está autorizado na plataforma, tenta contactar co administrador da plataforma."
+			"blacklisted": "Este correo electrónico non está autorizado na plataforma, tenta contactar co administrador da plataforma."
 		},
 		"generic": "Erro non recoñecido, por favor inténtao de novo máis tarde.",
 		"oidc-client-unavailable": "Error con {provider}: este proveedor no está disponible en este momento.",
@@ -115,7 +115,7 @@
 		"refresh": "Actualizar"
 	},
 	"homepage": {
-		"feedback":"A túa opinión importa",
+		"feedback": "A túa opinión importa",
 		"intro": "Unha solución <em>de código aberto e auto-aloxada</em> para almacenar e xestionar as túas URLs",
 		"hero": {
 			"headline": "Simplifica a xestión das túas URLs",
@@ -255,7 +255,7 @@
 			"previous-expiration": "Esta URL xa ten caducidade establecida, expira {relativeTime}",
 			"previous-secret": "Esta URL xa ten un segredo establecido",
 			"provide-secret": "Por favor, proporcione o segredo para continuar",
-			"utm-global-params":  "Estes parámetros serán almacenados e estarán dispoñibles na aplicación cando edites ou engadas un URL á base de datos, garantindo un seguimento coherente das campañas",
+			"utm-global-params": "Estes parámetros serán almacenados e estarán dispoñibles na aplicación cando edites ou engadas un URL á base de datos, garantindo un seguimento coherente das campañas",
 			"utm-params": "Pode configurar parámetros reutilizables, como etiquetas UTM, para engadilos automaticamente ás súas URLs, evitando erros manuais e garantindo datos analíticos máis precisos."
 		},
 		"label": "Lista de URLs",
@@ -346,7 +346,7 @@
 				"mfa-single": "Active a autenticación de dous factores cun contrasinal temporal (TOTP).",
 				"reset-mfa": "Isto desconectará o seu perfil do autenticador actual. Será necesario un novo código QR.",
 				"set-new-password": "Estableza unha contrasinal para a súa conta.",
-				"confirm-delete":"Ao eliminar este usuario eliminaranse todos os seus snapps e análises relacionadas, estás seguro de querer continuar?"
+				"confirm-delete": "Ao eliminar este usuario eliminaranse todos os seus snapps e análises relacionadas, estás seguro de querer continuar?"
 			},
 			"reset-mfa": "Restablecer MFA",
 			"resend-verify-email": "Volver a enviar o correo de verificación",

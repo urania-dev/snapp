@@ -61,7 +61,7 @@
 	},
 	"errors": {
 		"snapps": {
-			"unallowed-not-group":  "管理员已将平台的使用设置为仅通过群组进行。请至少选择一个群组以继续。",
+			"unallowed-not-group": "管理员已将平台的使用设置为仅通过群组进行。请至少选择一个群组以继续。",
 			"unallowed-not-https": "原始网址必须是安全的HTTPS链接",
 			"original-url-missing": "必须提供原始网址以进行重定向",
 			"original-url-blacklisted": "此网址已被列入黑名单或被VirusTotal API标记",
@@ -82,10 +82,10 @@
 			"username-invalid": "用户名无效。请提供至少三个字符的名称作为您的个人资料。",
 			"user-already-exists": "用户名已被占用。请尝试其他名称。",
 			"reset-token-expired": "密码恢复重置令牌已过期。",
-			"blacklisted":"此电子邮件未被授权使用该平台，请尝试联系平台管理员。"
+			"blacklisted": "此电子邮件未被授权使用该平台，请尝试联系平台管理员。"
 		},
 		"generic": "未知错误，请稍后再试。",
-		"oidc-client-unavailable":  "与 {provider} 出现错误：该提供商当前不可用。",
+		"oidc-client-unavailable": "与 {provider} 出现错误：该提供商当前不可用。",
 		"unauthorized": "未授权"
 	},
 	"globals": {
@@ -115,7 +115,7 @@
 		"refresh": "刷新"
 	},
 	"homepage": {
-		"feedback":"你的意见很重要",
+		"feedback": "你的意见很重要",
 		"intro": "一个<em>开源且可自托管</em>的解决方案，用于存储和管理您的 URL",
 		"hero": {
 			"headline": "简化您的 URL 管理",
@@ -215,7 +215,7 @@
 			"enable-signup": "允许注册",
 			"disable-homepage": "禁用主页",
 			"allow-http": "允许不安全的 HTTP",
-			"custom-home-redirect":"主页重定向"
+			"custom-home-redirect": "主页重定向"
 		},
 		"helpers": {
 			"signups": "允许用户从前端自行注册。",
@@ -346,7 +346,7 @@
 				"mfa-single": "使用基于时间的一次性密码 (TOTP) 启用双因素身份验证。",
 				"reset-mfa": "这将使您的账户与当前的身份验证器断开连接。用户需要扫描新的二维码。",
 				"set-new-password": "为您的账户设置新密码。",
-				"confirm-delete":"删除此用户将会移除其所有 Snapp 和相关分析数据，您确定要继续吗 "
+				"confirm-delete": "删除此用户将会移除其所有 Snapp 和相关分析数据，您确定要继续吗 "
 			},
 			"reset-mfa": "重置 MFA",
 			"resend-verify-email": "重新发送验证邮件",
@@ -356,7 +356,7 @@
 			"otp": "一次性验证码",
 			"recover-password": "恢复密码",
 			"sign-in": "登录",
-			"sign-out":"登出",
+			"sign-out": "登出",
 			"sign-up": "注册",
 			"forgot-password": "忘记密码？"
 		},

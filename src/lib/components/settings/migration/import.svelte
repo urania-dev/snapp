@@ -50,37 +50,38 @@
 	};
 
 	const parseTableWithSnappStructure = async () => {
-			if (!files?.length) {
-				return toast.error('No file uploaded');
-			}
-			
-			const file = files[0];
-			if (!file.name.endsWith('.csv')) return toast.error('Invalid file type');
-			
-			const rawData = papa.parse(await file.text(), { header: true }).data as Record<
+		if (!files?.length) {
+			return toast.error('No file uploaded');
+		}
+
+		const file = files[0];
+		if (!file.name.endsWith('.csv')) return toast.error('Invalid file type');
+
+		const rawData = papa.parse(await file.text(), { header: true }).data as Record<
 			string,
 			string
 		>[];
 
 		if (!rawData.length) return toast.error('No data found in file');
-		
+
 		parsedData = rawData
-		.map((row) => {
+			.map((row) => {
 				const groupId =
-				((row?.[snappStructure.groupId!] as string)?.trim() !== '' &&
+					((row?.[snappStructure.groupId!] as string)?.trim() !== '' &&
 						(row?.[snappStructure.groupId!] as string)) ||
-						null;
+					null;
 				const snapp = {
 					createdAt:
-					(snappStructure.createdAt && new Date(row?.[snappStructure.createdAt!])) || new Date(),
+						(snappStructure.createdAt && new Date(row?.[snappStructure.createdAt!])) || new Date(),
 					disabled:
-					(typeof row?.[snappStructure.disabled!] === 'boolean' &&
+						(typeof row?.[snappStructure.disabled!] === 'boolean' &&
 							Boolean(row?.[snappStructure.disabled!])) ||
 						row?.[snappStructure.disabled!] === 'true' ||
 						false,
-						expiresAt:
-						(row?.[snappStructure.expiresAt!] && new Date(row?.[snappStructure.expiresAt!])) || null,
-						group:
+					expiresAt:
+						(row?.[snappStructure.expiresAt!] && new Date(row?.[snappStructure.expiresAt!])) ||
+						null,
+					group:
 						(groupId && {
 							connectOrCreate: {
 								create: { name: groupId, notes: null, slug: groupId, users: [] },
@@ -88,24 +89,23 @@
 							}
 						}) ||
 						undefined,
-						groupId: groupId || undefined,
-						hit: parseInt(row?.[snappStructure.hit!] || '0'),
-						maxUsages: parseInt(row?.[snappStructure.maxUsages!] || '0'),
-						notes: row?.[snappStructure.notes!] || null,
-						originalUrl: row?.[snappStructure.originalUrl!],
-						secret: row?.[snappStructure.secret!] || null,
-						shortcode: row?.[snappStructure.shortcode!],
-						userId: user.id,
-						utmParams: row?.[snappStructure.utmParams!]
+					groupId: groupId || undefined,
+					hit: parseInt(row?.[snappStructure.hit!] || '0'),
+					maxUsages: parseInt(row?.[snappStructure.maxUsages!] || '0'),
+					notes: row?.[snappStructure.notes!] || null,
+					originalUrl: row?.[snappStructure.originalUrl!],
+					secret: row?.[snappStructure.secret!] || null,
+					shortcode: row?.[snappStructure.shortcode!],
+					userId: user.id,
+					utmParams: row?.[snappStructure.utmParams!]
 				};
 				return snapp;
 			})
 			.filter((p) => p?.shortcode);
-			
-		parsedTable = true;
 
+		parsedTable = true;
 	};
-	
+
 	let parsedData = $state<
 		{ [key: string]: boolean | Date | null | number | object | string | undefined }[]
 	>([]);
@@ -141,7 +141,6 @@
 	let users = $state<User[]>([user]);
 
 	let parsedTable = $state(false);
-
 
 	const updateSnappStructure = (fields: Set<string>) => {
 		snappStructure.createdAt =
@@ -187,7 +186,6 @@
 		document.forms.namedItem('load-csv')?.requestSubmit();
 	};
 	let uploading = $state(false);
-
 </script>
 
 <form
@@ -198,7 +196,7 @@
 		const parsed = $state
 			.snapshot(parsedData)
 			.filter((p) => 'shortcode' in p && (p.shortcode as string)?.trim() !== '');
-		
+
 		for (const item of parsed) {
 			formData.append('snapp[]', JSON.stringify(item));
 		}
@@ -257,8 +255,7 @@
 		</div>
 	{/if}
 	{#if parsedTable === true}
-	
-		 <div class="mt-4 flex w-full items-center gap-2">
+		<div class="mt-4 flex w-full items-center gap-2">
 			<P class="!m-0 px-4 text-sm text-muted-foreground"
 				>{i18n.t('migrations.helpers.user-overwrite')}</P
 			>
@@ -290,7 +287,7 @@
 							</Table.Row>
 						</Table.Header>
 						<Table.Body>
-							 {#each (parsedData.slice(start, end)||[]) as data, idx (data.shortcode)}
+							{#each parsedData.slice(start, end) || [] as data, idx (data.shortcode)}
 								<Table.Row class="h-[72px]" id={data.shortcode as string}>
 									<Table.Cell>
 										<UserSelector
@@ -306,7 +303,7 @@
 										<Table.Cell>
 											{#if ['createdAt', 'expiresAt'].includes(field)}
 												{data?.[field] && formatTimeAgo(data?.[field] as Date, page.data.locale)}
-											{:else if ['utmParams'].includes(field)&& (typeof data?.[field] === "string")}
+											{:else if ['utmParams'].includes(field) && typeof data?.[field] === 'string'}
 												<span class="w-full text-center"
 													>{JSON.parse((data?.[field] as string) || '').length ||
 														decode('&mdash;')}</span
@@ -324,7 +321,7 @@
 										</Table.Cell>
 									{/each}
 								</Table.Row>
-							{/each} 
+							{/each}
 						</Table.Body>
 					</Table.Root>
 				</Card.Content>
@@ -389,6 +386,6 @@
 					></Button
 				>
 			</div>
-		</div> 
+		</div>
 	{/if}
 </Tabs.Content>

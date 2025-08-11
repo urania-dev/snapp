@@ -21,20 +21,19 @@ export const load = async (event) => {
 		const UMAMI_WEBSITE_URL =
 			settings.get<string>('PUBLIC_UMAMI_WEBSITE_URL') || pubEnv.PUBLIC_UMAMI_WEBSITE_URL;
 		const umami = getUmami(UMAMI_WEBSITE_URL || '', UMAMI_WEBSITE_ID || '', userAgent);
-		await umami?.track({ title: '/', url:event.url, ip: realIp,userAgent });
-
-} catch (error) {
-	if (env.LOG_LEVEL === 'debug') log.error(error);
-}
-return {
-	availableLanguages,
-	disableHome,
-	dockerCompose: await dockerCompose(event.locals.theme),
-	locale: event.locals.lang,
-	startDocker: await startDocker(event.locals.theme),
-	translations: await loadTranslations(event.locals.lang || 'en'),
-	userAgent,
-};
+		await umami?.track({ title: '/', url: event.url, ip: realIp, userAgent });
+	} catch (error) {
+		if (env.LOG_LEVEL === 'debug') log.error(error);
+	}
+	return {
+		availableLanguages,
+		disableHome,
+		dockerCompose: await dockerCompose(event.locals.theme),
+		locale: event.locals.lang,
+		startDocker: await startDocker(event.locals.theme),
+		translations: await loadTranslations(event.locals.lang || 'en'),
+		userAgent
+	};
 };
 
 export const actions = {

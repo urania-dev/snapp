@@ -108,7 +108,7 @@ export const actions = {
 		for (const params of utmParams) {
 			url.searchParams.set(params.key, params.value);
 		}
-		
+
 		if (available) redirect(302, url);
 		else
 			return {

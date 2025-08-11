@@ -82,11 +82,11 @@
 			"username-invalid": "Username non valido. Deve contenere almeno 3 caratteri.",
 			"user-already-exists": "Username già in uso. Prova un altro.",
 			"reset-token-expired": "Il token per il reset è scaduto.",
-			"blacklisted":"Questa email non è autorizzata sulla piattaforma, prova a contattare l'amministratore della piattaforma"
+			"blacklisted": "Questa email non è autorizzata sulla piattaforma, prova a contattare l'amministratore della piattaforma"
 		},
 		"generic": "Errore non riconosciuto. Riprova più tardi.",
 		"oidc-client-unavailable": "Errore con {provider}: questo provider non è disponibile in questo momento.",
-		"unauthorized":"Non autorizzato"
+		"unauthorized": "Non autorizzato"
 	},
 	"globals": {
 		"cancel": "Annulla",
@@ -115,7 +115,7 @@
 		"refresh": "Aggiorna"
 	},
 	"homepage": {
-		"feedback":"La tua opinione è importante",
+		"feedback": "La tua opinione è importante",
 		"intro": "Una soluzione <em>open-source e self-hosted</em> per gestire e archiviare i tuoi URL",
 		"hero": {
 			"headline": "Gestione URL semplificata",
@@ -215,7 +215,7 @@
 			"enable-signup": "Abilita Registrazioni",
 			"disable-homepage": "Disabilita Homepage",
 			"allow-http": "Permetti HTTP non sicuro",
-			"custom-home-redirect":"Reindirizzamento Homepage"
+			"custom-home-redirect": "Reindirizzamento Homepage"
 		},
 		"helpers": {
 			"signups": "Abilita le registrazioni dal frontend.",
@@ -346,7 +346,7 @@
 				"mfa-single": "Abilita l'autenticazione a due fattori (TOTP).",
 				"reset-mfa": "Questo disassocerà il tuo account dall'autenticatore attuale. Ti verrà richiesto un nuovo QR code.",
 				"set-new-password": "Imposta una nuova password per il tuo account.",
-				"confirm-delete":"Cancellando questo utente rimuoverai tutti i suoi snapp e relative analitiche, vuoi davvero continuare?"
+				"confirm-delete": "Cancellando questo utente rimuoverai tutti i suoi snapp e relative analitiche, vuoi davvero continuare?"
 			},
 			"reset-mfa": "Reimposta MFA",
 			"resend-verify-email": "Reinvia email di verifica",

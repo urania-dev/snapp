@@ -19,15 +19,16 @@ export const load: PageServerLoad = async (event) => {
 		params: { groupId, shortcode }
 	} = event;
 
-
 	const snapp = await prisma.$transaction(async (p) => {
-		await p.snapp.updateMany({ data: { disabled: true }, where: { expiresAt: { lte: new Date() } } })
-		return await p.snapp.findFirst({ where: { groupId, shortcode } })
-	})
-
+		await p.snapp.updateMany({
+			data: { disabled: true },
+			where: { expiresAt: { lte: new Date() } }
+		});
+		return await p.snapp.findFirst({ where: { groupId, shortcode } });
+	});
 
 	if (!snapp) {
-		logSnappNotFound(event)
+		logSnappNotFound(event);
 		throw error(404, { message: 'errors.snapps.not-found' });
 	}
 	const url = new URL(snapp.originalUrl);
@@ -79,17 +80,18 @@ export const actions = {
 			snapp = await prisma.snapp.findFirst({ where: { shortcode } });
 		} catch (error) {
 			log.error(error);
-			return { form: secretForm, message: "errors.generic" }
+			return { form: secretForm, message: 'errors.generic' };
 		}
 		if (!snapp) {
-			logSnappNotFound(event)
-			return fail(400, { form: secretForm, message: 'errors.snapps.not-found', });}
+			logSnappNotFound(event);
+			return fail(400, { form: secretForm, message: 'errors.snapps.not-found' });
+		}
 
-		const isPasswordCorrect = await bcrypt.compare(secretForm.data.secret, snapp.secret!)
+		const isPasswordCorrect = await bcrypt.compare(secretForm.data.secret, snapp.secret!);
 
 		if (!isPasswordCorrect) {
-			logSecretInvalidOnSnapp(event)
-			return fail(400, { form: secretForm, message: "errors.auth.wrong-credentials" })
+			logSecretInvalidOnSnapp(event);
+			return fail(400, { form: secretForm, message: 'errors.auth.wrong-credentials' });
 		}
 		const [available, err] = await markUsage(event, snapp);
 
@@ -114,8 +116,5 @@ export const actions = {
 				message: undefined
 			};
 		}
-
 	}
 };
-
-

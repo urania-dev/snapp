@@ -7,7 +7,11 @@ import { profileSchema, smtpSchema } from '$lib/components/settings/schema';
 import { blackListSchema } from '$lib/components/settings/watchlists/blacklists/schema';
 import { whiteListSchema } from '$lib/components/settings/watchlists/whitelists/schema';
 import { prisma } from '$lib/db/prisma.js';
-import { createPasswordResetToken, deleteSessionTokenCookie, invalidateSessions } from '$lib/server/auth';
+import {
+	createPasswordResetToken,
+	deleteSessionTokenCookie,
+	invalidateSessions
+} from '$lib/server/auth';
 import { createToken } from '$lib/server/auth/db.js';
 import { convertTtlToString } from '$lib/utils';
 import { getSettings } from '$lib/server/config';
@@ -34,7 +38,7 @@ export const load = async ({ locals: { prisma, theme, user } }) => {
 		allowUnsecureHTTP: parsed.ALLOW_UNSECURE_HTTP as boolean,
 		availableLanguages: parsed.AVAILABLE_LANGUAGES as string | undefined,
 		blackListForm: isAdmin && (await superValidate(zod(blackListSchema))),
-		customRedirect: isAdmin && parsed.CUSTOM_REDIRECT as string||null,
+		customRedirect: (isAdmin && (parsed.CUSTOM_REDIRECT as string)) || null,
 		disableHome: isAdmin && (parsed.DISABLE_HOME as boolean),
 		enableLimits: isAdmin && (parsed.ENABLE_LIMITS as boolean),
 		enableSignup: isAdmin && (parsed.ENABLE_SIGNUP as boolean),
@@ -173,7 +177,7 @@ export const actions = {
 			blackListForm
 		};
 	},
-	customRedirect: async ({locals:{prisma,user}, request}) => {
+	customRedirect: async ({ locals: { prisma, user }, request }) => {
 		if (!user) redirect(302, '/auth/sign-in');
 		if (!['admin', 'root'].includes(user.role)) {
 			return fail(403, { message: 'errors.unauthorized' });
@@ -196,7 +200,6 @@ export const actions = {
 			await settings.updateDB();
 			return { message: 'globals.saved' };
 		}
-
 	},
 	enableSignup: async ({ locals: { prisma, user }, request }) => {
 		if (!user) redirect(302, '/auth/sign-in');
@@ -232,7 +235,6 @@ export const actions = {
 				httpOnly: true,
 				path: '/',
 				secure: process.env.NODE_ENV !== 'development'
-
 			});
 			return { message: 'globals.saved' };
 		}
@@ -386,17 +388,16 @@ export const actions = {
 			success: true
 		};
 	},
-	signOut: async (event)=>{
+	signOut: async (event) => {
 		const {
 			locals: { user }
 		} = event;
 		if (!user) redirect(302, '/auth/sign-in');
 
-		await invalidateSessions(user.id)
-		deleteSessionTokenCookie(event)
+		await invalidateSessions(user.id);
+		deleteSessionTokenCookie(event);
 
-		redirect(302,'/auth/sign-in')
-		
+		redirect(302, '/auth/sign-in');
 	},
 	testSMTP: async (event) => {
 		const {
@@ -548,7 +549,7 @@ export const actions = {
 	},
 	tokenGenerate: async ({ locals: { prisma, user }, request }) => {
 		if (!user) redirect(302, '/auth/sign-in');
-		
+
 		const form = await request.formData();
 		const ttlValue = Number(form.get('ttlValue')) || 7;
 		const ttlUnit = form.get('ttlUnit')?.toString() || 'days';
@@ -743,6 +744,6 @@ const code = async (theme: string) =>
 	})`,
 		{
 			lang: 'typescript',
-			theme: ( theme === 'system' ||  theme === 'dark' ? 'github-dark':'github-light')
+			theme: theme === 'system' || theme === 'dark' ? 'github-dark' : 'github-light'
 		}
 	);

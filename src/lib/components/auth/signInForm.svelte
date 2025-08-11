@@ -13,11 +13,14 @@
 	import { Button } from '../ui/button';
 
 	let {
-		emailDisabled=false,
+		emailDisabled = false,
 		providers,
-		signInForm,
-	}: { emailDisabled?:boolean,providers: { identity: string }[]; signInForm: SuperValidated<Infer<SignInSchema>> } =
-		$props();
+		signInForm
+	}: {
+		emailDisabled?: boolean;
+		providers: { identity: string }[];
+		signInForm: SuperValidated<Infer<SignInSchema>>;
+	} = $props();
 
 	const form = superForm(signInForm, {
 		onResult: async ({ result }) => {
@@ -42,59 +45,59 @@
 
 <div class="grid gap-4">
 	{#if !emailDisabled}
-	<form method="POST" use:enhance action="?/signin">
-		<Form.Field {form} name="username">
-			<Form.Control>
-				{#snippet children({ props })}
-					<Form.Label>{i18n.t('users.fields.username')}</Form.Label>
-					<Input
-						icon="user"
-						placeholder={i18n.t('users.placeholders.username')}
-						{...props}
-						bind:value={$formData.username}
-						oninput={(e) => {
-							$formData.username = e.currentTarget.value
-								.toLowerCase()
-								.replace(/\s+/g, '-')
-								.replace(/[^a-z0-9_-]/g, '')
-								.replace(/-+/g, '-');
-						}}
-					/>
-				{/snippet}
-			</Form.Control>
-			<Form.FieldErrors />
-		</Form.Field>
-		<Form.Field {form} name="password">
-			<Form.Control>
-				{#snippet children({ props })}
-					<Form.Label>{i18n.t('users.fields.password')}</Form.Label>
-					<div class="flex h-10 items-center gap-2">
+		<form method="POST" use:enhance action="?/signin">
+			<Form.Field {form} name="username">
+				<Form.Control>
+					{#snippet children({ props })}
+						<Form.Label>{i18n.t('users.fields.username')}</Form.Label>
 						<Input
-							icon="key"
-							placeholder={i18n.t('users.placeholders.password')}
+							icon="user"
+							placeholder={i18n.t('users.placeholders.username')}
 							{...props}
-							type={showPassword ? 'text' : 'password'}
-							bind:value={$formData.password}
+							bind:value={$formData.username}
+							oninput={(e) => {
+								$formData.username = e.currentTarget.value
+									.toLowerCase()
+									.replace(/\s+/g, '-')
+									.replace(/[^a-z0-9_-]/g, '')
+									.replace(/-+/g, '-');
+							}}
 						/>
-						<Button
-							variant="outline"
-							tabindex={-1}
-							class="h-10 w-10"
-							onclick={(e) => {
-								e.preventDefault();
-								showPassword = !showPassword;
-							}}><i class="ph text-[20px] ph-{showPassword ? 'eye' : 'eye-closed'}"></i></Button
-						>
-					</div>
-				{/snippet}
-			</Form.Control>
-			<Form.FieldErrors />
-		</Form.Field>
-		<Button variant="ghost" href="/auth/forgot-password" class="h-8"
-			>{i18n.t('users.auth.forgot-password')}</Button
-		>
-		<Form.Button class="mt-12 w-full">{i18n.t('users.auth.sign-in')}</Form.Button>
-	</form>
+					{/snippet}
+				</Form.Control>
+				<Form.FieldErrors />
+			</Form.Field>
+			<Form.Field {form} name="password">
+				<Form.Control>
+					{#snippet children({ props })}
+						<Form.Label>{i18n.t('users.fields.password')}</Form.Label>
+						<div class="flex h-10 items-center gap-2">
+							<Input
+								icon="key"
+								placeholder={i18n.t('users.placeholders.password')}
+								{...props}
+								type={showPassword ? 'text' : 'password'}
+								bind:value={$formData.password}
+							/>
+							<Button
+								variant="outline"
+								tabindex={-1}
+								class="h-10 w-10"
+								onclick={(e) => {
+									e.preventDefault();
+									showPassword = !showPassword;
+								}}><i class="ph text-[20px] ph-{showPassword ? 'eye' : 'eye-closed'}"></i></Button
+							>
+						</div>
+					{/snippet}
+				</Form.Control>
+				<Form.FieldErrors />
+			</Form.Field>
+			<Button variant="ghost" href="/auth/forgot-password" class="h-8"
+				>{i18n.t('users.auth.forgot-password')}</Button
+			>
+			<Form.Button class="mt-12 w-full">{i18n.t('users.auth.sign-in')}</Form.Button>
+		</form>
 	{/if}
 	{#each providers as provider}
 		<Button

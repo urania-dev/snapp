@@ -57,7 +57,7 @@
 		{
 			id: '#utmParams',
 			label: i18n.t('snapps.labels.utm-params'),
-			visible:true
+			visible: true
 		},
 		{
 			id: '#migration',

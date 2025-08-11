@@ -45,7 +45,7 @@ class MetricsQueryStore {
 	);
 
 	loadFromDb = async () => {
-		if(!browser) return
+		if (!browser) return;
 		const data = [] as CharData[];
 		const f = page.data.fetch as typeof fetch;
 		if (!this.start || !this.end) return;
@@ -68,38 +68,36 @@ class MetricsQueryStore {
 		})}`;
 
 		try {
-			
-		const res = (await (await f(url)).json()) as { data: Usage[] };
-		const usageMap = new Map<string, number>();
+			const res = (await (await f(url)).json()) as { data: Usage[] };
+			const usageMap = new Map<string, number>();
 
-		res.data?.forEach((u) => {
-			const date = new Date(u.timestamp).toLocaleDateString(page.data.locale, {
-				day: 'numeric',
-				month: 'numeric',
-				timeZone: getLocalTimeZone()
+			res.data?.forEach((u) => {
+				const date = new Date(u.timestamp).toLocaleDateString(page.data.locale, {
+					day: 'numeric',
+					month: 'numeric',
+					timeZone: getLocalTimeZone()
+				});
+				usageMap.set(date, (usageMap.get(date) || 0) + 1);
 			});
-			usageMap.set(date, (usageMap.get(date) || 0) + 1);
-		});
 
-		for (
-			let d = new Date(this.start.toDate(getLocalTimeZone()));
-			d <= new Date(this.end.toDate(getLocalTimeZone()));
-			d.setDate(d.getDate() + 1)
-		) {
-			const dateStr = d.toLocaleDateString(page.data.locale, {
-				day: 'numeric',
-				month: 'numeric',
-				timeZone: getLocalTimeZone()
-			});
-			data.push({ date: dateStr, value: usageMap.get(dateStr) || 0 });
+			for (
+				let d = new Date(this.start.toDate(getLocalTimeZone()));
+				d <= new Date(this.end.toDate(getLocalTimeZone()));
+				d.setDate(d.getDate() + 1)
+			) {
+				const dateStr = d.toLocaleDateString(page.data.locale, {
+					day: 'numeric',
+					month: 'numeric',
+					timeZone: getLocalTimeZone()
+				});
+				data.push({ date: dateStr, value: usageMap.get(dateStr) || 0 });
+			}
+
+			return data;
+		} catch (error) {
+			console.error(error);
 		}
-
-		return data;
-
-	} catch (error) {
-		console.error(error)		
-	}
-	return []
+		return [];
 	};
 
 	setEnd = (date: Date = new Date()) =>

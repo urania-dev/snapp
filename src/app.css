@@ -6,7 +6,7 @@
 	.bg-radial {
 		--tw-gradient-position: in oklab;
 		background-image: radial-gradient(var(--tw-gradient-stops));
-	  }
+	}
 }
 
 @layer base {
@@ -120,7 +120,7 @@
 	}
 
 	pre {
-		@apply w-full rounded-sm grow  overflow-auto whitespace-pre p-2 -hue-rotate-180 invert dark:-hue-rotate-0 dark:invert-0 md:whitespace-pre;
+		@apply w-full grow overflow-auto whitespace-pre rounded-sm p-2 -hue-rotate-180 invert dark:-hue-rotate-0 dark:invert-0 md:whitespace-pre;
 	}
 
 	* {
@@ -128,12 +128,16 @@
 	}
 }
 
-html[dir=rtl]{
-	.ph,.ph-duotone,.ph-fill,.ph-bold,.ph-thin{
-		transform: scaleX(-1)!important
+html[dir='rtl'] {
+	.ph,
+	.ph-duotone,
+	.ph-fill,
+	.ph-bold,
+	.ph-thin {
+		transform: scaleX(-1) !important;
 	}
 
-	pre{
-		direction:ltr!important
+	pre {
+		direction: ltr !important;
 	}
 }

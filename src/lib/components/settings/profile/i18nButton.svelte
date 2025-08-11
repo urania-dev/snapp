@@ -7,14 +7,13 @@
 
 	let {
 		availableLanguages,
-		class:classes='',
+		class: classes = '',
 		language
 	}: {
 		availableLanguages: string;
-		class?: string,
+		class?: string;
 		language: string;
 	} = $props();
-
 </script>
 
 <form
@@ -25,8 +24,8 @@
 		return async ({ result }) => {
 			await applyAction(result);
 			await invalidateAll();
-			if(language === 'ar') document.dir = 'rtl'
-			else document.dir="l"
+			if (language === 'ar') document.dir = 'rtl';
+			else document.dir = 'l';
 		};
 	}}
 	action="?/language"
@@ -37,12 +36,14 @@
 		bind:value={language}
 		onOpenChange={(open) => {
 			if (!open && language !== page.data.locale)
-			document.forms.namedItem('changeLanguage')?.requestSubmit();
-	}}
+				document.forms.namedItem('changeLanguage')?.requestSubmit();
+		}}
 	>
-	<Select.Trigger  showArrow={false} 
-		class="w-10 h-10 flex flex-col font-semibold capitalize bg-transparent {classes} ">
-			<i class="ph-duotone text-[24px] ph-translate"></i>
+		<Select.Trigger
+			showArrow={false}
+			class="flex h-10 w-10 flex-col bg-transparent font-semibold capitalize {classes} "
+		>
+			<i class="ph-duotone ph-translate text-[24px]"></i>
 		</Select.Trigger>
 		<Select.Content class="m-2">
 			{#each availableLanguages?.split(',') || [] as lang}

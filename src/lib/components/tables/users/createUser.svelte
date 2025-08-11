@@ -84,9 +84,21 @@
 										class="w-full capitalize">{$formData.role}</Select.Trigger
 									>
 									<Select.Content class="max-h-[200px] overflow-y-auto">
-										<Select.Item class="capitalize" value="user" label={i18n.t('users.roles.user')} />
-										<Select.Item class="capitalize" value="admin" label={i18n.t('users.roles.admin')} />
-										<Select.Item class="capitalize" value="root" label={i18n.t('users.roles.root')} />
+										<Select.Item
+											class="capitalize"
+											value="user"
+											label={i18n.t('users.roles.user')}
+										/>
+										<Select.Item
+											class="capitalize"
+											value="admin"
+											label={i18n.t('users.roles.admin')}
+										/>
+										<Select.Item
+											class="capitalize"
+											value="root"
+											label={i18n.t('users.roles.root')}
+										/>
 									</Select.Content>
 								</Select.Root>
 							{/snippet}

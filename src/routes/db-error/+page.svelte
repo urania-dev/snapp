@@ -4,8 +4,7 @@
 	import H3 from '$lib/components/typography/heading/h3.svelte';
 	import P from '$lib/components/typography/text/p.svelte';
 	import * as Card from '$lib/components/ui/card';
-	import SvelteSeo from "svelte-seo";
-
+	import SvelteSeo from 'svelte-seo';
 </script>
 
 <div class="flex h-full w-full items-center justify-center p-4">
@@ -34,4 +33,4 @@
 		>
 	</Card.Root>
 </div>
-<SvelteSeo title={`${(page.data.appname||'Snapp')} | DB OFFLINE`} />
+<SvelteSeo title={`${page.data.appname || 'Snapp'} | DB OFFLINE`} />

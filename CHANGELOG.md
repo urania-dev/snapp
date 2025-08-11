@@ -225,10 +225,10 @@
 
 ---
 
-- 0.9-rc: 
+- 0.9-rc:
   - The App is now mature enough to be considered a release candidate, i would like to hear your feedbacks and find all the bugs and stuff I forgot around.
-  - I tried rebuild the app taking in account the membership of users divided by tag (now groups), integrating shadcn-svelte UI now that is lighter, 
-  and all the other community requested features I added randomly.
+  - I tried rebuild the app taking in account the membership of users divided by tag (now groups), integrating shadcn-svelte UI now that is lighter,
+    and all the other community requested features I added randomly.
   - The API Rest interface is now guided by Zenstack, that allow Column-level policies for authorizing read and write on the databases. I sugges to read dedicated [Policy page](./POLICIES.md)
   - The app now refuse to start if necesessaies ENV are missing
 - 0.9-rc-001:
@@ -249,18 +249,18 @@
   - Fixed: [#99 Callback-URL wrong in docs + oauth docs are unclear](https://github.com/urania-dev/snapp/issues/99)
 - 0.9-rc-007:
   - Fixed: [#67 Adding ability to change what user the shortcode belongs to on front end](https://github.com/urania-dev/snapp/discussions/67)  
-      now possible with env PUBLIC_EXTRA_GROUPS_EDITABLE=true it will show edit in group snapps dashboard
+     now possible with env PUBLIC_EXTRA_GROUPS_EDITABLE=true it will show edit in group snapps dashboard
 - 0.9-rc-008/009/010:
   - Fixed: [#101 Import/Export](https://github.com/urania-dev/snapp/issues/101)
   - Fixed: [#102 Unable to invite user (0.9-rc-008)](https://github.com/urania-dev/snapp/issues/102)
   - Fixed: [#103 Add curl or wget on Docker image](https://github.com/urania-dev/snapp/issues/102) Added curl and /health
   - Added new ENV DISABLED_EMAIL_AND_PASSWORD [#100 Let Admins remove email/password registration alltogether when OIDC is connected](https://github.com/urania-dev/snapp/discussions/100)
   - Minor: Added version and i18n on public homepage + added Arabic (ar.json)
-- 0.9-rc-011  > Latest post 0.9-rc
+- 0.9-rc-011 > Latest post 0.9-rc
   - SQLITE: fixed missing schema files from docker builder
   - Fixed some necessities for Coolify service PR
 - 0.9-rc-012
-  - Added UTM Params to UMAMI Metrics Payload 
+  - Added UTM Params to UMAMI Metrics Payload
 - 0.9-rc-013
   - Improved Umami integration via @umami/node sdk:
     - Mark usage of URL
@@ -281,12 +281,12 @@
 - 0.9-rc-021
   - Merge pull request #125 from gtmaurtw33/0.9-rc
 - 0.9-rc-022
-  - [#126 Revoked JWT tokens are still valid](https://github.com/urania-dev/snapp/issues/126) JWT get now verified against db after validation to ensure expired or removed tokens don't work anymore via api 
+  - [#126 Revoked JWT tokens are still valid](https://github.com/urania-dev/snapp/issues/126) JWT get now verified against db after validation to ensure expired or removed tokens don't work anymore via api
 - 0.9-rc-023
   - [#127 fix(env), feat(i18n)](https://github.com/urania-dev/snapp/pull/127) logging fix and browser language
 - 0.9-rc-024
   - [#128 Bad behavior for manual shortcode](https://github.com/urania-dev/snapp/issues/128) fixed script and now will check on FE before submitting if exists
 - 0.9-rc-025
-  - [#128 Bad behavior for manual shortcode](https://github.com/urania-dev/snapp/issues/128) shortcode is not slugified by default anymore for consistencies between API and frontend UI. 
+  - [#128 Bad behavior for manual shortcode](https://github.com/urania-dev/snapp/issues/128) shortcode is not slugified by default anymore for consistencies between API and frontend UI.
 - 0.9-rc-026 & 0.9-rc-027
   - [#129 Umami fixes](https://github.com/urania-dev/snapp/issues/129) fixed some umami callback not fetching location of client

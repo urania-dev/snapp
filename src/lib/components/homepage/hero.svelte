@@ -28,7 +28,7 @@
 						>
 						<span class="text-sm">{i18n.t('homepage.feedback')}</span>
 						<span class="bg-(--color-border) block h-4 text-center"></span>
-						<i class="ph ph-arrow-right text-[20px] px-2"></i>
+						<i class="ph ph-arrow-right px-2 text-[20px]"></i>
 					</a>
 
 					<H1 class="mx-auto my-8 w-full max-w-xl text-center font-black tracking-wide"
@@ -57,7 +57,7 @@
 					class="bg-linear-to-b absolute inset-0 z-10 from-transparent from-35% to-background"
 				></div>
 				<div class="relative mx-auto max-w-6xl overflow-hidden px-4">
-					{#if (page.data.theme === 'dark' || page.data.theme === 'system' )&& isMobile.current === false}
+					{#if (page.data.theme === 'dark' || page.data.theme === 'system') && isMobile.current === false}
 						<img
 							class="z-2 relative hidden rounded-2xl border border-border/25 object-contain lg:dark:block"
 							src="/screenshot.png"
@@ -71,7 +71,7 @@
 							alt="app screen light"
 						/>
 					{/if}
-					{#if (page.data.theme === 'dark' || page.data.theme === 'system' )&& isMobile.current}
+					{#if (page.data.theme === 'dark' || page.data.theme === 'system') && isMobile.current}
 						<img
 							class="z-2 relative mx-auto hidden rounded-2xl border border-border/25 object-contain dark:block lg:hidden"
 							src="/screenshot-mobile.png"

@@ -6,7 +6,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import { Separator } from '$lib/components/ui/separator';
 	import { getTranslations } from '$lib/i18n/index.svelte';
-	import SvelteSeo from 'svelte-seo'
+	import SvelteSeo from 'svelte-seo';
 
 	const { data } = $props();
 	const i18n = getTranslations();
@@ -46,4 +46,4 @@
 
 <CreateUser createForm={data.createForm} bind:open={createDialog} />
 
-<SvelteSeo title={`${(data.appname||'Snapp')} | ${i18n.t('menu.users')}`} />
+<SvelteSeo title={`${data.appname || 'Snapp'} | ${i18n.t('menu.users')}`} />

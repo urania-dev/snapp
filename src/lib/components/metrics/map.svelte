@@ -17,7 +17,7 @@
 	const mstore = getMetricsStore();
 
 	const loadData = async () => {
-		if(!browser) return
+		if (!browser) return;
 		const alpha2 = (await import('iso-3166-1-alpha-2')).default;
 		try {
 			const res = (await (
@@ -48,7 +48,7 @@
 	};
 
 	const initMap = async () => {
-		if (!browser||!container) return;
+		if (!browser || !container) return;
 
 		const am5 = await import('@amcharts/amcharts5');
 		const am5Map = await import('@amcharts/amcharts5/map');

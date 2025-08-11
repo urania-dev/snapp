@@ -82,13 +82,13 @@ const themeHandle: Handle = async ({ event, resolve }) => {
 		}
 	}
 
-	event.locals.lang = lang;	
+	event.locals.lang = lang;
 
 	return resolve(event, {
 		transformPageChunk({ html }) {
-			let _html = html.replace('%LANG%', lang)
-			if(['ar'].includes(lang)) _html = _html.replace('%DIR%', 'rtl')
-				else _html =_html.replace('%DIR%', 'ltr')
+			let _html = html.replace('%LANG%', lang);
+			if (['ar'].includes(lang)) _html = _html.replace('%DIR%', 'rtl');
+			else _html = _html.replace('%DIR%', 'ltr');
 			if (theme && theme === 'light') {
 				return _html.replace('class="dark"', 'class="light"');
 			}
@@ -113,7 +113,7 @@ const handleErrorWithDB: Handle = async ({ event, resolve }) => {
 		if (ping) settings.set('DB_OFFLINE', true);
 		else {
 			settings.set('DB_OFFLINE', false);
-			if(process.env.LOG_LEVEL !=='debug') console.clear();
+			if (process.env.LOG_LEVEL !== 'debug') console.clear();
 		}
 	} catch (error) {
 		log.error(error);

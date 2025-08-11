@@ -9,11 +9,11 @@
 
 	let {
 		availableLanguages,
-		class:classes='',
+		class: classes = '',
 		language
 	}: {
 		availableLanguages: string;
-		class?: string,
+		class?: string;
 		language: string;
 	} = $props();
 
@@ -39,11 +39,10 @@
 		bind:value={language}
 		onOpenChange={(open) => {
 			if (!open && language !== page.data.locale)
-			document.forms.namedItem('changeLanguage')?.requestSubmit();
-	}}
+				document.forms.namedItem('changeLanguage')?.requestSubmit();
+		}}
 	>
-	<Select.Trigger 
-		class="w-full font-semibold capitalize {classes} ">
+		<Select.Trigger class="w-full font-semibold capitalize {classes} ">
 			{translateLanguage(page.data.locale, page.data.locale)}
 		</Select.Trigger>
 		<Select.Content>

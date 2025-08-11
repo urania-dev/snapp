@@ -10,7 +10,7 @@
 		...restProps
 	}: WithoutChildrenOrChild<SwitchPrimitive.RootProps> = $props();
 
-	const i18n = getTranslations()
+	const i18n = getTranslations();
 </script>
 
 <SwitchPrimitive.Root
@@ -25,9 +25,8 @@
 	<SwitchPrimitive.Thumb
 		class={cn(
 			'pointer-events-none block size-5 rounded-full bg-background shadow-lg ring-0 transition-transform data-[state=unchecked]:translate-x-0',
-			i18n.locale === 'ar' ? 'data-[state=checked]:-translate-x-5':'',
-			i18n.locale !== 'ar' ? 'data-[state=checked]:translate-x-5':'',
-			
+			i18n.locale === 'ar' ? 'data-[state=checked]:-translate-x-5' : '',
+			i18n.locale !== 'ar' ? 'data-[state=checked]:translate-x-5' : ''
 		)}
 	/>
 </SwitchPrimitive.Root>

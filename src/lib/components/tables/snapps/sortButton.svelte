@@ -29,7 +29,7 @@
 <Button
 	{variant}
 	{...props}
-	class="text-foreground-muted max-w-auto flex w-full text-sm justify-center gap-0 bg-transparent px-1 shadow-none hover:bg-transparent hover:text-foreground"
+	class="text-foreground-muted max-w-auto flex w-full justify-center gap-0 bg-transparent px-1 text-sm shadow-none hover:bg-transparent hover:text-foreground"
 >
 	<span>
 		{i18n.t(data.label)}

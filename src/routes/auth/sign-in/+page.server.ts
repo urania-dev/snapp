@@ -4,7 +4,7 @@ import { prisma } from '$lib/db/prisma';
 import { generateSessionToken } from '$lib/server/auth/index.js';
 import { createSession } from '$lib/server/auth/index.js';
 import { setSessionTokenCookie } from '$lib/server/auth/index.js';
-import { getProviders} from '$lib/server/auth/oidc/config';
+import { getProviders } from '$lib/server/auth/oidc/config';
 import { watchLists } from '$lib/server/watchlists';
 import { logInvalidLoginAttempt } from '$lib/umami';
 import bcrypt from 'bcryptjs';
@@ -14,9 +14,10 @@ import { zod } from 'sveltekit-superforms/adapters';
 export const load = async ({ locals: { user } }) => {
 	if (user) redirect(302, '/dashboard');
 
-	const OIDCConfigs = await getProviders()
+	const OIDCConfigs = await getProviders();
 	const providers = OIDCConfigs.map((o) => ({ identity: o.identity }));
-	const DISABLED_EMAIL_AND_PASSWORD = process.env.DISABLED_EMAIL_AND_PASSWORD?.toLowerCase() === "true" || false
+	const DISABLED_EMAIL_AND_PASSWORD =
+		process.env.DISABLED_EMAIL_AND_PASSWORD?.toLowerCase() === 'true' || false;
 
 	return {
 		emailDisabled: DISABLED_EMAIL_AND_PASSWORD,
@@ -41,7 +42,7 @@ export const actions = {
 			return fail(400, { form, message: 'errors.auth.user-not-found' });
 		}
 
-		const disabled = process.env.DISABLED_EMAIL_AND_PASSWORD?.toLowerCase() === 'true' || false
+		const disabled = process.env.DISABLED_EMAIL_AND_PASSWORD?.toLowerCase() === 'true' || false;
 		if (disabled) {
 			return fail(401, { form, message: 'errors.auth.disabled-auth-email-and-password' });
 		}
@@ -55,10 +56,9 @@ export const actions = {
 		const validPassword = bcrypt.compareSync(form.data.password, auth.password);
 
 		if (!validPassword) {
-			logInvalidLoginAttempt(event)
+			logInvalidLoginAttempt(event);
 			return fail(400, { form, message: 'errors.auth.wrong-credentials' });
 		}
-
 
 		const sessionId = generateSessionToken();
 		const session = await createSession(sessionId, auth.id);
@@ -75,4 +75,3 @@ export const actions = {
 		};
 	}
 };
-

@@ -29,7 +29,7 @@
 	action="?/theme"
 	class="flex flex-col gap-2"
 >
-	<Select.Root 
+	<Select.Root
 		type="single"
 		bind:value={theme}
 		onOpenChange={(open) => {
@@ -37,8 +37,11 @@
 				document.forms.namedItem('changeTheme')?.requestSubmit();
 		}}
 	>
-		<Select.Trigger class="w-full font-semibold bg-transparent"  showArrow={false}>
-			<i class="ph-duotone text-[20px] {page.data.theme === 'dark' && 'ph-moon'} {page.data.theme ==='light' && 'ph-sun'} {page.data.theme && 'ph-devices'}"></i>
+		<Select.Trigger class="w-full bg-transparent font-semibold" showArrow={false}>
+			<i
+				class="ph-duotone text-[20px] {page.data.theme === 'dark' && 'ph-moon'} {page.data.theme ===
+					'light' && 'ph-sun'} {page.data.theme && 'ph-devices'}"
+			></i>
 		</Select.Trigger>
 		<Select.Content>
 			{#each ['dark', 'light', 'system'] as th}

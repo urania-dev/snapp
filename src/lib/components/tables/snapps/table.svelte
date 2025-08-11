@@ -34,7 +34,7 @@
 		page: number;
 		pageCount: number;
 		rowCount: number;
-		tableHeightRem?:number
+		tableHeightRem?: number;
 	};
 	let {
 		columns,
@@ -43,7 +43,7 @@
 		limit = $bindable(),
 		pageCount = $bindable(),
 		rowCount = $bindable(),
-		tableHeightRem=25
+		tableHeightRem = 25
 	}: DataTableProps<TData, TValue> = $props();
 
 	const params = queryParameters(
@@ -172,7 +172,7 @@
 			case 'used':
 				return i18n.t(`snapps.fields.used`);
 			case 'utmParams':
-				return 'UTM'
+				return 'UTM';
 		}
 	};
 	const selected_count = $derived(table.getFilteredSelectedRowModel().rows.length);
@@ -196,7 +196,6 @@
 			swapy?.destroy?.();
 		};
 	});
-
 </script>
 
 <div class="flex items-center gap-2 px-4 pb-2">
@@ -211,7 +210,6 @@
 		/>
 	</div>
 	<DropdownMenu.Root
-	
 		onOpenChange={(open) => {
 			if (open === false) {
 				rearrange = false;
@@ -291,14 +289,14 @@
 							class={cn(
 								'w-24 max-w-24',
 								['originalUrl'].includes(header.id) && '!w-full min-w-32 text-center',
-								['shortcode'].includes(header.id) && 'pe-2 min-w-auto max-w-auto !w-32 text-center',
+								['shortcode'].includes(header.id) && 'min-w-auto max-w-auto !w-32 pe-2 text-center',
 								['createdAt'].includes(header.id) && 'w-24 min-w-max text-center',
-								['hit', 'maxUsages'].includes(header.id) && 'justify-center !w-max text-center',
+								['hit', 'maxUsages'].includes(header.id) && '!w-max justify-center text-center',
 								['expiresAt', 'secret'].includes(header.id) && 'w-auto text-center',
 								header.id === 'id' && '!w-8 min-w-8',
-								header.id==='actions' && "!w-full"
+								header.id === 'actions' && '!w-full'
 							)}
-						> 
+						>
 							{#if !header.isPlaceholder}
 								<FlexRender
 									content={header.column.columnDef.header}
@@ -319,8 +317,7 @@
 								class={cn(
 									'align-center',
 									['expiration', 'secret'].includes(cell.column.id) && '!p-0',
-									['hit', 'maxUsages'].includes(cell.column.id) && 'text-center',
-
+									['hit', 'maxUsages'].includes(cell.column.id) && 'text-center'
 								)}
 							>
 								<FlexRender content={cell.column.columnDef.cell} context={cell.getContext()} />

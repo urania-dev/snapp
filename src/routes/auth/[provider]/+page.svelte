@@ -6,7 +6,7 @@
 	import { fade } from 'svelte/transition';
 
 	const i18n = getTranslations();
-    const {data} = $props()
+	const { data } = $props();
 </script>
 
 <div class="m-auto w-max p-4" in:fade|global>
@@ -17,11 +17,11 @@
 			</div>
 		</Card.Header>
 		<Card.Content class="px-8">
-            {#if data?.error?.startsWith('errors.')}
-				<P>{@html i18n.t(data.error, {provider:data.provider})}</P>
-                {:else}
+			{#if data?.error?.startsWith('errors.')}
+				<P>{@html i18n.t(data.error, { provider: data.provider })}</P>
+			{:else}
 				<P>{data?.error}</P>
-                {/if}
+			{/if}
 		</Card.Content>
 	</Card.Root>
 </div>

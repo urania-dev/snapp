@@ -64,7 +64,7 @@
 			"unallowed-not-https": "The original URL must be a secure https link",
 			"unallowed-not-group": "The administrator has configured the platform to be used exclusively through groups. Please select at least one group to continue.",
 			"original-url-missing": "An Original URL must be provided for redirection",
-			"original-url-blacklisted": "This URL has been blacklisted or flagged by VirusTotal API",		   
+			"original-url-blacklisted": "This URL has been blacklisted or flagged by VirusTotal API",
 			"not-found": "URL not found.",
 			"disabled": "This URL may have been deleted or disabled by the user, or it may have reached a set threshold. If you believe this is an error, please contact the administrator."
 		},
@@ -82,11 +82,11 @@
 			"username-invalid": "Username is invalid. Please provide at least a three-character long name for your profile.",
 			"user-already-exists": "Username already taken. Please try another one.",
 			"reset-token-expired": "Password recovery reset token has expired.",
-			"blacklisted":"This email is not authorized on the platform, try contacting the platform administrator."
+			"blacklisted": "This email is not authorized on the platform, try contacting the platform administrator."
 		},
 		"generic": "Unrecognized Error, please try again later.",
-		"oidc-client-unavailable":"Error with {provider}: this provider is not available right now.",
-    "unauthorized": "Unauthorized"
+		"oidc-client-unavailable": "Error with {provider}: this provider is not available right now.",
+		"unauthorized": "Unauthorized"
 	},
 	"globals": {
 		"cancel": "Cancel",
@@ -115,7 +115,7 @@
 		"refresh": "Refresh"
 	},
 	"homepage": {
-		"feedback":"Your opinion matters",
+		"feedback": "Your opinion matters",
 		"intro": "An <em>open-source and self-hosted</em> solution for storing and managing your URLs",
 		"hero": {
 			"headline": "Simplify Your URL Management",
@@ -215,7 +215,7 @@
 			"enable-signup": "Enable Signups",
 			"disable-homepage": "Disable Homepage",
 			"allow-http": "Allow Insecure HTTP",
-			"custom-home-redirect":"Homepage Redirect"
+			"custom-home-redirect": "Homepage Redirect"
 		},
 		"helpers": {
 			"signups": "Allow external signups from the front-end.",
@@ -282,14 +282,14 @@
 			"confirm-delete": "This action will permanently delete the URL"
 		},
 		"time": {
-      "seconds": "Seconds",
-      "minutes": "Minutes",
-      "hours": "Hours",
-      "days": "Days",
-      "weeks": "Weeks",
-      "months": "Months",
-      "years": "Years"
-    }
+			"seconds": "Seconds",
+			"minutes": "Minutes",
+			"hours": "Hours",
+			"days": "Days",
+			"weeks": "Weeks",
+			"months": "Months",
+			"years": "Years"
+		}
 	},
 	"tags": {
 		"labels": {
@@ -346,7 +346,7 @@
 				"mfa-single": "Enable two-factor authentication with a time-based one-time password (TOTP).",
 				"reset-mfa": "This will disconnect your profile from the current authenticator. A new QR code will be required.",
 				"set-new-password": "Set a password for your account.",
-				"confirm-delete":"Deleting this user will remove all their snapps and related analytics, are you sure you want to continue?"
+				"confirm-delete": "Deleting this user will remove all their snapps and related analytics, are you sure you want to continue?"
 			},
 			"reset-mfa": "Reset MFA",
 			"resend-verify-email": "Resend verification email",

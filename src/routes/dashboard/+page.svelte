@@ -9,7 +9,7 @@
 	import { Separator } from '$lib/components/ui/separator';
 	import { getTranslations } from '$lib/i18n/index.svelte';
 	import { decode } from 'html-entities';
-	import SvelteSeo from "svelte-seo";
+	import SvelteSeo from 'svelte-seo';
 	import { toast } from 'svelte-sonner';
 	const { data, form } = $props();
 	const i18n = getTranslations();
@@ -51,4 +51,4 @@
 	></DataTable>
 </div>
 
-<SvelteSeo title={`${(data.appname||'Snapp')} | ${i18n.t('menu.dashboard')}`} />
+<SvelteSeo title={`${data.appname || 'Snapp'} | ${i18n.t('menu.dashboard')}`} />

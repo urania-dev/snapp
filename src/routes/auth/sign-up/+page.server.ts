@@ -19,10 +19,11 @@ export const load = async ({ locals: { user } }) => {
 
 	const settings = await getSettings();
 	const enabledSignup = settings.get<boolean>('ENABLE_SIGNUP');
-	const DISABLED_EMAIL_AND_PASSWORD  = process.env.DISABLED_EMAIL_AND_PASSWORD?.toLowerCase() === "true" || false
-	
+	const DISABLED_EMAIL_AND_PASSWORD =
+		process.env.DISABLED_EMAIL_AND_PASSWORD?.toLowerCase() === 'true' || false;
+
 	return {
-		emailDisabled:DISABLED_EMAIL_AND_PASSWORD,
+		emailDisabled: DISABLED_EMAIL_AND_PASSWORD,
 		enabledSignup,
 		form: await superValidate(zod(signUpSchema))
 	};
@@ -44,7 +45,7 @@ export const actions = {
 				return fail(401, { form, message: 'errors.auth.disabled-signups' });
 			}
 
-			const disabled = process.env.DISABLED_EMAIL_AND_PASSWORD?.toLowerCase() === 'true' || false
+			const disabled = process.env.DISABLED_EMAIL_AND_PASSWORD?.toLowerCase() === 'true' || false;
 			if (disabled) {
 				return fail(401, { form, message: 'errors.auth.disabled-auth-email-and-password' });
 			}

@@ -15,26 +15,30 @@
 		<Card.Root class="m-auto max-w-sm">
 			<Card.Header class="flex flex-row items-center gap-2">
 				<i
-					class="ph ph-{data.isDisabled === true ? 'link-break' :'detective'} mx-auto aspect-square max-w-max rounded bg-foreground/20 p-2 text-[32px]"
+					class="ph ph-{data.isDisabled === true
+						? 'link-break'
+						: 'detective'} mx-auto aspect-square max-w-max rounded bg-foreground/20 p-2 text-[32px]"
 				></i>
 				{#if data.isDisabled === true}
-				<H4 class="w-full leading-[1.15] text-balance">
+					<H4 class="w-full text-balance leading-[1.15]">
 						{i18n.t('snapps.helpers.not-found')}
-				</H4>
+					</H4>
 				{:else if data.isDisabled === false && data.hasPassword}
-				<H4 class="w-full leading-[1.15] text-balance">
+					<H4 class="w-full text-balance leading-[1.15]">
 						{i18n.t('snapps.helpers.secret')}
-				</H4>
+					</H4>
 				{/if}
 			</Card.Header>
 			<Card.Content class="px-3">
 				{#if data.isDisabled === false && data.hasPassword && data.form}
-				<SingleForm formSchema={data.form} />
+					<SingleForm formSchema={data.form} />
 				{/if}
 				{#if data.isDisabled}
-				<P class="text-semibold m-0 text-balance text-sm text-muted-foreground leading-[1.4] *:p-0 px-4 text-start">
-					{i18n.t('errors.snapps.disabled')}
-				</P>
+					<P
+						class="text-semibold m-0 text-balance px-4 text-start text-sm leading-[1.4] text-muted-foreground *:p-0"
+					>
+						{i18n.t('errors.snapps.disabled')}
+					</P>
 				{/if}
 			</Card.Content>
 		</Card.Root>

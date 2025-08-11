@@ -61,7 +61,7 @@
 						<span>{i18n.t('globals.copy')}</span>
 					</Button>
 				</DropdownMenu.Item>
-				{#if snapp.userId === page.data.user.id || page.data.user.role !== 'user' || env?.PUBLIC_EXTRA_GROUPS_EDITABLE?.toString()?.toLowerCase()==='true'}
+				{#if snapp.userId === page.data.user.id || page.data.user.role !== 'user' || env?.PUBLIC_EXTRA_GROUPS_EDITABLE?.toString()?.toLowerCase() === 'true'}
 					<DropdownMenu.Item>
 						<Button
 							variant="ghost"

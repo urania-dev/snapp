@@ -15,71 +15,69 @@
 		[]
 	);
 	const loadData = async () => {
-		if(!browser) return
+		if (!browser) return;
 		try {
-			
-		const res = (await (
-			await (page.data.fetch as typeof fetch)(
-				`/api/usage/groupBy?q=${JSON.stringify({
-					_count: { snappId: true },
-					by: ['snappId'],
-					orderBy: { _count: { snappId: 'desc' } },
-					take: 10,
-					where: {
-						ownerId: page.data.user.role !== 'user' ? undefined : page.data.user.id,
-						timestamp: {
-							gte: mstore.start.toDate(getLocalTimeZone()).toISOString(),
-							lte: mstore.end.toDate(getLocalTimeZone()).toISOString()
+			const res = (await (
+				await (page.data.fetch as typeof fetch)(
+					`/api/usage/groupBy?q=${JSON.stringify({
+						_count: { snappId: true },
+						by: ['snappId'],
+						orderBy: { _count: { snappId: 'desc' } },
+						take: 10,
+						where: {
+							ownerId: page.data.user.role !== 'user' ? undefined : page.data.user.id,
+							timestamp: {
+								gte: mstore.start.toDate(getLocalTimeZone()).toISOString(),
+								lte: mstore.end.toDate(getLocalTimeZone()).toISOString()
+							}
 						}
-					}
-				})}`
-			)
-		).json()) as { data: ({ _count: { snappId: number } } & Usage)[] };
-		if (res && res?.data) {
-			const _data = await Promise.all(
-				res.data.map(async (u) => {
-					const snapp = (
-						await (
-							await (page.data.fetch as typeof fetch)(
-								`/api/snapp/findFirst?q=${JSON.stringify({
-									select: {
-										groupId: true,
-										id: true,
-										shortcode: true,
-										user: {
-											select: { username: true }
+					})}`
+				)
+			).json()) as { data: ({ _count: { snappId: number } } & Usage)[] };
+			if (res && res?.data) {
+				const _data = await Promise.all(
+					res.data.map(async (u) => {
+						const snapp = (
+							await (
+								await (page.data.fetch as typeof fetch)(
+									`/api/snapp/findFirst?q=${JSON.stringify({
+										select: {
+											groupId: true,
+											id: true,
+											shortcode: true,
+											user: {
+												select: { username: true }
+											}
+										},
+										where: {
+											id: u.snappId
 										}
-									},
-									where: {
-										id: u.snappId
-									}
-								})}`
-							)
-						).json()
-					)?.data as { groupId: string; shortcode: string; user: { username: string } };
-					if (snapp)
-						return {
-							id: u.snappId,
-							name: snapp?.user?.username,
-							shortcode: snapp.groupId
-								? 'groups/' + snapp.groupId + '/' + snapp?.shortcode
-								: snapp?.shortcode,
-							value: u._count.snappId
-						};
-				})
-			);
-			data = _data.filter((d) => d !== undefined);
-		}
-
-	} catch (error) {
-			console.log(error)
+									})}`
+								)
+							).json()
+						)?.data as { groupId: string; shortcode: string; user: { username: string } };
+						if (snapp)
+							return {
+								id: u.snappId,
+								name: snapp?.user?.username,
+								shortcode: snapp.groupId
+									? 'groups/' + snapp.groupId + '/' + snapp?.shortcode
+									: snapp?.shortcode,
+								value: u._count.snappId
+							};
+					})
+				);
+				data = _data.filter((d) => d !== undefined);
+			}
+		} catch (error) {
+			console.log(error);
 		}
 	};
 
 	const i18n = getTranslations();
 </script>
 
-<div class="flex h-max md:h-full flex-col py-0">
+<div class="flex h-max flex-col py-0 md:h-full">
 	<Table.Root>
 		<Table.Header>
 			<Table.Row class="h-8">
@@ -118,6 +116,6 @@
 		</Table.Body>
 	</Table.Root>
 	{#if data.length}
-	<Separator />
+		<Separator />
 	{/if}
 </div>

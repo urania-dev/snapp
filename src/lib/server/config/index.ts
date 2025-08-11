@@ -1,6 +1,6 @@
 import { prisma } from '../../db/prisma';
 import { log } from '../log';
-import 'dotenv/config'
+import 'dotenv/config';
 const parseEnv = <T extends boolean | null | number | string | undefined>(
 	value?: boolean | null | number | string | undefined
 ): T => {
@@ -139,7 +139,7 @@ export class ServerWideSettings {
 			SMTP_PASS: process.env.SMTP_PASS || null,
 			SMTP_PORT: process.env.SMTP_PORT || null,
 			SMTP_SSL: process.env.SMTP_SSL || false,
-			SMTP_USER: process.env.SMTP_USER || null,
+			SMTP_USER: process.env.SMTP_USER || null
 		};
 
 		Object.entries(envVars).forEach(([key, value]) => this.set(key, value));

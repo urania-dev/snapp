@@ -151,10 +151,10 @@ class WatchLists {
 	};
 	hasExceededSnappLimit = async (userId: string): Promise<boolean> => {
 		const settings = await getSettings();
-		const isLimited = settings.get<boolean>('ENABLE_LIMITS')
-		if(!isLimited) return false
+		const isLimited = settings.get<boolean>('ENABLE_LIMITS');
+		if (!isLimited) return false;
 		const snappsByUser = await prisma.snapp.count({ where: { userId } });
-		
+
 		const defaultMaxSnapps = settings.get<number>('MAX_SNAPPS_PER_USER');
 		const userSpecificMaxSnapps = parseInt(
 			(
@@ -162,8 +162,8 @@ class WatchLists {
 					where: { field: 'MAX_SNAPPS_PER_USER', userId }
 				})
 			)?.value ||
-			`${defaultMaxSnapps}` ||
-			'0'
+				`${defaultMaxSnapps}` ||
+				'0'
 		);
 		return userSpecificMaxSnapps > 0 && snappsByUser > userSpecificMaxSnapps;
 	};

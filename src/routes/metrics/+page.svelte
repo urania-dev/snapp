@@ -16,9 +16,9 @@
 	import { Separator } from '$lib/components/ui/separator';
 	import { getTranslations } from '$lib/i18n/index.svelte';
 	import { setMetricsStore } from '$lib/stores/metrics.svelte';
-	import SvelteSeo from "svelte-seo";
+	import SvelteSeo from 'svelte-seo';
 
-	const {data} = $props()
+	const { data } = $props();
 	const i18n = getTranslations();
 	setMetricsStore();
 	let view = $state<string>('topSnapps');
@@ -34,7 +34,9 @@
 	</div>
 	<Separator />
 </div>
-<div class="flex h-full w-full max-w-[calc(100%_-_1px)] flex-col content-start lg:flex-row overflow-y-scroll">
+<div
+	class="flex h-full w-full max-w-[calc(100%_-_1px)] flex-col content-start overflow-y-scroll lg:flex-row"
+>
 	<div class="flex h-full w-full flex-col">
 		<DateSelector />
 		<Separator />
@@ -98,27 +100,27 @@
 		<Separator />
 		<div class="min-h-[128px]">
 			{#if view === 'topSnapps'}
-			<TopSnapps />
+				<TopSnapps />
 			{/if}
-			
+
 			{#if view === 'osDistribution'}
-			<OsDistribution />
+				<OsDistribution />
 			{/if}
-			
+
 			{#if view === 'browserDistribution'}
-			<BrowserDistribution />
+				<BrowserDistribution />
 			{/if}
-			
+
 			{#if view === 'countryDistribution'}
-			<CountryDistribution />
+				<CountryDistribution />
 			{/if}
 			{#if view === 'regionDistribution'}
-			<RegionDistribution />
+				<RegionDistribution />
 			{/if}
 			{#if view === 'cityDistribution'}
-			<CityDistribution />
+				<CityDistribution />
 			{/if}
 		</div>
 	</div>
 </div>
-<SvelteSeo title={`${(data.appname||'Snapp')} | ${i18n.t('menu.settings')}`} />
+<SvelteSeo title={`${data.appname || 'Snapp'} | ${i18n.t('menu.settings')}`} />

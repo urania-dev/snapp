@@ -105,19 +105,26 @@
 										</div>
 									</div>
 								{:then}
-									<div class="flex flex-col gap-2 min-h-[100px]">
-										{#each savedParams.entries() as [,param]}
-										<Button class="h-8 p-1 flex items-center gap-2" variant=ghost onclick={()=>{
-											if(params.has(param.key)) params.delete(param.key)
-											else params.set(param.key,param)
-										}}>
-										<i class="ph ph-check transition-all text-[20px] opacity-0" class:opacity-100={params.has(param.key)}></i>
-										<span class="w-full text-start">
-											{param.name}
-										</span>
-									</Button>
+									<div class="flex min-h-[100px] flex-col gap-2">
+										{#each savedParams.entries() as [, param]}
+											<Button
+												class="flex h-8 items-center gap-2 p-1"
+												variant="ghost"
+												onclick={() => {
+													if (params.has(param.key)) params.delete(param.key);
+													else params.set(param.key, param);
+												}}
+											>
+												<i
+													class="ph ph-check text-[20px] opacity-0 transition-all"
+													class:opacity-100={params.has(param.key)}
+												></i>
+												<span class="w-full text-start">
+													{param.name}
+												</span>
+											</Button>
 										{/each}
-										</div>
+									</div>
 								{/await}
 							</PopoverContent>
 						</Popover.Root>

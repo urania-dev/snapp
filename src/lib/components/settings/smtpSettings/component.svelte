@@ -21,7 +21,6 @@
 		SMTP_SSL,
 		smtpForm
 	}: {
-		
 		SMTP_SSL: boolean;
 		smtpForm: SuperValidated<Infer<SMTPSchema>>;
 	} = $props();
@@ -54,8 +53,6 @@
 			return cancel();
 		}
 	});
-
-
 </script>
 
 <div class="grid h-max w-full grid-cols-1 gap-2 md:gap-4">

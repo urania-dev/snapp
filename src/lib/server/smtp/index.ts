@@ -18,7 +18,6 @@ import { log } from '../log';
 import type SMTPTransport from 'nodemailer/lib/smtp-transport';
 
 export const getSMTP = async () => {
-	
 	const serverSettings = await getSettings();
 	const require = createRequire(import.meta.url);
 
@@ -97,7 +96,7 @@ export const sendEmail = async <T extends Component<any, any, string>>(
 
 		// Remove links that only wrap images
 		turndownService.addRule('stripEmptyLinks', {
-			filter: (node:Node) =>
+			filter: (node: Node) =>
 				node.nodeName === 'A' &&
 				node.childNodes.length === 1 &&
 				node.firstChild?.nodeName === 'IMG',
@@ -106,14 +105,14 @@ export const sendEmail = async <T extends Component<any, any, string>>(
 
 		// Trim leading/trailing whitespace from text nodes
 		turndownService.addRule('cleanWhitespace', {
-			filter: (node:Node) => node.nodeType === 3, // Text node
-			replacement: (content:string) => content.trim()
+			filter: (node: Node) => node.nodeType === 3, // Text node
+			replacement: (content: string) => content.trim()
 		});
 
 		// Prevent newline breaks around links like [\nText\n](url)
 		turndownService.addRule('linkFormatter', {
 			filter: 'a',
-			replacement: (content:string, node:Node) => {
+			replacement: (content: string, node: Node) => {
 				const href = (node as HTMLAnchorElement).getAttribute('href');
 				if (!href) return content;
 				return `[${content.trim()}](${href})`;

@@ -74,10 +74,15 @@
 						{stored?.createdAt.toUTCString()}</small
 					>
 				{/key}
-			</div>			
-			<form action="?/tokenRevoke" class="contents" method="post" use:enhance={() => {
-				ttlUnit = 'days';
-			}}>
+			</div>
+			<form
+				action="?/tokenRevoke"
+				class="contents"
+				method="post"
+				use:enhance={() => {
+					ttlUnit = 'days';
+				}}
+			>
 				<Button
 					variant="outline"
 					type="submit"
@@ -87,38 +92,34 @@
 				</Button>
 			</form>
 		{:else}
-		<form action="?/tokenGenerate" class="contents" method="post" use:enhance>
+			<form action="?/tokenGenerate" class="contents" method="post" use:enhance>
 				<Label class="mt-4">{i18n.t('tokens.fields.jwt-ttl')}</Label>
 				<div class="mt-2 flex items-center gap-2">
-						<Input
-							id="ttlValue"
-							name="ttlValue"
-							icon="clock-countdown"
-							type="number"
-							onblur={(e) => {
-								let ttl = e.currentTarget.value;
-								if(!ttl || Number(ttl) <= 0) e.currentTarget.value = "7";
-							}}
-							min="1"
-							max="365"
-							value="7"
-						/>
-						<Select.Root 
-							type="single"
-							name="ttlUnit"
-							bind:value={ttlUnit}
-						>
-							<Select.Trigger class="w-full">
-								{i18n.t(`tokens.units.${ttlUnit}`)}
-							</Select.Trigger>
-							<Select.Content>
-								{#each ['minutes','hours','days','months'] as tu} 
-									<Select.Item value={tu}>
-										{i18n.t(`tokens.units.${tu}`)}
-									</Select.Item>
-								{/each}
-							</Select.Content>
-						</Select.Root>
+					<Input
+						id="ttlValue"
+						name="ttlValue"
+						icon="clock-countdown"
+						type="number"
+						onblur={(e) => {
+							let ttl = e.currentTarget.value;
+							if (!ttl || Number(ttl) <= 0) e.currentTarget.value = '7';
+						}}
+						min="1"
+						max="365"
+						value="7"
+					/>
+					<Select.Root type="single" name="ttlUnit" bind:value={ttlUnit}>
+						<Select.Trigger class="w-full">
+							{i18n.t(`tokens.units.${ttlUnit}`)}
+						</Select.Trigger>
+						<Select.Content>
+							{#each ['minutes', 'hours', 'days', 'months'] as tu}
+								<Select.Item value={tu}>
+									{i18n.t(`tokens.units.${tu}`)}
+								</Select.Item>
+							{/each}
+						</Select.Content>
+					</Select.Root>
 				</div>
 				<Button type="submit" class="mt-4 justify-start">
 					{@html i18n.t('tokens.generate')}

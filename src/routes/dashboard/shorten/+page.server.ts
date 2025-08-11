@@ -15,7 +15,7 @@ export const load = async ({ locals: { user } }) => {
 
 	return {
 		form: await superValidate(zod(snappSchema)),
-		user,
+		user
 	};
 };
 
@@ -44,13 +44,16 @@ export const actions = {
 		const { errors, valid } = await watchLists.validateURL(snapp.originalUrl);
 		const exists = snapp.shortcode
 			? await prisma.snapp.findFirst({
-				where: { shortcode:  snapp.shortcode }
-			})
+					where: { shortcode: snapp.shortcode }
+				})
 			: null;
 
-      const siblings = exists !== null && await prisma.snapp.count({
-        where: { shortcode: { startsWith: `${snapp.shortcode}` } },
-      }) || 0;
+		const siblings =
+			(exists !== null &&
+				(await prisma.snapp.count({
+					where: { shortcode: { startsWith: `${snapp.shortcode}` } }
+				}))) ||
+			0;
 
 		if (!valid) {
 			return fail(400, {
@@ -62,11 +65,11 @@ export const actions = {
 			});
 		}
 
-		if (env.URLS_VIA_GROUPS_ONLY?.toLowerCase() === "true" && groups.length && groups[0])
+		if (env.URLS_VIA_GROUPS_ONLY?.toLowerCase() === 'true' && groups.length && groups[0])
 			return fail(403, {
 				form: createForm,
-				message: 'errors.snapps.unallowed-not-group',
-			})
+				message: 'errors.snapps.unallowed-not-group'
+			});
 
 		try {
 			const newSnapp = await prisma.snapp.create({
@@ -79,7 +82,7 @@ export const actions = {
 					secret: secret ? await bcrypt.hash(secret, 12) : null,
 					shortcode:
 						(snapp.shortcode &&
-							(exists && siblings > 0 ? `${snapp.shortcode}-${siblings+1}` : snapp.shortcode)) ||
+							(exists && siblings > 0 ? `${snapp.shortcode}-${siblings + 1}` : snapp.shortcode)) ||
 						nanoid(5),
 					tag: {
 						connectOrCreate: tags.map((t) => ({

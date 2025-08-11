@@ -23,10 +23,10 @@
 		</Large>
 	</div>
 	<div
-		class="md:max-w-full md:grid-cols-3 mx-auto mt-8 grid max-w-sm gap-6 *:text-center md:mt-16 justify-center"
+		class="mx-auto mt-8 grid max-w-sm justify-center gap-6 *:text-center md:mt-16 md:max-w-full md:grid-cols-3"
 	>
 		{#each features as feature}
-			<Card class="p-0 group shadow-zinc-950/5 max-w-xs">
+			<Card class="group max-w-xs p-0 shadow-zinc-950/5">
 				<CardHeader>
 					<CardDecorator>
 						<i class="ph-duotone ph-{feature.icon} text-[24px]"></i>
@@ -35,7 +35,7 @@
 				</CardHeader>
 
 				<CardContent>
-					<P class="text-muted-foreground font-medium px-3">
+					<P class="px-3 font-medium text-muted-foreground">
 						{i18n.t(feature.text)}
 					</P>
 				</CardContent>

@@ -43,7 +43,7 @@
 							.replace(/\s+/g, '-')
 							.replace(/[^a-z0-9_-]/g, '')
 							.replace(/-+/g, '-');
-					}}					
+					}}
 					onblur={() => {
 						if ($formData.username !== user.username)
 							document.forms.namedItem('profile')?.requestSubmit();
