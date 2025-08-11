@@ -24,7 +24,7 @@ ENV DATABASE_URL=file:./db.sqlite \
     PUBLIC_EXTRA_GROUPS_EDITABLE=false \
     URLS_VIA_GROUPS_ONLY=false \
     APPNAME="Snapp.li" \
-    PUBLIC_SNAPP_VERSION="0.9-rc-026"
+    PUBLIC_SNAPP_VERSION="0.9-rc-027"
     
 # Run build commands
 ENV DATABASE_URL=mysql://root:password@localhost:3306/snapp \
@@ -38,7 +38,7 @@ RUN bunx zenstack generate --schema dbschema/postgres/schema.zmodel --output /ap
 ENV DATABASE_URL=file:./dev.sqlite\
     DATABASE_PROVIDER=sqlite 
 RUN bunx zenstack generate --schema dbschema/sqlite/schema.zmodel 
-RUN bunx zenstack generate --schema dbschema/sqlite/schema.zmodel --output /app/zenstack/sqlite 
+RUN cp -r ./node_modules/.zenstack /app/zenstack/sqlite 
 
 
 RUN bunx prisma migrate deploy --schema dbschema/sqlite/prisma/schema.prisma 
@@ -57,9 +57,11 @@ RUN apt-get update -y && apt-get install -y openssl curl
 
 
 # Copy the built output (adjust path if necessary)
+COPY --from=builder /app ./
 COPY --from=builder /app/build ./build
 COPY --from=builder /app/output ./output
 COPY --from=builder /app/smtp.config.cjs ./smtp.config.cjs
+COPY --from=builder /app/svelte.config.js ./svelte.config.js
 COPY --from=builder /app/src ./src
 COPY --from=builder /app/dbschema ./dbschema
 COPY --from=builder /app/maxmind ./maxmind
@@ -97,10 +99,9 @@ ENV DATABASE_URL=file:./db.sqlite \
     URLS_VIA_GROUPS_ONLY=false \
     PUBLIC_EXTRA_GROUPS_EDITABLE=false \
     APPNAME="Snapp.li" \
-    PUBLIC_SNAPP_VERSION="0.9-rc-026"
+    PUBLIC_SNAPP_VERSION="0.9-rc-027"
 
 EXPOSE 3000
     
 ENTRYPOINT ["entrypoint.sh"]
 CMD ["bun", "./build"]
-

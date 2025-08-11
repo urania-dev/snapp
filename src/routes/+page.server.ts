@@ -6,32 +6,26 @@ import { loadTranslations } from '$lib/i18n/server.js';
 import { getSettings } from '$lib/server/config';
 import { log } from '$lib/server/log';
 import * as shiki from 'shiki';
+import { getUmami } from '$lib/umami-client';
 export const load = async (event) => {
 	const settings = await getSettings();
 
+	const headers = Object.fromEntries(event.request.headers);
+	const { 'user-agent': userAgent, 'x-forwarded-for': realIp } = headers;
 	const disableHome = settings.get<boolean>('DISABLE_HOME') === true;
 	if (disableHome) redirect(302, settings.get<string>('CUSTOM_REDIRECT') || '/dashboard');
 	const availableLanguages = settings.get<string>('AVAILABLE_LANGUAGES') as string;
-	const userAgent = event.request.headers.get('user-agent')?.toString()
 	try {
 		const UMAMI_WEBSITE_ID =
 			settings.get<string>('PUBLIC_UMAMI_WEBSITE_ID') || pubEnv.PUBLIC_UMAMI_WEBSITE_ID;
 		const UMAMI_WEBSITE_URL =
 			settings.get<string>('PUBLIC_UMAMI_WEBSITE_URL') || pubEnv.PUBLIC_UMAMI_WEBSITE_URL;
-		return {
-		availableLanguages,
-		disableHome,
-		dockerCompose: await dockerCompose(event.locals.theme),
-		locale: event.locals.lang,
-		startDocker: await startDocker(event.locals.theme),
-		translations: await loadTranslations(event.locals.lang || 'en'),
-		umami:{id:UMAMI_WEBSITE_ID, url: UMAMI_WEBSITE_URL},
-		userAgent
-	};
+		const umami = getUmami(UMAMI_WEBSITE_URL || '', UMAMI_WEBSITE_ID || '', userAgent);
+		await umami?.track({ title: '/', url:event.url, ip: realIp,userAgent });
+
 } catch (error) {
 	if (env.LOG_LEVEL === 'debug') log.error(error);
 }
-
 return {
 	availableLanguages,
 	disableHome,
@@ -39,7 +33,6 @@ return {
 	locale: event.locals.lang,
 	startDocker: await startDocker(event.locals.theme),
 	translations: await loadTranslations(event.locals.lang || 'en'),
-	umami:{id:null, url: null},
 	userAgent,
 };
 };

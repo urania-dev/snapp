@@ -76,7 +76,6 @@ export const markUsage = async (
 
 	const umamiURL = settings.get<string>('PUBLIC_UMAMI_WEBSITE_URL');
 	const umamiID = settings.get<string>('PUBLIC_UMAMI_WEBSITE_ID');
-	const ORIGIN = settings.get<string>('ORIGIN');
 	if (!!umamiID && !!umamiURL) {
 
 		const url = new URL(event.url)
@@ -95,15 +94,17 @@ export const markUsage = async (
 				hostname: event.url.host,
 				language,
 				name: undefined,
+				ip: realIp,
 				referrer,
 				screen: '--SSR',
 				title: snapp.shortcode,
 				url:url.pathname,
 				website: umamiID,
+				userAgent
 		};
 
 		try {
-			const req = await event.fetch(umamiURL + '/api/send', {headers:{"content-type":"application/json", "user-agent":event.request.headers.get('user-agent')!},method:"POST", body:JSON.stringify({payload, type:"event"})})
+			const req = await event.fetch(umamiURL + '/api/send', {headers:{'user-agent':userAgent, "content-type":"application/json" }, method:"POST", body:JSON.stringify({payload, type:"event"})})
 			if(env.LOG_LEVEL==='debug')log.info(await req.json())
 			} catch (error) {
 				if(env.LOG_LEVEL==='debug')log.error(error)
