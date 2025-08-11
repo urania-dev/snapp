@@ -10,6 +10,7 @@
 		class: className,
 		onclick,
 		ref = $bindable(null),
+		// eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: {
 		onclick?: (e: MouseEvent) => void;

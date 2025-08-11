@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import type SMTPTransport from 'nodemailer/lib/smtp-transport';
 import type { Component, ComponentProps } from 'svelte';
-import TurndownService from 'turndown';
 
 import Emailer, { inline } from '@uraniadev/emailer';
 import { createRequire } from 'module';
@@ -12,10 +12,10 @@ import {
 	type TransportOptions
 } from 'nodemailer';
 import { join } from 'path';
+import TurndownService from 'turndown';
 
 import { getSettings } from '../config';
 import { log } from '../log';
-import type SMTPTransport from 'nodemailer/lib/smtp-transport';
 
 export const getSMTP = async () => {
 	const serverSettings = await getSettings();
@@ -47,7 +47,7 @@ export const sendEmail = async <T extends Component<any, any, string>>(
 		secure: boolean;
 	} | null = null;
 
-	let transporter: Transporter<SMTPTransport.SentMessageInfo, SMTPTransport.Options> | null = null;
+	let transporter: null | Transporter<SMTPTransport.SentMessageInfo, SMTPTransport.Options> = null;
 
 	try {
 		smtp = await getSMTP();
@@ -55,7 +55,7 @@ export const sendEmail = async <T extends Component<any, any, string>>(
 			transporter = createTransport<Transport>({ ...smtp } as TransportOptions);
 			log.info({ label: 'test', test: await transporter.verify() });
 		}
-	} catch (err) {
+	} catch {
 		// Fallback when SMTP config fails
 		smtp = null;
 		if (process.env.LOG_LEVEL === 'debug')
@@ -77,15 +77,15 @@ export const sendEmail = async <T extends Component<any, any, string>>(
 	});
 
 	if (!smtp) {
-		let cleanedHtml = html
+		const cleanedHtml = html
 			.replace(/:root\s*{[^}]*}/g, '') // Remove `:root { ... }`
 			.replace(/\s*\*\s*{[^}]*}/g, '') // Remove global * {} styles
 			.replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '') // Remove <style> tags
 			.replace(/\n\s*\n/g, '\n'); // Remove excessive blank lines
 
 		const turndownService = new TurndownService({
-			headingStyle: 'atx',
-			codeBlockStyle: 'fenced'
+			codeBlockStyle: 'fenced',
+			headingStyle: 'atx'
 		});
 
 		// Remove images

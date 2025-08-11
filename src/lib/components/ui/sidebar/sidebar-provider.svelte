@@ -20,6 +20,7 @@
 		open = $bindable(true),
 		ref = $bindable(null),
 		style,
+		// eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: {
 		onOpenChange?: (open: boolean) => void;

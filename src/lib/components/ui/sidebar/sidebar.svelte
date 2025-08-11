@@ -15,6 +15,7 @@
 		ref = $bindable(null),
 		side = 'left',
 		variant = 'sidebar',
+		// eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: {
 		collapsible?: 'icon' | 'none' | 'offcanvas';

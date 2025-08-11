@@ -8,7 +8,7 @@
 		children,
 		class: className,
 		level = 3,
-		ref = $bindable(null),
+		ref = $bindable(null), // eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: {
 		level?: 1 | 2 | 3 | 4 | 5 | 6;

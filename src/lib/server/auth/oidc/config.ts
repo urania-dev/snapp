@@ -127,7 +127,7 @@ export const getProviders = async () => {
 		);
 
 		return result as Provider[];
-	} catch (error) {
+	} catch {
 		return [] as Provider[];
 	}
 };

@@ -52,9 +52,9 @@ export const convertTtlToString = (value: unknown, unit: unknown): string => {
 	if (!Number.isFinite(v) || v <= 0) return '7d'; // fallback
 
 	switch (u) {
-		case 'minutes':
-		case 'hours':
 		case 'days':
+		case 'hours':
+		case 'minutes':
 			return `${v}${u[0]}`;
 		case 'months':
 			return `${v * 30}d`;

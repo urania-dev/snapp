@@ -3,7 +3,11 @@
 
 	import { cn } from '$lib/utils';
 
-	const { children, class: className, ...rest }: {} & HTMLAttributes<HTMLSpanElement> = $props();
+	const {
+		children,
+		class: className, // eslint-disable-next-line svelte/valid-compile
+		...rest
+	}: {} & HTMLAttributes<HTMLSpanElement> = $props();
 	const typography = 'text-muted-foreground text-sm';
 </script>
 

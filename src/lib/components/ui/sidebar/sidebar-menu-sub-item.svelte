@@ -5,6 +5,7 @@
 	let {
 		children,
 		ref = $bindable(null),
+		// eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: WithElementRef<HTMLAttributes<HTMLLIElement>> = $props();
 </script>

@@ -1,4 +1,5 @@
 import type { Snapp } from '@prisma/client';
+import type { StringValue } from 'ms';
 
 import { fail, redirect } from '@sveltejs/kit';
 import { umamiSchema, vtAPISchema } from '$lib/components/settings/adminPanel/schema';
@@ -13,7 +14,6 @@ import {
 	invalidateSessions
 } from '$lib/server/auth';
 import { createToken } from '$lib/server/auth/db.js';
-import { convertTtlToString } from '$lib/utils';
 import { getSettings } from '$lib/server/config';
 import ForgotPasswordEmail from '$lib/server/emails/auth/forgotPasswordEmail.svelte';
 import SmtpTest from '$lib/server/emails/smtpTest.svelte';
@@ -23,10 +23,10 @@ import {
 } from '$lib/server/limits/handle.js';
 import { log } from '$lib/server/log';
 import { sendEmail } from '$lib/server/smtp';
+import { convertTtlToString } from '$lib/utils';
 import * as shiki from 'shiki';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
-import type { StringValue } from 'ms';
 
 export const load = async ({ locals: { prisma, theme, user } }) => {
 	if (!user) redirect(302, '/dashboard');

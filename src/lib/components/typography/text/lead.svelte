@@ -6,6 +6,7 @@
 	const {
 		children,
 		class: className,
+		// eslint-disable-next-line svelte/valid-compile
 		...rest
 	}: {} & HTMLAttributes<HTMLParagraphElement> = $props();
 

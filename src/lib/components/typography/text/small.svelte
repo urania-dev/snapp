@@ -3,7 +3,11 @@
 
 	import { cn } from '$lib/utils';
 
-	const { children, class: className, ...rest }: {} & HTMLAttributes<HTMLElement> = $props();
+	const {
+		children,
+		class: className, // eslint-disable-next-line svelte/valid-compile
+		...rest
+	}: {} & HTMLAttributes<HTMLElement> = $props();
 	const typography = 'text-sm font-medium leading-none';
 </script>
 

@@ -6,7 +6,7 @@
 		checked = $bindable(false),
 		class: className,
 		indeterminate = $bindable(false),
-		ref = $bindable(null),
+		ref = $bindable(null), // eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: WithoutChildrenOrChild<CheckboxPrimitive.RootProps> = $props();
 </script>

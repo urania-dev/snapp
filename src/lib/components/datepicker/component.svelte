@@ -12,7 +12,7 @@
 		onChange,
 		placeholder = $bindable(),
 		value = $bindable(),
-		weekdayFormat = 'short',
+		weekdayFormat = 'short', // eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: { onChange?: () => void } & WithoutChildrenOrChild<CalendarPrimitive.RootProps> = $props();
 

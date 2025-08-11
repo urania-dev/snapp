@@ -15,7 +15,7 @@
 		open = $bindable(false),
 		portalProps,
 		ref = $bindable(null),
-		value = $bindable(''),
+		value = $bindable(''), // eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: {
 		children: Snippet;

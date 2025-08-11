@@ -5,7 +5,7 @@
 	let {
 		children,
 		class: className,
-		ref = $bindable(null),
+		ref = $bindable(null), // eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: WithoutChild<AccordionPrimitive.ContentProps> = $props();
 </script>

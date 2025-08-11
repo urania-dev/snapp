@@ -8,10 +8,10 @@ import { getPrisma } from '$lib/server/auth/db';
 import { authHandle } from '$lib/server/auth/handle';
 import { getSettings } from '$lib/server/config';
 import { handleRateLimits } from '$lib/server/limits/handle';
-import { customAlphabet } from 'nanoid';
 import { log } from '$lib/server/log';
 import bcrypt from 'bcryptjs';
 import { readdir } from 'fs/promises';
+import { customAlphabet } from 'nanoid';
 import { join } from 'path';
 export const init: ServerInit = async () => {
 	try {
@@ -163,11 +163,11 @@ const transformShortcodeMiddleware: Handle = async ({ event, resolve }) => {
 
 		// rebuild request with correct shape
 		event.request = new Request(event.request.url, {
-			method: event.request.method,
+			body: JSON.stringify({ data }),
 			headers: event.request.headers,
-			body: JSON.stringify({ data })
+			method: event.request.method
 		});
-	} catch (err: any) {
+	} catch (err: unknown) {
 		log.error('Error in transformShortcodeMiddleware', err);
 	}
 

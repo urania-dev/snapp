@@ -6,7 +6,7 @@
 
 	let {
 		class: className,
-		ref = $bindable(null),
+		ref = $bindable(null), // eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: WithoutChild<FormPrimitive.LegendProps> = $props();
 </script>

@@ -48,7 +48,7 @@
 		ref = $bindable(null),
 		size = 'default',
 		type = 'button',
-		variant = 'default',
+		variant = 'default', // eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: ButtonProps = $props();
 </script>

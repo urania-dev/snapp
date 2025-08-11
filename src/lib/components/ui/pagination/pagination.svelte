@@ -8,7 +8,7 @@
 		page = $bindable(1),
 		perPage = 10,
 		ref = $bindable(null),
-		siblingCount = 1,
+		siblingCount = 1, // eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: PaginationPrimitive.RootProps = $props();
 </script>

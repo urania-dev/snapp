@@ -7,7 +7,7 @@
 		class: className,
 		portalProps,
 		ref = $bindable(null),
-		sideOffset = 4,
+		sideOffset = 4, // eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: {
 		portalProps?: PopoverPrimitive.PortalProps;

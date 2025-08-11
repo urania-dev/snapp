@@ -91,22 +91,22 @@ export const markUsage = async (
 		const payload = {
 			data: undefined as { [key: string]: string } | undefined,
 			hostname: event.url.host,
+			ip: realIp,
 			language,
 			name: undefined,
-			ip: realIp,
 			referrer,
 			screen: '--SSR',
 			title: snapp.shortcode,
 			url: url.pathname,
-			website: umamiID,
-			userAgent
+			userAgent,
+			website: umamiID
 		};
 
 		try {
 			const req = await event.fetch(umamiURL + '/api/send', {
-				headers: { 'user-agent': userAgent, 'content-type': 'application/json' },
-				method: 'POST',
-				body: JSON.stringify({ payload, type: 'event' })
+				body: JSON.stringify({ payload, type: 'event' }),
+				headers: { 'content-type': 'application/json', 'user-agent': userAgent },
+				method: 'POST'
 			});
 			if (env.LOG_LEVEL === 'debug') log.info(await req.json());
 		} catch (error) {

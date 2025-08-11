@@ -5,8 +5,9 @@ import { env as pubEnv } from '$env/dynamic/public';
 import { loadTranslations } from '$lib/i18n/server.js';
 import { getSettings } from '$lib/server/config';
 import { log } from '$lib/server/log';
-import * as shiki from 'shiki';
 import { getUmami } from '$lib/umami-client';
+import * as shiki from 'shiki';
+
 export const load = async (event) => {
 	const settings = await getSettings();
 
@@ -21,7 +22,7 @@ export const load = async (event) => {
 		const UMAMI_WEBSITE_URL =
 			settings.get<string>('PUBLIC_UMAMI_WEBSITE_URL') || pubEnv.PUBLIC_UMAMI_WEBSITE_URL;
 		const umami = getUmami(UMAMI_WEBSITE_URL || '', UMAMI_WEBSITE_ID || '', userAgent);
-		await umami?.track({ title: '/', url: event.url, ip: realIp, userAgent });
+		await umami?.track({ ip: realIp, title: '/', url: event.url, userAgent });
 	} catch (error) {
 		if (env.LOG_LEVEL === 'debug') log.error(error);
 	}

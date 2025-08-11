@@ -9,6 +9,7 @@
 	let {
 		data,
 		variant = 'default',
+		// eslint-disable-next-line svelte/valid-compile
 		...props
 	}: { data: { id: string; label: string } } & ComponentProps<typeof Button> = $props();
 

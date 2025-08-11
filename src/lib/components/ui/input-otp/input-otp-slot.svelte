@@ -7,7 +7,7 @@
 	let {
 		cell,
 		class: className,
-		ref = $bindable(null),
+		ref = $bindable(null), // eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: ComponentProps<typeof InputOTPPrimitive.Cell> = $props();
 </script>

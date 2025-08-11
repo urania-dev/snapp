@@ -6,7 +6,7 @@
 		children,
 		class: className,
 		inset,
-		ref = $bindable(null),
+		ref = $bindable(null), // eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: {
 		inset?: boolean;

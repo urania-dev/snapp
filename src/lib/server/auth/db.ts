@@ -46,7 +46,8 @@ export const getPrisma = async ({ locals, request }: RequestEvent) => {
 		if (locals.user) return enhance(prisma, { user: locals.user });
 		throw error(403, {
 			message:
-				(e as any)?.body?.message ?? 'This is a private service. Please provide correct credentials'
+				(e as { body?: { message?: string } })?.body?.message ??
+				'This is a private service. Please provide correct credentials'
 		});
 	}
 };

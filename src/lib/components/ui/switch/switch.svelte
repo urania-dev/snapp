@@ -7,6 +7,7 @@
 		checked = $bindable(false),
 		class: className,
 		ref = $bindable(null),
+		// eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: WithoutChildrenOrChild<SwitchPrimitive.RootProps> = $props();
 

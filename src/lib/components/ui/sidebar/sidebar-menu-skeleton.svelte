@@ -9,7 +9,7 @@
 		children,
 		class: className,
 		ref = $bindable(null),
-		showIcon = false,
+		showIcon = false, // eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: {
 		showIcon?: boolean;

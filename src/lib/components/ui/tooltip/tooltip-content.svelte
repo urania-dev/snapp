@@ -6,6 +6,7 @@
 		class: className,
 		ref = $bindable(null),
 		sideOffset = 4,
+		// eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: TooltipPrimitive.ContentProps = $props();
 </script>

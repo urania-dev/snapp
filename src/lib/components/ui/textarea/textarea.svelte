@@ -8,6 +8,7 @@
 		class: className,
 		ref = $bindable(null),
 		value = $bindable(),
+		// eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: WithoutChildren<WithElementRef<HTMLTextareaAttributes>> = $props();
 </script>

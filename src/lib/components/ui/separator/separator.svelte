@@ -5,7 +5,7 @@
 	let {
 		class: className,
 		orientation = 'horizontal',
-		ref = $bindable(null),
+		ref = $bindable(null), // eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: SeparatorPrimitive.RootProps = $props();
 </script>

@@ -6,7 +6,7 @@
 		children,
 		class: className,
 		level = 3,
-		ref = $bindable(null),
+		ref = $bindable(null), // eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: {
 		level?: AccordionPrimitive.HeaderProps['level'];

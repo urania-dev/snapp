@@ -9,6 +9,7 @@
 		class: className,
 		idx = 0,
 		ref = $bindable(null),
+		// eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: { idx?: number | string } & WithElementRef<HTMLAttributes<HTMLTableRowElement>> = $props();
 </script>

@@ -8,7 +8,7 @@
 		hideIcon = false,
 		label,
 		ref = $bindable(null),
-		value,
+		value, // eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: { hideIcon?: boolean } & WithoutChild<SelectPrimitive.ItemProps> = $props();
 </script>

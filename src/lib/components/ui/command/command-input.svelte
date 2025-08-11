@@ -5,7 +5,7 @@
 	let {
 		class: className,
 		ref = $bindable(null),
-		value = $bindable(''),
+		value = $bindable(''), // eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: CommandPrimitive.InputProps = $props();
 </script>

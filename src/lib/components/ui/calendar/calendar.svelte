@@ -9,7 +9,7 @@
 		placeholder = $bindable(),
 		ref = $bindable(null),
 		value = $bindable(),
-		weekdayFormat = 'short',
+		weekdayFormat = 'short', // eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: WithoutChildrenOrChild<CalendarPrimitive.RootProps> = $props();
 </script>

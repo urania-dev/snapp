@@ -6,7 +6,7 @@
 		children,
 		class: className,
 		ref = $bindable(null),
-		showArrow = true,
+		showArrow = true, // eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: { showArrow?: boolean } & WithoutChild<SelectPrimitive.TriggerProps> = $props();
 </script>

@@ -9,7 +9,7 @@
 		child,
 		children,
 		class: className,
-		ref = $bindable(null),
+		ref = $bindable(null), // eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: {
 		child?: Snippet<[{ props: Record<string, unknown> }]>;
@@ -24,6 +24,7 @@
 			className
 		),
 		'data-sidebar': 'group-action',
+
 		...restProps
 	});
 </script>

@@ -10,7 +10,7 @@
 		container,
 		icon,
 		ref = $bindable(null),
-		value = $bindable(),
+		value = $bindable(), // eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: { container?: string; icon?: string } & WithElementRef<HTMLInputAttributes> = $props();
 

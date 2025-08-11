@@ -9,7 +9,7 @@
 		children: childrenProp,
 		class: className,
 		errorClasses,
-		ref = $bindable(null),
+		ref = $bindable(null), // eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: {
 		errorClasses?: null | string | undefined;

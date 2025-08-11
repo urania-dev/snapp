@@ -10,7 +10,7 @@
 		children,
 		class: className,
 		portalProps,
-		ref = $bindable(null),
+		ref = $bindable(null), // eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: {
 		children: Snippet;

@@ -9,7 +9,7 @@
 		isActive = false,
 		page,
 		ref = $bindable(null),
-		size = 'icon',
+		size = 'icon', // eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: {
 		isActive: boolean;

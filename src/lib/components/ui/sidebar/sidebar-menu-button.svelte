@@ -44,7 +44,7 @@
 		size = 'default',
 		tooltipContent,
 		tooltipContentProps,
-		variant = 'default',
+		variant = 'default', // eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: {
 		child?: Snippet<[{ props: Record<string, unknown> }]>;
@@ -62,6 +62,7 @@
 		'data-active': isActive,
 		'data-sidebar': 'menu-button',
 		'data-size': size,
+
 		...restProps
 	});
 

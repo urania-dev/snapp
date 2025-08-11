@@ -33,7 +33,7 @@
 		class: className,
 		portalProps,
 		ref = $bindable(null),
-		side = 'right',
+		side = 'right', // eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: {
 		children: Snippet;

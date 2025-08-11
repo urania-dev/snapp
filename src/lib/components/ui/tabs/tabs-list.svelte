@@ -2,7 +2,11 @@
 	import { cn } from '$lib/utils';
 	import { Tabs as TabsPrimitive } from 'bits-ui';
 
-	let { class: className, ref = $bindable(null), ...restProps }: TabsPrimitive.ListProps = $props();
+	let {
+		class: className,
+		ref = $bindable(null), // eslint-disable-next-line svelte/valid-compile
+		...restProps
+	}: TabsPrimitive.ListProps = $props();
 </script>
 
 <TabsPrimitive.List

@@ -31,7 +31,7 @@
 		class: className,
 		href,
 		ref = $bindable(null),
-		variant = 'default',
+		variant = 'default', // eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: {
 		variant?: BadgeVariant;

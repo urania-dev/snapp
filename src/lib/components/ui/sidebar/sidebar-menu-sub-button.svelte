@@ -11,7 +11,7 @@
 		class: className,
 		isActive,
 		ref = $bindable(null),
-		size = 'md',
+		size = 'md', // eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: {
 		child?: Snippet<[{ props: Record<string, unknown> }]>;
@@ -31,6 +31,7 @@
 		'data-active': isActive,
 		'data-sidebar': 'menu-sub-button',
 		'data-size': size,
+
 		...restProps
 	});
 </script>

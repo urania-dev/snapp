@@ -10,7 +10,7 @@
 		children,
 		class: className,
 		ref = $bindable(null),
-		showOnHover = false,
+		showOnHover = false, // eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: {
 		child?: Snippet<[{ props: Record<string, unknown> }]>;
@@ -31,6 +31,7 @@
 			className
 		),
 		'data-sidebar': 'menu-action',
+
 		...restProps
 	});
 </script>

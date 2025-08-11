@@ -7,6 +7,7 @@
 	let {
 		class: className,
 		ref = $bindable(null),
+		// eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: ComponentProps<typeof Separator> = $props();
 </script>

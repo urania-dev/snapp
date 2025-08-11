@@ -18,15 +18,15 @@ export const logSnappNotFound = async (event: RequestEvent) => {
 		const payload = {
 			data: undefined as { [key: string]: string } | undefined,
 			hostname: event.url.hostname,
+			ip: realIp,
 			language: event.locals.lang,
 			name: '# ALERT # URL not found',
 			referrer: event.request.referrer,
 			screen: '--SSR',
 			title: `/${event.params.shortcode}`,
 			url,
-			website: umamiID,
 			userAgent,
-			ip: realIp
+			website: umamiID
 		};
 		try {
 			const umami = getUmami(umamiURL, umamiID, userAgent);
@@ -48,15 +48,15 @@ export const logSecretInvalidOnSnapp = async (event: RequestEvent) => {
 		const payload = {
 			data: undefined as { [key: string]: string } | undefined,
 			hostname: event.url.hostname,
+			ip: realIp,
 			language: event.locals.lang,
 			name: '# ALERT # Invalid Private URL secret',
 			referrer: event.request.referrer,
 			screen: '--SSR',
 			title: `/${event.params.shortcode}`,
 			url,
-			website: umamiID,
 			userAgent,
-			ip: realIp
+			website: umamiID
 		};
 		try {
 			const umami = getUmami(umamiURL, umamiID, userAgent);
@@ -77,15 +77,15 @@ export const logDatabaseNotAvailable = async (event: RequestEvent) => {
 		const payload = {
 			data: undefined as { [key: string]: string } | undefined,
 			hostname: event.url.hostname,
+			ip: realIp,
 			language: event.locals.lang,
 			name: '# ALERT # Database offline',
 			referrer: event.request.referrer,
 			screen: '--SSR',
 			title: `/auth/sign-in`,
 			url,
-			website: umamiID,
 			userAgent,
-			ip: realIp
+			website: umamiID
 		};
 		try {
 			const umami = getUmami(umamiURL, umamiID, userAgent);
@@ -107,15 +107,15 @@ export const logInvalidLoginAttempt = async (event: RequestEvent) => {
 		const payload = {
 			data: undefined as { [key: string]: string } | undefined,
 			hostname: event.url.hostname,
+			ip: realIp,
 			language: event.locals.lang,
 			name: '# ALERT # Invalid Login Attempt',
 			referrer: event.request.referrer,
 			screen: '--SSR',
 			title: `/auth/sign-in`,
 			url,
-			website: umamiID,
 			userAgent,
-			ip: realIp
+			website: umamiID
 		};
 		try {
 			const umami = getUmami(umamiURL, umamiID, userAgent);

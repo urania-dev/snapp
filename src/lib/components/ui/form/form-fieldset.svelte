@@ -14,7 +14,7 @@
 		class: className,
 		form,
 		name,
-		ref = $bindable(null),
+		ref = $bindable(null), // eslint-disable-next-line svelte/valid-compile
 		...restProps
 	}: WithoutChild<FormPrimitive.FieldsetProps<T, U>> = $props();
 </script>
