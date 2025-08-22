@@ -69,7 +69,7 @@ Snapp is an open-source platform you can host yourself.
 ```yml
 services:
   snapp:
-    image: uraniadev/snapp:0.9-rc-027
+    image: uraniadev/snapp:0.9-rc-028
     ports:
       - 3000:3000
     environment:
@@ -260,7 +260,7 @@ be enough to change `smtp.config.cjs` file
 ```yml
 services:
   snapp:
-    image: uraniadev/snapp:0.9-rc-027
+    image: uraniadev/snapp:0.9-rc-028
     ports:
       - 3000:3000
     volumes:

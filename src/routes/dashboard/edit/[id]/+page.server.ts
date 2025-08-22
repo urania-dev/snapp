@@ -19,7 +19,7 @@ export const load = async ({ locals: { prisma, user }, params: { id } }) => {
 	});
 
 	if (!snapp) redirect(302, '/dashboard');
-	if (snapp.userId !== user.id && user.role !== 'user') redirect(302, '/dashboard');
+	if (snapp.userId !== user.id && user.role === 'user') redirect(302, '/dashboard');
 	return {
 		form: await superValidate(
 			{
