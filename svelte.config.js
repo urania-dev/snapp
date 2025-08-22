@@ -1,5 +1,5 @@
+import adapter from '@sveltejs/adapter-node';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
-import adapter from 'svelte-adapter-bun';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -13,9 +13,6 @@ const config = {
 		csrf: {
 			checkOrigin: false
 		},
-		files: {
-			lib: './src/lib/'
-		}
 	},
 
 	preprocess: [vitePreprocess()]

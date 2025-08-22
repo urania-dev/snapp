@@ -290,5 +290,7 @@
   - [#128 Bad behavior for manual shortcode](https://github.com/urania-dev/snapp/issues/128) shortcode is not slugified by default anymore for consistencies between API and frontend UI.
 - 0.9-rc-026 & 0.9-rc-027
   - [#129 Umami fixes](https://github.com/urania-dev/snapp/issues/129) fixed some umami callback not fetching location of client
-- 0.9-rc-028
+- 0.9-rc-028 - broken
   - [#130 Admin unable to edit other user's link](https://github.com/urania-dev/snapp/issues/130) fixed typo in editing other snapp permission and roles
+- 0.9-rc-029 
+  - [#132 Crash on container startup](https://github.com/urania-dev/snapp/issues/132) Fixed broken build, also updated prisma and zenstack since we were there
