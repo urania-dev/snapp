@@ -24,7 +24,7 @@ ENV DATABASE_URL=file:./db.sqlite \
     PUBLIC_EXTRA_GROUPS_EDITABLE=false \
     URLS_VIA_GROUPS_ONLY=false \
     APPNAME="Snapp.li" \
-    PUBLIC_SNAPP_VERSION="0.9-rc-028"
+    PUBLIC_SNAPP_VERSION="0.9-rc-029"
     
 # Run build commands
 ENV DATABASE_URL=mysql://root:password@localhost:3306/snapp \
@@ -57,7 +57,7 @@ RUN apt-get update -y && apt-get install -y openssl curl
 
 
 # Copy the built output (adjust path if necessary)
-COPY --from=builder /app ./
+COPY --from=builder /app .
 COPY --from=builder /app/build ./build
 COPY --from=builder /app/output ./output
 COPY --from=builder /app/smtp.config.cjs ./smtp.config.cjs
@@ -99,7 +99,7 @@ ENV DATABASE_URL=file:./db.sqlite \
     URLS_VIA_GROUPS_ONLY=false \
     PUBLIC_EXTRA_GROUPS_EDITABLE=false \
     APPNAME="Snapp.li" \
-    PUBLIC_SNAPP_VERSION="0.9-rc-028"
+    PUBLIC_SNAPP_VERSION="0.9-rc-029"
 
 EXPOSE 3000
     

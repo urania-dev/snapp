@@ -3,12 +3,10 @@ import type { StringValue } from 'ms';
 
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { enhance } from '@zenstackhq/runtime';
-import { env } from '$env/dynamic/private';
 import { prisma } from '$lib/db/prisma';
 import jwt from 'jsonwebtoken';
 
 import { getConfig } from '../config';
-import { log } from '../log';
 
 const config = getConfig();
 
@@ -42,7 +40,6 @@ export const getPrisma = async ({ locals, request }: RequestEvent) => {
 			user: user && 'userId' in user ? { id: user?.userId } : undefined
 		});
 	} catch (e) {
-		if (env.LOG_LEVEL === 'debug') log.error(e);
 		if (locals.user) return enhance(prisma, { user: locals.user });
 		throw error(403, {
 			message:
