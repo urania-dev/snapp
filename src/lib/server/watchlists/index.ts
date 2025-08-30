@@ -1,8 +1,8 @@
-import { prisma } from '$lib/db/prisma';
-import { sleep } from '$lib/utils';
+import { prisma } from "$lib/db/prisma";
+import { sleep } from "$lib/utils";
 
-import { getSettings, ServerWideSettings } from '../config';
-import { log } from '../log';
+import { DEBUG, getSettings, ServerWideSettings } from "../config";
+import { log } from "../log";
 
 class WatchLists {
 	checkDomain = async (path: string) => {
@@ -25,7 +25,7 @@ class WatchLists {
 	};
 	checkEmail = async (email: string) => {
 		return await prisma.$transaction(async (tx) => {
-			const [username, domain] = email.split('@');
+			const [username, domain] = email.split("@");
 			const whiteList = await tx.watchList.findMany({
 				where: {
 					OR: [{ allowed: true }]
@@ -41,7 +41,7 @@ class WatchLists {
 			const res = await tx.watchList.findFirst({
 				where: {
 					OR: [
-						{ domain, username: '*' },
+						{ domain, username: "*" },
 						{ domain, username }
 					]
 				}
@@ -63,24 +63,24 @@ class WatchLists {
 		yesterday.setDate(yesterday.getDate() - 1);
 		try {
 			const exists = await prisma.setting.findFirst({
-				where: { id: 'VTAPI_STATUS' }
+				where: { id: "VTAPI_STATUS" }
 			});
 
 			if (exists && exists.created > yesterday) {
 				return true;
 			}
-			const domain = 'www.virustotal.com';
+			const domain = "www.virustotal.com";
 			const encodedParams = new URLSearchParams();
-			encodedParams.set('url', domain);
-			const _url = 'https://www.virustotal.com/api/v3/urls';
+			encodedParams.set("url", domain);
+			const _url = "https://www.virustotal.com/api/v3/urls";
 			const _options = {
 				body: encodedParams,
 				headers: {
-					accept: 'application/json',
-					'content-type': 'application/x-www-form-urlencoded',
-					'x-apikey': key
+					accept: "application/json",
+					"content-type": "application/x-www-form-urlencoded",
+					"x-apikey": key
 				},
-				method: 'POST'
+				method: "POST"
 			};
 			const res = await (await f(_url, { ..._options })).json();
 
@@ -89,19 +89,19 @@ class WatchLists {
 			const analysis = await (
 				await f(res.data.links.self, {
 					headers: {
-						'x-apikey': key
+						"x-apikey": key
 					}
 				})
 			).json();
-			if (typeof analysis === 'object') {
+			if (typeof analysis === "object") {
 				await prisma.setting.upsert({
-					create: { field: 'VTAPI_STATUS', id: 'VTAPI_STATUS', value: 'true' },
-					update: { value: 'true' },
-					where: { id: 'VTAPI_STATUS' }
+					create: { field: "VTAPI_STATUS", id: "VTAPI_STATUS", value: "true" },
+					update: { value: "true" },
+					where: { id: "VTAPI_STATUS" }
 				});
 				return true;
 			} else {
-				await prisma.setting.delete({ where: { id: 'VTAPI_STATUS' } });
+				await prisma.setting.delete({ where: { id: "VTAPI_STATUS" } });
 				return false;
 			}
 		} catch (error) {
@@ -110,7 +110,7 @@ class WatchLists {
 		return false;
 	};
 	domainFromUrl = (url: string) => {
-		let result: string = '';
+		let result: string = "";
 		let match: null | RegExpMatchArray = url.match(
 			/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n?=]+)/im
 		);
@@ -126,56 +126,56 @@ class WatchLists {
 
 	getFresh = async (domain: string, _fetch: typeof fetch, VT_APIKEY: string) => {
 		const encodedParams = new URLSearchParams();
-		encodedParams.set('url', domain);
-		const _url = 'https://www.virustotal.com/api/v3/urls';
+		encodedParams.set("url", domain);
+		const _url = "https://www.virustotal.com/api/v3/urls";
 		const _options = {
 			body: encodedParams,
 			headers: {
-				accept: 'application/json',
-				'content-type': 'application/x-www-form-urlencoded',
-				'x-apikey': VT_APIKEY
+				accept: "application/json",
+				"content-type": "application/x-www-form-urlencoded",
+				"x-apikey": VT_APIKEY
 			},
-			method: 'POST'
+			method: "POST"
 		};
 		const res = await (await _fetch(_url, _options)).json();
 
 		const analysis = await (
 			await _fetch(res.data.links.self, {
 				headers: {
-					'x-apikey': VT_APIKEY
+					"x-apikey": VT_APIKEY
 				}
 			})
 		).json();
-		if (process.env.LOG_LEVEL === 'debug') log.info(analysis);
+		if (DEBUG) log.info(analysis);
 		return analysis.data.attributes.stats;
 	};
 	hasExceededSnappLimit = async (userId: string): Promise<boolean> => {
 		const settings = await getSettings();
-		const isLimited = settings.get<boolean>('ENABLE_LIMITS');
+		const isLimited = settings.get<boolean>("ENABLE_LIMITS");
 		if (!isLimited) return false;
 		const snappsByUser = await prisma.snapp.count({ where: { userId } });
 
-		const defaultMaxSnapps = settings.get<number>('MAX_SNAPPS_PER_USER');
+		const defaultMaxSnapps = settings.get<number>("MAX_SNAPPS_PER_USER");
 		const userSpecificMaxSnapps = parseInt(
 			(
 				await prisma.setting.findFirst({
-					where: { field: 'MAX_SNAPPS_PER_USER', userId }
+					where: { field: "MAX_SNAPPS_PER_USER", userId }
 				})
 			)?.value ||
 				`${defaultMaxSnapps}` ||
-				'0'
+				"0"
 		);
 		return userSpecificMaxSnapps > 0 && snappsByUser > userSpecificMaxSnapps;
 	};
 	testHTTPS = (domain: string, settings: ServerWideSettings) => {
 		try {
-			const isUnsecureHTTPAllowed = settings.get<boolean>('ALLOW_UNSECURE_HTTP');
+			const isUnsecureHTTPAllowed = settings.get<boolean>("ALLOW_UNSECURE_HTTP");
 			const url = new URL(domain);
 
-			if (!isUnsecureHTTPAllowed && url.protocol !== 'https:') return false;
+			if (!isUnsecureHTTPAllowed && url.protocol !== "https:") return false;
 			return true;
 		} catch (error) {
-			if (process.env.LOG_LEVEL === 'debug') log.error(error);
+			if (DEBUG) log.error(error);
 		}
 		return false;
 	};
@@ -184,18 +184,18 @@ class WatchLists {
 		test: string
 	): Promise<{
 		errors: {
-			blacklist: 'errors.snapps.original-url-blacklisted' | null;
-			https: 'errors.snapps.unallowed-not-https' | null;
-			missingUrl: 'errors.snapps.original-url-missing' | null;
+			blacklist: "errors.snapps.original-url-blacklisted" | null;
+			https: "errors.snapps.unallowed-not-https" | null;
+			missingUrl: "errors.snapps.original-url-missing" | null;
 		};
 		valid: boolean;
 	}> => {
-		if (typeof test !== 'string') {
+		if (typeof test !== "string") {
 			return {
 				errors: {
 					blacklist: null,
 					https: null,
-					missingUrl: 'errors.snapps.original-url-missing'
+					missingUrl: "errors.snapps.original-url-missing"
 				},
 				valid: false
 			};
@@ -209,9 +209,9 @@ class WatchLists {
 		return {
 			errors: {
 				blacklist:
-					((isClean === false || isBlacklisted) && 'errors.snapps.original-url-blacklisted') ||
+					((isClean === false || isBlacklisted) && "errors.snapps.original-url-blacklisted") ||
 					null,
-				https: (isHTTPS === false && 'errors.snapps.unallowed-not-https') || null,
+				https: (isHTTPS === false && "errors.snapps.unallowed-not-https") || null,
 				missingUrl: null
 			},
 			valid: isWhitelisted || (isHTTPS && isBlacklisted === false && isClean)
@@ -222,7 +222,7 @@ class WatchLists {
 		const _30DaysAgo_ = new Date();
 		_30DaysAgo_.setMonth(new Date().getMonth() - 1);
 
-		const vtApiKey = settings.get<string>('VTAPI_KEY');
+		const vtApiKey = settings.get<string>("VTAPI_KEY");
 		if (!vtApiKey) return true;
 
 		try {
@@ -249,7 +249,7 @@ class WatchLists {
 
 			return is_clean;
 		} catch (error) {
-			if (process.env.LOG_LEVEL === 'debug') log.error(error);
+			if (DEBUG) log.error(error);
 			return true;
 		}
 	};

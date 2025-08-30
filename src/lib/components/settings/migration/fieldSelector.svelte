@@ -1,16 +1,16 @@
 <script lang="ts">
-	import type { SvelteMap } from 'svelte/reactivity';
+	import type { SvelteMap } from "svelte/reactivity";
 
-	import P from '$lib/components/typography/text/p.svelte';
-	import * as Card from '$lib/components/ui/card';
-	import Label from '$lib/components/ui/label/label.svelte';
-	import { getTranslations } from '$lib/i18n/index.svelte';
+	import P from "$lib/components/typography/text/p.svelte";
+	import * as Card from "$lib/components/ui/card";
+	import Label from "$lib/components/ui/label/label.svelte";
+	import { getTranslations } from "$lib/i18n/index.svelte";
 
-	import Snappfields from './snappfields.svelte';
+	import Snappfields from "./snappfields.svelte";
 
 	let {
 		snappStructure = $bindable(),
-		structuredFields = $bindable()
+		structuredFields
 	}: {
 		snappStructure: {
 			createdAt: string | undefined;
@@ -30,16 +30,16 @@
 
 	const i18n = getTranslations();
 
-	let showTable = $state('0');
+	let showTable = $state("0");
 </script>
 
 <div class="my-4 grid gap-2">
-	{#each structuredFields as [i]}
+	{#each structuredFields as [i] (i)}
 		{#if showTable === i}
 			<Card.Root>
 				<Card.Content class="grid w-full gap-1">
-					<Label>{i18n.t('migrations.set-fields.label')}</Label>
-					<P class="!mt-2 text-sm text-muted-foreground">{i18n.t('migrations.set-fields.helper')}</P
+					<Label>{i18n.t("migrations.set-fields.label")}</Label>
+					<P class="!mt-2 text-sm text-muted-foreground">{i18n.t("migrations.set-fields.helper")}</P
 					>
 					<Snappfields bind:snapp={snappStructure} fields={structuredFields.get(i) || new Set()} />
 				</Card.Content>

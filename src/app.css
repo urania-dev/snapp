@@ -128,7 +128,7 @@
 	}
 }
 
-html[dir='rtl'] {
+html[dir="rtl"] {
 	.ph,
 	.ph-duotone,
 	.ph-fill,

@@ -1,13 +1,13 @@
 <script lang="ts">
-	import type { ComponentProps } from 'svelte';
+	import type { ComponentProps } from "svelte";
 
-	import { Separator } from '$lib/components/ui/separator/index.js';
-	import { cn } from '$lib/utils';
+	import { Separator } from "$lib/components/ui/separator/index.js";
+	import { cn } from "$lib/utils";
 
 	let {
 		class: className,
 		ref = $bindable(null),
-		// eslint-disable-next-line svelte/valid-compile
+
 		...restProps
 	}: ComponentProps<typeof Separator> = $props();
 </script>
@@ -15,6 +15,6 @@
 <Separator
 	bind:ref
 	data-sidebar="separator"
-	class={cn('mx-2 w-auto bg-sidebar-border', className)}
+	class={cn("mx-2 w-auto bg-sidebar-border", className)}
 	{...restProps}
 />

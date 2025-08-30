@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { cn } from '$lib/utils';
-	import { Command as CommandPrimitive } from 'bits-ui';
+	import { cn } from "$lib/utils";
+	import { Command as CommandPrimitive } from "bits-ui";
 
 	let {
 		children,
 		class: className,
 		heading,
-		ref = $bindable(null), // eslint-disable-next-line svelte/valid-compile
+		ref = $bindable(null),
 		...restProps
 	}: {
 		heading?: string;
@@ -14,7 +14,7 @@
 </script>
 
 <CommandPrimitive.Group
-	class={cn('overflow-hidden p-1 text-foreground', className)}
+	class={cn("overflow-hidden p-1 text-foreground", className)}
 	bind:ref
 	{...restProps}
 >

@@ -1,8 +1,8 @@
-import pino from 'pino';
+import pino from "pino";
 
 const transport = pino.transport({
 	options: { destination: 1 },
-	target: 'pino-pretty'
+	target: "pino-pretty"
 });
 
 export const log = pino(transport);

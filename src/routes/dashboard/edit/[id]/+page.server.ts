@@ -1,25 +1,28 @@
-import { redirect } from '@sveltejs/kit';
-import { fail } from '@sveltejs/kit';
-import { env } from '$env/dynamic/public';
-import { snappSchema } from '$lib/components/snapps/schema';
-import { watchLists } from '$lib/server/watchlists/index.js';
-import bcrypt from 'bcryptjs';
-import { customAlphabet } from 'nanoid';
-import { superValidate } from 'sveltekit-superforms';
-import { zod } from 'sveltekit-superforms/adapters';
+import { redirect } from "@sveltejs/kit";
+import { fail } from "@sveltejs/kit";
+import { env } from "$env/dynamic/public";
+import { snappSchema } from "$lib/components/snapps/schema";
+import { watchLists } from "$lib/server/watchlists/index.js";
+import bcrypt from "bcryptjs";
+import { customAlphabet } from "nanoid";
+import { superValidate } from "sveltekit-superforms";
+import { zod } from "sveltekit-superforms/adapters";
 
-const nanoid = customAlphabet('abcdefghijklmnopqrstuvwxyz', 5);
+const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyz", 5);
 
 export const load = async ({ locals: { prisma, user }, params: { id } }) => {
-	if (!user) redirect(302, '/auth/sign-in');
+	if (!user) redirect(302, "/auth/sign-in");
 
 	const snapp = await prisma.snapp.findFirst({
 		include: { tag: true },
 		where: { id }
 	});
 
-	if (!snapp) redirect(302, '/dashboard');
-	if (snapp.userId !== user.id && user.role === 'user') redirect(302, '/dashboard');
+	if (!snapp) redirect(302, "/dashboard");
+	const EXTRA_GROUPS_EDITABLE = /^(1|true|yes)$/i.test(env?.PUBLIC_EXTRA_GROUPS_EDITABLE || "");
+
+	if (!snapp || (snapp?.userId !== user.id && user.role === "user" && !EXTRA_GROUPS_EDITABLE))
+		redirect(302, "/dashboard");
 	return {
 		form: await superValidate(
 			{
@@ -31,7 +34,7 @@ export const load = async ({ locals: { prisma, user }, params: { id } }) => {
 				secret: snapp.secret || undefined,
 				shortcode: snapp.shortcode,
 				tags: snapp.tag.map((t) => t.slug),
-				utmParams: JSON.parse(snapp.utmParams || '[]')
+				utmParams: JSON.parse(snapp.utmParams || "[]")
 			},
 			zod(snappSchema)
 		),
@@ -45,7 +48,7 @@ export const actions = {
 		const {
 			locals: { prisma, user }
 		} = event;
-		if (!user) redirect(302, '/auth/sign-in');
+		if (!user) redirect(302, "/auth/sign-in");
 		const editForm = await superValidate(event, zod(snappSchema));
 
 		if (!editForm.valid) {
@@ -79,7 +82,7 @@ export const actions = {
 				})
 			: null;
 		const isOwner = old?.userId === event.locals.user?.id;
-		const isAdmin = event.locals.user?.role !== 'user' || false;
+		const isAdmin = event.locals.user?.role !== "user" || false;
 
 		if (!valid) {
 			return fail(400, {
@@ -90,17 +93,17 @@ export const actions = {
 					(errors?.https && errors.https)
 			});
 		}
-		const EXTRA_GROUPS_EDITABLE =
-			env?.PUBLIC_EXTRA_GROUPS_EDITABLE?.toString()?.toLowerCase() === 'true';
+		const EXTRA_GROUPS_EDITABLE = /^(1|true|yes)$/i.test(env?.PUBLIC_EXTRA_GROUPS_EDITABLE || "");
 		if (!isOwner && !isAdmin && !EXTRA_GROUPS_EDITABLE)
-			return fail(401, { editForm, message: 'errors.unauthorized' });
+			return fail(401, { editForm, message: "errors.unauthorized" });
 		try {
+			const EDIT_BY = `\n[${user.username}:${new Date().toLocaleDateString()}]`;
 			const updatedSnapp = await prisma.snapp.update({
 				data: {
 					expiresAt: snapp.expiresAt || null,
 					groupId: (groups.length && groups[0]) || null,
 					maxUsages: snapp.maxUsages || -1,
-					notes: snapp.notes || null,
+					notes: !isOwner ? snapp.notes : snapp.notes ? snapp.notes + EDIT_BY : EDIT_BY,
 					originalUrl: originalURL,
 					secret: secret
 						? old && secret !== old.secret

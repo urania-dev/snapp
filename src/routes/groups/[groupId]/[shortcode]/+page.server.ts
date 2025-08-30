@@ -1,17 +1,17 @@
-import type { Snapp } from '@prisma/client';
+import type { Snapp } from "@prisma/client";
 
-import { error, redirect } from '@sveltejs/kit';
-import { fail } from '@sveltejs/kit';
-import { singleSchema } from '$lib/components/snapps/schema';
-import { prisma } from '$lib/db/prisma';
-import { log } from '$lib/server/log';
-import { markUsage } from '$lib/server/snapps/markUsage';
-import { logSecretInvalidOnSnapp, logSnappNotFound } from '$lib/umami';
-import bcrypt from 'bcryptjs';
-import { superValidate } from 'sveltekit-superforms';
-import { zod } from 'sveltekit-superforms/adapters';
+import { error, redirect } from "@sveltejs/kit";
+import { fail } from "@sveltejs/kit";
+import { singleSchema } from "$lib/components/snapps/schema";
+import { prisma } from "$lib/db/prisma";
+import { log } from "$lib/server/log";
+import { markUsage } from "$lib/server/snapps/markUsage";
+import { logSecretInvalidOnSnapp, logSnappNotFound } from "$lib/umami";
+import bcrypt from "bcryptjs";
+import { superValidate } from "sveltekit-superforms";
+import { zod } from "sveltekit-superforms/adapters";
 
-import type { PageServerLoad } from './$types';
+import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async (event) => {
 	const {
@@ -29,11 +29,11 @@ export const load: PageServerLoad = async (event) => {
 
 	if (!snapp) {
 		logSnappNotFound(event);
-		throw error(404, { message: 'errors.snapps.not-found' });
+		throw error(404, { message: "errors.snapps.not-found" });
 	}
 	const url = new URL(snapp.originalUrl);
 
-	const utmParamsString = JSON.parse(snapp.utmParams || '[]') as string[];
+	const utmParamsString = JSON.parse(snapp.utmParams || "[]") as string[];
 	const utmParams = utmParamsString.map((p) => {
 		const [key, value, name] = JSON.parse(p) as string[];
 		return { key, name, value };
@@ -80,24 +80,24 @@ export const actions = {
 			snapp = await prisma.snapp.findFirst({ where: { shortcode } });
 		} catch (error) {
 			log.error(error);
-			return { form: secretForm, message: 'errors.generic' };
+			return { form: secretForm, message: "errors.generic" };
 		}
 		if (!snapp) {
 			logSnappNotFound(event);
-			return fail(400, { form: secretForm, message: 'errors.snapps.not-found' });
+			return fail(400, { form: secretForm, message: "errors.snapps.not-found" });
 		}
 
 		const isPasswordCorrect = await bcrypt.compare(secretForm.data.secret, snapp.secret!);
 
 		if (!isPasswordCorrect) {
 			logSecretInvalidOnSnapp(event);
-			return fail(400, { form: secretForm, message: 'errors.auth.wrong-credentials' });
+			return fail(400, { form: secretForm, message: "errors.auth.wrong-credentials" });
 		}
 		const [available, err] = await markUsage(event, snapp);
 
 		const url = new URL(snapp.originalUrl);
 
-		const utmParamsString = JSON.parse(snapp.utmParams || '[]') as string[];
+		const utmParamsString = JSON.parse(snapp.utmParams || "[]") as string[];
 		const utmParams = utmParamsString.map((p) => {
 			const [key, value, name] = JSON.parse(p) as string[];
 			return { key, name, value };

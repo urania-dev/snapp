@@ -1,8 +1,8 @@
-import { navigating } from '$app/state';
-import { IsMobile } from '$lib/hooks/is-mobile.svelte.js';
-import { getContext, setContext } from 'svelte';
+import { navigating } from "$app/state";
+import { IsMobile } from "$lib/hooks/is-mobile.svelte.js";
+import { getContext, setContext } from "svelte";
 
-import { SIDEBAR_KEYBOARD_SHORTCUT } from './constants.js';
+import { SIDEBAR_KEYBOARD_SHORTCUT } from "./constants.js";
 
 export type SidebarStateProps = {
 	/**
@@ -26,8 +26,8 @@ class SidebarState {
 	readonly props: SidebarStateProps;
 	open = $derived.by(() => this.props.open());
 	openMobile = $state(false);
-	setOpen: SidebarStateProps['setOpen'];
-	state = $derived.by(() => (this.open ? 'expanded' : 'collapsed'));
+	setOpen: SidebarStateProps["setOpen"];
+	state = $derived.by(() => (this.open ? "expanded" : "collapsed"));
 	// Convenience getter for checking if the sidebar is mobile
 	// without this, we would need to use `sidebar.isMobile.current` everywhere
 	get isMobile() {
@@ -62,7 +62,7 @@ class SidebarState {
 	};
 }
 
-const SYMBOL_KEY = 'scn-sidebar';
+const SYMBOL_KEY = "scn-sidebar";
 
 /**
  * Instantiates a new `SidebarState` instance and sets it in the context.

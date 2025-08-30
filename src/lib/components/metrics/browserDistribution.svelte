@@ -1,15 +1,15 @@
 <script lang="ts">
-	import type { Usage } from '@prisma/client';
+	import type { Usage } from "@prisma/client";
 
-	import { getLocalTimeZone } from '@internationalized/date';
-	import { browser } from '$app/environment';
-	import { page } from '$app/state';
-	import { getTranslations } from '$lib/i18n/index.svelte';
-	import { getMetricsStore } from '$lib/stores/metrics.svelte';
-	import { toast } from 'svelte-sonner';
+	import { getLocalTimeZone } from "@internationalized/date";
+	import { browser } from "$app/environment";
+	import { page } from "$app/state";
+	import { getTranslations } from "$lib/i18n/index.svelte";
+	import { getMetricsStore } from "$lib/stores/metrics.svelte";
+	import { toast } from "svelte-sonner";
 
-	import { Separator } from '../ui/separator';
-	import * as Table from '../ui/table';
+	import { Separator } from "../ui/separator";
+	import * as Table from "../ui/table";
 	const mstore = getMetricsStore();
 
 	let data = $state<{ id: null | string; name: null | string; value: number }[]>([]);
@@ -21,11 +21,11 @@
 				await (page.data.fetch as typeof fetch)(
 					`/api/usage/groupBy?q=${JSON.stringify({
 						_count: { browser: true },
-						by: ['browser'],
-						orderBy: { _count: { browser: 'desc' } },
+						by: ["browser"],
+						orderBy: { _count: { browser: "desc" } },
 						take: 10,
 						where: {
-							ownerId: page.data.user.role !== 'user' ? undefined : page.data.user.id,
+							ownerId: page.data.user.role !== "user" ? undefined : page.data.user.id,
 							timestamp: {
 								gte: mstore.start.toDate(getLocalTimeZone()).toISOString(),
 								lte: mstore.end.toDate(getLocalTimeZone()).toISOString()
@@ -38,7 +38,7 @@
 				data = res.data.map((d) => ({ id: d.browser, name: d.browser, value: d._count.browser }));
 			}
 		} catch (error) {
-			toast.error('errors.generic');
+			toast.error("errors.generic");
 			console.error(error);
 		}
 	};
@@ -50,8 +50,8 @@
 	<Table.Root>
 		<Table.Header>
 			<Table.Row>
-				<Table.Head>{i18n.t('metrics.fields.browser')}</Table.Head>
-				<Table.Head>{i18n.t('snapps.fields.hit')}</Table.Head>
+				<Table.Head>{i18n.t("metrics.fields.browser")}</Table.Head>
+				<Table.Head>{i18n.t("snapps.fields.hit")}</Table.Head>
 			</Table.Row>
 		</Table.Header>
 		<Table.Body>
@@ -68,7 +68,7 @@
 					</Table.Cell>
 				</Table.Row>
 			{:then}
-				{#each data as { name, value }}
+				{#each data as { name, value }, idx (idx)}
 					<Table.Row>
 						<Table.Cell>{name}</Table.Cell>
 						<Table.Cell>{value}</Table.Cell>

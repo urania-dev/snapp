@@ -1,17 +1,17 @@
 <script lang="ts">
-	import type { WithElementRef } from 'bits-ui';
-	import type { HTMLAttributes } from 'svelte/elements';
+	import type { WithElementRef } from "bits-ui";
+	import type { HTMLAttributes } from "svelte/elements";
 
-	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
-	import { cn } from '$lib/utils';
+	import * as Tooltip from "$lib/components/ui/tooltip/index.js";
+	import { cn } from "$lib/utils";
 
 	import {
 		SIDEBAR_COOKIE_MAX_AGE,
 		SIDEBAR_COOKIE_NAME,
 		SIDEBAR_WIDTH,
 		SIDEBAR_WIDTH_ICON
-	} from './constants.js';
-	import { setSidebar } from './context.svelte.js';
+	} from "./constants.js";
+	import { setSidebar } from "./context.svelte.js";
 
 	let {
 		children,
@@ -20,7 +20,7 @@
 		open = $bindable(true),
 		ref = $bindable(null),
 		style,
-		// eslint-disable-next-line svelte/valid-compile
+
 		...restProps
 	}: {
 		onOpenChange?: (open: boolean) => void;
@@ -45,7 +45,7 @@
 	<div
 		style="--sidebar-width: {SIDEBAR_WIDTH}; --sidebar-width-icon: {SIDEBAR_WIDTH_ICON}; {style}"
 		class={cn(
-			'group/sidebar-wrapper flex min-h-svh w-full has-[[data-variant=inset]]:bg-sidebar',
+			"group/sidebar-wrapper flex min-h-svh w-full has-[[data-variant=inset]]:bg-sidebar",
 			className
 		)}
 		bind:this={ref}

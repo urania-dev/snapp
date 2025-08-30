@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Button, Container, Heading, Image, inline, Paragraph } from '@uraniadev/emailer';
-	import { env } from '$env/dynamic/public';
+	import { Button, Container, Heading, Image, inline, Paragraph } from "@uraniadev/emailer";
+	import { env } from "$env/dynamic/public";
 
 	const { appname, ip, recoveryURL }: { appname: string; ip: string; recoveryURL: string } =
 		$props();
@@ -18,18 +18,18 @@
 	<Paragraph>You requested to recover your password.</Paragraph>
 	<Paragraph>If you think this is a mistake please notice the platform administrator.</Paragraph>
 
-	<table style={inline('w-full')}>
+	<table style={inline("w-full")}>
 		<tbody>
-			<tr style={inline('even:bg-neutral-300/50 m-0 border-t p-0')}>
-				<td style={inline('border p-1 w-max	 text-left')}>
+			<tr style={inline("even:bg-neutral-300/50 m-0 border-t p-0")}>
+				<td style={inline("border p-1 w-max	 text-left")}>
 					<Paragraph class="font-code text-sm">{ip}</Paragraph>
 				</td>
-				<td style={inline('border p-1 w-max text-left')}>
+				<td style={inline("border p-1 w-max text-left")}>
 					<Paragraph class="font-code whitespace-nowrap text-sm"
 						>{new Date().toUTCString()}</Paragraph
 					>
 				</td>
-				<td style={inline('border p-1 w-full text-left')}>
+				<td style={inline("border p-1 w-full text-left")}>
 					<Paragraph class="font-code text-sm">Password Recovery requested.</Paragraph>
 				</td>
 			</tr>

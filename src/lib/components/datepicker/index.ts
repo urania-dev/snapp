@@ -1,1 +1,1 @@
-export { default as DatePicker } from './component.svelte';
+export { default as DatePicker } from "./component.svelte";

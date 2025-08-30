@@ -1,24 +1,24 @@
-import type { Group, User } from '@prisma/client';
-import type { ColumnDef } from '@tanstack/table-core';
+import type { Group, User } from "@prisma/client";
+import type { ColumnDef } from "@tanstack/table-core";
 
-import { renderComponent, renderSnippet } from '$lib/components/ui/data-table';
-import { type TranslationsStoreType } from '$lib/i18n/index.svelte';
-import { formatTimeAgo } from '$lib/utils';
-import { createRawSnippet } from 'svelte';
+import { renderComponent, renderSnippet } from "$lib/components/ui/data-table";
+import { type TranslationsStoreType } from "$lib/i18n/index.svelte";
+import { formatTimeAgo } from "$lib/utils";
+import { createRawSnippet } from "svelte";
+import { SvelteDate } from "svelte/reactivity";
 
-import Checkbox from '../checkbox.svelte';
-import Groups from './groups.svelte';
-import Role from './role.svelte';
-// import Actions from "./actions.svelte";
-import SortButton from './sortButton.svelte';
+import Checkbox from "../checkbox.svelte";
+import Groups from "./groups.svelte";
+import Role from "./role.svelte";
+import SortButton from "./sortButton.svelte";
 
 export const columns = (i18n: TranslationsStoreType) => {
 	return [
 		{
-			accessorKey: 'id',
+			accessorKey: "id",
 			cell: ({ row }) =>
 				renderComponent(Checkbox, {
-					'aria-label': 'Select row',
+					"aria-label": "Select row",
 					checked: row.getIsSelected(),
 					onCheckedChange: (value) => row.toggleSelected(!!value)
 				}),
@@ -26,15 +26,15 @@ export const columns = (i18n: TranslationsStoreType) => {
 			enableSorting: false,
 			header: ({ table }) =>
 				renderComponent(Checkbox, {
-					'aria-label': 'Select all',
+					"aria-label": "Select all",
 					checked: table.getIsAllPageRowsSelected(),
 					indeterminate: table.getIsSomePageRowsSelected() && !table.getIsAllPageRowsSelected(),
 					onCheckedChange: (value) => table.toggleAllPageRowsSelected(!!value)
 				}),
-			id: 'id'
+			id: "id"
 		},
 		{
-			accessorKey: 'username',
+			accessorKey: "username",
 			cell: ({ row }) => {
 				const getContent = createRawSnippet<[{ id: string; username: string | undefined }]>(
 					(getProps) => {
@@ -46,8 +46,8 @@ export const columns = (i18n: TranslationsStoreType) => {
 					}
 				);
 				return renderSnippet(getContent, {
-					id: row.getValue<string>('id'),
-					username: row.getValue<string>('username')
+					id: row.getValue<string>("id"),
+					username: row.getValue<string>("username")
 				});
 			},
 			enableHiding: true,
@@ -56,24 +56,24 @@ export const columns = (i18n: TranslationsStoreType) => {
 				return renderComponent(SortButton, {
 					data: {
 						id: column.id,
-						label: i18n.t('users.fields.username')
+						label: i18n.t("users.fields.username")
 					},
-					onclick: () => column.toggleSorting(column.getIsSorted() === 'asc')
+					onclick: () => column.toggleSorting(column.getIsSorted() === "asc")
 				});
 			},
-			id: 'username'
+			id: "username"
 		},
 		{
-			accessorKey: 'groups',
+			accessorKey: "groups",
 			cell: ({ row }) => renderComponent(Groups, { groups: row.original.groups }),
 
 			enableHiding: true,
 			enableSorting: false,
-			header: i18n.t('users.groups.label'),
-			id: 'groups'
+			header: i18n.t("users.groups.label"),
+			id: "groups"
 		},
 		{
-			accessorKey: 'role',
+			accessorKey: "role",
 			cell: ({ row }) => renderComponent(Role, { role: row.original.role }),
 
 			enableHiding: true,
@@ -82,15 +82,15 @@ export const columns = (i18n: TranslationsStoreType) => {
 				return renderComponent(SortButton, {
 					data: {
 						id: column.id,
-						label: i18n.t('users.fields.role')
+						label: i18n.t("users.fields.role")
 					},
-					onclick: () => column.toggleSorting(column.getIsSorted() === 'asc')
+					onclick: () => column.toggleSorting(column.getIsSorted() === "asc")
 				});
 			},
-			id: 'role'
+			id: "role"
 		},
 		{
-			accessorKey: 'updatedAt',
+			accessorKey: "updatedAt",
 			cell: ({ row }) => {
 				const timesAgo = createRawSnippet<[{ date: string | undefined }]>((getProps) => {
 					const { date } = getProps();
@@ -99,14 +99,14 @@ export const columns = (i18n: TranslationsStoreType) => {
 						render: () =>
 							(date &&
 								`<div class="capitalize whitespace-nowrap w-full text-center">${formatTimeAgo(
-									new Date(date)
+									new SvelteDate(date)
 								)}</span>`) ||
 							`<span></span>`
 					};
 				});
 
 				return renderSnippet(timesAgo, {
-					date: row.getValue<string>('updatedAt')
+					date: row.getValue<string>("updatedAt")
 				});
 			},
 			enableHiding: true,
@@ -115,15 +115,15 @@ export const columns = (i18n: TranslationsStoreType) => {
 				return renderComponent(SortButton, {
 					data: {
 						id: column.id,
-						label: i18n.t('users.fields.updated')
+						label: i18n.t("users.fields.updated")
 					},
-					onclick: () => column.toggleSorting(column.getIsSorted() === 'asc')
+					onclick: () => column.toggleSorting(column.getIsSorted() === "asc")
 				});
 			},
-			id: 'updatedAt'
+			id: "updatedAt"
 		},
 		{
-			accessorKey: 'createdAt',
+			accessorKey: "createdAt",
 			cell: ({ row }) => {
 				const timesAgo = createRawSnippet<[{ date: string | undefined }]>((getProps) => {
 					const { date } = getProps();
@@ -132,14 +132,14 @@ export const columns = (i18n: TranslationsStoreType) => {
 						render: () =>
 							(date &&
 								`<div class="capitalize whitespace-nowrap w-full text-center">${formatTimeAgo(
-									new Date(date)
+									new SvelteDate(date)
 								)}</span>`) ||
 							`<span></span>`
 					};
 				});
 
 				return renderSnippet(timesAgo, {
-					date: row.getValue<string>('createdAt')
+					date: row.getValue<string>("createdAt")
 				});
 			},
 			enableHiding: true,
@@ -148,12 +148,12 @@ export const columns = (i18n: TranslationsStoreType) => {
 				return renderComponent(SortButton, {
 					data: {
 						id: column.id,
-						label: i18n.t('snapps.fields.created')
+						label: i18n.t("snapps.fields.created")
 					},
-					onclick: () => column.toggleSorting(column.getIsSorted() === 'asc')
+					onclick: () => column.toggleSorting(column.getIsSorted() === "asc")
 				});
 			},
-			id: 'createdAt'
+			id: "createdAt"
 		}
 	] satisfies ColumnDef<{ groups: Group[] } & User>[];
 };

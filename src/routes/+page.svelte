@@ -1,31 +1,31 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
-	import { page } from '$app/state';
-	import { env } from '$env/dynamic/public';
-	import Features from '$lib/components/homepage/features.svelte';
-	import Hero from '$lib/components/homepage/hero.svelte';
-	import I18nButton from '$lib/components/settings/profile/i18nButton.svelte';
-	import ThemeForHomepage from '$lib/components/settings/profile/themeForHomepage.svelte';
-	import H2 from '$lib/components/typography/heading/h2.svelte';
-	import H4 from '$lib/components/typography/heading/h4.svelte';
-	import P from '$lib/components/typography/text/p.svelte';
-	import { Button } from '$lib/components/ui/button';
-	import { getTranslations } from '$lib/i18n/index.svelte';
-	import SvelteSeo from 'svelte-seo';
-	import { toast } from 'svelte-sonner';
+	import { browser } from "$app/environment";
+	import { page } from "$app/state";
+	import { env } from "$env/dynamic/public";
+	import Features from "$lib/components/homepage/features.svelte";
+	import Hero from "$lib/components/homepage/hero.svelte";
+	import I18nButton from "$lib/components/settings/profile/i18nButton.svelte";
+	import ThemeForHomepage from "$lib/components/settings/profile/themeForHomepage.svelte";
+	import H2 from "$lib/components/typography/heading/h2.svelte";
+	import H4 from "$lib/components/typography/heading/h4.svelte";
+	import P from "$lib/components/typography/text/p.svelte";
+	import { Button } from "$lib/components/ui/button";
+	import { getTranslations } from "$lib/i18n/index.svelte";
+	import SvelteSeo from "svelte-seo";
+	import { toast } from "svelte-sonner";
 	const i18n = getTranslations();
 	const { data } = $props();
 
-	let secureContext = $derived(browser && navigator.clipboard && page.url.protocol === 'https:');
+	let secureContext = $derived(browser && navigator.clipboard && page.url.protocol === "https:");
 
 	const handleCopy = async (command: string) => {
 		if (!secureContext) {
-			toast.error(i18n.t('tokens.not-allowed-to-copy'));
+			toast.error(i18n.t("tokens.not-allowed-to-copy"));
 			return;
 		}
 
 		if (navigator.clipboard) await navigator.clipboard.writeText(command);
-		toast.info(i18n.t('snapps.helpers.copied-to-clipboard'));
+		toast.info(i18n.t("snapps.helpers.copied-to-clipboard"));
 	};
 	$effect(() => {
 		i18n.locale = data.locale;
@@ -73,19 +73,19 @@
 			--grid-border="270 100% 70%"
 			features={[
 				{
-					icon: 'medal',
-					label: 'homepage.features.why.labels.ease',
-					text: 'homepage.features.why.helpers.ease'
+					icon: "medal",
+					label: "homepage.features.why.labels.ease",
+					text: "homepage.features.why.helpers.ease"
 				},
 				{
-					icon: 'lock-laminated',
-					label: 'homepage.features.why.labels.secure',
-					text: 'homepage.features.why.helpers.secure'
+					icon: "lock-laminated",
+					label: "homepage.features.why.labels.secure",
+					text: "homepage.features.why.helpers.secure"
 				},
 				{
-					icon: 'chart-line',
-					label: 'homepage.features.why.labels.analytics',
-					text: 'homepage.features.why.helpers.analytics'
+					icon: "chart-line",
+					label: "homepage.features.why.labels.analytics",
+					text: "homepage.features.why.helpers.analytics"
 				}
 			]}
 		/>
@@ -98,7 +98,7 @@
 				href="#getting-started"
 			>
 				<i class="ph ph-arrow-down text-[20px]"></i>
-				<span>{@html i18n.t('homepage.getting-started.label')}</span>
+				<span>{@html i18n.t("homepage.getting-started.label")}</span>
 			</Button>
 			<Button
 				class="order-1 flex w-max items-center gap-2 md:order-2 "
@@ -106,7 +106,7 @@
 				href="https://github.com/urania-dev/snapp"
 				target="_blank"
 			>
-				<span>{@html i18n.t('homepage.features.why.full-list')}</span><i
+				<span>{@html i18n.t("homepage.features.why.full-list")}</span><i
 					class="ph ph-arrow-right text-[20px]"
 				></i>
 			</Button>
@@ -117,25 +117,25 @@
 		class="flex flex-col items-center justify-center gap-2 text-balance p-4 sm:min-h-full"
 	>
 		<div class="mx-auto mb-2 flex w-full max-w-xl items-center gap-2 px-4">
-			<H2 class="w-full p-0 text-center">{i18n.t('homepage.getting-started.claim')}</H2>
+			<H2 class="w-full p-0 text-center">{i18n.t("homepage.getting-started.claim")}</H2>
 		</div>
 		<div class="flex w-full max-w-xl flex-col justify-center gap-4 md:flex-row">
 			<div
 				class="flex w-full max-w-xl flex-col gap-2 rounded-sm border bg-foreground/5 p-4 backdrop-blur-sm"
 			>
-				<H4>{i18n.t('homepage.getting-started.docker.label')}</H4>
+				<H4>{i18n.t("homepage.getting-started.docker.label")}</H4>
 
 				<div class="flex gap-2">
 					{@html data.startDocker}
 					<Button
 						variant="outline"
 						class="h-10 w-10"
-						onclick={() => handleCopy('docker run uraniadev/snapp:latest')}
+						onclick={() => handleCopy("docker run uraniadev/snapp:latest")}
 						><i class="ph-duotone ph-copy text-[20px]"></i></Button
 					>
 				</div>
 				<P class="mb-2 text-muted-foreground"
-					>{@html i18n.t('homepage.getting-started.docker.helper')}</P
+					>{@html i18n.t("homepage.getting-started.docker.helper")}</P
 				>
 				<div class="flex gap-2">
 					{@html data.dockerCompose}
@@ -226,7 +226,7 @@
 	</div>
 </div>
 
-<SvelteSeo title={`${data.appname || 'Snapp'}`} />
+<SvelteSeo title={`${data.appname || "Snapp"}`} />
 
 <style lang="postcss">
 	@keyframes erraticMove {

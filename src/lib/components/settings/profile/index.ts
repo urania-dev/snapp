@@ -1,1 +1,1 @@
-export { default as ProfilePanel } from './component.svelte';
+export { default as ProfilePanel } from "./component.svelte";

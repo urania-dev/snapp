@@ -1,13 +1,13 @@
 <script lang="ts">
-	import type { Snapp, Tag } from '@prisma/client';
+	import type { Snapp, Tag } from "@prisma/client";
 
-	import { ManageGroup } from '$lib/components/groups';
-	import { columns } from '$lib/components/tables/snapps/columns.svelte';
-	import DataTable from '$lib/components/tables/snapps/table.svelte';
-	import H2 from '$lib/components/typography/heading/h2.svelte';
-	import { Button } from '$lib/components/ui/button';
-	import { Separator } from '$lib/components/ui/separator';
-	import { getTranslations } from '$lib/i18n/index.svelte';
+	import { ManageGroup } from "$lib/components/groups";
+	import { columns } from "$lib/components/tables/snapps/columns.svelte";
+	import DataTable from "$lib/components/tables/snapps/table.svelte";
+	import H2 from "$lib/components/typography/heading/h2.svelte";
+	import { Button } from "$lib/components/ui/button";
+	import { Separator } from "$lib/components/ui/separator";
+	import { getTranslations } from "$lib/i18n/index.svelte";
 	const { data } = $props();
 	const i18n = getTranslations();
 
@@ -24,7 +24,7 @@
 			<i class="ph-duotone ph-chats text-[32px]"></i>
 			<H2 class="m-0 p-0">{data.group.name}</H2>
 		</div>
-		{#if data.user.role !== 'user'}
+		{#if data.user.role !== "user"}
 			<Button
 				onclick={() => {
 					manageGroup = !manageGroup;
@@ -32,7 +32,7 @@
 			>
 				<i class="ph-duotone ph-user-plus text-[22px]"></i>
 				<span class="hidden md:block">
-					{i18n.t('users.groups.labels.manage')}
+					{i18n.t("users.groups.labels.manage")}
 				</span>
 			</Button>
 		{/if}
@@ -41,7 +41,7 @@
 </div>
 <div class="flex w-full flex-col pt-4">
 	<DataTable
-		isPrivate={data.user.role !== 'user' || false}
+		isPrivate={data.user.role !== "user" || false}
 		limit={data.limit}
 		columns={columns(i18n, false)}
 		data={data.snapps as SnappWithTags[]}

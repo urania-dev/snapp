@@ -1,1 +1,1 @@
-export { default as SMTPSettings } from './component.svelte';
+export { default as SMTPSettings } from "./component.svelte";

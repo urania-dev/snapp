@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { cn } from '$lib/utils';
-	import { Command as CommandPrimitive } from 'bits-ui';
+	import { cn } from "$lib/utils";
+	import { Command as CommandPrimitive } from "bits-ui";
 
 	let {
 		class: className,
-		ref = $bindable(null), // eslint-disable-next-line svelte/valid-compile
+		ref = $bindable(null),
 		...restProps
 	}: CommandPrimitive.SeparatorProps = $props();
 </script>
 
-<CommandPrimitive.Separator class={cn('-mx-1 h-px bg-border', className)} bind:ref {...restProps} />
+<CommandPrimitive.Separator class={cn("-mx-1 h-px bg-border", className)} bind:ref {...restProps} />

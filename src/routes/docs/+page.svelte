@@ -1,5 +1,5 @@
 <script>
-	import { PUBLIC_URL } from '$env/static/public';
+	import { PUBLIC_URL } from "$env/static/public";
 </script>
 
 <div class="grid h-full w-full">

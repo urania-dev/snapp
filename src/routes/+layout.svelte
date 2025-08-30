@@ -1,32 +1,32 @@
 <script lang="ts">
-	import '@phosphor-icons/web/bold';
-	import '@phosphor-icons/web/duotone';
-	import '@phosphor-icons/web/fill';
-	import '@phosphor-icons/web/regular';
+	import "@phosphor-icons/web/bold";
+	import "@phosphor-icons/web/duotone";
+	import "@phosphor-icons/web/fill";
+	import "@phosphor-icons/web/regular";
 
-	import '../app.css';
+	import "../app.css";
 
 	const { children, data } = $props();
-	import { browser } from '$app/environment';
-	import { page } from '$app/state';
-	import { env } from '$env/dynamic/public';
-	import AppSidebar from '$lib/components/sidebar/appsidebar.svelte';
-	import Separator from '$lib/components/ui/separator/separator.svelte';
-	import * as Sidebar from '$lib/components/ui/sidebar';
-	import { setTranslations } from '$lib/i18n/index.svelte';
-	import { mode, setMode } from 'mode-watcher';
-	import SvelteSeo from 'svelte-seo';
-	import { Toaster } from 'svelte-sonner';
-	import { fade } from 'svelte/transition';
+	import { browser } from "$app/environment";
+	import { page } from "$app/state";
+	import { env } from "$env/dynamic/public";
+	import AppSidebar from "$lib/components/sidebar/appsidebar.svelte";
+	import Separator from "$lib/components/ui/separator/separator.svelte";
+	import * as Sidebar from "$lib/components/ui/sidebar";
+	import { setTranslations } from "$lib/i18n/index.svelte";
+	import { mode, setMode } from "mode-watcher";
+	import SvelteSeo from "svelte-seo";
+	import { Toaster } from "svelte-sonner";
+	import { fade } from "svelte/transition";
 	const i18n = setTranslations(data.translations, data.locale);
-	setMode(data.theme as 'dark' | 'light');
+	setMode(data.theme as "dark" | "light");
 	$effect(() => {
 		if (
 			browser &&
-			window.matchMedia('(prefers-color-scheme: dark)').matches &&
-			data.theme === 'system'
+			window.matchMedia("(prefers-color-scheme: dark)").matches &&
+			data.theme === "system"
 		)
-			setMode('dark');
+			setMode("dark");
 	});
 
 	$effect(() => {
@@ -36,7 +36,7 @@
 		}
 	});
 
-	const paths = ['/admin', '/dashboard', '/docs', '/groups', '/metrics', '/settings', '/users'];
+	const paths = ["/admin", "/dashboard", "/docs", "/groups", "/metrics", "/settings", "/users"];
 	const SHOW_MENU = $derived(
 		paths.includes(page?.url?.pathname) || paths?.some((p) => page?.url?.pathname?.startsWith(p))
 	);
@@ -59,7 +59,13 @@
 				</div>
 			{/if}
 			{#key page.url.pathname}
-				<div class="flex h-full w-full flex-col" in:fade|global>
+				<div
+					class={[
+						"flex h-full w-full flex-col",
+						page.url.pathname !== "/" ? "max-h-[calc(100%_-_56px)]" : ""
+					]}
+					in:fade|global
+				>
 					{@render children?.()}
 				</div>
 			{/key}
@@ -69,20 +75,20 @@
 <Toaster position="top-right" theme={$mode} />
 
 <SvelteSeo
-	title={data.appname || 'Snapp'}
-	description={i18n.t('homepage.getting-started.claim')}
+	title={data.appname || "Snapp"}
+	description={i18n.t("homepage.getting-started.claim")}
 	canonical={env.PUBLIC_URL}
 	keywords="self-hosted URL shortening, Snapp, URL management, link shortening, 
 	custom short URLs, secure authentication, protected URLs, analytics, Umami integration,
 	VirusTotal API, REST API, open source, Docker deployment, migration, CSV export, secret links, 
 	personalized short codes, link engagement, privacy-focused, community-requested features, swagger documentation."
 	openGraph={{
-		description: i18n.t('homepage.getting-started.claim'),
+		description: i18n.t("homepage.getting-started.claim"),
 		images: [
-			{ alt: 'Screenshot', height: 600, url: env.PUBLIC_URL + '/screenshot.png', width: 1000 }
+			{ alt: "Screenshot", height: 600, url: env.PUBLIC_URL + "/screenshot.png", width: 1000 }
 		],
-		title: data.appname || 'Snapp',
-		type: 'website',
+		title: data.appname || "Snapp",
+		type: "website",
 		url: env.PUBLIC_URL
 	}}
 />

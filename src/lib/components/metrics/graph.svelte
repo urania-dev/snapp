@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { getLocalTimeZone } from '@internationalized/date';
-	import { getTranslations } from '$lib/i18n/index.svelte';
-	import { getMetricsStore } from '$lib/stores/metrics.svelte';
-	import { scaleBand } from 'd3-scale';
-	import { Axis, Bars, Chart, LinearGradient, Svg, Tooltip } from 'layerchart';
-	import { prefersReducedMotion } from 'svelte/motion';
-	import { fly } from 'svelte/transition';
+	import { getLocalTimeZone } from "@internationalized/date";
+	import { getTranslations } from "$lib/i18n/index.svelte";
+	import { getMetricsStore } from "$lib/stores/metrics.svelte";
+	import { scaleBand } from "d3-scale";
+	import { Axis, Bars, Chart, LinearGradient, Svg, Tooltip } from "layerchart";
+	import { prefersReducedMotion } from "svelte/motion";
+	import { fly } from "svelte/transition";
 
 	const i18n = getTranslations();
 	const mstore = getMetricsStore();
@@ -46,7 +46,7 @@
 						yDomain={[0, null]}
 						yNice={4}
 						padding={{ bottom: 24, left: 16 }}
-						tooltip={{ mode: 'band' }}
+						tooltip={{ mode: "band" }}
 						height={325}
 					>
 						<Svg>
@@ -73,7 +73,7 @@
 						<Tooltip.Root let:data>
 							<Tooltip.Header>{data.date}</Tooltip.Header>
 							<Tooltip.List>
-								<Tooltip.Item label={i18n.t('snapps.fields.hit')} value={data.value} />
+								<Tooltip.Item label={i18n.t("snapps.fields.hit")} value={data.value} />
 							</Tooltip.List>
 						</Tooltip.Root>
 					</Chart>

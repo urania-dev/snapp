@@ -1,22 +1,22 @@
-import { fail, redirect } from '@sveltejs/kit';
-import { enhance } from '@zenstackhq/runtime';
-import { recoverSchema } from '$lib/components/auth/schema';
-import { prisma } from '$lib/db/prisma';
+import { fail, redirect } from "@sveltejs/kit";
+import { enhance } from "@zenstackhq/runtime";
+import { recoverSchema } from "$lib/components/auth/schema";
+import { prisma } from "$lib/db/prisma";
 import {
 	createSession,
 	generateSessionToken,
 	invalidateSessions,
 	setSessionTokenCookie
-} from '$lib/server/auth/index.js';
-import { getSettings } from '$lib/server/config/index.js';
-import RecoverPasswordEmail from '$lib/server/emails/auth/resetPasswordEmail.svelte';
-import { sendEmail } from '$lib/server/smtp';
-import { superValidate } from 'sveltekit-superforms';
-import { zod } from 'sveltekit-superforms/adapters';
+} from "$lib/server/auth/index.js";
+import { getSettings } from "$lib/server/config/index.js";
+import RecoverPasswordEmail from "$lib/server/emails/auth/resetPasswordEmail.svelte";
+import { sendEmail } from "$lib/server/smtp";
+import { superValidate } from "sveltekit-superforms";
+import { zod } from "sveltekit-superforms/adapters";
 export const load = async ({ locals: { user }, url }) => {
-	if (user) redirect(302, '/dashboard');
-	const tokenHash = url.searchParams.get('token');
-	if (!tokenHash) redirect(302, '/auth/forgot-password');
+	if (user) await invalidateSessions(user.id);
+	const tokenHash = url.searchParams.get("token");
+	if (!tokenHash) redirect(302, "/auth/forgot-password");
 	return {
 		form: await superValidate(zod(recoverSchema)),
 		tokenHash
@@ -24,7 +24,7 @@ export const load = async ({ locals: { user }, url }) => {
 };
 
 export const actions = {
-	'forgot-password': async (event) => {
+	"forgot-password": async (event) => {
 		const form = await superValidate(event, zod(recoverSchema));
 		if (!form.valid) {
 			return fail(400, {
@@ -42,7 +42,7 @@ export const actions = {
 		if (token) await prisma.passwordReset.delete({ where: { tokenHash } });
 
 		if (!token || token.expiresAt <= new Date()) {
-			return fail(400, { message: 'errors.auth.reset-token-expired' });
+			return fail(400, { message: "errors.auth.reset-token-expired" });
 		}
 
 		await invalidateSessions(token.userId);
@@ -57,14 +57,14 @@ export const actions = {
 		const sessionId = generateSessionToken();
 		const session = await createSession(sessionId, token.userId);
 		setSessionTokenCookie(event, sessionId, session.expiresAt);
-		const appname = settings.get<string>('appname') || 'Snapp';
-		const ip = event.request.headers.get('X-FORWARDED-FOR') || '[no ip traceable.]';
+		const appname = settings.get<string>("appname") || "Snapp";
+		const ip = event.request.headers.get("X-FORWARDED-FOR") || "[no ip traceable.]";
 
 		sendEmail(
 			RecoverPasswordEmail,
 			{ appname, ip },
 			email,
-			appname + ' | Requested reset password'
+			appname + " | Requested reset password"
 		);
 
 		return {

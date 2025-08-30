@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Button, Container, Heading, Image, inline, Paragraph } from '@uraniadev/emailer';
-	import { env } from '$env/dynamic/public';
+	import { Button, Container, Heading, Image, inline, Paragraph } from "@uraniadev/emailer";
+	import { env } from "$env/dynamic/public";
 	const { ip }: { ip: string } = $props();
 </script>
 
@@ -14,18 +14,18 @@
 	>
 	<Heading class="text-blue" level={2}>SMTP Test Email</Heading>
 	<Paragraph>If you received this message it means that your SMTP Transport works.</Paragraph>
-	<table style={inline('w-full')}>
+	<table style={inline("w-full")}>
 		<tbody>
-			<tr style={inline('even:bg-neutral-300/50 m-0 border-t p-0')}>
-				<td style={inline('border p-1 w-max	 text-left')}>
+			<tr style={inline("even:bg-neutral-300/50 m-0 border-t p-0")}>
+				<td style={inline("border p-1 w-max	 text-left")}>
 					<Paragraph class="font-code whitespace-nowrap text-sm">{ip}</Paragraph>
 				</td>
-				<td style={inline('border p-1 w-max text-left')}>
+				<td style={inline("border p-1 w-max text-left")}>
 					<Paragraph class="font-code whitespace-nowrap text-sm"
 						>{new Date().toUTCString()}</Paragraph
 					>
 				</td>
-				<td style={inline('border p-1 w-full text-left')}>
+				<td style={inline("border p-1 w-full text-left")}>
 					<Paragraph class="font-code text-sm">Request SMTP Test.</Paragraph>
 				</td>
 			</tr>

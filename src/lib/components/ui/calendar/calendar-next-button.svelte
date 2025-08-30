@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { buttonVariants } from '$lib/components/ui/button/index.js';
-	import { cn } from '$lib/utils.js';
-	import { Calendar as CalendarPrimitive } from 'bits-ui';
+	import { buttonVariants } from "$lib/components/ui/button/index.js";
+	import { cn } from "$lib/utils.js";
+	import { Calendar as CalendarPrimitive } from "bits-ui";
 
 	let {
 		children,
 		class: className,
-		ref = $bindable(null), // eslint-disable-next-line svelte/valid-compile
+		ref = $bindable(null),
 		...restProps
 	}: CalendarPrimitive.PrevButtonProps = $props();
 </script>
@@ -18,8 +18,8 @@
 <CalendarPrimitive.NextButton
 	bind:ref
 	class={cn(
-		buttonVariants({ variant: 'outline' }),
-		'size-7 bg-transparent p-0 opacity-50 hover:opacity-100',
+		buttonVariants({ variant: "outline" }),
+		"size-7 bg-transparent p-0 opacity-50 hover:opacity-100",
 		className
 	)}
 	children={children || Fallback}

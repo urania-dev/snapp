@@ -1,11 +1,11 @@
-import { getContext, setContext } from 'svelte';
+import { getContext, setContext } from "svelte";
 // Type for the translations object
 export interface Translations {
 	[key: string]: string | Translations;
 }
 
 class TranslationsStore {
-	locale: string = $state('en');
+	locale: string = $state("en");
 	translations = $state<Translations>({});
 	constructor(translations: Translations, locale?: string) {
 		this.translations = translations;
@@ -16,12 +16,12 @@ class TranslationsStore {
 	}
 
 	t = (key: string, params: Record<string, number | string> = {}) => {
-		const keys = key.split('.');
+		const keys = key.split(".");
 		let value: string | Translations = this.translations;
 
 		// Traverse the nested object to get the translation
 		for (const k of keys) {
-			if (typeof value === 'object' && value !== null && k in value) {
+			if (typeof value === "object" && value !== null && k in value) {
 				value = value[k] as string | Translations;
 			} else {
 				return key; // Fallback to the key if not found
@@ -29,7 +29,7 @@ class TranslationsStore {
 		}
 
 		// Check if the final value is a string
-		if (typeof value === 'string') {
+		if (typeof value === "string") {
 			// Perform interpolation if necessary
 			return value?.replace(/\{(\w+)\}/g, (_, match) => {
 				return params[match] !== undefined ? String(params[match]) : `{{${match}}}`;
@@ -41,11 +41,11 @@ class TranslationsStore {
 }
 
 export const setTranslations = (t: Translations, locale?: string) => {
-	return setContext('TRANSLATIONS', new TranslationsStore(t, locale));
+	return setContext("TRANSLATIONS", new TranslationsStore(t, locale));
 };
 
 export const getTranslations = () => {
-	return getContext<TranslationsStore>('TRANSLATIONS');
+	return getContext<TranslationsStore>("TRANSLATIONS");
 };
 
 export type TranslationsStoreType = TranslationsStore;

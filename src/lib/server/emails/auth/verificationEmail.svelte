@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Button, Container, Heading, Image, inline, Paragraph } from '@uraniadev/emailer';
-	import { env } from '$env/dynamic/public';
+	import { Button, Container, Heading, Image, inline, Paragraph } from "@uraniadev/emailer";
+	import { env } from "$env/dynamic/public";
 
 	const { appname, cta, ip, name }: { appname: string; cta: string; ip: string; name: string } =
 		$props();
@@ -23,18 +23,18 @@
 		registered to our platform, and yet have to verify your account.
 	</Paragraph>
 	<Button class="mt-4 max-w-max rounded bg-neutral-800 text-white" href={cta}>Verify email</Button>
-	<table style={inline('w-full mt-8')}>
+	<table style={inline("w-full mt-8")}>
 		<tbody>
-			<tr style={inline('even:bg-neutral-300/50 m-0 border-t p-0')}>
-				<td style={inline('border p-1 w-max	 text-left')}>
+			<tr style={inline("even:bg-neutral-300/50 m-0 border-t p-0")}>
+				<td style={inline("border p-1 w-max	 text-left")}>
 					<Paragraph class="font-code text-sm">{ip}</Paragraph>
 				</td>
-				<td style={inline('border p-1 w-max text-left')}>
+				<td style={inline("border p-1 w-max text-left")}>
 					<Paragraph class="font-code whitespace-nowrap text-sm"
 						>{new Date().toUTCString()}</Paragraph
 					>
 				</td>
-				<td style={inline('border p-1 w-full text-left')}>
+				<td style={inline("border p-1 w-full text-left")}>
 					<Paragraph class="font-code text-sm">Password Recovery requested.</Paragraph>
 				</td>
 			</tr>

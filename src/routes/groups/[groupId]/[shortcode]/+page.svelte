@@ -1,7 +1,7 @@
 <script>
-	import { SingleForm } from '$lib/components/snapps';
-	import * as Card from '$lib/components/ui/card';
-	import { getTranslations } from '$lib/i18n/index.svelte';
+	import { SingleForm } from "$lib/components/snapps";
+	import * as Card from "$lib/components/ui/card";
+	import { getTranslations } from "$lib/i18n/index.svelte";
 
 	let { data } = $props();
 
@@ -17,11 +17,11 @@
 				></i>
 				{#if data.isDisabled === true}
 					<p class="text-semibold m-0 text-balance p-0 px-4 text-start">
-						{i18n.t('snapps.helpers.not-found')}
+						{i18n.t("snapps.helpers.not-found")}
 					</p>
 				{:else if data.hasPassword}
 					<p class="text-semibold m-0 text-balance p-0 px-4 text-start">
-						{i18n.t('snapps.helpers.secret')}
+						{i18n.t("snapps.helpers.secret")}
 					</p>
 				{/if}
 			</Card.Header>

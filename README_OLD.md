@@ -69,11 +69,11 @@ Snapp is an open-source platform you can host yourself.
 ```yml
 services:
   snapp:
-    image: uraniadev/snapp:0.9-rc-029
+    image: uraniadev/snapp:0.9-rc-030
     ports:
       - 3000:3000
     environment:
-      DATABASE_URL: 'file:./db.sqlite'
+      DATABASE_URL: "file:./db.sqlite"
       DATABASE_PROVIDER: sqlite # mysql | sqlite | postgres
       TOKEN_SECRET: # openssl rand -base64 32
       ORIGIN: https://example.com
@@ -260,7 +260,7 @@ be enough to change `smtp.config.cjs` file
 ```yml
 services:
   snapp:
-    image: uraniadev/snapp:0.9-rc-029
+    image: uraniadev/snapp:0.9-rc-030
     ports:
       - 3000:3000
     volumes:

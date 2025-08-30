@@ -1,13 +1,13 @@
 <script lang="ts">
-	import type { ComponentProps } from 'svelte';
+	import type { ComponentProps } from "svelte";
 
-	import { cn } from '$lib/utils';
-	import { PinInput as InputOTPPrimitive } from 'bits-ui';
+	import { cn } from "$lib/utils";
+	import { PinInput as InputOTPPrimitive } from "bits-ui";
 
 	let {
 		cell,
 		class: className,
-		ref = $bindable(null), // eslint-disable-next-line svelte/valid-compile
+		ref = $bindable(null),
 		...restProps
 	}: ComponentProps<typeof InputOTPPrimitive.Cell> = $props();
 </script>
@@ -16,8 +16,8 @@
 	{cell}
 	bind:ref
 	class={cn(
-		'relative flex aspect-square h-14 w-14 shrink-0 items-center justify-center border-y border-r border-input text-lg font-medium transition-all first:rounded-l-md first:border-l last:rounded-r-md',
-		cell.isActive && 'z-10 ring-2 ring-ring ring-offset-background',
+		"relative flex aspect-square h-14 w-14 shrink-0 items-center justify-center border-y border-r border-input text-lg font-medium transition-all first:rounded-l-md first:border-l last:rounded-r-md",
+		cell.isActive && "z-10 ring-2 ring-ring ring-offset-background",
 		className
 	)}
 	{...restProps}

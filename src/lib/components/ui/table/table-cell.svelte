@@ -1,20 +1,20 @@
 <script lang="ts">
-	import type { WithElementRef } from 'bits-ui';
-	import type { HTMLTdAttributes } from 'svelte/elements';
+	import type { WithElementRef } from "bits-ui";
+	import type { HTMLTdAttributes } from "svelte/elements";
 
-	import { cn } from '$lib/utils';
+	import { cn } from "$lib/utils";
 
 	let {
 		children,
 		class: className,
-		ref = $bindable(null), // eslint-disable-next-line svelte/valid-compile
+		ref = $bindable(null),
 		...restProps
 	}: WithElementRef<HTMLTdAttributes> = $props();
 </script>
 
 <td
 	bind:this={ref}
-	class={cn('p-4 align-middle [&:has([role=checkbox])]:pr-0', className)}
+	class={cn("p-4 align-middle [&:has([role=checkbox])]:pr-0", className)}
 	{...restProps}
 >
 	{@render children?.()}

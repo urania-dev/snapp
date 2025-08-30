@@ -1,36 +1,36 @@
 <script lang="ts">
-	import type { WatchList } from '@prisma/client';
-	import type { Infer, SuperValidated } from 'sveltekit-superforms';
+	import type { WatchList } from "@prisma/client";
+	import type { Infer, SuperValidated } from "sveltekit-superforms";
 
-	import { page } from '$app/state';
-	import * as Accordion from '$lib/components/ui/accordion';
-	import Button from '$lib/components/ui/button/button.svelte';
-	import { Input } from '$lib/components/ui/input';
-	import * as Table from '$lib/components/ui/table';
-	import * as Tabs from '$lib/components/ui/tabs';
-	import { getTranslations } from '$lib/i18n/index.svelte';
-	import { Debouncer } from '$lib/stores/debounce.svelte';
-	import { formatTimeAgo } from '$lib/utils';
-	import { decode } from 'html-entities';
-	import { toast } from 'svelte-sonner';
-	import { prefersReducedMotion } from 'svelte/motion';
-	import { fade, fly } from 'svelte/transition';
+	import { page } from "$app/state";
+	import * as Accordion from "$lib/components/ui/accordion";
+	import Button from "$lib/components/ui/button/button.svelte";
+	import { Input } from "$lib/components/ui/input";
+	import * as Table from "$lib/components/ui/table";
+	import * as Tabs from "$lib/components/ui/tabs";
+	import { getTranslations } from "$lib/i18n/index.svelte";
+	import { Debouncer } from "$lib/stores/debounce.svelte";
+	import { formatTimeAgo } from "$lib/utils";
+	import { decode } from "html-entities";
+	import { toast } from "svelte-sonner";
+	import { prefersReducedMotion } from "svelte/motion";
+	import { fade, fly } from "svelte/transition";
 
-	import type { WhiteListSchema } from './schema';
+	import type { WhiteListSchema } from "./schema";
 
-	import Form from './form.svelte';
+	import Form from "./form.svelte";
 
 	const i18n = getTranslations();
 	const debouncer = new Debouncer();
 	type Fetch = typeof fetch;
-	const apiBase = '/api/watchList';
+	const apiBase = "/api/watchList";
 	const f: Fetch = page.data.fetch;
 
 	const { whiteListForm }: { whiteListForm: SuperValidated<Infer<WhiteListSchema>> } = $props();
 	const getWhiteListedUsernames = async () => {
 		try {
 			const { data, error } = (await (
-				await f(`${apiBase}/findMany?q=${whiteListQueryUsernames}`, { credentials: 'include' })
+				await f(`${apiBase}/findMany?q=${whiteListQueryUsernames}`, { credentials: "include" })
 			).json()) as { data: WatchList[]; error: { message: string } };
 			if (error) toast.error(error.message);
 			return data;
@@ -42,7 +42,7 @@
 	const getWhiteListedEmails = async () => {
 		try {
 			const { data, error } = (await (
-				await f(`${apiBase}/findMany?q=${whiteListQueryEmails}`, { credentials: 'include' })
+				await f(`${apiBase}/findMany?q=${whiteListQueryEmails}`, { credentials: "include" })
 			).json()) as { data: WatchList[]; error: { message: string } };
 			if (error) toast.error(error.message);
 			return data;
@@ -54,7 +54,7 @@
 	const getWhiteListedDomains = async () => {
 		try {
 			const { data, error } = (await (
-				await f(`${apiBase}/findMany?q=${whiteListQueryDomains}`, { credentials: 'include' })
+				await f(`${apiBase}/findMany?q=${whiteListQueryDomains}`, { credentials: "include" })
 			).json()) as { data: WatchList[]; error: { message: string } };
 			if (error) toast.error(error.message);
 			return data;
@@ -68,7 +68,7 @@
 
 	let skip = $state(0);
 	let take = $state(5);
-	let query = $state<string>('');
+	let query = $state<string>("");
 
 	let whiteListQueryUsernames = $derived(
 		JSON.stringify({
@@ -76,7 +76,7 @@
 
 			take,
 			where:
-				query.trim() !== ''
+				query.trim() !== ""
 					? { allowed: true, AND: [{ domain: null }, { username: { contains: query } }] }
 					: { allowed: true, domain: null }
 		})
@@ -86,7 +86,7 @@
 			skip,
 			take,
 			where:
-				query.trim() !== ''
+				query.trim() !== ""
 					? {
 							allowed: true,
 							AND: [
@@ -103,7 +103,7 @@
 			skip,
 			take,
 			where:
-				query.trim() !== ''
+				query.trim() !== ""
 					? { allowed: true, AND: [{ username: null }, { domain: { contains: query } }] }
 					: { allowed: true, username: null }
 		})
@@ -116,7 +116,7 @@
 		duration: 400,
 
 		opacity: prefersReducedMotion.current ? 1 : 0,
-		x: prefersReducedMotion.current ? 0 : '100%'
+		x: prefersReducedMotion.current ? 0 : "100%"
 	}}
 >
 	<Tabs.Content value="whiteList" class="w-full">
@@ -127,7 +127,7 @@
 					class="group flex items-center justify-start border-b hover:no-underline"
 				>
 					<span class="me-auto ms-2 w-max items-center group-hover:underline">
-						{decode(i18n.t('admin.labels.usernames'))}
+						{decode(i18n.t("admin.labels.usernames"))}
 					</span>
 				</Accordion.Trigger>
 				<Accordion.Content>
@@ -135,8 +135,8 @@
 						<div class="mt-4 flex items-center gap-2 rounded-sm border ps-2">
 							<i class="ph ph-magnifying-glass text-[20px]"></i>
 							<Input
-								title={i18n.t('admin.placeholders.filter-watchlist')}
-								placeholder={i18n.t('admin.placeholders.filter-watchlist')}
+								title={i18n.t("admin.placeholders.filter-watchlist")}
+								placeholder={i18n.t("admin.placeholders.filter-watchlist")}
 								oninput={(e) => {
 									const value = e.currentTarget.value;
 									debouncer.debounce(() => {
@@ -151,17 +151,17 @@
 							<Table.Caption class="mt-0 border-t pb-4 pt-2 text-sm">
 								<div class="flex w-full items-center justify-start gap-2">
 									<span class="font-bold">
-										{i18n.t('admin.labels.whitelist')}
+										{i18n.t("admin.labels.whitelist")}
 									</span>
 									<i class="ph ph-caret-right"></i>
 									<span class="font-medium">
-										{decode(i18n.t('admin.labels.usernames'))}
+										{decode(i18n.t("admin.labels.usernames"))}
 									</span>
 								</div>
 							</Table.Caption>
 							<Table.Header>
 								<Table.Row>
-									<Table.Head colspan={3}>{i18n.t('admin.labels.usernames')}</Table.Head>
+									<Table.Head colspan={3}>{i18n.t("admin.labels.usernames")}</Table.Head>
 								</Table.Row>
 							</Table.Header>
 							<Table.Body>
@@ -197,7 +197,7 @@
 																		}
 																	})}`,
 																	{
-																		method: 'delete'
+																		method: "delete"
 																	}
 																)
 															).json();
@@ -233,7 +233,7 @@
 					class="group flex items-center justify-start border-b hover:no-underline"
 				>
 					<span class="me-auto ms-2 w-max items-center group-hover:underline">
-						{decode(i18n.t('admin.labels.emails'))}
+						{decode(i18n.t("admin.labels.emails"))}
 					</span>
 				</Accordion.Trigger>
 				<Accordion.Content>
@@ -241,8 +241,8 @@
 						<div class="mt-4 flex items-center gap-2 rounded-sm border ps-2">
 							<i class="ph ph-magnifying-glass text-[20px]"></i>
 							<Input
-								title={i18n.t('admin.placeholders.filter-watchlist')}
-								placeholder={i18n.t('admin.placeholders.filter-watchlist')}
+								title={i18n.t("admin.placeholders.filter-watchlist")}
+								placeholder={i18n.t("admin.placeholders.filter-watchlist")}
 								oninput={(e) => {
 									const value = e.currentTarget.value;
 									debouncer.debounce(() => {
@@ -257,17 +257,17 @@
 							<Table.Caption class="mt-0 border-t pb-4 pt-2 text-sm">
 								<div class="flex w-full items-center justify-start gap-2">
 									<span class="font-bold">
-										{i18n.t('admin.labels.whitelist')}
+										{i18n.t("admin.labels.whitelist")}
 									</span>
 									<i class="ph ph-caret-right"></i>
 									<span class="font-medium">
-										{decode(i18n.t('admin.labels.emails'))}
+										{decode(i18n.t("admin.labels.emails"))}
 									</span>
 								</div>
 							</Table.Caption>
 							<Table.Header>
 								<Table.Row>
-									<Table.Head colspan={3}>{i18n.t('admin.labels.emails')}</Table.Head>
+									<Table.Head colspan={3}>{i18n.t("admin.labels.emails")}</Table.Head>
 								</Table.Row>
 							</Table.Header>
 							<Table.Body>
@@ -303,7 +303,7 @@
 																		}
 																	})}`,
 																	{
-																		method: 'delete'
+																		method: "delete"
 																	}
 																)
 															).json();
@@ -339,7 +339,7 @@
 					class="group flex items-center justify-start border-b hover:no-underline"
 				>
 					<span class="me-auto ms-2 w-max items-center group-hover:underline">
-						{decode(i18n.t('admin.labels.domains'))}
+						{decode(i18n.t("admin.labels.domains"))}
 					</span>
 				</Accordion.Trigger>
 				<Accordion.Content>
@@ -347,8 +347,8 @@
 						<div class="mt-4 flex items-center gap-2 rounded-sm border ps-2">
 							<i class="ph ph-magnifying-glass text-[20px]"></i>
 							<Input
-								title={i18n.t('admin.placeholders.filter-watchlist')}
-								placeholder={i18n.t('admin.placeholders.filter-watchlist')}
+								title={i18n.t("admin.placeholders.filter-watchlist")}
+								placeholder={i18n.t("admin.placeholders.filter-watchlist")}
 								oninput={(e) => {
 									const value = e.currentTarget.value;
 									debouncer.debounce(() => {
@@ -363,17 +363,17 @@
 							<Table.Caption class="mt-0 border-t pb-4 pt-2 text-sm">
 								<div class="flex w-full items-center justify-start gap-2">
 									<span class="font-bold">
-										{i18n.t('admin.labels.whitelist')}
+										{i18n.t("admin.labels.whitelist")}
 									</span>
 									<i class="ph ph-caret-right"></i>
 									<span class="font-medium">
-										{decode(i18n.t('admin.labels.domains'))}
+										{decode(i18n.t("admin.labels.domains"))}
 									</span>
 								</div>
 							</Table.Caption>
 							<Table.Header>
 								<Table.Row>
-									<Table.Head colspan={3}>{i18n.t('admin.labels.domains')}</Table.Head>
+									<Table.Head colspan={3}>{i18n.t("admin.labels.domains")}</Table.Head>
 								</Table.Row>
 							</Table.Header>
 							<Table.Body>
@@ -409,7 +409,7 @@
 																		}
 																	})}`,
 																	{
-																		method: 'delete'
+																		method: "delete"
 																	}
 																)
 															).json();

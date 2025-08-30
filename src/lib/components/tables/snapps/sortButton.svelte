@@ -1,15 +1,15 @@
 <script lang="ts">
-	import type { SortingState } from '@tanstack/table-core';
-	import type { ComponentProps } from 'svelte';
+	import type { SortingState } from "@tanstack/table-core";
+	import type { ComponentProps } from "svelte";
 
-	import { Button } from '$lib/components/ui/button';
-	import { getTranslations } from '$lib/i18n/index.svelte';
-	import { queryParameters } from 'sveltekit-search-params';
+	import { Button } from "$lib/components/ui/button";
+	import { getTranslations } from "$lib/i18n/index.svelte";
+	import { queryParameters } from "sveltekit-search-params";
 
 	let {
 		data,
-		variant = 'default',
-		// eslint-disable-next-line svelte/valid-compile
+		variant = "default",
+
 		...props
 	}: { data: { id: string; label: string } } & ComponentProps<typeof Button> = $props();
 

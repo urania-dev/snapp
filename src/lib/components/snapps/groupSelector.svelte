@@ -1,19 +1,19 @@
 <script lang="ts">
-	import type { Group } from '@prisma/client';
+	import type { Group } from "@prisma/client";
 
-	import { page } from '$app/state';
-	import { Button } from '$lib/components/ui/button/index.js';
-	import * as Command from '$lib/components/ui/command/index.js';
-	import * as Popover from '$lib/components/ui/popover/index.js';
-	import { getTranslations } from '$lib/i18n/index.svelte';
-	import { Debouncer } from '$lib/stores/debounce.svelte';
-	import { slugify } from '$lib/utils';
-	import { tick, untrack } from 'svelte';
-	import { prefersReducedMotion } from 'svelte/motion';
-	import { fly } from 'svelte/transition';
+	import { page } from "$app/state";
+	import { Button } from "$lib/components/ui/button/index.js";
+	import * as Command from "$lib/components/ui/command/index.js";
+	import * as Popover from "$lib/components/ui/popover/index.js";
+	import { getTranslations } from "$lib/i18n/index.svelte";
+	import { Debouncer } from "$lib/stores/debounce.svelte";
+	import { slugify } from "$lib/utils";
+	import { tick, untrack } from "svelte";
+	import { prefersReducedMotion } from "svelte/motion";
+	import { fly } from "svelte/transition";
 
-	import P from '../typography/text/p.svelte';
-	import { Badge } from '../ui/badge';
+	import P from "../typography/text/p.svelte";
+	import { Badge } from "../ui/badge";
 
 	let {
 		f = fetch,
@@ -22,9 +22,9 @@
 	}: { f?: typeof fetch; groups: string[]; showTrigger?: boolean } = $props();
 
 	let open = $state(false);
-	let value = $state('');
+	let value = $state("");
 	let triggerRef = $state<HTMLButtonElement>(null!);
-	let searchGroup = $state<string>('');
+	let searchGroup = $state<string>("");
 
 	const selectedValue = $derived(groups.find((f) => f === value));
 
@@ -74,29 +74,29 @@
 					role="combobox"
 					aria-expanded={open}
 				>
-					{selectedValue || i18n.t('users.groups.labels.placeholder')}
+					{selectedValue || i18n.t("users.groups.labels.placeholder")}
 					<i class="ph-duotone ph-caret-up-down ml-2 shrink-0 opacity-50"></i>
 				</Button>
 			{/snippet}
 		</Popover.Trigger>
-		<P class="!mt-2 px-2 text-sm text-muted-foreground">{i18n.t('users.groups.helpers.in-snapp')}</P
+		<P class="!mt-2 px-2 text-sm text-muted-foreground">{i18n.t("users.groups.helpers.in-snapp")}</P
 		>
 	{/if}
 	<Popover.Content class="p-0" align="end">
 		<Command.Root shouldFilter={false}>
 			<Command.Input
 				class="h-10 py-1"
-				placeholder={i18n.t('users.groups.labels.placeholder')}
+				placeholder={i18n.t("users.groups.labels.placeholder")}
 				onkeydown={debouncer.debounce(async () => {
 					loading = true;
-					if (searchGroup.trim() === '' || !searchGroup) {
+					if (searchGroup.trim() === "" || !searchGroup) {
 						await fetchGroups();
 						return;
 					}
 					try {
 						const res = await (
 							await f(
-								`/api/group/findMany?q=${JSON.stringify({ take: 5, where: { slug: slugify(searchGroup), users: page.data.user !== 'user' ? {} : { every: { id: page.data.user.id } } } })}`
+								`/api/group/findMany?q=${JSON.stringify({ take: 5, where: { slug: slugify(searchGroup), users: page.data.user !== "user" ? {} : { every: { id: page.data.user.id } } } })}`
 							)
 						).json();
 
@@ -124,13 +124,13 @@
 								<div class="h-5 w-5">
 									<i class="ph ph-question text-[20px]"></i>
 								</div>
-							{:else if page.data.user.role !== 'user'}
+							{:else if page.data.user.role !== "user"}
 								<Button
 									class="h-8"
 									onclick={async () => {
 										try {
 											const res = await (
-												await f('/api/group/upsert', {
+												await f("/api/group/upsert", {
 													body: JSON.stringify({
 														create: {
 															name: searchGroup,
@@ -141,8 +141,8 @@
 															slug: slugify(searchGroup)
 														}
 													}),
-													credentials: 'include',
-													method: 'post'
+													credentials: "include",
+													method: "post"
 												})
 											).json();
 											if (res?.data) {
@@ -163,7 +163,7 @@
 					{/if}
 				</Command.Empty>
 				<Command.Group>
-					{#each foundGroups as group}
+					{#each foundGroups as group (group.slug)}
 						<Command.Item
 							onclick={() => {
 								const idx = groups.findIndex((t) => t === group.slug);
@@ -180,7 +180,7 @@
 		</Command.Root>
 	</Popover.Content>
 	<div class="flex min-h-20 w-full flex-wrap content-start gap-1 p-2 empty:hidden">
-		{#each groups as group}
+		{#each groups as group (group)}
 			<div
 				class="grid"
 				in:fly={{

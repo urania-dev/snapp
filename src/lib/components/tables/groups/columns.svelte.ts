@@ -1,20 +1,20 @@
-import type { Group, Snapp, User } from '@prisma/client';
-import type { ColumnDef } from '@tanstack/table-core';
+import type { Group, Snapp, User } from "@prisma/client";
+import type { ColumnDef } from "@tanstack/table-core";
 
-import Actions from '$lib/components/tables/groups/actions.svelte';
-import SortButton from '$lib/components/tables/groups/sortButton.svelte';
-import { Checkbox } from '$lib/components/ui/checkbox';
-import { renderComponent, renderSnippet } from '$lib/components/ui/data-table';
-import { type TranslationsStoreType } from '$lib/i18n/index.svelte';
-import { createRawSnippet } from 'svelte';
+import Actions from "$lib/components/tables/groups/actions.svelte";
+import SortButton from "$lib/components/tables/groups/sortButton.svelte";
+import { Checkbox } from "$lib/components/ui/checkbox";
+import { renderComponent, renderSnippet } from "$lib/components/ui/data-table";
+import { type TranslationsStoreType } from "$lib/i18n/index.svelte";
+import { createRawSnippet } from "svelte";
 
 export const columns = (i18n: TranslationsStoreType, user: User) => {
 	return [
 		{
-			accessorKey: 'id',
+			accessorKey: "id",
 			cell: ({ row }) =>
 				renderComponent(Checkbox, {
-					'aria-label': 'Select row',
+					"aria-label": "Select row",
 					checked: row.getIsSelected(),
 					onCheckedChange: (value) => row.toggleSelected(!!value)
 				}),
@@ -22,15 +22,15 @@ export const columns = (i18n: TranslationsStoreType, user: User) => {
 			enableSorting: false,
 			header: ({ table }) =>
 				renderComponent(Checkbox, {
-					'aria-label': 'Select all',
+					"aria-label": "Select all",
 					checked: table.getIsAllPageRowsSelected(),
 					indeterminate: table.getIsSomePageRowsSelected() && !table.getIsAllPageRowsSelected(),
 					onCheckedChange: (value) => table.toggleAllPageRowsSelected(!!value)
 				}),
-			id: 'id'
+			id: "id"
 		},
 		{
-			accessorKey: 'name',
+			accessorKey: "name",
 			cell: ({ row }) => {
 				const getContent = createRawSnippet<[{ name: string | undefined; slug: string }]>(
 					(getProps) => {
@@ -42,8 +42,8 @@ export const columns = (i18n: TranslationsStoreType, user: User) => {
 					}
 				);
 				return renderSnippet(getContent, {
-					name: row.getValue<string>('name'),
-					slug: row.getValue<string>('slug')
+					name: row.getValue<string>("name"),
+					slug: row.getValue<string>("slug")
 				});
 			},
 			enableHiding: true,
@@ -52,15 +52,15 @@ export const columns = (i18n: TranslationsStoreType, user: User) => {
 				return renderComponent(SortButton, {
 					data: {
 						id: column.id,
-						label: i18n.t('users.groups.labels.name')
+						label: i18n.t("users.groups.labels.name")
 					},
-					onclick: () => column.toggleSorting(column.getIsSorted() === 'asc')
+					onclick: () => column.toggleSorting(column.getIsSorted() === "asc")
 				});
 			},
-			id: 'name'
+			id: "name"
 		},
 		{
-			accessorKey: 'slug',
+			accessorKey: "slug",
 			cell: ({ row }) => {
 				const getContent = createRawSnippet<[{ slug: string | undefined }]>((getProps) => {
 					const { slug } = getProps();
@@ -70,7 +70,7 @@ export const columns = (i18n: TranslationsStoreType, user: User) => {
 					};
 				});
 				return renderSnippet(getContent, {
-					slug: row.getValue<string>('slug')
+					slug: row.getValue<string>("slug")
 				});
 			},
 			enableHiding: true,
@@ -79,15 +79,15 @@ export const columns = (i18n: TranslationsStoreType, user: User) => {
 				return renderComponent(SortButton, {
 					data: {
 						id: column.id,
-						label: i18n.t('tags.labels.slug')
+						label: i18n.t("tags.labels.slug")
 					},
-					onclick: () => column.toggleSorting(column.getIsSorted() === 'asc')
+					onclick: () => column.toggleSorting(column.getIsSorted() === "asc")
 				});
 			},
-			id: 'slug'
+			id: "slug"
 		},
 		{
-			accessorKey: 'snapps',
+			accessorKey: "snapps",
 			cell: ({ row }) => {
 				const getContent = createRawSnippet<[{ count: number | undefined }]>((getProps) => {
 					const { count } = getProps();
@@ -103,15 +103,15 @@ export const columns = (i18n: TranslationsStoreType, user: User) => {
 				return renderComponent(SortButton, {
 					data: {
 						id: column.id,
-						label: i18n.t('users.groups.labels.urls')
+						label: i18n.t("users.groups.labels.urls")
 					},
-					onclick: () => column.toggleSorting(column.getIsSorted() === 'asc')
+					onclick: () => column.toggleSorting(column.getIsSorted() === "asc")
 				});
 			},
-			id: 'snapps'
+			id: "snapps"
 		},
 		{
-			accessorKey: 'users',
+			accessorKey: "users",
 			cell: ({ row }) => {
 				const getContent = createRawSnippet<[{ count: number | undefined }]>((getProps) => {
 					const { count } = getProps();
@@ -127,20 +127,20 @@ export const columns = (i18n: TranslationsStoreType, user: User) => {
 				return renderComponent(SortButton, {
 					data: {
 						id: column.id,
-						label: i18n.t('users.groups.labels.members')
+						label: i18n.t("users.groups.labels.members")
 					},
-					onclick: () => column.toggleSorting(column.getIsSorted() === 'asc')
+					onclick: () => column.toggleSorting(column.getIsSorted() === "asc")
 				});
 			},
-			id: 'users'
+			id: "users"
 		},
 		{
-			accessorKey: 'actions',
+			accessorKey: "actions",
 			cell: ({ row }) => renderComponent(Actions, { group: row.original, user }),
 			enableHiding: false,
 			enableSorting: false,
-			header: '',
-			id: 'actions'
+			header: "",
+			id: "actions"
 		}
 	] satisfies ColumnDef<{ _count: { snapps: number; users: number }; snapps: Snapp[] } & Group>[];
 };

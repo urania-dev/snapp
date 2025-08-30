@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type { Group, User } from '@prisma/client';
-	import type { Snippet } from 'svelte';
+	import type { Group, User } from "@prisma/client";
+	import type { Snippet } from "svelte";
 
-	import { enhance } from '$app/forms';
-	import { Button, buttonVariants } from '$lib/components/ui/button';
-	import * as Dialog from '$lib/components/ui/dialog';
-	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
-	import { getTranslations } from '$lib/i18n/index.svelte';
+	import { enhance } from "$app/forms";
+	import { Button, buttonVariants } from "$lib/components/ui/button";
+	import * as Dialog from "$lib/components/ui/dialog";
+	import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
+	import { getTranslations } from "$lib/i18n/index.svelte";
 
 	type ActionProps<T> = {
 		children?: Snippet;
@@ -40,10 +40,10 @@
 						class="h-8 w-full shrink-0 justify-start p-0"
 					>
 						<i class="ph ph-eye text-[18px]"></i>
-						<span class="capitalize">{i18n.t('globals.show')}</span>
+						<span class="capitalize">{i18n.t("globals.show")}</span>
 					</Button>
 				</DropdownMenu.Item>
-				{#if user.role !== 'user'}
+				{#if user.role !== "user"}
 					<DropdownMenu.Item>
 						{#snippet child()}
 							<Dialog.Trigger>
@@ -54,25 +54,25 @@
 										class="h-8 w-full justify-start p-1 px-2 text-sm hover:bg-destructive hover:text-destructive-foreground"
 									>
 										<i class="ph ph-trash text-[18px]"></i>
-										<span>{i18n.t('globals.delete')}</span>
+										<span>{i18n.t("globals.delete")}</span>
 									</Button>
 									<Dialog.Content class="max-w-sm">
 										<Dialog.Header>
-											<Dialog.Title>{i18n.t('globals.delete')}</Dialog.Title>
+											<Dialog.Title>{i18n.t("globals.delete")}</Dialog.Title>
 											<Dialog.Description class="text-balance">
-												{i18n.t('users.groups.helpers.confirm-delete')}
+												{i18n.t("users.groups.helpers.confirm-delete")}
 											</Dialog.Description>
 										</Dialog.Header>
 										<div class="flex w-full justify-between gap-4">
-											<Dialog.Close class={buttonVariants({ class: 'w-full', variant: 'outline' })}
-												>{i18n.t('globals.close')}</Dialog.Close
+											<Dialog.Close class={buttonVariants({ class: "w-full", variant: "outline" })}
+												>{i18n.t("globals.close")}</Dialog.Close
 											>
 											<form
 												action="/groups?/delete"
 												method="post"
 												class="contents"
 												use:enhance={({ formData }) => {
-													formData.append('ids[]', group.slug);
+													formData.append("ids[]", group.slug);
 
 													return async ({ update }) => {
 														await update({ invalidateAll: true });
@@ -81,7 +81,7 @@
 												}}
 											>
 												<Button variant="destructive" type="submit" class="w-full"
-													>{i18n.t('globals.confirm')}</Button
+													>{i18n.t("globals.confirm")}</Button
 												>
 											</form>
 										</div>

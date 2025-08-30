@@ -1,40 +1,40 @@
 <script lang="ts">
-	import type { Token } from '@prisma/client';
+	import type { Token } from "@prisma/client";
 
-	import { browser } from '$app/environment';
-	import { enhance } from '$app/forms';
-	import { page } from '$app/state';
-	import P from '$lib/components/typography/text/p.svelte';
-	import { Button } from '$lib/components/ui/button';
-	import { Input } from '$lib/components/ui/input';
-	import { Label } from '$lib/components/ui/label';
-	import * as Select from '$lib/components/ui/select';
-	import { Separator } from '$lib/components/ui/separator';
-	import { getTranslations } from '$lib/i18n/index.svelte';
-	import { toast } from 'svelte-sonner';
-	import { prefersReducedMotion } from 'svelte/motion';
-	import { fly } from 'svelte/transition';
+	import { browser } from "$app/environment";
+	import { enhance } from "$app/forms";
+	import { page } from "$app/state";
+	import P from "$lib/components/typography/text/p.svelte";
+	import { Button } from "$lib/components/ui/button";
+	import { Input } from "$lib/components/ui/input";
+	import { Label } from "$lib/components/ui/label";
+	import * as Select from "$lib/components/ui/select";
+	import { Separator } from "$lib/components/ui/separator";
+	import { getTranslations } from "$lib/i18n/index.svelte";
+	import { toast } from "svelte-sonner";
+	import { prefersReducedMotion } from "svelte/motion";
+	import { fly } from "svelte/transition";
 
 	const i18n = getTranslations();
 	let { sampleCode, stored, token }: { sampleCode: string; stored: null | Token; token?: string } =
 		$props();
 	let showToken = $state(false);
-	let ttlUnit = $state('days');
+	let ttlUnit = $state("days");
 </script>
 
 <div class="grid h-max w-full grid-cols-1 gap-2 md:gap-4">
-	<P class="text-sm leading-normal">{@html i18n.t('tokens.helper')}</P>
+	<P class="text-sm leading-normal">{@html i18n.t("tokens.helper")}</P>
 
-	<Label class="mt-4">{i18n.t('tokens.fields.key')}</Label>
+	<Label class="mt-4">{i18n.t("tokens.fields.key")}</Label>
 	<div class="flex flex-col gap-1">
 		<div class="flex items-center gap-2">
 			<Input
 				icon="key"
-				type={showToken ? 'text' : 'password'}
+				type={showToken ? "text" : "password"}
 				class="caret-transparent"
 				readonly
 				bind:value={token}
-				placeholder={i18n.t('tokens.placeholder')}
+				placeholder={i18n.t("tokens.placeholder")}
 			/>
 			<Button
 				variant="outline"
@@ -49,13 +49,13 @@
 				size="icon"
 				class="aspect-square"
 				onclick={async () => {
-					if (!browser || !token || !navigator.clipboard || page.url.protocol !== 'https:') {
-						toast.error(i18n.t('tokens.not-allowed-to-copy'));
+					if (!browser || !token || !navigator.clipboard || page.url.protocol !== "https:") {
+						toast.error(i18n.t("tokens.not-allowed-to-copy"));
 						return;
 					}
 
 					await navigator.clipboard.writeText(token);
-					toast.error(i18n.t('tokens.copied'));
+					toast.error(i18n.t("tokens.copied"));
 				}}><i class="ph-duotone ph-copy text-[20px]"></i></Button
 			>
 		</div>
@@ -70,7 +70,7 @@
 							opacity: prefersReducedMotion.current ? 1 : 0,
 							y: prefersReducedMotion.current ? 0 : 4
 						}}
-						>{@html i18n.t('tokens.fields.created')}
+						>{@html i18n.t("tokens.fields.created")}
 						{stored?.createdAt.toUTCString()}</small
 					>
 				{/key}
@@ -80,7 +80,7 @@
 				class="contents"
 				method="post"
 				use:enhance={() => {
-					ttlUnit = 'days';
+					ttlUnit = "days";
 				}}
 			>
 				<Button
@@ -88,12 +88,12 @@
 					type="submit"
 					class="mt-4 justify-start transition-all hover:bg-red-500 hover:text-white hover:dark:bg-red-700"
 				>
-					{@html i18n.t('tokens.revoke')}
+					{@html i18n.t("tokens.revoke")}
 				</Button>
 			</form>
 		{:else}
 			<form action="?/tokenGenerate" class="contents" method="post" use:enhance>
-				<Label class="mt-4">{i18n.t('tokens.fields.jwt-ttl')}</Label>
+				<Label class="mt-4">{i18n.t("tokens.fields.jwt-ttl")}</Label>
 				<div class="mt-2 flex items-center gap-2">
 					<Input
 						id="ttlValue"
@@ -102,7 +102,7 @@
 						type="number"
 						onblur={(e) => {
 							let ttl = e.currentTarget.value;
-							if (!ttl || Number(ttl) <= 0) e.currentTarget.value = '7';
+							if (!ttl || Number(ttl) <= 0) e.currentTarget.value = "7";
 						}}
 						min="1"
 						max="365"
@@ -113,7 +113,7 @@
 							{i18n.t(`tokens.units.${ttlUnit}`)}
 						</Select.Trigger>
 						<Select.Content>
-							{#each ['minutes', 'hours', 'days', 'months'] as tu}
+							{#each ["minutes", "hours", "days", "months"] as tu, idx (idx)}
 								<Select.Item value={tu}>
 									{i18n.t(`tokens.units.${tu}`)}
 								</Select.Item>
@@ -122,7 +122,7 @@
 					</Select.Root>
 				</div>
 				<Button type="submit" class="mt-4 justify-start">
-					{@html i18n.t('tokens.generate')}
+					{@html i18n.t("tokens.generate")}
 				</Button>
 			</form>
 		{/if}
@@ -132,7 +132,7 @@
 		<Separator class="mt-4" />
 		<div class="mt-4">
 			<P class="text-sm text-muted-foreground">
-				{@html i18n.t('tokens.api-docs', { url: '/docs' })}
+				{@html i18n.t("tokens.api-docs", { url: "/docs" })}
 			</P>
 		</div>
 	</div>

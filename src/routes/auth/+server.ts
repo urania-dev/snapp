@@ -1,3 +1,3 @@
-import { redirect } from '@sveltejs/kit';
+import { redirect } from "@sveltejs/kit";
 
-export const GET = () => redirect(302, '/auth/sign-in');
+export const GET = () => redirect(302, "/auth/sign-in");

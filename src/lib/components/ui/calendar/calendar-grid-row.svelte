@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { cn } from '$lib/utils.js';
-	import { Calendar as CalendarPrimitive } from 'bits-ui';
+	import { cn } from "$lib/utils.js";
+	import { Calendar as CalendarPrimitive } from "bits-ui";
 
 	let {
 		class: className,
-		ref = $bindable(null), // eslint-disable-next-line svelte/valid-compile
+		ref = $bindable(null),
 		...restProps
 	}: CalendarPrimitive.GridRowProps = $props();
 </script>
 
-<CalendarPrimitive.GridRow bind:ref class={cn('flex', className)} {...restProps} />
+<CalendarPrimitive.GridRow bind:ref class={cn("flex", className)} {...restProps} />

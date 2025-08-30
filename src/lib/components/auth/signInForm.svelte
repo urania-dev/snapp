@@ -1,16 +1,16 @@
 <script lang="ts">
-	import { applyAction } from '$app/forms';
-	import { invalidateAll } from '$app/navigation';
-	import { page } from '$app/state';
-	import { signInSchema, type SignInSchema } from '$lib/components/auth/schema';
-	import * as Form from '$lib/components/ui/form';
-	import { Input } from '$lib/components/ui/input';
-	import { getTranslations } from '$lib/i18n/index.svelte';
-	import { toast } from 'svelte-sonner';
-	import { type Infer, superForm, type SuperValidated } from 'sveltekit-superforms';
-	import { zodClient } from 'sveltekit-superforms/adapters';
+	import { applyAction } from "$app/forms";
+	import { invalidateAll } from "$app/navigation";
+	import { page } from "$app/state";
+	import { signInSchema, type SignInSchema } from "$lib/components/auth/schema";
+	import * as Form from "$lib/components/ui/form";
+	import { Input } from "$lib/components/ui/input";
+	import { getTranslations } from "$lib/i18n/index.svelte";
+	import { toast } from "svelte-sonner";
+	import { type Infer, superForm, type SuperValidated } from "sveltekit-superforms";
+	import { zodClient } from "sveltekit-superforms/adapters";
 
-	import { Button } from '../ui/button';
+	import { Button } from "../ui/button";
 
 	let {
 		emailDisabled = false,
@@ -32,7 +32,7 @@
 				console.error(error);
 			}
 		},
-		validationMethod: 'onsubmit',
+		validationMethod: "onsubmit",
 		validators: zodClient(signInSchema)
 	});
 
@@ -49,19 +49,12 @@
 			<Form.Field {form} name="username">
 				<Form.Control>
 					{#snippet children({ props })}
-						<Form.Label>{i18n.t('users.fields.username')}</Form.Label>
+						<Form.Label>{i18n.t("users.fields.username")}</Form.Label>
 						<Input
 							icon="user"
-							placeholder={i18n.t('users.placeholders.username')}
+							placeholder={i18n.t("users.placeholders.username")}
 							{...props}
 							bind:value={$formData.username}
-							oninput={(e) => {
-								$formData.username = e.currentTarget.value
-									.toLowerCase()
-									.replace(/\s+/g, '-')
-									.replace(/[^a-z0-9_-]/g, '')
-									.replace(/-+/g, '-');
-							}}
 						/>
 					{/snippet}
 				</Form.Control>
@@ -70,13 +63,13 @@
 			<Form.Field {form} name="password">
 				<Form.Control>
 					{#snippet children({ props })}
-						<Form.Label>{i18n.t('users.fields.password')}</Form.Label>
+						<Form.Label>{i18n.t("users.fields.password")}</Form.Label>
 						<div class="flex h-10 items-center gap-2">
 							<Input
 								icon="key"
-								placeholder={i18n.t('users.placeholders.password')}
+								placeholder={i18n.t("users.placeholders.password")}
 								{...props}
-								type={showPassword ? 'text' : 'password'}
+								type={showPassword ? "text" : "password"}
 								bind:value={$formData.password}
 							/>
 							<Button
@@ -94,12 +87,12 @@
 				<Form.FieldErrors />
 			</Form.Field>
 			<Button variant="ghost" href="/auth/forgot-password" class="h-8"
-				>{i18n.t('users.auth.forgot-password')}</Button
+				>{i18n.t("users.auth.forgot-password")}</Button
 			>
-			<Form.Button class="mt-12 w-full">{i18n.t('users.auth.sign-in')}</Form.Button>
+			<Form.Button class="mt-12 w-full">{i18n.t("users.auth.sign-in")}</Form.Button>
 		</form>
 	{/if}
-	{#each providers as provider}
+	{#each providers as provider, idx (idx)}
 		<Button
 			class="justify-center"
 			data-sveltekit-preload-data="off"

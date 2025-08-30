@@ -1,15 +1,15 @@
 <script lang="ts">
-	import { cn } from '$lib/utils.js';
-	import { Calendar as CalendarPrimitive, type WithoutChildrenOrChild } from 'bits-ui';
+	import { cn } from "$lib/utils.js";
+	import { Calendar as CalendarPrimitive, type WithoutChildrenOrChild } from "bits-ui";
 
-	import * as Calendar from './index.js';
+	import * as Calendar from "./index.js";
 
 	let {
 		class: className,
 		placeholder = $bindable(),
 		ref = $bindable(null),
 		value = $bindable(),
-		weekdayFormat = 'short', // eslint-disable-next-line svelte/valid-compile
+		weekdayFormat = "short",
 		...restProps
 	}: WithoutChildrenOrChild<CalendarPrimitive.RootProps> = $props();
 </script>
@@ -23,7 +23,7 @@ get along, so we shut typescript up by casting `value` to `never`.
 	bind:ref
 	bind:placeholder
 	{weekdayFormat}
-	class={cn('p-3', className)}
+	class={cn("p-3", className)}
 	{...restProps}
 >
 	{#snippet children({ months, weekdays })}
@@ -33,11 +33,11 @@ get along, so we shut typescript up by casting `value` to `never`.
 			<Calendar.NextButton />
 		</Calendar.Header>
 		<Calendar.Months>
-			{#each months as month}
+			{#each months as month, idx (idx)}
 				<Calendar.Grid>
 					<Calendar.GridHead>
 						<Calendar.GridRow class="flex">
-							{#each weekdays as weekday}
+							{#each weekdays as weekday, idx (idx)}
 								<Calendar.HeadCell>
 									{weekday.slice(0, 2)}
 								</Calendar.HeadCell>
@@ -45,9 +45,9 @@ get along, so we shut typescript up by casting `value` to `never`.
 						</Calendar.GridRow>
 					</Calendar.GridHead>
 					<Calendar.GridBody>
-						{#each month.weeks as weekDates}
+						{#each month.weeks as weekDates, idx (idx)}
 							<Calendar.GridRow class="mt-2 w-full">
-								{#each weekDates as date}
+								{#each weekDates as date, idx (idx)}
 									<Calendar.Cell {date} month={month.value}>
 										<Calendar.Day />
 									</Calendar.Cell>

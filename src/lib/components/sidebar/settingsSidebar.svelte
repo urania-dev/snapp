@@ -1,18 +1,18 @@
 <script lang="ts">
-	import type { SvelteURL } from 'svelte/reactivity';
+	import type { SvelteURL } from "svelte/reactivity";
 
-	import * as Select from '$lib/components/ui/select/index.js';
-	import { IsMobile } from '$lib/hooks/is-mobile.svelte';
-	import { getTranslations } from '$lib/i18n/index.svelte';
-	import { fly } from 'svelte/transition';
+	import * as Select from "$lib/components/ui/select/index.js";
+	import { IsMobile } from "$lib/hooks/is-mobile.svelte";
+	import { getTranslations } from "$lib/i18n/index.svelte";
+	import { fly } from "svelte/transition";
 
-	import { Button } from '../ui/button';
-	import Separator from '../ui/separator/separator.svelte';
+	import { Button } from "../ui/button";
+	import Separator from "../ui/separator/separator.svelte";
 	let {
 		active,
 		enabledLimits = false,
 		isAdmin = false,
-		url = $bindable()
+		url
 	}: {
 		active: string;
 		enabledLimits?: boolean;
@@ -25,43 +25,43 @@
 
 	const items = $derived([
 		{
-			id: '#profile',
-			label: i18n.t('users.labels.profile'),
+			id: "#profile",
+			label: i18n.t("users.labels.profile"),
 			visible: true
 		},
 		{
-			id: '#tokens',
-			label: i18n.t('tokens.label'),
+			id: "#tokens",
+			label: i18n.t("tokens.label"),
 			visible: true
 		},
 		{
-			id: '#admin',
-			label: i18n.t('admin.label'),
+			id: "#admin",
+			label: i18n.t("admin.label"),
 			visible: isAdmin
 		},
 		{
-			id: '#smtp',
-			label: i18n.t('admin.labels.smtp'),
+			id: "#smtp",
+			label: i18n.t("admin.labels.smtp"),
 			visible: isAdmin
 		},
 		{
-			id: '#watchlists',
-			label: i18n.t('admin.labels.watchlists'),
+			id: "#watchlists",
+			label: i18n.t("admin.labels.watchlists"),
 			visible: isAdmin
 		},
 		{
-			id: '#limits',
-			label: i18n.t('admin.labels.limits'),
+			id: "#limits",
+			label: i18n.t("admin.labels.limits"),
 			visible: enabledLimits && isAdmin
 		},
 		{
-			id: '#utmParams',
-			label: i18n.t('snapps.labels.utm-params'),
+			id: "#utmParams",
+			label: i18n.t("snapps.labels.utm-params"),
 			visible: true
 		},
 		{
-			id: '#migration',
-			label: i18n.t('migrations.label'),
+			id: "#migration",
+			label: i18n.t("migrations.label"),
 			visible: true
 		}
 	]);
@@ -80,29 +80,29 @@
 			>
 				<div class="flex w-full items-center p-4">
 					<Select.Trigger class="w-full font-semibold">
-						{#if active === '#profile'}
-							{i18n.t('users.labels.profile')}
+						{#if active === "#profile"}
+							{i18n.t("users.labels.profile")}
 						{/if}
-						{#if active === '#tokens'}
-							{i18n.t('tokens.label')}
+						{#if active === "#tokens"}
+							{i18n.t("tokens.label")}
 						{/if}
-						{#if active === '#admin'}
-							{i18n.t('admin.label')}
+						{#if active === "#admin"}
+							{i18n.t("admin.label")}
 						{/if}
-						{#if active === '#smtp'}
-							{i18n.t('admin.labels.smtp')}
+						{#if active === "#smtp"}
+							{i18n.t("admin.labels.smtp")}
 						{/if}
-						{#if active === '#watchlists'}
-							{i18n.t('admin.labels.watchlists')}
+						{#if active === "#watchlists"}
+							{i18n.t("admin.labels.watchlists")}
 						{/if}
-						{#if active === '#limits'}
-							{i18n.t('admin.labels.limits')}
+						{#if active === "#limits"}
+							{i18n.t("admin.labels.limits")}
 						{/if}
-						{#if active === '#migration'}
-							{i18n.t('migrations.label')}
+						{#if active === "#migration"}
+							{i18n.t("migrations.label")}
 						{/if}
-						{#if active === '#utmParams'}
-							{i18n.t('snapps.labels.utm-params')}
+						{#if active === "#utmParams"}
+							{i18n.t("snapps.labels.utm-params")}
 						{/if}
 					</Select.Trigger>
 					<Select.Content>
@@ -118,7 +118,7 @@
 		<Separator />
 	{:else}
 		<div class="flex w-full flex-col gap-2 p-2">
-			{#each items as item, idx}
+			{#each items as item, idx (item.id)}
 				{#if item.visible === true}
 					<div
 						class="h-max w-full"
@@ -129,7 +129,7 @@
 								url.hash = `${item.id}`;
 								window.location.hash = `${item.id}`;
 							}}
-							variant={active === item.id ? 'default' : 'ghost'}
+							variant={active === item.id ? "default" : "ghost"}
 							class="w-full cursor-pointer justify-start"
 						>
 							{i18n.t(item.label)}

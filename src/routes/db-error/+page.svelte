@@ -1,10 +1,10 @@
 <script>
-	import { page } from '$app/state';
-	import { env } from '$env/dynamic/public';
-	import H3 from '$lib/components/typography/heading/h3.svelte';
-	import P from '$lib/components/typography/text/p.svelte';
-	import * as Card from '$lib/components/ui/card';
-	import SvelteSeo from 'svelte-seo';
+	import { page } from "$app/state";
+	import { env } from "$env/dynamic/public";
+	import H3 from "$lib/components/typography/heading/h3.svelte";
+	import P from "$lib/components/typography/text/p.svelte";
+	import * as Card from "$lib/components/ui/card";
+	import SvelteSeo from "svelte-seo";
 </script>
 
 <div class="flex h-full w-full items-center justify-center p-4">
@@ -21,7 +21,7 @@
 			<div class="mt-2 flex items-center gap-1">
 				<i class="ph ph-at text-[20px]"></i>
 				<a class="link flex items-center pb-1" href="mailto:{env.PUBLIC_ADMIN_CONTACT}">
-					<span>{env.PUBLIC_ADMIN_CONTACT || 'Set ENV PUBLIC_ADMIN_CONTACT'}</span>
+					<span>{env.PUBLIC_ADMIN_CONTACT || "Set ENV PUBLIC_ADMIN_CONTACT"}</span>
 				</a>
 			</div>
 		</Card.Content>
@@ -33,4 +33,4 @@
 		>
 	</Card.Root>
 </div>
-<SvelteSeo title={`${page.data.appname || 'Snapp'} | DB OFFLINE`} />
+<SvelteSeo title={`${page.data.appname || "Snapp"} | DB OFFLINE`} />

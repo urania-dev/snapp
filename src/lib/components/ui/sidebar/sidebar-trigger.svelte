@@ -1,16 +1,16 @@
 <script lang="ts">
-	import type { ComponentProps } from 'svelte';
+	import type { ComponentProps } from "svelte";
 
-	import { Button } from '$lib/components/ui/button/index.js';
-	import { cn } from '$lib/utils';
+	import { Button } from "$lib/components/ui/button/index.js";
+	import { cn } from "$lib/utils";
 
-	import { useSidebar } from './context.svelte.js';
+	import { useSidebar } from "./context.svelte.js";
 
 	let {
 		class: className,
 		onclick,
 		ref = $bindable(null),
-		// eslint-disable-next-line svelte/valid-compile
+
 		...restProps
 	}: {
 		onclick?: (e: MouseEvent) => void;
@@ -28,7 +28,7 @@
 	data-sidebar="trigger"
 	variant="ghost"
 	size="icon"
-	class={cn('h-10 w-10', className)}
+	class={cn("h-10 w-10", className)}
 	{...restProps}
 >
 	<i class="ph ph-sidebar text-[20px]"></i>

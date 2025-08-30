@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { applyAction } from '$app/forms';
-	import { page } from '$app/state';
-	import { otpSchema, type OTPSchema } from '$lib/components/auth/schema';
-	import * as Form from '$lib/components/ui/form';
-	import * as InputOTP from '$lib/components/ui/input-otp/index.js';
-	import { getTranslations } from '$lib/i18n/index.svelte';
-	import { REGEXP_ONLY_DIGITS } from 'bits-ui';
-	import { toast } from 'svelte-sonner';
-	import { type Infer, superForm, type SuperValidated } from 'sveltekit-superforms';
-	import { zodClient } from 'sveltekit-superforms/adapters';
+	import { applyAction } from "$app/forms";
+	import { page } from "$app/state";
+	import { otpSchema, type OTPSchema } from "$lib/components/auth/schema";
+	import * as Form from "$lib/components/ui/form";
+	import * as InputOTP from "$lib/components/ui/input-otp/index.js";
+	import { getTranslations } from "$lib/i18n/index.svelte";
+	import { REGEXP_ONLY_DIGITS } from "bits-ui";
+	import { toast } from "svelte-sonner";
+	import { type Infer, superForm, type SuperValidated } from "sveltekit-superforms";
+	import { zodClient } from "sveltekit-superforms/adapters";
 
 	let { otpForm }: { otpForm: SuperValidated<Infer<OTPSchema>> } = $props();
 
@@ -22,7 +22,7 @@
 				console.error(error);
 			}
 		},
-		validationMethod: 'onsubmit',
+		validationMethod: "onsubmit",
 		validators: zodClient(otpSchema)
 	});
 
@@ -36,7 +36,7 @@
 		<Form.Field {form} name="otp">
 			<Form.Control>
 				{#snippet children({ props })}
-					<Form.Label>{i18n.t('users.auth.otp')}</Form.Label>
+					<Form.Label>{i18n.t("users.auth.otp")}</Form.Label>
 					<!-- <Input
 						icon="user"
 						placeholder={i18n.t('users.placeholders.username')}
@@ -51,13 +51,13 @@
 						bind:value={$formData.otp}
 						onkeyup={() => {
 							if ($formData.otp?.length === 6)
-								document.forms.namedItem('send-otp')?.requestSubmit();
+								document.forms.namedItem("send-otp")?.requestSubmit();
 						}}
 						pattern={REGEXP_ONLY_DIGITS}
 					>
 						{#snippet children({ cells })}
 							<InputOTP.Group>
-								{#each cells as cell}
+								{#each cells as cell, idx (idx)}
 									<InputOTP.Slot {cell} />
 								{/each}
 							</InputOTP.Group>
@@ -69,7 +69,7 @@
 		</Form.Field>
 
 		<Form.Button type="submit" class="mt-4 w-full">
-			{i18n.t('globals.confirm')}
+			{i18n.t("globals.confirm")}
 		</Form.Button>
 	</form>
 </div>

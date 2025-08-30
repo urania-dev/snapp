@@ -1,7 +1,7 @@
-import { error } from '@sveltejs/kit';
-import { env } from '$env/dynamic/private';
-import { log } from '$lib/server/log';
-import { Configuration, discovery } from 'openid-client';
+import { error } from "@sveltejs/kit";
+import { env } from "$env/dynamic/private";
+import { log } from "$lib/server/log";
+import { Configuration, discovery } from "openid-client";
 
 export interface OidcConfig {
 	authorizeUrl?: string;
@@ -32,7 +32,7 @@ const fetchClientConfig = async (oidcConfig: OidcConfig): Promise<Configuration>
 			);
 			return config;
 		} catch (error) {
-			if (env.LOG_LEVEL === 'debug') log.error(error);
+			if (env.LOG_LEVEL === "debug") log.error(error);
 		}
 
 	return new Configuration(
@@ -59,10 +59,10 @@ export const getProviders = async () => {
 	try {
 		const parseOIDCConfigs = () => {
 			const providers =
-				(env.AUTH_PROVIDERS?.trim() !== '' &&
+				(env.AUTH_PROVIDERS?.trim() !== "" &&
 					env.AUTH_PROVIDERS?.trim()
 						?.toString()
-						?.split(',')
+						?.split(",")
 						.map((provider) => provider.trim())) ||
 				[];
 
@@ -71,12 +71,12 @@ export const getProviders = async () => {
 				const issuer = env[`AUTH_${provider}_ISSUER`];
 				const clientID = env[`AUTH_${provider}_CLIENT_ID`];
 				const clientSecret = env[`AUTH_${provider}_CLIENT_SECRET`];
-				const scope = env?.[`AUTH_${provider}_SCOPE`] || 'openid profile email';
-				const userNameField = env?.[`AUTH_${provider}_USERNAME_FIELD`] || 'preferred_username';
-				const userIdField = env?.[`AUTH_${provider}_USERID_FIELD`] || 'id';
-				const displayNameField = env?.[`AUTH_${provider}_DISPLAYNAME_FIELD`] || 'name';
-				const profilePictureField = env?.[`AUTH_${provider}_PROFILE_PICTURE_FIELD`] || 'avatar';
-				const emailField = env?.[`AUTH_${provider}_EMAIL_FIELD`] || 'email';
+				const scope = env?.[`AUTH_${provider}_SCOPE`] || "openid profile email";
+				const userNameField = env?.[`AUTH_${provider}_USERNAME_FIELD`] || "preferred_username";
+				const userIdField = env?.[`AUTH_${provider}_USERID_FIELD`] || "id";
+				const displayNameField = env?.[`AUTH_${provider}_DISPLAYNAME_FIELD`] || "name";
+				const profilePictureField = env?.[`AUTH_${provider}_PROFILE_PICTURE_FIELD`] || "avatar";
+				const emailField = env?.[`AUTH_${provider}_EMAIL_FIELD`] || "email";
 
 				Object.entries({
 					clientID,

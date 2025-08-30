@@ -1,15 +1,15 @@
 <script lang="ts">
-	import type { Snippet } from 'svelte';
+	import type { Snippet } from "svelte";
 
-	import { cn } from '$lib/utils';
-	import { DropdownMenu as DropdownMenuPrimitive, type WithoutChildrenOrChild } from 'bits-ui';
+	import { cn } from "$lib/utils";
+	import { DropdownMenu as DropdownMenuPrimitive, type WithoutChildrenOrChild } from "bits-ui";
 
 	let {
 		checked = $bindable(false),
 		children: childrenProp,
 		class: className,
 		indeterminate = $bindable(false),
-		ref = $bindable(null), // eslint-disable-next-line svelte/valid-compile
+		ref = $bindable(null),
 		...restProps
 	}: {
 		children?: Snippet;
@@ -21,7 +21,7 @@
 	bind:checked
 	bind:indeterminate
 	class={cn(
-		'relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground data-[disabled]:opacity-50',
+		"relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground data-[disabled]:opacity-50",
 		className
 	)}
 	{...restProps}
@@ -31,7 +31,7 @@
 			{#if indeterminate}
 				<i class="ph ph-minus text-[20px]"></i>
 			{:else}
-				<i class={cn('ph ph-check text-[20px]', !checked && 'text-transparent')}></i>
+				<i class={cn("ph ph-check text-[20px]", !checked && "text-transparent")}></i>
 			{/if}
 		</span>
 		{@render childrenProp?.()}

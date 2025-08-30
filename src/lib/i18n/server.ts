@@ -1,8 +1,8 @@
-import { error } from '@sveltejs/kit';
-import { readFile } from 'fs/promises';
-import path from 'path';
+import { error } from "@sveltejs/kit";
+import { readFile } from "fs/promises";
+import path from "path";
 
-import type { Translations } from './index.svelte';
+import type { Translations } from "./index.svelte";
 
 /**
  * Load translations for a specific locale from JSON files.
@@ -12,7 +12,7 @@ import type { Translations } from './index.svelte';
 export async function loadTranslations(locale: string): Promise<Translations> {
 	const filePath = path.resolve(`src/lib/i18n/translations/${locale}.json`);
 	try {
-		const fileContent = await readFile(filePath, 'utf-8');
+		const fileContent = await readFile(filePath, "utf-8");
 		return JSON.parse(fileContent);
 	} catch (e) {
 		error(500, {

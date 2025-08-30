@@ -1,16 +1,16 @@
-import { error } from '@sveltejs/kit';
-import { createReadStream, existsSync } from 'fs';
-import path from 'path';
-import { Readable } from 'stream';
+import { error } from "@sveltejs/kit";
+import { createReadStream, existsSync } from "fs";
+import path from "path";
+import { Readable } from "stream";
 
 export const GET = async ({ locals: { user }, params: { id } }) => {
-	if (!user || (user.id !== id && user.role === 'user'))
-		throw error(401, { message: 'errors.unauthorized' });
-	const csvDir = path.resolve('output');
+	if (!user || (user.id !== id && user.role === "user"))
+		throw error(401, { message: "errors.unauthorized" });
+	const csvDir = path.resolve("output");
 	const csvPath = path.join(csvDir, `${id}.csv`);
 
 	if (!existsSync(csvPath)) {
-		throw error(400, { message: 'errors.migration-failed' });
+		throw error(400, { message: "errors.migration-failed" });
 	}
 
 	// Create a readable stream for the file
@@ -21,8 +21,8 @@ export const GET = async ({ locals: { user }, params: { id } }) => {
 
 	const response = new Response(webStream, {
 		headers: {
-			'Content-Disposition': `attachment; filename="${id}.csv"`,
-			'Content-Type': 'text/csv'
+			"Content-Disposition": `attachment; filename="${id}.csv"`,
+			"Content-Type": "text/csv"
 		}
 	});
 

@@ -1,19 +1,19 @@
 <script lang="ts">
-	import { applyAction, enhance } from '$app/forms';
-	import { beforeNavigate, invalidateAll } from '$app/navigation';
-	import P from '$lib/components/typography/text/p.svelte';
-	import { Button } from '$lib/components/ui/button';
-	import * as Form from '$lib/components/ui/form';
-	import { Input } from '$lib/components/ui/input';
-	import { Label } from '$lib/components/ui/label';
-	import { Switch } from '$lib/components/ui/switch';
-	import { getTranslations } from '$lib/i18n/index.svelte';
-	import { decode } from 'html-entities';
-	import { toast } from 'svelte-sonner';
-	import { type Infer, superForm, type SuperValidated } from 'sveltekit-superforms';
-	import { zodClient } from 'sveltekit-superforms/adapters';
+	import { applyAction, enhance } from "$app/forms";
+	import { beforeNavigate, invalidateAll } from "$app/navigation";
+	import P from "$lib/components/typography/text/p.svelte";
+	import { Button } from "$lib/components/ui/button";
+	import * as Form from "$lib/components/ui/form";
+	import { Input } from "$lib/components/ui/input";
+	import { Label } from "$lib/components/ui/label";
+	import { Switch } from "$lib/components/ui/switch";
+	import { getTranslations } from "$lib/i18n/index.svelte";
+	import { decode } from "html-entities";
+	import { toast } from "svelte-sonner";
+	import { type Infer, superForm, type SuperValidated } from "sveltekit-superforms";
+	import { zodClient } from "sveltekit-superforms/adapters";
 
-	import { smtpSchema, type SMTPSchema } from '../schema';
+	import { smtpSchema, type SMTPSchema } from "../schema";
 
 	const i18n = getTranslations();
 
@@ -37,7 +37,7 @@
 			});
 		},
 		resetForm: false,
-		validationMethod: 'onsubmit',
+		validationMethod: "onsubmit",
 		validators: zodClient(smtpSchema)
 	});
 
@@ -49,22 +49,22 @@
 
 	beforeNavigate(({ cancel }) => {
 		if (sending === true) {
-			toast.info(i18n.t('globals.loading'));
+			toast.info(i18n.t("globals.loading"));
 			return cancel();
 		}
 	});
 </script>
 
 <div class="grid h-max w-full grid-cols-1 gap-2 md:gap-4">
-	<P class="text-sm leading-normal">{@html decode(i18n.t('admin.helpers.smtp'))}</P>
+	<P class="text-sm leading-normal">{@html decode(i18n.t("admin.helpers.smtp"))}</P>
 	<form id="smtp" class="grid" method="post" action="?/updateSMTP" use:superEnhance>
 		<Form.Field {form} name="host">
 			<Form.Control>
 				{#snippet children({ props })}
-					<Form.Label>{decode(i18n.t('admin.labels.smtp-host'))}</Form.Label>
+					<Form.Label>{decode(i18n.t("admin.labels.smtp-host"))}</Form.Label>
 					<Input
 						icon="computer-tower"
-						placeholder={decode(i18n.t('admin.placeholders.smtp-host'))}
+						placeholder={decode(i18n.t("admin.placeholders.smtp-host"))}
 						{...props}
 						bind:value={$formData.host}
 					/>
@@ -75,12 +75,12 @@
 		<Form.Field {form} name="port">
 			<Form.Control>
 				{#snippet children({ props })}
-					<Form.Label>{decode(i18n.t('admin.labels.smtp-port'))}</Form.Label>
+					<Form.Label>{decode(i18n.t("admin.labels.smtp-port"))}</Form.Label>
 					<Input
 						type="number"
 						icon="plug"
 						style="appearance:textfield;"
-						placeholder={decode(i18n.t('admin.placeholders.smtp-port'))}
+						placeholder={decode(i18n.t("admin.placeholders.smtp-port"))}
 						{...props}
 						bind:value={$formData.port}
 					/>
@@ -91,10 +91,10 @@
 		<Form.Field {form} name="user">
 			<Form.Control>
 				{#snippet children({ props })}
-					<Form.Label>{decode(i18n.t('admin.labels.smtp-user'))}</Form.Label>
+					<Form.Label>{decode(i18n.t("admin.labels.smtp-user"))}</Form.Label>
 					<Input
 						icon="user"
-						placeholder={decode(i18n.t('admin.placeholders.smtp-user'))}
+						placeholder={decode(i18n.t("admin.placeholders.smtp-user"))}
 						{...props}
 						bind:value={$formData.user}
 					/>
@@ -105,12 +105,12 @@
 		<Form.Field {form} name="pass">
 			<Form.Control>
 				{#snippet children({ props })}
-					<Form.Label>{decode(i18n.t('admin.labels.smtp-pass'))}</Form.Label>
+					<Form.Label>{decode(i18n.t("admin.labels.smtp-pass"))}</Form.Label>
 					<div class="flex h-10 items-center gap-2">
 						<Input
-							type={showPassword ? 'text' : 'password'}
+							type={showPassword ? "text" : "password"}
 							icon="key"
-							placeholder={decode(i18n.t('admin.placeholders.smtp-pass'))}
+							placeholder={decode(i18n.t("admin.placeholders.smtp-pass"))}
 							{...props}
 							bind:value={$formData.pass}
 						/>
@@ -131,10 +131,10 @@
 		<Form.Field {form} name="from">
 			<Form.Control>
 				{#snippet children({ props })}
-					<Form.Label>{decode(i18n.t('admin.labels.smtp-from'))}</Form.Label>
+					<Form.Label>{decode(i18n.t("admin.labels.smtp-from"))}</Form.Label>
 					<Input
 						icon="envelope"
-						placeholder={decode(i18n.t('admin.placeholders.smtp-from'))}
+						placeholder={decode(i18n.t("admin.placeholders.smtp-from"))}
 						{...props}
 						bind:value={$formData.from}
 					/>
@@ -145,10 +145,10 @@
 	</form>
 	<div class="my-2 flex items-start justify-between">
 		<div class="flex flex-col gap-2">
-			<Label>{decode(i18n.t('admin.labels.SSL'))}</Label>
+			<Label>{decode(i18n.t("admin.labels.SSL"))}</Label>
 			<Label>
 				<p class="max-w-[90%] text-sm leading-relaxed text-muted-foreground">
-					{i18n.t('admin.helpers.smtp-ssl')}
+					{i18n.t("admin.helpers.smtp-ssl")}
 				</p>
 			</Label>
 		</div>
@@ -157,7 +157,7 @@
 				bind:checked={SSL}
 				onCheckedChange={() => {
 					$formData.ssl = SSL;
-					document.forms.namedItem('smtp')?.requestSubmit();
+					document.forms.namedItem("smtp")?.requestSubmit();
 				}}
 			/>
 		</div>
@@ -167,11 +167,11 @@
 			class="text-sm"
 			onclick={(e) => {
 				e.preventDefault();
-				document.forms.namedItem('smtp')?.requestSubmit();
+				document.forms.namedItem("smtp")?.requestSubmit();
 			}}
 		>
 			<span>
-				{i18n.t('globals.save')}
+				{i18n.t("globals.save")}
 			</span>
 			<i class="ph-duotone ph-floppy-disk text-[24px]"></i>
 		</Button>
@@ -188,7 +188,7 @@
 			}}
 		>
 			<Button variant="outline" class="aspect-square" type="submit">
-				<span>{i18n.t('admin.labels.smtp-test')}</span>
+				<span>{i18n.t("admin.labels.smtp-test")}</span>
 				<div
 					class="flex aspect-square h-5 w-5 items-center justify-center duration-1000"
 					class:animate-spin={sending}

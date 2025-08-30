@@ -1,1 +1,1 @@
-export { default as RESTAPIToken } from './component.svelte';
+export { default as RESTAPIToken } from "./component.svelte";

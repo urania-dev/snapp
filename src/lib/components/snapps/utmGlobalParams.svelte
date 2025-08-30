@@ -1,19 +1,19 @@
 <script lang="ts">
-	import type { Setting } from '@prisma/client';
+	import type { Setting } from "@prisma/client";
 
-	import { page } from '$app/state';
-	import * as Table from '$lib/components/ui/table/index.js';
-	import { getTranslations } from '$lib/i18n/index.svelte';
-	import { untrack } from 'svelte';
-	import { toast } from 'svelte-sonner';
-	import { prefersReducedMotion } from 'svelte/motion';
-	import { SvelteMap } from 'svelte/reactivity';
-	import { fly } from 'svelte/transition';
+	import { page } from "$app/state";
+	import * as Table from "$lib/components/ui/table/index.js";
+	import { getTranslations } from "$lib/i18n/index.svelte";
+	import { untrack } from "svelte";
+	import { toast } from "svelte-sonner";
+	import { prefersReducedMotion } from "svelte/motion";
+	import { SvelteMap } from "svelte/reactivity";
+	import { fly } from "svelte/transition";
 
-	import H4 from '../typography/heading/h4.svelte';
-	import P from '../typography/text/p.svelte';
-	import { Button } from '../ui/button';
-	import { Input } from '../ui/input';
+	import H4 from "../typography/heading/h4.svelte";
+	import P from "../typography/text/p.svelte";
+	import { Button } from "../ui/button";
+	import { Input } from "../ui/input";
 
 	const {
 		showFooter = true
@@ -46,21 +46,21 @@
 					)
 				).json()) as { data: null | Setting }) || null;
 
-			if ('data' in response && response.data !== null && response.data.value !== '{}') {
+			if ("data" in response && response.data !== null && response.data.value !== "{}") {
 				const stringifiedParams =
-					(response.data.value && response.data.value.trim() !== '' && response.data.value) || '[]';
-				const storedParams = JSON.parse(stringifiedParams || '[]') as string[][];
+					(response.data.value && response.data.value.trim() !== "" && response.data.value) || "[]";
+				const storedParams = JSON.parse(stringifiedParams || "[]") as string[][];
 
 				for (const [key, value, name] of storedParams) {
 					params.set(`${key}`, { key, name, value });
 				}
 			}
 			if (params.size === 0) {
-				params.set('utm_', { key: 'utm_', name: 'NEW_UTM', value: '' });
+				params.set("utm_", { key: "utm_", name: "NEW_UTM", value: "" });
 			}
 		} catch (error) {
 			console.error(error);
-			toast.error('errors.generic');
+			toast.error("errors.generic");
 		}
 		loading = false;
 		saving = false;
@@ -97,14 +97,14 @@
 							id: `GLOBAL_UTM_PARAMS_${page.data.user.id}`
 						}
 					}),
-					credentials: 'include',
-					method: 'post'
+					credentials: "include",
+					method: "post"
 				})
 			).json()) as { data: null | Setting };
-			if (res.data !== null) toast.info(i18n.t('globals.saved'));
+			if (res.data !== null) toast.info(i18n.t("globals.saved"));
 		} catch (error) {
 			console.error(error);
-			toast.error('errors.generic');
+			toast.error("errors.generic");
 		}
 		loading = false;
 		saving = false;
@@ -116,11 +116,11 @@
 
 <div class="mb-4 grid content-start gap-0">
 	<div class="mt-2 flex w-full items-center justify-between">
-		<H4 class="hidden md:block">{i18n.t('snapps.labels.utm-params')}</H4>
+		<H4 class="hidden md:block">{i18n.t("snapps.labels.utm-params")}</H4>
 		<Button disabled={saving} class="w-full md:max-w-max" onclick={updateParams}>
 			<div class="flex items-center gap-2">
 				<span>
-					{i18n.t('globals.save')}
+					{i18n.t("globals.save")}
 				</span>
 				{#if saving}
 					<div class="flex h-5 w-5 animate-spin items-center">
@@ -134,7 +134,7 @@
 	</div>
 
 	<P class="mb-4 text-balance px-2 pb-2 text-sm text-muted-foreground"
-		>{i18n.t('snapps.helpers.utm-global-params')}</P
+		>{i18n.t("snapps.helpers.utm-global-params")}</P
 	>
 	{#if loading}
 		<div class="flex h-full min-h-[100px] w-full items-center justify-center">
@@ -149,18 +149,18 @@
 					<Table.Row>
 						<Table.Head class="h-10 w-8 p-1"></Table.Head>
 						<Table.Head class="h-10">
-							<span class="p-1 px-2 text-sm">{i18n.t('snapps.labels.utm.name')}</span>
+							<span class="p-1 px-2 text-sm">{i18n.t("snapps.labels.utm.name")}</span>
 						</Table.Head>
 						<Table.Head class="h-10">
-							<span class="p-1 px-2 text-sm">{i18n.t('snapps.labels.utm.key')}</span>
+							<span class="p-1 px-2 text-sm">{i18n.t("snapps.labels.utm.key")}</span>
 						</Table.Head>
 						<Table.Head class="h-10">
-							<span class="p-1 px-2 text-sm">{i18n.t('snapps.labels.utm.value')}</span>
+							<span class="p-1 px-2 text-sm">{i18n.t("snapps.labels.utm.value")}</span>
 						</Table.Head>
 					</Table.Row>
 				</Table.Header>
 				<Table.Body>
-					{#each params.entries() as [paramKey, param] ([param.name, param.key].join('_'))}
+					{#each params.entries() as [paramKey, param] ([param.name, param.key].join("_"))}
 						<Table.Row>
 							<Table.Cell class="p-1"
 								><Button
@@ -202,9 +202,9 @@
 									class="h-8 w-8"
 									onclick={() => {
 										params.set(`NEW_UTM_${params.size}`, {
-											key: 'utm_',
+											key: "utm_",
 											name: `NEW_UTM_${params.size}`,
-											value: ''
+											value: ""
 										});
 									}}><i class="ph ph-plus text-[20px]"></i></Button
 								></Table.Cell

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { buttonVariants } from '$lib/components/ui/button';
-	import * as Tooltip from '$lib/components/ui/tooltip';
-	import { cn } from '$lib/utils';
+	import { buttonVariants } from "$lib/components/ui/button";
+	import * as Tooltip from "$lib/components/ui/tooltip";
+	import { cn } from "$lib/utils";
 
 	const { url }: { url: null | string } = $props();
 
@@ -13,14 +13,14 @@
 		<Tooltip.Root delayDuration={300} bind:open={openTooltip}>
 			<Tooltip.Trigger
 				onclick={() => {
-					if (url) window.open(url, '_blank');
+					if (url) window.open(url, "_blank");
 				}}
 				onmouseleave={() => {
 					setTimeout(() => {
 						if (openTooltip) openTooltip = false;
 					}, 500);
 				}}
-				class={cn(buttonVariants({ variant: 'ghost' }), ' h-6 p-0.5 px-1')}
+				class={cn(buttonVariants({ variant: "ghost" }), " h-6 p-0.5 px-1")}
 				disabled={url === null}
 			>
 				<span>{url?.slice(0, 30)}...</span>

@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { buttonVariants } from '$lib/components/ui/button/index.js';
-	import { cn } from '$lib/utils.js';
-	import { Pagination as PaginationPrimitive } from 'bits-ui';
+	import { buttonVariants } from "$lib/components/ui/button/index.js";
+	import { cn } from "$lib/utils.js";
+	import { Pagination as PaginationPrimitive } from "bits-ui";
 
 	let {
 		children,
 		class: className,
-		ref = $bindable(null), // eslint-disable-next-line svelte/valid-compile
+		ref = $bindable(null),
 		...restProps
 	}: PaginationPrimitive.NextButtonProps = $props();
 </script>
@@ -20,8 +20,8 @@
 	bind:ref
 	class={cn(
 		buttonVariants({
-			class: 'gap-1 pr-2.5',
-			variant: 'ghost'
+			class: "gap-1 pr-2.5",
+			variant: "ghost"
 		}),
 		className
 	)}

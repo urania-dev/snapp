@@ -1,4 +1,4 @@
-import type { Component, ComponentProps, Snippet } from 'svelte';
+import type { Component, ComponentProps, Snippet } from "svelte";
 
 /**
  * A helper class to make it easy to identify Svelte components in

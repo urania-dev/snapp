@@ -1,16 +1,16 @@
 <script lang="ts">
-	import type { WithElementRef } from 'bits-ui';
-	import type { HTMLInputAttributes } from 'svelte/elements';
+	import type { WithElementRef } from "bits-ui";
+	import type { HTMLInputAttributes } from "svelte/elements";
 
-	import * as Tooltip from '$lib/components/ui/tooltip';
-	import { cn } from '$lib/utils';
+	import * as Tooltip from "$lib/components/ui/tooltip";
+	import { cn } from "$lib/utils";
 
 	let {
 		class: className,
 		container,
 		icon,
 		ref = $bindable(null),
-		value = $bindable(), // eslint-disable-next-line svelte/valid-compile
+		value = $bindable(),
 		...restProps
 	}: { container?: string; icon?: string } & WithElementRef<HTMLInputAttributes> = $props();
 
@@ -19,7 +19,7 @@
 
 <div
 	class={cn(
-		'group m-[1px] flex h-10 w-full items-center gap-2 overflow-clip rounded border border-input px-2 py-0.5 focus-within:outline-none focus-within:ring-2',
+		"group m-[1px] flex h-10 w-full items-center gap-2 overflow-clip rounded border border-input px-2 py-0.5 focus-within:outline-none focus-within:ring-2",
 		container
 	)}
 >
@@ -52,7 +52,7 @@
 	<input
 		bind:this={ref}
 		class={cn(
-			'flex h-10 w-full bg-transparent p-0 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+			"flex h-10 w-full bg-transparent p-0 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
 			className
 		)}
 		bind:value

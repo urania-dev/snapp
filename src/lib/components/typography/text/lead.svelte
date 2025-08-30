@@ -1,16 +1,16 @@
 <script lang="ts">
-	import type { HTMLAttributes } from 'svelte/elements';
+	import type { HTMLAttributes } from "svelte/elements";
 
-	import { cn } from '$lib/utils';
+	import { cn } from "$lib/utils";
 
 	const {
 		children,
 		class: className,
-		// eslint-disable-next-line svelte/valid-compile
+
 		...rest
 	}: {} & HTMLAttributes<HTMLParagraphElement> = $props();
 
-	const typography = 'text-muted-foreground text-xl';
+	const typography = "text-muted-foreground text-xl";
 </script>
 
 <p class={cn(typography, className)} {...rest}>

@@ -1,30 +1,30 @@
 <script lang="ts">
-	import type { FormEventHandler } from 'svelte/elements';
+	import type { FormEventHandler } from "svelte/elements";
 
-	import P from '$lib/components/typography/text/p.svelte';
-	import { Button } from '$lib/components/ui/button';
-	import * as Card from '$lib/components/ui/card';
-	import * as Pagination from '$lib/components/ui/pagination/index.js';
-	import * as Table from '$lib/components/ui/table';
-	import * as Tabs from '$lib/components/ui/tabs';
-	import { MediaQuery } from 'svelte/reactivity';
+	import P from "$lib/components/typography/text/p.svelte";
+	import { Button } from "$lib/components/ui/button";
+	import * as Card from "$lib/components/ui/card";
+	import * as Pagination from "$lib/components/ui/pagination/index.js";
+	import * as Table from "$lib/components/ui/table";
+	import * as Tabs from "$lib/components/ui/tabs";
+	import { MediaQuery } from "svelte/reactivity";
 
-	const isDesktop = new MediaQuery('(min-width: 768px)');
+	const isDesktop = new MediaQuery("(min-width: 768px)");
 
-	import type { User } from '@prisma/client';
+	import type { User } from "@prisma/client";
 
-	import { applyAction, enhance } from '$app/forms';
-	import { goto } from '$app/navigation';
-	import { page } from '$app/state';
-	import { getTranslations } from '$lib/i18n/index.svelte';
-	import { formatTimeAgo } from '$lib/utils';
-	import { decode } from 'html-entities';
-	import papa from 'papaparse';
-	import { toast } from 'svelte-sonner';
-	import { SvelteMap } from 'svelte/reactivity';
+	import { applyAction, enhance } from "$app/forms";
+	import { goto } from "$app/navigation";
+	import { page } from "$app/state";
+	import { getTranslations } from "$lib/i18n/index.svelte";
+	import { formatTimeAgo } from "$lib/utils";
+	import { decode } from "html-entities";
+	import papa from "papaparse";
+	import { toast } from "svelte-sonner";
+	import { SvelteMap } from "svelte/reactivity";
 
-	import { FieldSelector } from '.';
-	import UserSelector from './userSelector.svelte';
+	import { FieldSelector } from ".";
+	import UserSelector from "./userSelector.svelte";
 	const { user }: { user: User } = $props();
 	const i18n = getTranslations();
 
@@ -33,17 +33,17 @@
 	const handleUpload: FormEventHandler<HTMLInputElement> = async () => {
 		if (!files?.length) {
 			parsing = false;
-			return toast.error(i18n.t('migrations.invalid-file'));
+			return toast.error(i18n.t("migrations.invalid-file"));
 		}
 		parsing = true;
 
 		const file = files[0];
-		if (!file.name.endsWith('.csv')) return toast.error(i18n.t('migrations.invalid-file'));
+		if (!file.name.endsWith(".csv")) return toast.error(i18n.t("migrations.invalid-file"));
 
 		const rawData = papa.parse(await file.text(), { header: true }).data as string[];
 		const keys = new Set(Object.keys(rawData[0]));
 
-		structuredFields.set('0', keys);
+		structuredFields.set("0", keys);
 		updateSnappStructure(keys);
 		parsing = false;
 		parsedTable = false;
@@ -51,32 +51,32 @@
 
 	const parseTableWithSnappStructure = async () => {
 		if (!files?.length) {
-			return toast.error('No file uploaded');
+			return toast.error("No file uploaded");
 		}
 
 		const file = files[0];
-		if (!file.name.endsWith('.csv')) return toast.error('Invalid file type');
+		if (!file.name.endsWith(".csv")) return toast.error("Invalid file type");
 
 		const rawData = papa.parse(await file.text(), { header: true }).data as Record<
 			string,
 			string
 		>[];
 
-		if (!rawData.length) return toast.error('No data found in file');
+		if (!rawData.length) return toast.error("No data found in file");
 
 		parsedData = rawData
 			.map((row) => {
 				const groupId =
-					((row?.[snappStructure.groupId!] as string)?.trim() !== '' &&
+					((row?.[snappStructure.groupId!] as string)?.trim() !== "" &&
 						(row?.[snappStructure.groupId!] as string)) ||
 					null;
 				const snapp = {
 					createdAt:
 						(snappStructure.createdAt && new Date(row?.[snappStructure.createdAt!])) || new Date(),
 					disabled:
-						(typeof row?.[snappStructure.disabled!] === 'boolean' &&
+						(typeof row?.[snappStructure.disabled!] === "boolean" &&
 							Boolean(row?.[snappStructure.disabled!])) ||
-						row?.[snappStructure.disabled!] === 'true' ||
+						row?.[snappStructure.disabled!] === "true" ||
 						false,
 					expiresAt:
 						(row?.[snappStructure.expiresAt!] && new Date(row?.[snappStructure.expiresAt!])) ||
@@ -90,8 +90,8 @@
 						}) ||
 						undefined,
 					groupId: groupId || undefined,
-					hit: parseInt(row?.[snappStructure.hit!] || '0'),
-					maxUsages: parseInt(row?.[snappStructure.maxUsages!] || '0'),
+					hit: parseInt(row?.[snappStructure.hit!] || "0"),
+					maxUsages: parseInt(row?.[snappStructure.maxUsages!] || "0"),
 					notes: row?.[snappStructure.notes!] || null,
 					originalUrl: row?.[snappStructure.originalUrl!],
 					secret: row?.[snappStructure.secret!] || null,
@@ -110,7 +110,7 @@
 		{ [key: string]: boolean | Date | null | number | object | string | undefined }[]
 	>([]);
 
-	let structuredFields: SvelteMap<string, Set<string>> = $state(new SvelteMap());
+	const structuredFields = new SvelteMap<string, Set<string>>();
 	let parsing = $state<boolean | null>(null);
 	let snappStructure = $state<{
 		createdAt: string | undefined;
@@ -144,32 +144,32 @@
 
 	const updateSnappStructure = (fields: Set<string>) => {
 		snappStructure.createdAt =
-			(fields.has('created') && 'created') || (fields.has('createdAt') && 'createdAt') || undefined;
+			(fields.has("created") && "created") || (fields.has("createdAt") && "createdAt") || undefined;
 		snappStructure.disabled =
-			(fields.has('disabled') && 'disabled') || (fields.has('banned') && 'banned') || undefined;
+			(fields.has("disabled") && "disabled") || (fields.has("banned") && "banned") || undefined;
 		snappStructure.expiresAt =
-			(fields.has('expiration') && 'expiration') ||
-			(fields.has('expiresAt') && 'expiresAt') ||
+			(fields.has("expiration") && "expiration") ||
+			(fields.has("expiresAt") && "expiresAt") ||
 			undefined;
-		snappStructure.hit = (fields.has('hit') && 'hit') || undefined;
+		snappStructure.hit = (fields.has("hit") && "hit") || undefined;
 		snappStructure.maxUsages =
-			(fields.has('maxUsages') && 'maxUsages') ||
-			(fields.has('max_usages') && 'max_usages') ||
+			(fields.has("maxUsages") && "maxUsages") ||
+			(fields.has("max_usages") && "max_usages") ||
 			undefined;
 		snappStructure.notes =
-			(fields.has('description') && 'description') || (fields.has('notes') && 'notes') || undefined;
+			(fields.has("description") && "description") || (fields.has("notes") && "notes") || undefined;
 		snappStructure.originalUrl =
-			(fields.has('original_url') && 'original_url') ||
-			(fields.has('originalUrl') && 'originalUrl') ||
+			(fields.has("original_url") && "original_url") ||
+			(fields.has("originalUrl") && "originalUrl") ||
 			undefined;
 		snappStructure.groupId =
-			(fields.has('groupId') && 'groupId') || (fields.has('tagId') && 'tagId') || undefined;
-		snappStructure.utmParams = (fields.has('utmParams') && 'utmParams') || undefined;
+			(fields.has("groupId") && "groupId") || (fields.has("tagId") && "tagId") || undefined;
+		snappStructure.utmParams = (fields.has("utmParams") && "utmParams") || undefined;
 		snappStructure.secret =
-			(fields.has('secret') && 'secret') || (fields.has('password') && 'password') || undefined;
+			(fields.has("secret") && "secret") || (fields.has("password") && "password") || undefined;
 		snappStructure.shortcode =
-			(fields.has('shortcode') && 'shortcode') ||
-			(fields.has('short_code') && 'short_code') ||
+			(fields.has("shortcode") && "shortcode") ||
+			(fields.has("short_code") && "short_code") ||
 			undefined;
 	};
 
@@ -183,7 +183,7 @@
 		if (parsedData.length === 0) return;
 		uploading = true;
 
-		document.forms.namedItem('load-csv')?.requestSubmit();
+		document.forms.namedItem("load-csv")?.requestSubmit();
 	};
 	let uploading = $state(false);
 </script>
@@ -195,23 +195,23 @@
 	use:enhance={({ formData }) => {
 		const parsed = $state
 			.snapshot(parsedData)
-			.filter((p) => 'shortcode' in p && (p.shortcode as string)?.trim() !== '');
+			.filter((p) => "shortcode" in p && (p.shortcode as string)?.trim() !== "");
 
 		for (const item of parsed) {
-			formData.append('snapp[]', JSON.stringify(item));
+			formData.append("snapp[]", JSON.stringify(item));
 		}
 		return async ({ result }) => {
 			await applyAction(result);
 			uploading = false;
 			parsedTable = false;
 			parsing = false;
-			if (result.status === 200) await goto('/dashboard');
+			if (result.status === 200) await goto("/dashboard");
 		};
 	}}
 ></form>
 <Tabs.Content value="import" class="h-full w-full">
 	<P class="mt-4 text-sm text-muted-foreground">
-		{decode(i18n.t('migrations.import-helper'))}
+		{decode(i18n.t("migrations.import-helper"))}
 	</P>
 	<div class="mt-8 grid gap-4">
 		<input
@@ -232,18 +232,18 @@
 		>
 			<i class="ph ph-upload-simple text-[20px]"> </i>
 			<span>
-				{i18n.t('migrations.upload')}
+				{i18n.t("migrations.upload")}
 			</span>
 		</Button>
 	</div>
 	{#if parsing === false && parsedTable === false}
 		<div class="grid gap-1">
-			<FieldSelector bind:snappStructure bind:structuredFields />
+			<FieldSelector bind:snappStructure {structuredFields} />
 			<Button
 				variant="outline"
 				onclick={() => {
 					parseTableWithSnappStructure();
-				}}>{i18n.t('migrations.labels.check-fields')}</Button
+				}}>{i18n.t("migrations.labels.check-fields")}</Button
 			>
 		</div>
 	{/if}
@@ -257,7 +257,7 @@
 	{#if parsedTable === true}
 		<div class="mt-4 flex w-full items-center gap-2">
 			<P class="!m-0 px-4 text-sm text-muted-foreground"
-				>{i18n.t('migrations.helpers.user-overwrite')}</P
+				>{i18n.t("migrations.helpers.user-overwrite")}</P
 			>
 			<UserSelector
 				bind:users
@@ -277,9 +277,9 @@
 						<Table.Header>
 							<Table.Row>
 								<Table.Head class="capitalize">
-									{i18n.t('users.roles.user')}
+									{i18n.t("users.roles.user")}
 								</Table.Head>
-								{#each Object.keys(snappStructure) as fields}
+								{#each Object.keys(snappStructure) as fields, idx (idx)}
 									<Table.Head class="capitalize">
 										{i18n.t(fields)}
 									</Table.Head>
@@ -299,21 +299,21 @@
 											userId={data.userId as string}
 										/>
 									</Table.Cell>
-									{#each Object.keys(snappStructure) as field}
+									{#each Object.keys(snappStructure) as field, idx (idx)}
 										<Table.Cell>
-											{#if ['createdAt', 'expiresAt'].includes(field)}
+											{#if ["createdAt", "expiresAt"].includes(field)}
 												{data?.[field] && formatTimeAgo(data?.[field] as Date, page.data.locale)}
-											{:else if ['utmParams'].includes(field) && typeof data?.[field] === 'string'}
+											{:else if ["utmParams"].includes(field) && typeof data?.[field] === "string"}
 												<span class="w-full text-center"
-													>{JSON.parse((data?.[field] as string) || '').length ||
-														decode('&mdash;')}</span
+													>{JSON.parse((data?.[field] as string) || "").length ||
+														decode("&mdash;")}</span
 												>
-											{:else if ['originalUrl'].includes(field)}
+											{:else if ["originalUrl"].includes(field)}
 												<span
 													class=" flex w-full max-w-[12ch] overflow-clip text-ellipsis whitespace-nowrap"
 													>{(data?.[field] as string)?.slice?.(0, 12)}...</span
 												>
-											{:else if ['secret'].includes(field) && data?.[field] !== null}
+											{:else if ["secret"].includes(field) && data?.[field] !== null}
 												<i class="ph ph-lock text-[20px]"></i>
 											{:else}
 												{data?.[field]}
@@ -343,7 +343,7 @@
 								</Pagination.PrevButton>
 							</Pagination.Item>
 							{#each pages as page (page.key)}
-								{#if page.type === 'ellipsis'}
+								{#if page.type === "ellipsis"}
 									<Pagination.Item>
 										<Pagination.Ellipsis />
 									</Pagination.Item>
@@ -367,7 +367,7 @@
 			</div>
 			<div class="mt-4 flex w-full items-center gap-4">
 				<P class="!m-0 text-sm text-muted-foreground"
-					>{decode(i18n.t('migrations.helpers.found', { count: parsedData.length }))}</P
+					>{decode(i18n.t("migrations.helpers.found", { count: parsedData.length }))}</P
 				>
 				<Button
 					disabled={uploading}
@@ -375,10 +375,10 @@
 					variant="ghost"
 					onclick={() => {
 						parsedTable = false;
-					}}>{i18n.t('globals.cancel')}</Button
+					}}>{i18n.t("globals.cancel")}</Button
 				>
 				<Button disabled={uploading} class="max-w-max" onclick={loadURLSToDB}
-					>{i18n.t('globals.save')}
+					>{i18n.t("globals.save")}
 					<span
 						class="inline-flex h-5 w-5 items-center justify-center"
 						class:animate-spin={uploading}

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { cn } from '$lib/utils';
-	import { Select as SelectPrimitive, type WithoutChild } from 'bits-ui';
+	import { cn } from "$lib/utils";
+	import { Select as SelectPrimitive, type WithoutChild } from "bits-ui";
 
 	let {
 		children: childrenProp,
@@ -8,7 +8,7 @@
 		hideIcon = false,
 		label,
 		ref = $bindable(null),
-		value, // eslint-disable-next-line svelte/valid-compile
+		value,
 		...restProps
 	}: { hideIcon?: boolean } & WithoutChild<SelectPrimitive.ItemProps> = $props();
 </script>
@@ -17,7 +17,7 @@
 	bind:ref
 	{value}
 	class={cn(
-		`relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 ${!hideIcon ? 'pl-8' : 'pl-2'} pr-2 text-sm outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground data-[disabled]:opacity-50`,
+		`relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 ${!hideIcon ? "pl-8" : "pl-2"} pr-2 text-sm outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground data-[disabled]:opacity-50`,
 		className
 	)}
 	{...restProps}

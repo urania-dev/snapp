@@ -1,15 +1,15 @@
 <script lang="ts">
-	import { applyAction } from '$app/forms';
-	import { invalidateAll } from '$app/navigation';
-	import { type RecoverPasswordSchema, recoverSchema } from '$lib/components/auth/schema';
-	import * as Form from '$lib/components/ui/form';
-	import { Input } from '$lib/components/ui/input';
-	import { getTranslations } from '$lib/i18n/index.svelte';
-	import { fade } from 'svelte/transition';
-	import { type Infer, superForm, type SuperValidated } from 'sveltekit-superforms';
-	import { zodClient } from 'sveltekit-superforms/adapters';
+	import { applyAction } from "$app/forms";
+	import { invalidateAll } from "$app/navigation";
+	import { type RecoverPasswordSchema, recoverSchema } from "$lib/components/auth/schema";
+	import * as Form from "$lib/components/ui/form";
+	import { Input } from "$lib/components/ui/input";
+	import { getTranslations } from "$lib/i18n/index.svelte";
+	import { fade } from "svelte/transition";
+	import { type Infer, superForm, type SuperValidated } from "sveltekit-superforms";
+	import { zodClient } from "sveltekit-superforms/adapters";
 
-	import { Button } from '../ui/button';
+	import { Button } from "../ui/button";
 
 	let {
 		recoverForm,
@@ -25,7 +25,7 @@
 				console.error(error);
 			}
 		},
-		validationMethod: 'onsubmit',
+		validationMethod: "onsubmit",
 		validators: zodClient(recoverSchema)
 	});
 
@@ -43,14 +43,14 @@
 		<Form.Field {form} name="password">
 			<Form.Control>
 				{#snippet children({ props })}
-					<Form.Label>{i18n.t('users.fields.password')}</Form.Label>
+					<Form.Label>{i18n.t("users.fields.password")}</Form.Label>
 					<div class="flex h-10 items-center gap-2">
 						<Input
 							icon="key"
-							placeholder={i18n.t('users.placeholders.password')}
+							placeholder={i18n.t("users.placeholders.password")}
 							{...props}
 							class="w-full max-w-full"
-							type={showPassword ? 'text' : 'password'}
+							type={showPassword ? "text" : "password"}
 							bind:value={$formData.password}
 						/>
 						<Button
@@ -70,14 +70,14 @@
 		<Form.Field {form} name="confirm_password">
 			<Form.Control>
 				{#snippet children({ props })}
-					<Form.Label>{i18n.t('users.fields.confirm-password')}</Form.Label>
+					<Form.Label>{i18n.t("users.fields.confirm-password")}</Form.Label>
 					<div class="flex h-10 items-center gap-2">
 						<Input
 							icon="key"
-							placeholder={i18n.t('users.placeholders.password')}
+							placeholder={i18n.t("users.placeholders.password")}
 							{...props}
 							class="w-full max-w-full"
-							type={showConfirmPassword ? 'text' : 'password'}
+							type={showConfirmPassword ? "text" : "password"}
 							bind:value={$formData.confirm_password}
 						/>
 						<Button
@@ -95,9 +95,9 @@
 				{/snippet}
 			</Form.Control>
 			<Form.FieldErrors />
-			<Form.Description class="text-balance">{i18n.t('users.helpers.password')}</Form.Description>
+			<Form.Description class="text-balance">{i18n.t("users.helpers.password")}</Form.Description>
 		</Form.Field>
 
-		<Form.Button class="mt-12 w-full">{i18n.t('users.auth.recover-password')}</Form.Button>
+		<Form.Button class="mt-12 w-full">{i18n.t("users.auth.recover-password")}</Form.Button>
 	</form>
 </div>

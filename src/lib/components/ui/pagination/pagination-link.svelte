@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { buttonVariants, type Props } from '$lib/components/ui/button/index.js';
-	import { cn } from '$lib/utils.js';
-	import { Pagination as PaginationPrimitive } from 'bits-ui';
+	import { buttonVariants, type Props } from "$lib/components/ui/button/index.js";
+	import { cn } from "$lib/utils.js";
+	import { Pagination as PaginationPrimitive } from "bits-ui";
 
 	let {
 		children,
@@ -9,7 +9,7 @@
 		isActive = false,
 		page,
 		ref = $bindable(null),
-		size = 'icon', // eslint-disable-next-line svelte/valid-compile
+		size = "icon",
 		...restProps
 	}: {
 		isActive: boolean;
@@ -27,7 +27,7 @@
 	class={cn(
 		buttonVariants({
 			size,
-			variant: isActive ? 'outline' : 'ghost'
+			variant: isActive ? "outline" : "ghost"
 		}),
 		className
 	)}

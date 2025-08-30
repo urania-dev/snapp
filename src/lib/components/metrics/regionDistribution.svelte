@@ -1,14 +1,14 @@
 <script lang="ts">
-	import type { Usage } from '@prisma/client';
+	import type { Usage } from "@prisma/client";
 
-	import { getLocalTimeZone } from '@internationalized/date';
-	import { browser } from '$app/environment';
-	import { page } from '$app/state';
-	import { getTranslations } from '$lib/i18n/index.svelte';
-	import { getMetricsStore } from '$lib/stores/metrics.svelte';
+	import { getLocalTimeZone } from "@internationalized/date";
+	import { browser } from "$app/environment";
+	import { page } from "$app/state";
+	import { getTranslations } from "$lib/i18n/index.svelte";
+	import { getMetricsStore } from "$lib/stores/metrics.svelte";
 
-	import { Separator } from '../ui/separator';
-	import * as Table from '../ui/table';
+	import { Separator } from "../ui/separator";
+	import * as Table from "../ui/table";
 	const mstore = getMetricsStore();
 
 	let data = $state<{ id: null | string; name: null | string; value: number }[]>([]);
@@ -20,11 +20,11 @@
 				await (page.data.fetch as typeof fetch)(
 					`/api/usage/groupBy?q=${JSON.stringify({
 						_count: { region: true },
-						by: ['region'],
-						orderBy: { _count: { region: 'desc' } },
+						by: ["region"],
+						orderBy: { _count: { region: "desc" } },
 						take: 10,
 						where: {
-							ownerId: page.data.user.role !== 'user' ? undefined : page.data.user.id,
+							ownerId: page.data.user.role !== "user" ? undefined : page.data.user.id,
 							timestamp: {
 								gte: mstore.start.toDate(getLocalTimeZone()).toISOString(),
 								lte: mstore.end.toDate(getLocalTimeZone()).toISOString()
@@ -37,7 +37,7 @@
 				data = res.data.map((d) => ({ id: d.region, name: d.region, value: d._count.region }));
 			}
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		}
 	};
 
@@ -48,8 +48,8 @@
 	<Table.Root>
 		<Table.Header>
 			<Table.Row>
-				<Table.Head>{i18n.t('metrics.fields.region')}</Table.Head>
-				<Table.Head>{i18n.t('snapps.fields.hit')}</Table.Head>
+				<Table.Head>{i18n.t("metrics.fields.region")}</Table.Head>
+				<Table.Head>{i18n.t("snapps.fields.hit")}</Table.Head>
 			</Table.Row>
 		</Table.Header>
 		<Table.Body>
@@ -66,7 +66,7 @@
 					</Table.Cell>
 				</Table.Row>
 			{:then}
-				{#each data as { name, value }}
+				{#each data as { name, value }, idx (idx)}
 					<Table.Row>
 						<Table.Cell>{name}</Table.Cell>
 						<Table.Cell>{value}</Table.Cell>

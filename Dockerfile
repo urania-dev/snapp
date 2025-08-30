@@ -24,8 +24,8 @@ ENV DATABASE_URL=file:./db.sqlite \
     PUBLIC_EXTRA_GROUPS_EDITABLE=false \
     URLS_VIA_GROUPS_ONLY=false \
     APPNAME="Snapp.li" \
-    PUBLIC_SNAPP_VERSION="0.9-rc-029"
-    
+    PUBLIC_SNAPP_VERSION="0.9-rc-030"
+
 # Run build commands
 ENV DATABASE_URL=mysql://root:password@localhost:3306/snapp \
     DATABASE_PROVIDER=mysql
@@ -99,9 +99,9 @@ ENV DATABASE_URL=file:./db.sqlite \
     URLS_VIA_GROUPS_ONLY=false \
     PUBLIC_EXTRA_GROUPS_EDITABLE=false \
     APPNAME="Snapp.li" \
-    PUBLIC_SNAPP_VERSION="0.9-rc-029"
+    PUBLIC_SNAPP_VERSION="0.9-rc-030"
 
 EXPOSE 3000
-    
+
 ENTRYPOINT ["entrypoint.sh"]
-CMD ["bun", "./build"]
+CMD ["bun","--bun", "./build"]

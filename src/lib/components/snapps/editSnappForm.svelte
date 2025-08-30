@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import { page } from '$app/state';
-	import * as Form from '$lib/components/ui/form';
-	import * as Tabs from '$lib/components/ui/tabs';
-	import { getTranslations } from '$lib/i18n/index.svelte';
-	import { decode } from 'html-entities';
-	import { toast } from 'svelte-sonner';
-	import { SvelteMap } from 'svelte/reactivity';
-	import { type Infer, superForm, type SuperValidated } from 'sveltekit-superforms';
-	import { zodClient } from 'sveltekit-superforms/adapters';
+	import { goto } from "$app/navigation";
+	import { page } from "$app/state";
+	import * as Form from "$lib/components/ui/form";
+	import * as Tabs from "$lib/components/ui/tabs";
+	import { getTranslations } from "$lib/i18n/index.svelte";
+	import { decode } from "html-entities";
+	import { toast } from "svelte-sonner";
+	import { SvelteMap } from "svelte/reactivity";
+	import { type Infer, superForm, type SuperValidated } from "sveltekit-superforms";
+	import { zodClient } from "sveltekit-superforms/adapters";
 
 	import {
 		ExistsSecretField,
@@ -17,13 +17,13 @@
 		MaxUsages,
 		TagSelector,
 		UTMParams
-	} from '.';
-	import { Button } from '../ui/button';
-	import { Input } from '../ui/input';
-	import { Label } from '../ui/label';
-	import { Separator } from '../ui/separator';
-	import { Textarea } from '../ui/textarea';
-	import { snappSchema, type SnappSchema } from './schema';
+	} from ".";
+	import { Button } from "../ui/button";
+	import { Input } from "../ui/input";
+	import { Label } from "../ui/label";
+	import { Separator } from "../ui/separator";
+	import { Textarea } from "../ui/textarea";
+	import { snappSchema, type SnappSchema } from "./schema";
 
 	const { formSchema }: { formSchema: SuperValidated<Infer<SnappSchema>> } = $props();
 
@@ -31,27 +31,26 @@
 		applyAction: true,
 		invalidateAll: true,
 		onError: async () => {
-			console.log(Object.fromEntries(page.form.entries()));
 			if (page.form?.message) toast.info(decode(i18n.t(page.form.message)));
 		},
 		onResult: async ({ result }) => {
 			if (result.status !== 200) return;
-			await goto('/dashboard');
+			await goto("/dashboard");
 		},
 		onSubmit: ({ formData: fd }) => {
-			for (const tag of tags) fd.append('tags', tag);
-			for (const group of groups) fd.append('groups', group);
-			if (hasSecret) fd.set('secret', $formData.secret || formSchema.data.secret!);
+			for (const tag of tags) fd.append("tags", tag);
+			for (const group of groups) fd.append("groups", group);
+			if (hasSecret) fd.set("secret", $formData.secret || formSchema.data.secret!);
 			if (hasExpiration && formSchema.data.expiresAt !== undefined)
-				fd.set('expiresAt', $formData.expiresAt || formSchema.data.expiresAt!);
-			if (!hasSecret) fd.delete('secret');
-			if (!hasExpiration) fd.delete('expiresAt');
-			if (!hasMaxUsages) fd.delete('maxUsages');
+				fd.set("expiresAt", $formData.expiresAt || formSchema.data.expiresAt!);
+			if (!hasSecret) fd.delete("secret");
+			if (!hasExpiration) fd.delete("expiresAt");
+			if (!hasMaxUsages) fd.delete("maxUsages");
 			for (const [, params] of utmParams)
-				fd.append('utmParams', JSON.stringify([params.key, params.value, params.name]));
+				fd.append("utmParams", JSON.stringify([params.key, params.value, params.name]));
 		},
 		resetForm: false,
-		validationMethod: 'onsubmit',
+		validationMethod: "onsubmit",
 		validators: zodClient(snappSchema)
 	});
 
@@ -62,31 +61,29 @@
 	let hasExpiration = $state(formSchema.data.expiresAt !== undefined);
 	let hasMaxUsages = $state(formSchema.data.maxUsages !== -1);
 
-	let activeTab = $state('notes');
+	let activeTab = $state("notes");
 
 	let tags = $state<string[]>(formSchema.data.tags);
 	let groups = $state<string[]>(formSchema.data.groups);
-	let utmParams = $state(
-		new SvelteMap<
-			string,
-			{
-				key: string;
-				name: string;
-				value: string;
-			}
-		>(
-			formSchema.data.utmParams.map((utm) => {
-				const [key, value, name] = JSON.parse(utm);
-				return [
+	const utmParams = new SvelteMap<
+		string,
+		{
+			key: string;
+			name: string;
+			value: string;
+		}
+	>(
+		formSchema.data.utmParams.map((utm) => {
+			const [key, value, name] = JSON.parse(utm);
+			return [
+				key,
+				{
 					key,
-					{
-						key,
-						name,
-						value
-					}
-				];
-			})
-		)
+					name,
+					value
+				}
+			];
+		})
 	);
 
 	$effect(() => {
@@ -110,17 +107,17 @@
 			<Form.Field {form} name="originalUrl" class="px-3">
 				<Form.Control>
 					{#snippet children({ props })}
-						<Form.Label class="px-2">{i18n.t('snapps.fields.original-url')}</Form.Label>
+						<Form.Label class="px-2">{i18n.t("snapps.fields.original-url")}</Form.Label>
 						<Input
 							icon="globe-simple"
-							placeholder={i18n.t('snapps.placeholders.original-url')}
+							placeholder={i18n.t("snapps.placeholders.original-url")}
 							{...props}
 							bind:value={$formData.originalUrl}
 						/>
 					{/snippet}
 				</Form.Control>
 				<Form.Description class="px-2">
-					{@html i18n.t('snapps.helpers.original-url')}
+					{@html i18n.t("snapps.helpers.original-url")}
 				</Form.Description>
 				<Form.FieldErrors />
 			</Form.Field>
@@ -128,20 +125,20 @@
 			<Form.Field {form} name="shortcode" class="px-3">
 				<Form.Control>
 					{#snippet children({ props })}
-						<Form.Label class="px-2">{i18n.t('snapps.fields.shortcode')}</Form.Label>
+						<Form.Label class="px-2">{i18n.t("snapps.fields.shortcode")}</Form.Label>
 						<Input
 							icon="link-simple"
-							placeholder={i18n.t('snapps.placeholders.shortcode')}
+							placeholder={i18n.t("snapps.placeholders.shortcode")}
 							{...props}
 							oninput={(e) => {
 								const value = e.currentTarget.value;
-								if (value.trim() !== '') $formData.shortcode = value.replace(/\s+/g, '-');
+								if (value.trim() !== "") $formData.shortcode = value.replace(/\s+/g, "-");
 							}}
 							bind:value={$formData.shortcode}
 						/>
 					{/snippet}
 				</Form.Control>
-				<Form.Description class="px-2">{@html i18n.t('snapps.helpers.shortcode')}</Form.Description>
+				<Form.Description class="px-2">{@html i18n.t("snapps.helpers.shortcode")}</Form.Description>
 				<Form.FieldErrors />
 			</Form.Field>
 			<Separator />
@@ -161,8 +158,8 @@
 		<Separator orientation="vertical" class="hidden lg:block" />
 		<Tabs.Root bind:value={activeTab} class="w-full p-3 pt-0 lg:pt-3">
 			<Tabs.List class="grid h-max w-full grid-cols-2 gap-2">
-				<Tabs.Trigger class="min-w-max" value="notes">{i18n.t('snapps.fields.notes')}</Tabs.Trigger>
-				<Tabs.Trigger class="min-w-max" value="advanced">{i18n.t('globals.advanced')}</Tabs.Trigger>
+				<Tabs.Trigger class="min-w-max" value="notes">{i18n.t("snapps.fields.notes")}</Tabs.Trigger>
+				<Tabs.Trigger class="min-w-max" value="advanced">{i18n.t("globals.advanced")}</Tabs.Trigger>
 			</Tabs.List>
 			<Tabs.Content value="notes" class="w-full grow">
 				<Textarea
@@ -175,17 +172,17 @@
 			</Tabs.Content>
 			<Tabs.Content value="advanced" class="w-full">
 				<div class="grid">
-					<Label class="mb-2 p-2">{i18n.t('snapps.labels.utm-params')}</Label>
-					<UTMParams bind:params={utmParams} />
-					<Label class="mb-2 p-2">{i18n.t('menu.tags')}</Label>
+					<Label class="mb-2 p-2">{i18n.t("snapps.labels.utm-params")}</Label>
+					<UTMParams params={utmParams} />
+					<Label class="mb-2 p-2">{i18n.t("menu.tags")}</Label>
 					<TagSelector bind:tags f={page.data.fetch} />
-					<Label class="mb-2 mt-4 p-2">{i18n.t('menu.groups')}</Label>
+					<Label class="mb-2 mt-4 p-2">{i18n.t("menu.groups")}</Label>
 					<GroupSelector bind:groups f={page.data.fetch} />
 				</div>
 			</Tabs.Content>
 		</Tabs.Root>
 	</div>
 	<div class="flex w-full border-t p-4">
-		<Button class="ms-auto mt-auto" type="submit">{i18n.t('globals.save')}</Button>
+		<Button class="ms-auto mt-auto" type="submit">{i18n.t("globals.save")}</Button>
 	</div>
 </form>

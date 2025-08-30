@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 export const umamiSchema = z.object({
 	url: z.string().url().optional().nullable(),

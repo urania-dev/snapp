@@ -3,19 +3,19 @@
 		Command as CommandPrimitive,
 		Dialog as DialogPrimitive,
 		WithoutChildrenOrChild
-	} from 'bits-ui';
-	import type { Snippet } from 'svelte';
+	} from "bits-ui";
+	import type { Snippet } from "svelte";
 
-	import * as Dialog from '$lib/components/ui/dialog/index.js';
+	import * as Dialog from "$lib/components/ui/dialog/index.js";
 
-	import Command from './command.svelte';
+	import Command from "./command.svelte";
 
 	let {
 		children,
 		open = $bindable(false),
 		portalProps,
 		ref = $bindable(null),
-		value = $bindable(''), // eslint-disable-next-line svelte/valid-compile
+		value = $bindable(""),
 		...restProps
 	}: {
 		children: Snippet;

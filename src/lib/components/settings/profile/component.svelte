@@ -1,18 +1,18 @@
 <script lang="ts">
-	import type { Setting, User } from '@prisma/client';
+	import type { Setting, User } from "@prisma/client";
 
-	import { page } from '$app/state';
-	import { type Infer, type SuperValidated } from 'sveltekit-superforms';
+	import { page } from "$app/state";
+	import { type Infer, type SuperValidated } from "sveltekit-superforms";
 
-	import { type ProfileSchema } from '../schema';
-	import EnableMfa from './enableMFA.svelte';
-	import UserProfileForm from './form.svelte';
-	import ResetPassword from './resetPassword.svelte';
-	import SelectLanguage from './selectLanguage.svelte';
-	import Theme from './theme.svelte';
+	import { type ProfileSchema } from "../schema";
+	import EnableMfa from "./enableMFA.svelte";
+	import UserProfileForm from "./form.svelte";
+	import ResetPassword from "./resetPassword.svelte";
+	import SelectLanguage from "./selectLanguage.svelte";
+	import Theme from "./theme.svelte";
 
 	const {
-		availableLanguages = 'en',
+		availableLanguages = "en",
 		privates,
 		profileForm,
 		serverSideEnabledMFA,
@@ -32,7 +32,7 @@
 		privates.find((p) => p.field === label)?.value.toLowerCase();
 
 	let enableMFA = $derived(
-		(serverSideEnabledMFA as boolean) === true || getPrivate('ENABLED_MFA') === 'true'
+		(serverSideEnabledMFA as boolean) === true || getPrivate("ENABLED_MFA") === "true"
 	);
 </script>
 

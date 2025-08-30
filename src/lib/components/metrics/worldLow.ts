@@ -10,11 +10,11 @@ export const worldLow = {
 						[179.2223, -8.554]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'TV',
-			properties: { id: 'TV', name: 'Tuvalu' },
-			type: 'Feature'
+			id: "TV",
+			properties: { id: "TV", name: "Tuvalu" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -27,11 +27,11 @@ export const worldLow = {
 						[3.4624, -54.4471]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'BV',
-			properties: { id: 'BV', name: 'Bouvet Island' },
-			type: 'Feature'
+			id: "BV",
+			properties: { id: "BV", name: "Bouvet Island" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -44,11 +44,11 @@ export const worldLow = {
 						[-5.3345, 36.1623]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'GI',
-			properties: { id: 'GI', name: 'Gibraltar' },
-			type: 'Feature'
+			id: "GI",
+			properties: { id: "GI", name: "Gibraltar" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -61,11 +61,11 @@ export const worldLow = {
 						[47.3029, -11.5752]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'GO',
-			properties: { id: 'GO', name: 'Glorioso Islands' },
-			type: 'Feature'
+			id: "GO",
+			properties: { id: "GO", name: "Glorioso Islands" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -78,11 +78,11 @@ export const worldLow = {
 						[42.7579, -17.075]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'JU',
-			properties: { id: 'JU', name: 'Juan De Nova Island' },
-			type: 'Feature'
+			id: "JU",
+			properties: { id: "JU", name: "Juan De Nova Island" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -94,11 +94,11 @@ export const worldLow = {
 						[-160.0213, -0.398]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'UM-DQ',
-			properties: { id: 'UM-DQ', name: 'Jarvis Island' },
-			type: 'Feature'
+			id: "UM-DQ",
+			properties: { id: "UM-DQ", name: "Jarvis Island" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -110,11 +110,11 @@ export const worldLow = {
 						[-176.456, 0.2226]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'UM-FQ',
-			properties: { id: 'UM-FQ', name: 'Baker Island' },
-			type: 'Feature'
+			id: "UM-FQ",
+			properties: { id: "UM-FQ", name: "Baker Island" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -127,11 +127,11 @@ export const worldLow = {
 						[-176.6311, 0.7952]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'UM-HQ',
-			properties: { id: 'UM-HQ', name: 'Howland Island' },
-			type: 'Feature'
+			id: "UM-HQ",
+			properties: { id: "UM-HQ", name: "Howland Island" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -143,11 +143,11 @@ export const worldLow = {
 						[-169.5237, 16.7305]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'UM-JQ',
-			properties: { id: 'UM-JQ', name: 'Johnston Atoll' },
-			type: 'Feature'
+			id: "UM-JQ",
+			properties: { id: "UM-JQ", name: "Johnston Atoll" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -159,11 +159,11 @@ export const worldLow = {
 						[-177.3881, 28.1865]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'UM-MQ',
-			properties: { id: 'UM-MQ', name: 'Midway Islands' },
-			type: 'Feature'
+			id: "UM-MQ",
+			properties: { id: "UM-MQ", name: "Midway Islands" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -176,11 +176,11 @@ export const worldLow = {
 						[166.6588, 19.2829]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'UM-WQ',
-			properties: { id: 'UM-WQ', name: 'Wake Island' },
-			type: 'Feature'
+			id: "UM-WQ",
+			properties: { id: "UM-WQ", name: "Wake Island" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -194,11 +194,11 @@ export const worldLow = {
 						[-68.2058, 12.1446]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'BQ',
-			properties: { id: 'BQ', name: 'Bonair, Saint Eustachius and Saba' },
-			type: 'Feature'
+			id: "BQ",
+			properties: { id: "BQ", name: "Bonair, Saint Eustachius and Saba" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -237,11 +237,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'NL',
-			properties: { id: 'NL', name: 'Netherlands' },
-			type: 'Feature'
+			id: "NL",
+			properties: { id: "NL", name: "Netherlands" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -282,11 +282,11 @@ export const worldLow = {
 						[31.2877, -22.4021]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'ZW',
-			properties: { id: 'ZW', name: 'Zimbabwe' },
-			type: 'Feature'
+			id: "ZW",
+			properties: { id: "ZW", name: "Zimbabwe" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -355,11 +355,11 @@ export const worldLow = {
 						[32.9199, -9.4072]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'ZM',
-			properties: { id: 'ZM', name: 'Zambia' },
-			type: 'Feature'
+			id: "ZM",
+			properties: { id: "ZM", name: "Zambia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -459,11 +459,11 @@ export const worldLow = {
 						[27.8303, -28.9091]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'ZA',
-			properties: { id: 'ZA', name: 'South Africa' },
-			type: 'Feature'
+			id: "ZA",
+			properties: { id: "ZA", name: "South Africa" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -510,11 +510,11 @@ export const worldLow = {
 						[53.0855, 16.6484]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'YE',
-			properties: { id: 'YE', name: 'Yemen' },
-			type: 'Feature'
+			id: "YE",
+			properties: { id: "YE", name: "Yemen" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -527,11 +527,11 @@ export const worldLow = {
 						[-172.3335, -13.4653]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'WS',
-			properties: { id: 'WS', name: 'Samoa' },
-			type: 'Feature'
+			id: "WS",
+			properties: { id: "WS", name: "Samoa" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -543,11 +543,11 @@ export const worldLow = {
 						[-178.0467, -14.3184]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'WF',
-			properties: { id: 'WF', name: 'Wallis and Futuna' },
-			type: 'Feature'
+			id: "WF",
+			properties: { id: "WF", name: "Wallis and Futuna" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -572,11 +572,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'PS',
-			properties: { id: 'PS', name: 'Palestinian Territories' },
-			type: 'Feature'
+			id: "PS",
+			properties: { id: "PS", name: "Palestinian Territories" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -602,11 +602,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'VU',
-			properties: { id: 'VU', name: 'Vanuatu' },
-			type: 'Feature'
+			id: "VU",
+			properties: { id: "VU", name: "Vanuatu" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -696,11 +696,11 @@ export const worldLow = {
 						[107.9727, 21.5081]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'VN',
-			properties: { id: 'VN', name: 'Vietnam' },
-			type: 'Feature'
+			id: "VN",
+			properties: { id: "VN", name: "Vietnam" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -713,11 +713,11 @@ export const worldLow = {
 						[-64.7656, 17.7945]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'VI',
-			properties: { id: 'VI', name: 'US Virgin Islands' },
-			type: 'Feature'
+			id: "VI",
+			properties: { id: "VI", name: "US Virgin Islands" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -729,11 +729,11 @@ export const worldLow = {
 						[-64.3952, 18.4648]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'VG',
-			properties: { id: 'VG', name: 'British Virgin Islands' },
-			type: 'Feature'
+			id: "VG",
+			properties: { id: "VG", name: "British Virgin Islands" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -831,11 +831,11 @@ export const worldLow = {
 						[-60.0175, 8.5491]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'VE',
-			properties: { id: 'VE', name: 'Venezuela' },
-			type: 'Feature'
+			id: "VE",
+			properties: { id: "VE", name: "Venezuela" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -848,11 +848,11 @@ export const worldLow = {
 						[-61.1745, 13.1581]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'VC',
-			properties: { id: 'VC', name: 'Saint Vincent and the Grenadines' },
-			type: 'Feature'
+			id: "VC",
+			properties: { id: "VC", name: "Saint Vincent and the Grenadines" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -865,11 +865,11 @@ export const worldLow = {
 						[12.4392, 41.8983]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'VA',
-			properties: { id: 'VA', name: 'Vatican City' },
-			type: 'Feature'
+			id: "VA",
+			properties: { id: "VA", name: "Vatican City" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -945,11 +945,11 @@ export const worldLow = {
 						[70.9468, 42.2485]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'UZ',
-			properties: { id: 'UZ', name: 'Uzbekistan' },
-			type: 'Feature'
+			id: "UZ",
+			properties: { id: "UZ", name: "Uzbekistan" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -1416,11 +1416,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'US',
-			properties: { id: 'US', name: 'United States' },
-			type: 'Feature'
+			id: "US",
+			properties: { id: "US", name: "United States" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -1458,11 +1458,11 @@ export const worldLow = {
 						[-53.3707, -33.7422]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'UY',
-			properties: { id: 'UY', name: 'Uruguay' },
-			type: 'Feature'
+			id: "UY",
+			properties: { id: "UY", name: "Uruguay" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -1547,11 +1547,11 @@ export const worldLow = {
 						[38.2142, 47.0914]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'UA',
-			properties: { id: 'UA', name: 'Ukraine' },
-			type: 'Feature'
+			id: "UA",
+			properties: { id: "UA", name: "Ukraine" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -1592,11 +1592,11 @@ export const worldLow = {
 						[33.9031, -1.0021]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'UG',
-			properties: { id: 'UG', name: 'Uganda' },
-			type: 'Feature'
+			id: "UG",
+			properties: { id: "UG", name: "Uganda" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -1659,11 +1659,11 @@ export const worldLow = {
 						[33.9031, -1.0021]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'TZ',
-			properties: { id: 'TZ', name: 'Tanzania' },
-			type: 'Feature'
+			id: "TZ",
+			properties: { id: "TZ", name: "Tanzania" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -1681,11 +1681,11 @@ export const worldLow = {
 						[121.009, 22.6205]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'TW',
-			properties: { id: 'TW', name: 'Taiwan' },
-			type: 'Feature'
+			id: "TW",
+			properties: { id: "TW", name: "Taiwan" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -1788,11 +1788,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'TR',
-			properties: { id: 'TR', name: 'Türkiye' },
-			type: 'Feature'
+			id: "TR",
+			properties: { id: "TR", name: "Türkiye" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -1833,11 +1833,11 @@ export const worldLow = {
 						[11.5043, 33.182]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'TN',
-			properties: { id: 'TN', name: 'Tunisia' },
-			type: 'Feature'
+			id: "TN",
+			properties: { id: "TN", name: "Tunisia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -1850,11 +1850,11 @@ export const worldLow = {
 						[-61.0121, 10.1343]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'TT',
-			properties: { id: 'TT', name: 'Trinidad and Tobago' },
-			type: 'Feature'
+			id: "TT",
+			properties: { id: "TT", name: "Trinidad and Tobago" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -1867,11 +1867,11 @@ export const worldLow = {
 						[-175.162, -21.1695]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'TO',
-			properties: { id: 'TO', name: 'Tonga' },
-			type: 'Feature'
+			id: "TO",
+			properties: { id: "TO", name: "Tonga" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -1888,11 +1888,11 @@ export const worldLow = {
 						[125.0679, -9.512]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'TL',
-			properties: { id: 'TL', name: 'Timor-Leste' },
-			type: 'Feature'
+			id: "TL",
+			properties: { id: "TL", name: "Timor-Leste" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -1964,11 +1964,11 @@ export const worldLow = {
 						[66.5221, 37.3484]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'TM',
-			properties: { id: 'TM', name: 'Turkmenistan' },
-			type: 'Feature'
+			id: "TM",
+			properties: { id: "TM", name: "Turkmenistan" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -1981,11 +1981,11 @@ export const worldLow = {
 						[-172.4791, -8.5807]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'TK',
-			properties: { id: 'TK', name: 'Tokelau' },
-			type: 'Feature'
+			id: "TK",
+			properties: { id: "TK", name: "Tokelau" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -2042,11 +2042,11 @@ export const worldLow = {
 						[70.9579, 40.239]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'TJ',
-			properties: { id: 'TJ', name: 'Tajikistan' },
-			type: 'Feature'
+			id: "TJ",
+			properties: { id: "TJ", name: "Tajikistan" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -2143,11 +2143,11 @@ export const worldLow = {
 						[100.1225, 20.3167]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'TH',
-			properties: { id: 'TH', name: 'Thailand' },
-			type: 'Feature'
+			id: "TH",
+			properties: { id: "TH", name: "Thailand" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -2174,11 +2174,11 @@ export const worldLow = {
 						[0.9007, 10.9932]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'TG',
-			properties: { id: 'TG', name: 'Togo' },
-			type: 'Feature'
+			id: "TG",
+			properties: { id: "TG", name: "Togo" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -2243,11 +2243,11 @@ export const worldLow = {
 						[22.86, 10.9195]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'TD',
-			properties: { id: 'TD', name: 'Chad' },
-			type: 'Feature'
+			id: "TD",
+			properties: { id: "TD", name: "Chad" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -2260,11 +2260,11 @@ export const worldLow = {
 						[-71.6615, 21.7651]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'TC',
-			properties: { id: 'TC', name: 'Turks and Caicos Islands' },
-			type: 'Feature'
+			id: "TC",
+			properties: { id: "TC", name: "Turks and Caicos Islands" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -2303,11 +2303,11 @@ export const worldLow = {
 						[42.3588, 37.1087]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'SY',
-			properties: { id: 'SY', name: 'Syria' },
-			type: 'Feature'
+			id: "SY",
+			properties: { id: "SY", name: "Syria" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -2319,11 +2319,11 @@ export const worldLow = {
 						[55.5402, -4.6931]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'SC',
-			properties: { id: 'SC', name: 'Seychelles' },
-			type: 'Feature'
+			id: "SC",
+			properties: { id: "SC", name: "Seychelles" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -2335,11 +2335,11 @@ export const worldLow = {
 						[-63.123, 18.0688]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'SX',
-			properties: { id: 'SX', name: 'Sint Maarten' },
-			type: 'Feature'
+			id: "SX",
+			properties: { id: "SX", name: "Sint Maarten" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -2357,11 +2357,11 @@ export const worldLow = {
 						[31.9482, -25.9577]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'SZ',
-			properties: { id: 'SZ', name: 'Eswatini' },
-			type: 'Feature'
+			id: "SZ",
+			properties: { id: "SZ", name: "Eswatini" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -2441,11 +2441,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'SE',
-			properties: { id: 'SE', name: 'Sweden' },
-			type: 'Feature'
+			id: "SE",
+			properties: { id: "SE", name: "Sweden" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -2467,11 +2467,11 @@ export const worldLow = {
 						[16.5163, 46.4997]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'SI',
-			properties: { id: 'SI', name: 'Slovenia' },
-			type: 'Feature'
+			id: "SI",
+			properties: { id: "SI", name: "Slovenia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -2498,11 +2498,11 @@ export const worldLow = {
 						[22.5386, 49.0727]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'SK',
-			properties: { id: 'SK', name: 'Slovakia' },
-			type: 'Feature'
+			id: "SK",
+			properties: { id: "SK", name: "Slovakia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -2536,11 +2536,11 @@ export const worldLow = {
 						[-54.1559, 5.3589]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'SR',
-			properties: { id: 'SR', name: 'Suriname' },
-			type: 'Feature'
+			id: "SR",
+			properties: { id: "SR", name: "Suriname" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -2553,11 +2553,11 @@ export const worldLow = {
 						[6.6602, 0.1205]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'ST',
-			properties: { id: 'ST', name: 'Sao Tome and Principe' },
-			type: 'Feature'
+			id: "ST",
+			properties: { id: "ST", name: "Sao Tome and Principe" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -2591,11 +2591,11 @@ export const worldLow = {
 						[20.2419, 46.1086]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'RS',
-			properties: { id: 'RS', name: 'Serbia' },
-			type: 'Feature'
+			id: "RS",
+			properties: { id: "RS", name: "Serbia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -2608,11 +2608,11 @@ export const worldLow = {
 						[-56.2671, 46.8384]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'PM',
-			properties: { id: 'PM', name: 'Saint Pierre and Miquelon' },
-			type: 'Feature'
+			id: "PM",
+			properties: { id: "PM", name: "Saint Pierre and Miquelon" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -2671,11 +2671,11 @@ export const worldLow = {
 						[41.5328, -1.6955]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'SO',
-			properties: { id: 'SO', name: 'Somalia' },
-			type: 'Feature'
+			id: "SO",
+			properties: { id: "SO", name: "Somalia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -2688,11 +2688,11 @@ export const worldLow = {
 						[12.4853, 43.9016]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'SM',
-			properties: { id: 'SM', name: 'San Marino' },
-			type: 'Feature'
+			id: "SM",
+			properties: { id: "SM", name: "San Marino" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -2713,11 +2713,11 @@ export const worldLow = {
 						[-89.3626, 14.416]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'SV',
-			properties: { id: 'SV', name: 'El Salvador' },
-			type: 'Feature'
+			id: "SV",
+			properties: { id: "SV", name: "El Salvador" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -2742,11 +2742,11 @@ export const worldLow = {
 						[-10.2832, 8.4852]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'SL',
-			properties: { id: 'SL', name: 'Sierra Leone' },
-			type: 'Feature'
+			id: "SL",
+			properties: { id: "SL", name: "Sierra Leone" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -2792,11 +2792,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'SB',
-			properties: { id: 'SB', name: 'Solomon Islands' },
-			type: 'Feature'
+			id: "SB",
+			properties: { id: "SB", name: "Solomon Islands" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -2808,11 +2808,11 @@ export const worldLow = {
 						[-5.6923, -15.9977]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'SH',
-			properties: { id: 'SH', name: 'Saint Helena' },
-			type: 'Feature'
+			id: "SH",
+			properties: { id: "SH", name: "Saint Helena" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -2825,14 +2825,14 @@ export const worldLow = {
 						[-37.1034, -54.0658]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'GS',
+			id: "GS",
 			properties: {
-				id: 'GS',
-				name: 'South Georgia and South Sandwich Islands'
+				id: "GS",
+				name: "South Georgia and South Sandwich Islands"
 			},
-			type: 'Feature'
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -2845,11 +2845,11 @@ export const worldLow = {
 						[103.9697, 1.3314]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'SG',
-			properties: { id: 'SG', name: 'Singapore' },
-			type: 'Feature'
+			id: "SG",
+			properties: { id: "SG", name: "Singapore" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -2887,11 +2887,11 @@ export const worldLow = {
 						[-12.2807, 14.8089]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'SN',
-			properties: { id: 'SN', name: 'Senegal' },
-			type: 'Feature'
+			id: "SN",
+			properties: { id: "SN", name: "Senegal" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -2963,11 +2963,11 @@ export const worldLow = {
 						[34.078, 9.4613]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'SS',
-			properties: { id: 'SS', name: 'South Sudan' },
-			type: 'Feature'
+			id: "SS",
+			properties: { id: "SS", name: "South Sudan" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -3053,11 +3053,11 @@ export const worldLow = {
 						[36.8714, 21.9968]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'SD',
-			properties: { id: 'SD', name: 'Sudan' },
-			type: 'Feature'
+			id: "SD",
+			properties: { id: "SD", name: "Sudan" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -3141,11 +3141,11 @@ export const worldLow = {
 						[46.5314, 29.0964]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'SA',
-			properties: { id: 'SA', name: 'Saudi Arabia' },
-			type: 'Feature'
+			id: "SA",
+			properties: { id: "SA", name: "Saudi Arabia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -3177,11 +3177,11 @@ export const worldLow = {
 						[-8.6834, 27.6565]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'EH',
-			properties: { id: 'EH', name: 'Western Sahara' },
-			type: 'Feature'
+			id: "EH",
+			properties: { id: "EH", name: "Western Sahara" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -3203,11 +3203,11 @@ export const worldLow = {
 						[30.51, -1.0674]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'RW',
-			properties: { id: 'RW', name: 'Rwanda' },
-			type: 'Feature'
+			id: "RW",
+			properties: { id: "RW", name: "Rwanda" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -4111,11 +4111,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'RU',
-			properties: { id: 'RU', name: 'Russia' },
-			type: 'Feature'
+			id: "RU",
+			properties: { id: "RU", name: "Russia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -4154,11 +4154,11 @@ export const worldLow = {
 						[28.2124, 45.4503]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'RO',
-			properties: { id: 'RO', name: 'Romania' },
-			type: 'Feature'
+			id: "RO",
+			properties: { id: "RO", name: "Romania" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -4171,11 +4171,11 @@ export const worldLow = {
 						[55.7972, -21.3395]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'RE',
-			properties: { id: 'RE', name: 'Reunion' },
-			type: 'Feature'
+			id: "RE",
+			properties: { id: "RE", name: "Reunion" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -4192,11 +4192,11 @@ export const worldLow = {
 						[51.2682, 24.6074]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'QA',
-			properties: { id: 'QA', name: 'Qatar' },
-			type: 'Feature'
+			id: "QA",
+			properties: { id: "QA", name: "Qatar" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -4209,11 +4209,11 @@ export const worldLow = {
 						[-149.3215, -17.6902]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'PF',
-			properties: { id: 'PF', name: 'French Polynesia' },
-			type: 'Feature'
+			id: "PF",
+			properties: { id: "PF", name: "French Polynesia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -4261,11 +4261,11 @@ export const worldLow = {
 						[-58.1598, -20.1645]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'PY',
-			properties: { id: 'PY', name: 'Paraguay' },
-			type: 'Feature'
+			id: "PY",
+			properties: { id: "PY", name: "Paraguay" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -4299,11 +4299,11 @@ export const worldLow = {
 						[-7.4061, 37.1793]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'PT',
-			properties: { id: 'PT', name: 'Portugal' },
-			type: 'Feature'
+			id: "PT",
+			properties: { id: "PT", name: "Portugal" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -4346,11 +4346,11 @@ export const worldLow = {
 						[130.5269, 42.5353]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'KP',
-			properties: { id: 'KP', name: 'North Korea' },
-			type: 'Feature'
+			id: "KP",
+			properties: { id: "KP", name: "North Korea" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -4364,11 +4364,11 @@ export const worldLow = {
 						[-66.1295, 18.4448]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'PR',
-			properties: { id: 'PR', name: 'Puerto Rico' },
-			type: 'Feature'
+			id: "PR",
+			properties: { id: "PR", name: "Puerto Rico" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -4415,11 +4415,11 @@ export const worldLow = {
 						[19.6045, 54.4591]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'PL',
-			properties: { id: 'PL', name: 'Poland' },
-			type: 'Feature'
+			id: "PL",
+			properties: { id: "PL", name: "Poland" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -4524,11 +4524,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'PG',
-			properties: { id: 'PG', name: 'Papua New Guinea' },
-			type: 'Feature'
+			id: "PG",
+			properties: { id: "PG", name: "Papua New Guinea" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -4541,11 +4541,11 @@ export const worldLow = {
 						[134.5956, 7.3821]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'PW',
-			properties: { id: 'PW', name: 'Palau' },
-			type: 'Feature'
+			id: "PW",
+			properties: { id: "PW", name: "Palau" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -4734,11 +4734,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'PH',
-			properties: { id: 'PH', name: 'Philippines' },
-			type: 'Feature'
+			id: "PH",
+			properties: { id: "PH", name: "Philippines" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -4843,11 +4843,11 @@ export const worldLow = {
 						[-69.9658, -4.2359]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'PE',
-			properties: { id: 'PE', name: 'Peru' },
-			type: 'Feature'
+			id: "PE",
+			properties: { id: "PE", name: "Peru" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -4860,11 +4860,11 @@ export const worldLow = {
 						[-128.2901, -24.3974]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'PN',
-			properties: { id: 'PN', name: 'Pitcairn Islands' },
-			type: 'Feature'
+			id: "PN",
+			properties: { id: "PN", name: "Pitcairn Islands" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -4905,11 +4905,11 @@ export const worldLow = {
 						[-77.3742, 8.6583]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'PA',
-			properties: { id: 'PA', name: 'Panama' },
-			type: 'Feature'
+			id: "PA",
+			properties: { id: "PA", name: "Panama" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -5012,11 +5012,11 @@ export const worldLow = {
 						[77.7992, 35.496]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'PK',
-			properties: { id: 'PK', name: 'Pakistan' },
-			type: 'Feature'
+			id: "PK",
+			properties: { id: "PK", name: "Pakistan" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -5055,11 +5055,11 @@ export const worldLow = {
 						[56.388, 24.9793]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'OM',
-			properties: { id: 'OM', name: 'Oman' },
-			type: 'Feature'
+			id: "OM",
+			properties: { id: "OM", name: "Oman" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -5144,11 +5144,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'NZ',
-			properties: { id: 'NZ', name: 'New Zealand' },
-			type: 'Feature'
+			id: "NZ",
+			properties: { id: "NZ", name: "New Zealand" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -5201,11 +5201,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'SJ',
-			properties: { id: 'SJ', name: 'Svalbard and Jan Mayen' },
-			type: 'Feature'
+			id: "SJ",
+			properties: { id: "SJ", name: "Svalbard and Jan Mayen" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -5217,11 +5217,11 @@ export const worldLow = {
 						[166.9584, -0.5165]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'NR',
-			properties: { id: 'NR', name: 'Nauru' },
-			type: 'Feature'
+			id: "NR",
+			properties: { id: "NR", name: "Nauru" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -5265,11 +5265,11 @@ export const worldLow = {
 						[88.1099, 27.8704]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'NP',
-			properties: { id: 'NP', name: 'Nepal' },
-			type: 'Feature'
+			id: "NP",
+			properties: { id: "NP", name: "Nepal" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -5356,11 +5356,11 @@ export const worldLow = {
 						[30.8696, 69.7834]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'NO',
-			properties: { id: 'NO', name: 'Norway' },
-			type: 'Feature'
+			id: "NO",
+			properties: { id: "NO", name: "Norway" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -5373,11 +5373,11 @@ export const worldLow = {
 						[-169.8034, -19.0832]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'NU',
-			properties: { id: 'NU', name: 'Niue' },
-			type: 'Feature'
+			id: "NU",
+			properties: { id: "NU", name: "Niue" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -5415,11 +5415,11 @@ export const worldLow = {
 						[-83.1576, 14.9931]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'NI',
-			properties: { id: 'NI', name: 'Nicaragua' },
-			type: 'Feature'
+			id: "NI",
+			properties: { id: "NI", name: "Nicaragua" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -5489,11 +5489,11 @@ export const worldLow = {
 						[13.6062, 13.7045]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'NG',
-			properties: { id: 'NG', name: 'Nigeria' },
-			type: 'Feature'
+			id: "NG",
+			properties: { id: "NG", name: "Nigeria" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -5505,11 +5505,11 @@ export const worldLow = {
 						[167.9394, -29.0175]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'NF',
-			properties: { id: 'NF', name: 'Norfolk Island' },
-			type: 'Feature'
+			id: "NF",
+			properties: { id: "NF", name: "Norfolk Island" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -5572,11 +5572,11 @@ export const worldLow = {
 						[14.9791, 22.996]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'NE',
-			properties: { id: 'NE', name: 'Niger' },
-			type: 'Feature'
+			id: "NE",
+			properties: { id: "NE", name: "Niger" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -5595,11 +5595,11 @@ export const worldLow = {
 						[164.2023, -20.2462]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'NC',
-			properties: { id: 'NC', name: 'New Caledonia' },
-			type: 'Feature'
+			id: "NC",
+			properties: { id: "NC", name: "New Caledonia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -5657,11 +5657,11 @@ export const worldLow = {
 						[23.3807, -17.6405]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'NA',
-			properties: { id: 'NA', name: 'Namibia' },
-			type: 'Feature'
+			id: "NA",
+			properties: { id: "NA", name: "Namibia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -5674,11 +5674,11 @@ export const worldLow = {
 						[45.1802, -12.9765]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'YT',
-			properties: { id: 'YT', name: 'Mayotte' },
-			type: 'Feature'
+			id: "YT",
+			properties: { id: "YT", name: "Mayotte" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -5766,11 +5766,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'MY',
-			properties: { id: 'MY', name: 'Malaysia' },
-			type: 'Feature'
+			id: "MY",
+			properties: { id: "MY", name: "Malaysia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -5812,11 +5812,11 @@ export const worldLow = {
 						[34.9596, -11.5783]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'MW',
-			properties: { id: 'MW', name: 'Malawi' },
-			type: 'Feature'
+			id: "MW",
+			properties: { id: "MW", name: "Malawi" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -5829,11 +5829,11 @@ export const worldLow = {
 						[57.6514, -20.485]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'MU',
-			properties: { id: 'MU', name: 'Mauritius' },
-			type: 'Feature'
+			id: "MU",
+			properties: { id: "MU", name: "Mauritius" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -5846,11 +5846,11 @@ export const worldLow = {
 						[-60.8263, 14.4946]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'MQ',
-			properties: { id: 'MQ', name: 'Martinique' },
-			type: 'Feature'
+			id: "MQ",
+			properties: { id: "MQ", name: "Martinique" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -5863,11 +5863,11 @@ export const worldLow = {
 						[-62.1484, 16.7403]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'MS',
-			properties: { id: 'MS', name: 'Montserrat' },
-			type: 'Feature'
+			id: "MS",
+			properties: { id: "MS", name: "Montserrat" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -5924,11 +5924,11 @@ export const worldLow = {
 						[-12.2807, 14.8089]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'MR',
-			properties: { id: 'MR', name: 'Mauritania' },
-			type: 'Feature'
+			id: "MR",
+			properties: { id: "MR", name: "Mauritania" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -6014,11 +6014,11 @@ export const worldLow = {
 						[32.8862, -26.8495]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'MZ',
-			properties: { id: 'MZ', name: 'Mozambique' },
-			type: 'Feature'
+			id: "MZ",
+			properties: { id: "MZ", name: "Mozambique" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -6031,11 +6031,11 @@ export const worldLow = {
 						[145.7519, 15.1334]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'MP',
-			properties: { id: 'MP', name: 'Northern Mariana Islands' },
-			type: 'Feature'
+			id: "MP",
+			properties: { id: "MP", name: "Northern Mariana Islands" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -6138,11 +6138,11 @@ export const worldLow = {
 						[116.6832, 49.8238]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'MN',
-			properties: { id: 'MN', name: 'Mongolia' },
-			type: 'Feature'
+			id: "MN",
+			properties: { id: "MN", name: "Mongolia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -6162,11 +6162,11 @@ export const worldLow = {
 						[19.1943, 43.5331]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'ME',
-			properties: { id: 'ME', name: 'Montenegro' },
-			type: 'Feature'
+			id: "ME",
+			properties: { id: "ME", name: "Montenegro" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -6263,11 +6263,11 @@ export const worldLow = {
 						[101.139, 21.5676]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'MM',
-			properties: { id: 'MM', name: 'Myanmar' },
-			type: 'Feature'
+			id: "MM",
+			properties: { id: "MM", name: "Myanmar" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -6280,11 +6280,11 @@ export const worldLow = {
 						[14.5663, 35.8529]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'MT',
-			properties: { id: 'MT', name: 'Malta' },
-			type: 'Feature'
+			id: "MT",
+			properties: { id: "MT", name: "Malta" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -6368,11 +6368,11 @@ export const worldLow = {
 						[4.2276, 19.1426]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'ML',
-			properties: { id: 'ML', name: 'Mali' },
-			type: 'Feature'
+			id: "ML",
+			properties: { id: "ML", name: "Mali" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -6393,11 +6393,11 @@ export const worldLow = {
 						[22.3442, 42.3138]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'MK',
-			properties: { id: 'MK', name: 'North Macedonia' },
-			type: 'Feature'
+			id: "MK",
+			properties: { id: "MK", name: "North Macedonia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -6410,11 +6410,11 @@ export const worldLow = {
 						[171.1017, 7.1384]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'MH',
-			properties: { id: 'MH', name: 'Marshall Islands' },
-			type: 'Feature'
+			id: "MH",
+			properties: { id: "MH", name: "Marshall Islands" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -6578,11 +6578,11 @@ export const worldLow = {
 						[-97.1462, 25.9617]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'MX',
-			properties: { id: 'MX', name: 'Mexico' },
-			type: 'Feature'
+			id: "MX",
+			properties: { id: "MX", name: "Mexico" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -6595,11 +6595,11 @@ export const worldLow = {
 						[73.5121, 4.1644]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'MV',
-			properties: { id: 'MV', name: 'Maldives' },
-			type: 'Feature'
+			id: "MV",
+			properties: { id: "MV", name: "Maldives" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -6656,11 +6656,11 @@ export const worldLow = {
 						[49.5383, -12.4323]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'MG',
-			properties: { id: 'MG', name: 'Madagascar' },
-			type: 'Feature'
+			id: "MG",
+			properties: { id: "MG", name: "Madagascar" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -6684,11 +6684,11 @@ export const worldLow = {
 						[28.2124, 45.4503]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'MD',
-			properties: { id: 'MD', name: 'Moldova' },
-			type: 'Feature'
+			id: "MD",
+			properties: { id: "MD", name: "Moldova" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -6700,11 +6700,11 @@ export const worldLow = {
 						[7.4387, 43.7507]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'MC',
-			properties: { id: 'MC', name: 'Monaco' },
-			type: 'Feature'
+			id: "MC",
+			properties: { id: "MC", name: "Monaco" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -6754,11 +6754,11 @@ export const worldLow = {
 						[-2.2197, 35.1041]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'MA',
-			properties: { id: 'MA', name: 'Morocco' },
-			type: 'Feature'
+			id: "MA",
+			properties: { id: "MA", name: "Morocco" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -6770,11 +6770,11 @@ export const worldLow = {
 						[-63.0111, 18.0688]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'MF',
-			properties: { id: 'MF', name: 'Saint Martin' },
-			type: 'Feature'
+			id: "MF",
+			properties: { id: "MF", name: "Saint Martin" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -6786,11 +6786,11 @@ export const worldLow = {
 						[113.4788, 22.1957]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'MO',
-			properties: { id: 'MO', name: 'Macau' },
-			type: 'Feature'
+			id: "MO",
+			properties: { id: "MO", name: "Macau" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -6818,11 +6818,11 @@ export const worldLow = {
 						[27.3517, 57.5282]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'LV',
-			properties: { id: 'LV', name: 'Latvia' },
-			type: 'Feature'
+			id: "LV",
+			properties: { id: "LV", name: "Latvia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -6836,11 +6836,11 @@ export const worldLow = {
 						[6.1164, 50.1209]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'LU',
-			properties: { id: 'LU', name: 'Luxembourg' },
-			type: 'Feature'
+			id: "LU",
+			properties: { id: "LU", name: "Luxembourg" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -6863,11 +6863,11 @@ export const worldLow = {
 						[26.5936, 55.6676]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'LT',
-			properties: { id: 'LT', name: 'Lithuania' },
-			type: 'Feature'
+			id: "LT",
+			properties: { id: "LT", name: "Lithuania" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -6886,11 +6886,11 @@ export const worldLow = {
 						[27.8303, -28.9091]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'LS',
-			properties: { id: 'LS', name: 'Lesotho' },
-			type: 'Feature'
+			id: "LS",
+			properties: { id: "LS", name: "Lesotho" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -6913,11 +6913,11 @@ export const worldLow = {
 						[79.9822, 9.8129]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'LK',
-			properties: { id: 'LK', name: 'Sri Lanka' },
-			type: 'Feature'
+			id: "LK",
+			properties: { id: "LK", name: "Sri Lanka" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -6929,11 +6929,11 @@ export const worldLow = {
 						[9.5801, 47.0572]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'LI',
-			properties: { id: 'LI', name: 'Liechtenstein' },
-			type: 'Feature'
+			id: "LI",
+			properties: { id: "LI", name: "Liechtenstein" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -6945,11 +6945,11 @@ export const worldLow = {
 						[-60.8953, 13.8221]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'LC',
-			properties: { id: 'LC', name: 'Saint Lucia' },
-			type: 'Feature'
+			id: "LC",
+			properties: { id: "LC", name: "Saint Lucia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -7020,11 +7020,11 @@ export const worldLow = {
 						[25.1505, 31.655]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'LY',
-			properties: { id: 'LY', name: 'Libya' },
-			type: 'Feature'
+			id: "LY",
+			properties: { id: "LY", name: "Libya" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -7057,11 +7057,11 @@ export const worldLow = {
 						[-8.4863, 7.5584]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'LR',
-			properties: { id: 'LR', name: 'Liberia' },
-			type: 'Feature'
+			id: "LR",
+			properties: { id: "LR", name: "Liberia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -7077,11 +7077,11 @@ export const worldLow = {
 						[35.8691, 33.4319]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'LB',
-			properties: { id: 'LB', name: 'Lebanon' },
-			type: 'Feature'
+			id: "LB",
+			properties: { id: "LB", name: "Lebanon" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -7148,11 +7148,11 @@ export const worldLow = {
 						[102.1276, 22.379]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'LA',
-			properties: { id: 'LA', name: "Lao People's Democratic Republic" },
-			type: 'Feature'
+			id: "LA",
+			properties: { id: "LA", name: "Lao People's Democratic Republic" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -7171,11 +7171,11 @@ export const worldLow = {
 						[48.4424, 28.5429]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'KW',
-			properties: { id: 'KW', name: 'Kuwait' },
-			type: 'Feature'
+			id: "KW",
+			properties: { id: "KW", name: "Kuwait" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -7193,11 +7193,11 @@ export const worldLow = {
 						[21.5625, 42.2476]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'XK',
-			properties: { id: 'XK', name: 'Kosovo' },
-			type: 'Feature'
+			id: "XK",
+			properties: { id: "XK", name: "Kosovo" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -7226,11 +7226,11 @@ export const worldLow = {
 						[128.3745, 38.6233]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'KR',
-			properties: { id: 'KR', name: 'South Korea' },
-			type: 'Feature'
+			id: "KR",
+			properties: { id: "KR", name: "South Korea" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -7243,11 +7243,11 @@ export const worldLow = {
 						[-62.6307, 17.2401]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'KN',
-			properties: { id: 'KN', name: 'Saint Kitts and Nevis' },
-			type: 'Feature'
+			id: "KN",
+			properties: { id: "KN", name: "Saint Kitts and Nevis" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -7259,11 +7259,11 @@ export const worldLow = {
 						[-157.3422, 1.8557]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'KI',
-			properties: { id: 'KI', name: 'Kiribati' },
-			type: 'Feature'
+			id: "KI",
+			properties: { id: "KI", name: "Kiribati" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -7305,11 +7305,11 @@ export const worldLow = {
 						[104.4265, 10.4112]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'KH',
-			properties: { id: 'KH', name: 'Cambodia' },
-			type: 'Feature'
+			id: "KH",
+			properties: { id: "KH", name: "Cambodia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -7363,11 +7363,11 @@ export const worldLow = {
 						[80.2095, 42.1899]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'KG',
-			properties: { id: 'KG', name: 'Kyrgyzstan' },
-			type: 'Feature'
+			id: "KG",
+			properties: { id: "KG", name: "Kyrgyzstan" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -7414,11 +7414,11 @@ export const worldLow = {
 						[41.8839, 3.9779]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'KE',
-			properties: { id: 'KE', name: 'Kenya' },
-			type: 'Feature'
+			id: "KE",
+			properties: { id: "KE", name: "Kenya" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -7583,11 +7583,11 @@ export const worldLow = {
 						[87.3229, 49.0858]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'KZ',
-			properties: { id: 'KZ', name: 'Kazakhstan' },
-			type: 'Feature'
+			id: "KZ",
+			properties: { id: "KZ", name: "Kazakhstan" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -7724,11 +7724,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'JP',
-			properties: { id: 'JP', name: 'Japan' },
-			type: 'Feature'
+			id: "JP",
+			properties: { id: "JP", name: "Japan" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -7757,11 +7757,11 @@ export const worldLow = {
 						[39.1455, 32.1247]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'JO',
-			properties: { id: 'JO', name: 'Jordan' },
-			type: 'Feature'
+			id: "JO",
+			properties: { id: "JO", name: "Jordan" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -7773,11 +7773,11 @@ export const worldLow = {
 						[-2.0186, 49.2312]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'JE',
-			properties: { id: 'JE', name: 'Jersey' },
-			type: 'Feature'
+			id: "JE",
+			properties: { id: "JE", name: "Jersey" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -7794,11 +7794,11 @@ export const worldLow = {
 						[-77.2614, 18.4572]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'JM',
-			properties: { id: 'JM', name: 'Jamaica' },
-			type: 'Feature'
+			id: "JM",
+			properties: { id: "JM", name: "Jamaica" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -7905,11 +7905,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'IT',
-			properties: { id: 'IT', name: 'Italy' },
-			type: 'Feature'
+			id: "IT",
+			properties: { id: "IT", name: "Italy" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -7934,11 +7934,11 @@ export const worldLow = {
 						[35.7875, 32.735]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'IL',
-			properties: { id: 'IL', name: 'Israel' },
-			type: 'Feature'
+			id: "IL",
+			properties: { id: "IL", name: "Israel" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -7973,11 +7973,11 @@ export const worldLow = {
 						[-15.5431, 66.2285]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'IS',
-			properties: { id: 'IS', name: 'Iceland' },
-			type: 'Feature'
+			id: "IS",
+			properties: { id: "IS", name: "Iceland" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -8026,11 +8026,11 @@ export const worldLow = {
 						[44.7652, 37.1424]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'IQ',
-			properties: { id: 'IQ', name: 'Iraq' },
-			type: 'Feature'
+			id: "IQ",
+			properties: { id: "IQ", name: "Iraq" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -8138,11 +8138,11 @@ export const worldLow = {
 						[46.1146, 38.8776]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'IR',
-			properties: { id: 'IR', name: 'Iran' },
-			type: 'Feature'
+			id: "IR",
+			properties: { id: "IR", name: "Iran" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -8168,11 +8168,11 @@ export const worldLow = {
 						[-6.218, 54.0887]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'IE',
-			properties: { id: 'IE', name: 'Ireland' },
-			type: 'Feature'
+			id: "IE",
+			properties: { id: "IE", name: "Ireland" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -8186,11 +8186,11 @@ export const worldLow = {
 						[72.492, -7.3773]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'IO',
-			properties: { id: 'IO', name: 'British Indian Ocean Territory' },
-			type: 'Feature'
+			id: "IO",
+			properties: { id: "IO", name: "British Indian Ocean Territory" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -8407,11 +8407,11 @@ export const worldLow = {
 						[78.7198, 31.8876]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'IN',
-			properties: { id: 'IN', name: 'India' },
-			type: 'Feature'
+			id: "IN",
+			properties: { id: "IN", name: "India" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -8423,11 +8423,11 @@ export const worldLow = {
 						[-4.4121, 54.1854]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'IM',
-			properties: { id: 'IM', name: 'Isle of Man' },
-			type: 'Feature'
+			id: "IM",
+			properties: { id: "IM", name: "Isle of Man" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -8995,11 +8995,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'ID',
-			properties: { id: 'ID', name: 'Indonesia' },
-			type: 'Feature'
+			id: "ID",
+			properties: { id: "ID", name: "Indonesia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -9028,11 +9028,11 @@ export const worldLow = {
 						[22.132, 48.4053]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'HU',
-			properties: { id: 'HU', name: 'Hungary' },
-			type: 'Feature'
+			id: "HU",
+			properties: { id: "HU", name: "Hungary" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -9057,11 +9057,11 @@ export const worldLow = {
 						[-71.7791, 19.7183]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'HT',
-			properties: { id: 'HT', name: 'Haiti' },
-			type: 'Feature'
+			id: "HT",
+			properties: { id: "HT", name: "Haiti" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -9107,11 +9107,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'HR',
-			properties: { id: 'HR', name: 'Croatia' },
-			type: 'Feature'
+			id: "HR",
+			properties: { id: "HR", name: "Croatia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -9151,11 +9151,11 @@ export const worldLow = {
 						[-83.1576, 14.9931]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'HN',
-			properties: { id: 'HN', name: 'Honduras' },
-			type: 'Feature'
+			id: "HN",
+			properties: { id: "HN", name: "Honduras" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -9168,11 +9168,11 @@ export const worldLow = {
 						[73.7074, -53.1372]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'HM',
-			properties: { id: 'HM', name: 'Heard Island and McDonald Islands' },
-			type: 'Feature'
+			id: "HM",
+			properties: { id: "HM", name: "Heard Island and McDonald Islands" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -9184,11 +9184,11 @@ export const worldLow = {
 						[114.0154, 22.5117]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'HK',
-			properties: { id: 'HK', name: 'Hong Kong' },
-			type: 'Feature'
+			id: "HK",
+			properties: { id: "HK", name: "Hong Kong" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -9238,11 +9238,11 @@ export const worldLow = {
 						[-57.1948, 5.5484]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'GY',
-			properties: { id: 'GY', name: 'Guyana' },
-			type: 'Feature'
+			id: "GY",
+			properties: { id: "GY", name: "Guyana" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -9254,11 +9254,11 @@ export const worldLow = {
 						[144.7416, 13.2593]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'GU',
-			properties: { id: 'GU', name: 'Guam' },
-			type: 'Feature'
+			id: "GU",
+			properties: { id: "GU", name: "Guam" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -9285,11 +9285,11 @@ export const worldLow = {
 						[-51.6526, 4.0614]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'GF',
-			properties: { id: 'GF', name: 'French Guiana' },
-			type: 'Feature'
+			id: "GF",
+			properties: { id: "GF", name: "French Guiana" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -9320,11 +9320,11 @@ export const worldLow = {
 						[-89.1615, 17.8149]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'GT',
-			properties: { id: 'GT', name: 'Guatemala' },
-			type: 'Feature'
+			id: "GT",
+			properties: { id: "GT", name: "Guatemala" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -9505,11 +9505,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'GL',
-			properties: { id: 'GL', name: 'Greenland' },
-			type: 'Feature'
+			id: "GL",
+			properties: { id: "GL", name: "Greenland" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -9522,11 +9522,11 @@ export const worldLow = {
 						[-61.7154, 12.0128]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'GD',
-			properties: { id: 'GD', name: 'Grenada' },
-			type: 'Feature'
+			id: "GD",
+			properties: { id: "GD", name: "Grenada" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -9603,11 +9603,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'GR',
-			properties: { id: 'GR', name: 'Greece' },
-			type: 'Feature'
+			id: "GR",
+			properties: { id: "GR", name: "Greece" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -9623,11 +9623,11 @@ export const worldLow = {
 						[9.5907, 1.0318]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'GQ',
-			properties: { id: 'GQ', name: 'Equatorial Guinea' },
-			type: 'Feature'
+			id: "GQ",
+			properties: { id: "GQ", name: "Equatorial Guinea" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -9646,11 +9646,11 @@ export const worldLow = {
 						[-15.0431, 10.9404]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'GW',
-			properties: { id: 'GW', name: 'Guinea-Bissau' },
-			type: 'Feature'
+			id: "GW",
+			properties: { id: "GW", name: "Guinea-Bissau" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -9665,11 +9665,11 @@ export const worldLow = {
 						[-16.7634, 13.064]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'GM',
-			properties: { id: 'GM', name: 'Gambia' },
-			type: 'Feature'
+			id: "GM",
+			properties: { id: "GM", name: "Gambia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -9682,11 +9682,11 @@ export const worldLow = {
 						[-61.3272, 16.2302]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'GP',
-			properties: { id: 'GP', name: 'Guadeloupe' },
-			type: 'Feature'
+			id: "GP",
+			properties: { id: "GP", name: "Guadeloupe" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -9737,11 +9737,11 @@ export const worldLow = {
 						[-11.3894, 12.4043]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'GN',
-			properties: { id: 'GN', name: 'Guinea' },
-			type: 'Feature'
+			id: "GN",
+			properties: { id: "GN", name: "Guinea" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -9782,11 +9782,11 @@ export const worldLow = {
 						[-0.0686, 11.1157]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'GH',
-			properties: { id: 'GH', name: 'Ghana' },
-			type: 'Feature'
+			id: "GH",
+			properties: { id: "GH", name: "Ghana" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -9798,11 +9798,11 @@ export const worldLow = {
 						[-2.5124, 49.4946]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'GG',
-			properties: { id: 'GG', name: 'Guernsey' },
-			type: 'Feature'
+			id: "GG",
+			properties: { id: "GG", name: "Guernsey" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -9834,11 +9834,11 @@ export const worldLow = {
 						[46.4298, 41.8907]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'GE',
-			properties: { id: 'GE', name: 'Georgia' },
-			type: 'Feature'
+			id: "GE",
+			properties: { id: "GE", name: "Georgia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -9882,11 +9882,11 @@ export const worldLow = {
 						[13.2937, 2.1615]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'GA',
-			properties: { id: 'GA', name: 'Gabon' },
-			type: 'Feature'
+			id: "GA",
+			properties: { id: "GA", name: "Gabon" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -9970,11 +9970,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'FR',
-			properties: { id: 'FR', name: 'France' },
-			type: 'Feature'
+			id: "FR",
+			properties: { id: "FR", name: "France" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -9987,11 +9987,11 @@ export const worldLow = {
 						[158.315, 6.8135]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'FM',
-			properties: { id: 'FM', name: 'Federated States of Micronesia' },
-			type: 'Feature'
+			id: "FM",
+			properties: { id: "FM", name: "Federated States of Micronesia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -10003,11 +10003,11 @@ export const worldLow = {
 						[-6.6311, 62.2279]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'FO',
-			properties: { id: 'FO', name: 'Faroe Islands' },
-			type: 'Feature'
+			id: "FO",
+			properties: { id: "FO", name: "Faroe Islands" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -10034,11 +10034,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'FK',
-			properties: { id: 'FK', name: 'Falkland Islands' },
-			type: 'Feature'
+			id: "FK",
+			properties: { id: "FK", name: "Falkland Islands" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -10067,11 +10067,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'FJ',
-			properties: { id: 'FJ', name: 'Fiji' },
-			type: 'Feature'
+			id: "FJ",
+			properties: { id: "FJ", name: "Fiji" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -10127,11 +10127,11 @@ export const worldLow = {
 						[28.9657, 69.0219]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'FI',
-			properties: { id: 'FI', name: 'Finland' },
-			type: 'Feature'
+			id: "FI",
+			properties: { id: "FI", name: "Finland" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -10200,11 +10200,11 @@ export const worldLow = {
 						[42.3784, 12.4665]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'ET',
-			properties: { id: 'ET', name: 'Ethiopia' },
-			type: 'Feature'
+			id: "ET",
+			properties: { id: "ET", name: "Ethiopia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -10239,11 +10239,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'EE',
-			properties: { id: 'EE', name: 'Estonia' },
-			type: 'Feature'
+			id: "EE",
+			properties: { id: "EE", name: "Estonia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -10325,11 +10325,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'ES',
-			properties: { id: 'ES', name: 'Spain' },
-			type: 'Feature'
+			id: "ES",
+			properties: { id: "ES", name: "Spain" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -10369,11 +10369,11 @@ export const worldLow = {
 						[38.6093, 18.0049]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'ER',
-			properties: { id: 'ER', name: 'Eritrea' },
-			type: 'Feature'
+			id: "ER",
+			properties: { id: "ER", name: "Eritrea" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -10444,11 +10444,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'GB',
-			properties: { id: 'GB', name: 'United Kingdom' },
-			type: 'Feature'
+			id: "GB",
+			properties: { id: "GB", name: "United Kingdom" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -10506,11 +10506,11 @@ export const worldLow = {
 						[34.1983, 31.3226]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'EG',
-			properties: { id: 'EG', name: 'Egypt' },
-			type: 'Feature'
+			id: "EG",
+			properties: { id: "EG", name: "Egypt" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -10567,11 +10567,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'EC',
-			properties: { id: 'EC', name: 'Ecuador' },
-			type: 'Feature'
+			id: "EC",
+			properties: { id: "EC", name: "Ecuador" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -10658,11 +10658,11 @@ export const worldLow = {
 						[8.5764, 36.9374]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'DZ',
-			properties: { id: 'DZ', name: 'Algeria' },
-			type: 'Feature'
+			id: "DZ",
+			properties: { id: "DZ", name: "Algeria" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -10686,11 +10686,11 @@ export const worldLow = {
 						[-71.7683, 18.0391]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'DO',
-			properties: { id: 'DO', name: 'Dominican Republic' },
-			type: 'Feature'
+			id: "DO",
+			properties: { id: "DO", name: "Dominican Republic" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -10732,11 +10732,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'DK',
-			properties: { id: 'DK', name: 'Denmark' },
-			type: 'Feature'
+			id: "DK",
+			properties: { id: "DK", name: "Denmark" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -10748,11 +10748,11 @@ export const worldLow = {
 						[-61.2817, 15.2492]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'DM',
-			properties: { id: 'DM', name: 'Dominica' },
-			type: 'Feature'
+			id: "DM",
+			properties: { id: "DM", name: "Dominica" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -10772,11 +10772,11 @@ export const worldLow = {
 						[43.2462, 11.4997]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'DJ',
-			properties: { id: 'DJ', name: 'Djibouti' },
-			type: 'Feature'
+			id: "DJ",
+			properties: { id: "DJ", name: "Djibouti" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -10836,11 +10836,11 @@ export const worldLow = {
 						[9.7399, 54.8255]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'DE',
-			properties: { id: 'DE', name: 'Germany' },
-			type: 'Feature'
+			id: "DE",
+			properties: { id: "DE", name: "Germany" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -10870,11 +10870,11 @@ export const worldLow = {
 						[14.8096, 50.8589]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'CZ',
-			properties: { id: 'CZ', name: 'Czechia' },
-			type: 'Feature'
+			id: "CZ",
+			properties: { id: "CZ", name: "Czechia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -10891,11 +10891,11 @@ export const worldLow = {
 						[34.4633, 35.5937]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'CY',
-			properties: { id: 'CY', name: 'Cyprus' },
-			type: 'Feature'
+			id: "CY",
+			properties: { id: "CY", name: "Cyprus" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -10907,11 +10907,11 @@ export const worldLow = {
 						[-81.3696, 19.349]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'KY',
-			properties: { id: 'KY', name: 'Cayman Islands' },
-			type: 'Feature'
+			id: "KY",
+			properties: { id: "KY", name: "Cayman Islands" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -10924,11 +10924,11 @@ export const worldLow = {
 						[105.7253, -10.493]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'CX',
-			properties: { id: 'CX', name: 'Christmas Island' },
-			type: 'Feature'
+			id: "CX",
+			properties: { id: "CX", name: "Christmas Island" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -10944,11 +10944,11 @@ export const worldLow = {
 						[-68.7511, 12.0599]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'CW',
-			properties: { id: 'CW', name: 'Curaçao' },
-			type: 'Feature'
+			id: "CW",
+			properties: { id: "CW", name: "Curaçao" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -11002,11 +11002,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'CU',
-			properties: { id: 'CU', name: 'Cuba' },
-			type: 'Feature'
+			id: "CU",
+			properties: { id: "CU", name: "Cuba" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -11037,11 +11037,11 @@ export const worldLow = {
 						[-83.6419, 10.9173]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'CR',
-			properties: { id: 'CR', name: 'Costa Rica' },
-			type: 'Feature'
+			id: "CR",
+			properties: { id: "CR", name: "Costa Rica" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -11053,11 +11053,11 @@ export const worldLow = {
 						[-23.4442, 15.0078]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'CV',
-			properties: { id: 'CV', name: 'Cape Verde' },
-			type: 'Feature'
+			id: "CV",
+			properties: { id: "CV", name: "Cape Verde" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -11069,11 +11069,11 @@ export const worldLow = {
 						[43.4659, -11.9014]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'KM',
-			properties: { id: 'KM', name: 'Comoros' },
-			type: 'Feature'
+			id: "KM",
+			properties: { id: "KM", name: "Comoros" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -11176,11 +11176,11 @@ export const worldLow = {
 						[-71.3197, 11.8619]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'CO',
-			properties: { id: 'CO', name: 'Colombia' },
-			type: 'Feature'
+			id: "CO",
+			properties: { id: "CO", name: "Colombia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -11193,11 +11193,11 @@ export const worldLow = {
 						[-159.7406, -21.2494]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'CK',
-			properties: { id: 'CK', name: 'Cook Islands' },
-			type: 'Feature'
+			id: "CK",
+			properties: { id: "CK", name: "Cook Islands" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -11263,11 +11263,11 @@ export const worldLow = {
 						[18.6102, 3.4785]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'CG',
-			properties: { id: 'CG', name: 'Republic of Congo' },
-			type: 'Feature'
+			id: "CG",
+			properties: { id: "CG", name: "Republic of Congo" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -11393,11 +11393,11 @@ export const worldLow = {
 						[27.4032, 5.1094]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'CD',
-			properties: { id: 'CD', name: 'Democratic Republic of Congo' },
-			type: 'Feature'
+			id: "CD",
+			properties: { id: "CD", name: "Democratic Republic of Congo" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -11462,11 +11462,11 @@ export const worldLow = {
 						[15.4803, 7.5237]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'CM',
-			properties: { id: 'CM', name: 'Cameroon' },
-			type: 'Feature'
+			id: "CM",
+			properties: { id: "CM", name: "Cameroon" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -11515,11 +11515,11 @@ export const worldLow = {
 						[-5.5236, 10.4259]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'CI',
-			properties: { id: 'CI', name: "Côte d'Ivoire" },
-			type: 'Feature'
+			id: "CI",
+			properties: { id: "CI", name: "Côte d'Ivoire" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -11867,11 +11867,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'CN',
-			properties: { id: 'CN', name: 'China' },
-			type: 'Feature'
+			id: "CN",
+			properties: { id: "CN", name: "China" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -12133,11 +12133,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'CL',
-			properties: { id: 'CL', name: 'Chile' },
-			type: 'Feature'
+			id: "CL",
+			properties: { id: "CL", name: "Chile" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -12162,11 +12162,11 @@ export const worldLow = {
 						[9.5241, 47.5242]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'CH',
-			properties: { id: 'CH', name: 'Switzerland' },
-			type: 'Feature'
+			id: "CH",
+			properties: { id: "CH", name: "Switzerland" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -12181,11 +12181,11 @@ export const worldLow = {
 						[96.8404, -12.182]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'CC',
-			properties: { id: 'CC', name: 'Cocos (Keeling) Islands' },
-			type: 'Feature'
+			id: "CC",
+			properties: { id: "CC", name: "Cocos (Keeling) Islands" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -13168,11 +13168,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'CA',
-			properties: { id: 'CA', name: 'Canada' },
-			type: 'Feature'
+			id: "CA",
+			properties: { id: "CA", name: "Canada" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -13239,11 +13239,11 @@ export const worldLow = {
 						[22.86, 10.9195]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'CF',
-			properties: { id: 'CF', name: 'Central African Republic' },
-			type: 'Feature'
+			id: "CF",
+			properties: { id: "CF", name: "Central African Republic" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -13268,11 +13268,11 @@ export const worldLow = {
 						[5.6938, 50.7748]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'BE',
-			properties: { id: 'BE', name: 'Belgium' },
-			type: 'Feature'
+			id: "BE",
+			properties: { id: "BE", name: "Belgium" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -13320,11 +13320,11 @@ export const worldLow = {
 						[25.2588, -17.7936]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'BW',
-			properties: { id: 'BW', name: 'Botswana' },
-			type: 'Feature'
+			id: "BW",
+			properties: { id: "BW", name: "Botswana" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -13346,11 +13346,11 @@ export const worldLow = {
 						[91.6317, 27.7599]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'BT',
-			properties: { id: 'BT', name: 'Bhutan' },
-			type: 'Feature'
+			id: "BT",
+			properties: { id: "BT", name: "Bhutan" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -13367,11 +13367,11 @@ export const worldLow = {
 						[115.0266, 4.8999]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'BN',
-			properties: { id: 'BN', name: 'Brunei' },
-			type: 'Feature'
+			id: "BN",
+			properties: { id: "BN", name: "Brunei" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -13384,11 +13384,11 @@ export const worldLow = {
 						[-59.4933, 13.0822]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'BB',
-			properties: { id: 'BB', name: 'Barbados' },
-			type: 'Feature'
+			id: "BB",
+			properties: { id: "BB", name: "Barbados" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -13664,11 +13664,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'BR',
-			properties: { id: 'BR', name: 'Brazil' },
-			type: 'Feature'
+			id: "BR",
+			properties: { id: "BR", name: "Brazil" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -13749,11 +13749,11 @@ export const worldLow = {
 						[-58.1598, -20.1645]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'BO',
-			properties: { id: 'BO', name: 'Bolivia' },
-			type: 'Feature'
+			id: "BO",
+			properties: { id: "BO", name: "Bolivia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -13765,11 +13765,11 @@ export const worldLow = {
 						[-64.7303, 32.2934]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'BM',
-			properties: { id: 'BM', name: 'Bermuda' },
-			type: 'Feature'
+			id: "BM",
+			properties: { id: "BM", name: "Bermuda" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -13787,11 +13787,11 @@ export const worldLow = {
 						[-88.8941, 15.8907]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'BZ',
-			properties: { id: 'BZ', name: 'Belize' },
-			type: 'Feature'
+			id: "BZ",
+			properties: { id: "BZ", name: "Belize" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -13835,11 +13835,11 @@ export const worldLow = {
 						[28.1481, 56.143]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'BY',
-			properties: { id: 'BY', name: 'Belarus' },
-			type: 'Feature'
+			id: "BY",
+			properties: { id: "BY", name: "Belarus" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -13851,11 +13851,11 @@ export const worldLow = {
 						[-62.832, 17.8766]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'BL',
-			properties: { id: 'BL', name: 'Saint Barthelemy' },
-			type: 'Feature'
+			id: "BL",
+			properties: { id: "BL", name: "Saint Barthelemy" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -13881,11 +13881,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'BS',
-			properties: { id: 'BS', name: 'Bahamas' },
-			type: 'Feature'
+			id: "BS",
+			properties: { id: "BS", name: "Bahamas" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -13898,11 +13898,11 @@ export const worldLow = {
 						[50.6072, 25.8831]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'BH',
-			properties: { id: 'BH', name: 'Bahrain' },
-			type: 'Feature'
+			id: "BH",
+			properties: { id: "BH", name: "Bahrain" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -13929,11 +13929,11 @@ export const worldLow = {
 						[19.007, 44.8693]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'BA',
-			properties: { id: 'BA', name: 'Bosnia and Herzegovina' },
-			type: 'Feature'
+			id: "BA",
+			properties: { id: "BA", name: "Bosnia and Herzegovina" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -13968,11 +13968,11 @@ export const worldLow = {
 						[28.5853, 43.7422]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'BG',
-			properties: { id: 'BG', name: 'Bulgaria' },
-			type: 'Feature'
+			id: "BG",
+			properties: { id: "BG", name: "Bulgaria" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -14021,11 +14021,11 @@ export const worldLow = {
 						[92.575, 21.9782]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'BD',
-			properties: { id: 'BD', name: 'Bangladesh' },
-			type: 'Feature'
+			id: "BD",
+			properties: { id: "BD", name: "Bangladesh" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -14076,11 +14076,11 @@ export const worldLow = {
 						[0.2175, 14.9114]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'BF',
-			properties: { id: 'BF', name: 'Burkina Faso' },
-			type: 'Feature'
+			id: "BF",
+			properties: { id: "BF", name: "Burkina Faso" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -14112,11 +14112,11 @@ export const worldLow = {
 						[3.5955, 11.6963]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'BJ',
-			properties: { id: 'BJ', name: 'Benin' },
-			type: 'Feature'
+			id: "BJ",
+			properties: { id: "BJ", name: "Benin" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -14138,11 +14138,11 @@ export const worldLow = {
 						[30.5535, -2.3999]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'BI',
-			properties: { id: 'BI', name: 'Burundi' },
-			type: 'Feature'
+			id: "BI",
+			properties: { id: "BI", name: "Burundi" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -14192,11 +14192,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'AZ',
-			properties: { id: 'AZ', name: 'Azerbaijan' },
-			type: 'Feature'
+			id: "AZ",
+			properties: { id: "AZ", name: "Azerbaijan" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -14235,11 +14235,11 @@ export const worldLow = {
 						[16.9531, 48.5988]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'AT',
-			properties: { id: 'AT', name: 'Austria' },
-			type: 'Feature'
+			id: "AT",
+			properties: { id: "AT", name: "Austria" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -14528,11 +14528,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'AU',
-			properties: { id: 'AU', name: 'Australia' },
-			type: 'Feature'
+			id: "AU",
+			properties: { id: "AU", name: "Australia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -14545,14 +14545,14 @@ export const worldLow = {
 						[69.185, -49.1093]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'TF',
+			id: "TF",
 			properties: {
-				id: 'TF',
-				name: 'French Southern and Antarctic Lands'
+				id: "TF",
+				name: "French Southern and Antarctic Lands"
 			},
-			type: 'Feature'
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -15144,11 +15144,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'AQ',
-			properties: { id: 'AQ', name: 'Antarctica' },
-			type: 'Feature'
+			id: "AQ",
+			properties: { id: "AQ", name: "Antarctica" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -15160,11 +15160,11 @@ export const worldLow = {
 						[-170.7262, -14.3513]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'AS',
-			properties: { id: 'AS', name: 'American Samoa' },
-			type: 'Feature'
+			id: "AS",
+			properties: { id: "AS", name: "American Samoa" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -15189,11 +15189,11 @@ export const worldLow = {
 						[46.4906, 38.9065]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'AM',
-			properties: { id: 'AM', name: 'Armenia' },
-			type: 'Feature'
+			id: "AM",
+			properties: { id: "AM", name: "Armenia" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -15379,11 +15379,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'AR',
-			properties: { id: 'AR', name: 'Argentina' },
-			type: 'Feature'
+			id: "AR",
+			properties: { id: "AR", name: "Argentina" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -15410,11 +15410,11 @@ export const worldLow = {
 						[56.2979, 25.6505]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'AE',
-			properties: { id: 'AE', name: 'United Arab Emirates' },
-			type: 'Feature'
+			id: "AE",
+			properties: { id: "AE", name: "United Arab Emirates" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -15426,11 +15426,11 @@ export const worldLow = {
 						[1.7059, 42.5033]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'AD',
-			properties: { id: 'AD', name: 'Andorra' },
-			type: 'Feature'
+			id: "AD",
+			properties: { id: "AD", name: "Andorra" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -15443,11 +15443,11 @@ export const worldLow = {
 						[19.9893, 60.3511]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'AX',
-			properties: { id: 'AX', name: 'Aland Islands' },
-			type: 'Feature'
+			id: "AX",
+			properties: { id: "AX", name: "Aland Islands" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -15470,11 +15470,11 @@ export const worldLow = {
 						[20.0639, 42.5473]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'AL',
-			properties: { id: 'AL', name: 'Albania' },
-			type: 'Feature'
+			id: "AL",
+			properties: { id: "AL", name: "Albania" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -15486,11 +15486,11 @@ export const worldLow = {
 						[-63.0012, 18.222]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'AI',
-			properties: { id: 'AI', name: 'Anguilla' },
-			type: 'Feature'
+			id: "AI",
+			properties: { id: "AI", name: "Anguilla" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -15570,11 +15570,11 @@ export const worldLow = {
 						]
 					]
 				],
-				type: 'MultiPolygon'
+				type: "MultiPolygon"
 			},
-			id: 'AO',
-			properties: { id: 'AO', name: 'Angola' },
-			type: 'Feature'
+			id: "AO",
+			properties: { id: "AO", name: "Angola" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -15650,11 +15650,11 @@ export const worldLow = {
 						[74.8912, 37.2317]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'AF',
-			properties: { id: 'AF', name: 'Afghanistan' },
-			type: 'Feature'
+			id: "AF",
+			properties: { id: "AF", name: "Afghanistan" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -15666,11 +15666,11 @@ export const worldLow = {
 						[-61.7161, 17.0368]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'AG',
-			properties: { id: 'AG', name: 'Antigua and Barbuda' },
-			type: 'Feature'
+			id: "AG",
+			properties: { id: "AG", name: "Antigua and Barbuda" },
+			type: "Feature"
 		},
 		{
 			geometry: {
@@ -15683,12 +15683,12 @@ export const worldLow = {
 						[-69.8992, 12.4518]
 					]
 				],
-				type: 'Polygon'
+				type: "Polygon"
 			},
-			id: 'AW',
-			properties: { id: 'AW', name: 'Aruba' },
-			type: 'Feature'
+			id: "AW",
+			properties: { id: "AW", name: "Aruba" },
+			type: "Feature"
 		}
 	],
-	type: 'FeatureCollection'
+	type: "FeatureCollection"
 } satisfies GeoJSON.GeoJSON;

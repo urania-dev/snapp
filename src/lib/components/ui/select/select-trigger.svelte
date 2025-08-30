@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { cn } from '$lib/utils';
-	import { Select as SelectPrimitive, type WithoutChild } from 'bits-ui';
+	import { cn } from "$lib/utils";
+	import { Select as SelectPrimitive, type WithoutChild } from "bits-ui";
 
 	let {
 		children,
 		class: className,
 		ref = $bindable(null),
-		showArrow = true, // eslint-disable-next-line svelte/valid-compile
+		showArrow = true,
 		...restProps
 	}: { showArrow?: boolean } & WithoutChild<SelectPrimitive.TriggerProps> = $props();
 </script>
@@ -14,7 +14,7 @@
 <SelectPrimitive.Trigger
 	bind:ref
 	class={cn(
-		'flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 data-[placeholder]:text-muted-foreground [&>span]:line-clamp-1',
+		"flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 data-[placeholder]:text-muted-foreground [&>span]:line-clamp-1",
 		className
 	)}
 	{...restProps}

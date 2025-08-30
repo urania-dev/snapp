@@ -1,21 +1,21 @@
-import type { Tag } from '@prisma/client';
-import type { ColumnDef } from '@tanstack/table-core';
+import type { Tag } from "@prisma/client";
+import type { ColumnDef } from "@tanstack/table-core";
 
-import { renderComponent, renderSnippet } from '$lib/components/ui/data-table';
-import { type TranslationsStoreType } from '$lib/i18n/index.svelte';
-import { createRawSnippet } from 'svelte';
+import { renderComponent, renderSnippet } from "$lib/components/ui/data-table";
+import { type TranslationsStoreType } from "$lib/i18n/index.svelte";
+import { createRawSnippet } from "svelte";
 
-import Checkbox from '../checkbox.svelte';
-import Actions from './actions.svelte';
-import SortButton from './sortButton.svelte';
+import Checkbox from "../checkbox.svelte";
+import Actions from "./actions.svelte";
+import SortButton from "./sortButton.svelte";
 
 export const columns = (i18n: TranslationsStoreType) => {
 	return [
 		{
-			accessorKey: 'id',
+			accessorKey: "id",
 			cell: ({ row }) =>
 				renderComponent(Checkbox, {
-					'aria-label': 'Select row',
+					"aria-label": "Select row",
 					checked: row.getIsSelected(),
 					onCheckedChange: (value) => row.toggleSelected(!!value)
 				}),
@@ -23,15 +23,15 @@ export const columns = (i18n: TranslationsStoreType) => {
 			enableSorting: false,
 			header: ({ table }) =>
 				renderComponent(Checkbox, {
-					'aria-label': 'Select all',
+					"aria-label": "Select all",
 					checked: table.getIsAllPageRowsSelected(),
 					indeterminate: table.getIsSomePageRowsSelected() && !table.getIsAllPageRowsSelected(),
 					onCheckedChange: (value) => table.toggleAllPageRowsSelected(!!value)
 				}),
-			id: 'id'
+			id: "id"
 		},
 		{
-			accessorKey: 'name',
+			accessorKey: "name",
 			cell: ({ row }) => {
 				const getContent = createRawSnippet<[{ id: string; name: string | undefined }]>(
 					(getProps) => {
@@ -43,8 +43,8 @@ export const columns = (i18n: TranslationsStoreType) => {
 					}
 				);
 				return renderSnippet(getContent, {
-					id: row.getValue<string>('id'),
-					name: row.getValue<string>('name')
+					id: row.getValue<string>("id"),
+					name: row.getValue<string>("name")
 				});
 			},
 			enableHiding: true,
@@ -53,15 +53,15 @@ export const columns = (i18n: TranslationsStoreType) => {
 				return renderComponent(SortButton, {
 					data: {
 						id: column.id,
-						label: i18n.t('tags.labels.name')
+						label: i18n.t("tags.labels.name")
 					},
-					onclick: () => column.toggleSorting(column.getIsSorted() === 'asc')
+					onclick: () => column.toggleSorting(column.getIsSorted() === "asc")
 				});
 			},
-			id: 'name'
+			id: "name"
 		},
 		{
-			accessorKey: 'slug',
+			accessorKey: "slug",
 			cell: ({ row }) => {
 				const getContent = createRawSnippet<[{ slug: string | undefined }]>((getProps) => {
 					const { slug } = getProps();
@@ -71,7 +71,7 @@ export const columns = (i18n: TranslationsStoreType) => {
 					};
 				});
 				return renderSnippet(getContent, {
-					slug: row.getValue<string>('slug')
+					slug: row.getValue<string>("slug")
 				});
 			},
 			enableHiding: true,
@@ -80,15 +80,15 @@ export const columns = (i18n: TranslationsStoreType) => {
 				return renderComponent(SortButton, {
 					data: {
 						id: column.id,
-						label: i18n.t('tags.labels.slug')
+						label: i18n.t("tags.labels.slug")
 					},
-					onclick: () => column.toggleSorting(column.getIsSorted() === 'asc')
+					onclick: () => column.toggleSorting(column.getIsSorted() === "asc")
 				});
 			},
-			id: 'slug'
+			id: "slug"
 		},
 		{
-			accessorKey: '_count',
+			accessorKey: "_count",
 			cell: ({ row }) => {
 				const getContent = createRawSnippet<[{ count: number | undefined }]>((getProps) => {
 					const { count } = getProps();
@@ -104,20 +104,20 @@ export const columns = (i18n: TranslationsStoreType) => {
 				return renderComponent(SortButton, {
 					data: {
 						id: column.id,
-						label: i18n.t('globals.count')
+						label: i18n.t("globals.count")
 					},
-					onclick: () => column.toggleSorting(column.getIsSorted() === 'asc')
+					onclick: () => column.toggleSorting(column.getIsSorted() === "asc")
 				});
 			},
-			id: '_count'
+			id: "_count"
 		},
 		{
-			accessorKey: 'actions',
+			accessorKey: "actions",
 			cell: ({ row }) => renderComponent(Actions, { tag: row.original }),
 			enableHiding: false,
 			enableSorting: false,
-			header: '',
-			id: 'actions'
+			header: "",
+			id: "actions"
 		}
 	] satisfies ColumnDef<{ _count: { snapps: number } } & Tag>[];
 };

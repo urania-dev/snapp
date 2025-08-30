@@ -292,5 +292,10 @@
   - [#129 Umami fixes](https://github.com/urania-dev/snapp/issues/129) fixed some umami callback not fetching location of client
 - 0.9-rc-028 - broken
   - [#130 Admin unable to edit other user's link](https://github.com/urania-dev/snapp/issues/130) fixed typo in editing other snapp permission and roles
-- 0.9-rc-029 
+- 0.9-rc-029
   - [#132 Crash on container startup](https://github.com/urania-dev/snapp/issues/132) Fixed broken build, also updated prisma and zenstack since we were there
+- 0.9-rc-030
+  - Updated broken linting dependencies
+  - [#134 SMTP Issue](https://github.com/urania-dev/snapp/issues/134) fix: password recovery link redirects to dashboard - now removes all sessions
+  - [#135 group members being able to edit any links in the group](https://github.com/urania-dev/snapp/issues/135) fix: groups editable permission via ENV not working
+  - [#136](https://github.com/urania-dev/snapp/issues/136) small smtp fix and checks

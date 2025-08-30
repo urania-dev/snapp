@@ -1,19 +1,19 @@
-import { type Handle, redirect } from '@sveltejs/kit';
-import { enhance } from '@zenstackhq/runtime';
-import { prisma } from '$lib/db/prisma';
+import { type Handle, redirect } from "@sveltejs/kit";
+import { enhance } from "@zenstackhq/runtime";
+import { prisma } from "$lib/db/prisma";
 
-import { validateSessionToken } from '.';
-import { getSettings } from '../config';
+import { validateSessionToken } from ".";
+import { getSettings } from "../config";
 
 export const authHandle: Handle = async ({ event, resolve }) => {
 	const settings = await getSettings();
-	const sessionId = event.cookies.get('auth');
+	const sessionId = event.cookies.get("auth");
 
-	const DATABASE_OFFLINE = settings.get<boolean>('DB_OFFLINE');
+	const DATABASE_OFFLINE = settings.get<boolean>("DB_OFFLINE");
 	switch (true) {
-		case DATABASE_OFFLINE && event.url.pathname !== '/db-error':
-			return redirect(302, '/db-error');
-		case !DATABASE_OFFLINE && event.url.pathname === '/db-error':
+		case DATABASE_OFFLINE && event.url.pathname !== "/db-error":
+			return redirect(302, "/db-error");
+		case !DATABASE_OFFLINE && event.url.pathname === "/db-error":
 			return resolve(event);
 		default:
 			break;
@@ -21,9 +21,9 @@ export const authHandle: Handle = async ({ event, resolve }) => {
 
 	if (
 		(DATABASE_OFFLINE === null || DATABASE_OFFLINE === false) &&
-		event.url.pathname === '/db-error'
+		event.url.pathname === "/db-error"
 	)
-		redirect(302, '/');
+		redirect(302, "/");
 
 	if (!sessionId) {
 		event.locals.user = null;
@@ -40,33 +40,33 @@ export const authHandle: Handle = async ({ event, resolve }) => {
 
 		return resolve(event);
 	}
-	if (user && user.verified === false && !['/auth/verify-email'].includes(event.url.pathname)) {
-		redirect(302, '/auth/verify-email');
+	if (user && user.verified === false && !["/auth/verify-email"].includes(event.url.pathname)) {
+		redirect(302, "/auth/verify-email");
 	}
 
 	const isMFAUserEnabled = await prisma.setting.findFirst({
-		where: { id: 'ENABLED_MFA_' + user.id }
+		where: { id: "ENABLED_MFA_" + user.id }
 	});
 
 	const isMFAEnabled =
-		settings.get<boolean>('ENABLED_MFA') === true ||
-		isMFAUserEnabled?.value?.toLowerCase() === 'true';
-	const isUserConfigured = user && typeof user.tfs === 'string';
+		settings.get<boolean>("ENABLED_MFA") === true ||
+		isMFAUserEnabled?.value?.toLowerCase() === "true";
+	const isUserConfigured = user && typeof user.tfs === "string";
 	if (
 		isMFAEnabled === true &&
 		!isUserConfigured &&
-		!['/', '/auth/mfa/setup', '/auth/verify-email'].includes(event.url.pathname)
+		!["/", "/auth/mfa/setup", "/auth/verify-email"].includes(event.url.pathname)
 	) {
-		redirect(302, '/auth/mfa/setup');
+		redirect(302, "/auth/mfa/setup");
 	}
 
 	if (
 		isMFAEnabled === true &&
 		isUserConfigured &&
 		!session.tfs &&
-		!['/', '/auth/mfa', '/auth/verify-email'].includes(event.url.pathname)
+		!["/", "/auth/mfa", "/auth/verify-email"].includes(event.url.pathname)
 	) {
-		redirect(302, '/auth/mfa');
+		redirect(302, "/auth/mfa");
 	}
 
 	event.locals.session = session;

@@ -1,17 +1,17 @@
 <script lang="ts">
-	import type { Tag } from '@prisma/client';
+	import type { Tag } from "@prisma/client";
 
-	import { Button } from '$lib/components/ui/button/index.js';
-	import * as Command from '$lib/components/ui/command/index.js';
-	import * as Popover from '$lib/components/ui/popover/index.js';
-	import { getTranslations } from '$lib/i18n/index.svelte';
-	import { Debouncer } from '$lib/stores/debounce.svelte';
-	import { slugify } from '$lib/utils.js';
-	import { tick, untrack } from 'svelte';
-	import { prefersReducedMotion } from 'svelte/motion';
-	import { fly } from 'svelte/transition';
+	import { Button } from "$lib/components/ui/button/index.js";
+	import * as Command from "$lib/components/ui/command/index.js";
+	import * as Popover from "$lib/components/ui/popover/index.js";
+	import { getTranslations } from "$lib/i18n/index.svelte";
+	import { Debouncer } from "$lib/stores/debounce.svelte";
+	import { slugify } from "$lib/utils.js";
+	import { tick, untrack } from "svelte";
+	import { prefersReducedMotion } from "svelte/motion";
+	import { fly } from "svelte/transition";
 
-	import { Badge } from '../ui/badge';
+	import { Badge } from "../ui/badge";
 
 	let {
 		f = fetch,
@@ -20,9 +20,9 @@
 	}: { f?: typeof fetch; showTrigger?: boolean; tags: string[] } = $props();
 
 	let open = $state(false);
-	let value = $state('');
+	let value = $state("");
 	let triggerRef = $state<HTMLButtonElement>(null!);
-	let searchTag = $state<string>('');
+	let searchTag = $state<string>("");
 
 	const selectedValue = $derived(tags.find((f) => f === value));
 
@@ -71,7 +71,7 @@
 					role="combobox"
 					aria-expanded={open}
 				>
-					{selectedValue || i18n.t('tags.placeholders.search')}
+					{selectedValue || i18n.t("tags.placeholders.search")}
 					<i class="ph-duotone ph-caret-up-down ml-2 shrink-0 opacity-50"></i>
 				</Button>
 			{/snippet}
@@ -81,10 +81,10 @@
 		<Command.Root shouldFilter={false}>
 			<Command.Input
 				class="h-10 py-1"
-				placeholder={i18n.t('tags.placeholders.search')}
+				placeholder={i18n.t("tags.placeholders.search")}
 				onkeydown={debouncer.debounce(async () => {
 					loading = true;
-					if (searchTag.trim() === '' || !searchTag) {
+					if (searchTag.trim() === "" || !searchTag) {
 						await fetchTags();
 						return;
 					}
@@ -125,7 +125,7 @@
 									onclick={async () => {
 										try {
 											const res = await (
-												await f('/api/tag/upsert', {
+												await f("/api/tag/upsert", {
 													body: JSON.stringify({
 														create: {
 															name: searchTag,
@@ -136,8 +136,8 @@
 															slug: slugify(searchTag)
 														}
 													}),
-													credentials: 'include',
-													method: 'post'
+													credentials: "include",
+													method: "post"
 												})
 											).json();
 											if (res?.data) {
@@ -158,7 +158,7 @@
 					{/if}
 				</Command.Empty>
 				<Command.Group>
-					{#each foundTags as tag}
+					{#each foundTags as tag (tag.slug)}
 						<Command.Item
 							onclick={() => {
 								const idx = tags.findIndex((t) => t === tag.slug);
@@ -175,7 +175,7 @@
 		</Command.Root>
 	</Popover.Content>
 	<div class="flex min-h-20 w-full flex-wrap content-start gap-1 p-2 empty:hidden">
-		{#each tags as tag}
+		{#each tags as tag (tag)}
 			<div
 				class="grid"
 				in:fly={{

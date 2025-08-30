@@ -1,9 +1,9 @@
 <script>
-	import { SingleForm } from '$lib/components/snapps';
-	import H4 from '$lib/components/typography/heading/h4.svelte';
-	import P from '$lib/components/typography/text/p.svelte';
-	import * as Card from '$lib/components/ui/card';
-	import { getTranslations } from '$lib/i18n/index.svelte';
+	import { SingleForm } from "$lib/components/snapps";
+	import H4 from "$lib/components/typography/heading/h4.svelte";
+	import P from "$lib/components/typography/text/p.svelte";
+	import * as Card from "$lib/components/ui/card";
+	import { getTranslations } from "$lib/i18n/index.svelte";
 
 	let { data } = $props();
 
@@ -21,11 +21,11 @@
 				></i>
 				{#if data.isDisabled === true}
 					<H4 class="w-full text-balance leading-[1.15]">
-						{i18n.t('snapps.helpers.not-found')}
+						{i18n.t("snapps.helpers.not-found")}
 					</H4>
 				{:else if data.isDisabled === false && data.hasPassword}
 					<H4 class="w-full text-balance leading-[1.15]">
-						{i18n.t('snapps.helpers.secret')}
+						{i18n.t("snapps.helpers.secret")}
 					</H4>
 				{/if}
 			</Card.Header>
@@ -37,7 +37,7 @@
 					<P
 						class="text-semibold m-0 text-balance px-4 text-start text-sm leading-[1.4] text-muted-foreground *:p-0"
 					>
-						{i18n.t('errors.snapps.disabled')}
+						{i18n.t("errors.snapps.disabled")}
 					</P>
 				{/if}
 			</Card.Content>

@@ -1,15 +1,15 @@
 <script lang="ts">
-	import type { WithoutChild } from 'bits-ui';
+	import type { WithoutChild } from "bits-ui";
 
-	import { getTranslations } from '$lib/i18n/index.svelte';
-	import { cn } from '$lib/utils';
-	import * as FormPrimitive from 'formsnap';
+	import { getTranslations } from "$lib/i18n/index.svelte";
+	import { cn } from "$lib/utils";
+	import * as FormPrimitive from "formsnap";
 
 	let {
 		children: childrenProp,
 		class: className,
 		errorClasses,
-		ref = $bindable(null), // eslint-disable-next-line svelte/valid-compile
+		ref = $bindable(null),
 		...restProps
 	}: {
 		errorClasses?: null | string | undefined;
@@ -20,7 +20,7 @@
 
 <FormPrimitive.FieldErrors
 	bind:ref
-	class={cn('px-2 text-xs font-medium text-destructive', className)}
+	class={cn("px-2 text-xs font-medium text-destructive", className)}
 	{...restProps}
 >
 	{#snippet children({ errorProps, errors })}

@@ -1,16 +1,16 @@
 <script lang="ts">
-	import type { Infer, SuperForm } from 'sveltekit-superforms/client';
+	import type { Infer, SuperForm } from "sveltekit-superforms/client";
 
-	import * as Form from '$lib/components/ui/form';
-	import { getTranslations } from '$lib/i18n/index.svelte';
-	import { decode } from 'html-entities';
-	import { fly } from 'svelte/transition';
+	import * as Form from "$lib/components/ui/form";
+	import { getTranslations } from "$lib/i18n/index.svelte";
+	import { decode } from "html-entities";
+	import { fly } from "svelte/transition";
 
-	import type { SnappSchema } from './schema';
+	import type { SnappSchema } from "./schema";
 
-	import { Input } from '../ui/input';
-	import { Label } from '../ui/label';
-	import { Switch } from '../ui/switch';
+	import { Input } from "../ui/input";
+	import { Label } from "../ui/label";
+	import { Switch } from "../ui/switch";
 
 	let {
 		form,
@@ -27,10 +27,10 @@
 <div class="grid gap-2">
 	<div class="mt-2 flex items-start justify-between">
 		<div class="flex flex-col gap-2 px-2">
-			<Label for="maxusages">{decode(i18n.t('snapps.fields.max-usages'))}</Label>
+			<Label for="maxusages">{decode(i18n.t("snapps.fields.max-usages"))}</Label>
 			<Label for="maxusages">
 				<p class="max-w-[90%] text-balance text-sm leading-relaxed text-muted-foreground">
-					{decode(i18n.t('snapps.helpers.max-usages'))}
+					{decode(i18n.t("snapps.helpers.max-usages"))}
 				</p>
 			</Label>
 		</div>
@@ -43,7 +43,7 @@
 			<Form.Field {form} name="maxUsages" class="mb-2">
 				<Form.Control>
 					{#snippet children({ props })}
-						<Form.Label class="px-2">{i18n.t('snapps.fields.max-usages')}</Form.Label>
+						<Form.Label class="px-2">{i18n.t("snapps.fields.max-usages")}</Form.Label>
 						<Input
 							type="number"
 							icon="cursor-click"

@@ -1,10 +1,10 @@
-import { prisma } from '../../db/prisma';
-import { log } from '../log';
-import 'dotenv/config';
+import { prisma } from "../../db/prisma";
+import { log } from "../log";
+import "dotenv/config";
 const parseEnv = <T extends boolean | null | number | string | undefined>(
 	value?: boolean | null | number | string | undefined
 ): T => {
-	if (value == null || value === 'null') return null as T;
+	if (value == null || value === "null") return null as T;
 
 	const strValue = `${value}`.toLowerCase();
 
@@ -12,10 +12,10 @@ const parseEnv = <T extends boolean | null | number | string | undefined>(
 		case /^\d+$/.test(strValue):
 			return parseInt(strValue, 10) as T;
 
-		case strValue === 'true':
+		case /^(1|true|yes)$/i.test(strValue):
 			return true as T;
 
-		case strValue === 'false':
+		case /^(0|false|no|\s)$/i.test(strValue):
 			return false as T;
 
 		default:
@@ -41,14 +41,14 @@ const checkEnvVars = (...requiredVars: string[]): Record<string, boolean | numbe
 
 export const getConfig = () => {
 	const requiredVars = [
-		'ORIGIN',
-		'DATABASE_PROVIDER',
-		'TOKEN_SECRET',
-		'ADMIN_USERNAME',
-		'ADMIN_EMAIL',
-		'ADMIN_PASSWORD',
-		'ENABLE_SIGNUP',
-		'ENABLED_MFA'
+		"ORIGIN",
+		"DATABASE_PROVIDER",
+		"TOKEN_SECRET",
+		"ADMIN_USERNAME",
+		"ADMIN_EMAIL",
+		"ADMIN_PASSWORD",
+		"ENABLE_SIGNUP",
+		"ENABLED_MFA"
 	];
 	return checkEnvVars(...requiredVars);
 };
@@ -76,13 +76,13 @@ export class ServerWideSettings {
 
 	async syncSettingsIfNeeded() {
 		try {
-			const lastSyncInMemory = this.get<string>('LAST_SYNC');
+			const lastSyncInMemory = this.get<string>("LAST_SYNC");
 			const lastSyncInDB = await prisma.setting.findFirst({
-				where: { field: 'LAST_SYNC' }
+				where: { field: "LAST_SYNC" }
 			});
 			if (!lastSyncInDB || !lastSyncInMemory || lastSyncInDB.value > lastSyncInMemory) {
-				if (process.env.LOG_LEVEL === 'debug') {
-					log.info('Syncing settings from the database...');
+				if (DEBUG) {
+					log.info("Syncing settings from the database...");
 				}
 
 				const storedSettings = await prisma.setting.findMany({
@@ -90,43 +90,43 @@ export class ServerWideSettings {
 				});
 
 				storedSettings.forEach(({ field, value }) => this.set(field, value));
-				this.set('LAST_SYNC', new Date().toISOString());
-				if (process.env.LOG_LEVEL === 'debug') log.info('Syncing done.');
+				this.set("LAST_SYNC", new Date().toISOString());
+				if (DEBUG) log.info("Syncing done.");
 			}
 		} catch (error) {
-			if (process.env.LOG_LEVEL === 'debug') {
-				log.error('Failed to sync with the database:', error);
+			if (DEBUG) {
+				log.error(error, "Failed to sync with the database:");
 			}
-			this.set('DB_OFFLINE', true);
+			this.set("DB_OFFLINE", true);
 		}
 	}
 
 	async updateDB() {
 		try {
-			if (process.env.LOG_LEVEL === 'debug') {
-				log.info('Updating LAST_SYNC in the database...');
+			if (DEBUG) {
+				log.info("Updating LAST_SYNC in the database...");
 			}
 			await prisma.setting.upsert({
 				create: {
-					field: 'LAST_SYNC',
-					id: 'LAST_SYNC',
+					field: "LAST_SYNC",
+					id: "LAST_SYNC",
 					userId: null,
 					value: new Date().toISOString()
 				},
 				update: { value: new Date().toISOString() },
-				where: { id: 'LAST_SYNC' }
+				where: { id: "LAST_SYNC" }
 			});
 			await this.syncSettingsIfNeeded();
 		} catch (error) {
-			log.error('Error updating the database:', error);
+			log.error(error, "Error updating the database");
 		}
 	}
 
 	private initializeSettings(config: Record<string, boolean | number | string>) {
 		const envVars = {
 			ALLOW_UNSECURE_HTTP: process.env.ALLOW_UNSECURE_HTTP || null,
-			APPNAME: process.env.APPNAME || 'Snapp',
-			CUSTOM_REDIRECT: '/dashboard',
+			APPNAME: process.env.APPNAME || "Snapp",
+			CUSTOM_REDIRECT: "/dashboard",
 			DISABLE_HOME: process.env.DISABLE_HOME || null,
 			ENABLE_LIMITS: process.env.ENABLE_LIMITS || null,
 			MAX_SNAPPS_PER_USER: process.env.MAX_SNAPPS_PER_USER || 10,
@@ -144,13 +144,13 @@ export class ServerWideSettings {
 
 		Object.entries(envVars).forEach(([key, value]) => this.set(key, value));
 
-		this.set('ENABLE_SIGNUP', `${config['ENABLE_SIGNUP'] || false}`);
-		this.set('ENABLED_MFA', config['ENABLED_MFA'] || false);
-		this.set('LAST_SYNC', null);
+		this.set("ENABLE_SIGNUP", `${config["ENABLE_SIGNUP"] || false}`);
+		this.set("ENABLED_MFA", config["ENABLED_MFA"] || false);
+		this.set("LAST_SYNC", null);
 
 		this.syncSettingsIfNeeded().catch((error) => {
-			if (process.env.LOG_LEVEL === 'debug') {
-				log.error('Error syncing with DB:', error);
+			if (DEBUG) {
+				log.error(error, "Error syncing with DB:");
 			}
 		});
 	}
@@ -159,7 +159,9 @@ export class ServerWideSettings {
 const serverWideSettings = new ServerWideSettings(getConfig());
 
 export const getSettings = async () => {
-	if (serverWideSettings.get<boolean>('DB_OFFLINE') === false)
+	if (serverWideSettings.get<boolean>("DB_OFFLINE") === false)
 		await serverWideSettings.syncSettingsIfNeeded();
 	return serverWideSettings;
 };
+
+export const DEBUG = process.env.LOG_LEVEL?.toString()?.toLowerCase() === "debug" || false;

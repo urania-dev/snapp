@@ -1,13 +1,13 @@
-import type { SortingState } from '@tanstack/table-core';
+import type { SortingState } from "@tanstack/table-core";
 
-import { fail, redirect } from '@sveltejs/kit';
-import { tagSchema } from '$lib/components/tags/schema.js';
-import { ParamsHandler } from '$lib/server/params/index.js';
-import { superValidate } from 'sveltekit-superforms';
-import { zod } from 'sveltekit-superforms/adapters';
+import { fail, redirect } from "@sveltejs/kit";
+import { tagSchema } from "$lib/components/tags/schema.js";
+import { ParamsHandler } from "$lib/server/params/index.js";
+import { superValidate } from "sveltekit-superforms";
+import { zod } from "sveltekit-superforms/adapters";
 
 export const load = async ({ cookies, locals: { prisma, user }, url }) => {
-	if (!user) redirect(302, '/auth/sign-in');
+	if (!user) redirect(302, "/auth/sign-in");
 
 	const beParams = new ParamsHandler(url.toString(), cookies, 9, 1);
 
@@ -15,14 +15,14 @@ export const load = async ({ cookies, locals: { prisma, user }, url }) => {
 	beParams.saveLimit(limit);
 	const { page, query, sorting } = beParams.getParams();
 
-	const [sort] = JSON.parse(sorting || '[]') as SortingState;
+	const [sort] = JSON.parse(sorting || "[]") as SortingState;
 	const tags = await prisma.tag.findMany({
 		include: { _count: true },
 		orderBy:
-			sort && sort.id !== '_count'
-				? { [sort.id]: sort.desc ? 'desc' : 'asc' }
-				: sort && sort.id === '_count'
-					? { snapps: { _count: sort.desc ? 'desc' : 'asc' } }
+			sort && sort.id !== "_count"
+				? { [sort.id]: sort.desc ? "desc" : "asc" }
+				: sort && sort.id === "_count"
+					? { snapps: { _count: sort.desc ? "desc" : "asc" } }
 					: undefined,
 		skip: limit * parseInt(page),
 		take: limit,
@@ -52,7 +52,7 @@ export const load = async ({ cookies, locals: { prisma, user }, url }) => {
 		}
 	});
 	const count = await prisma.tag.count({
-		orderBy: sort && sort.id !== '_count' ? { [sort.id]: sort.desc ? 'desc' : 'asc' } : undefined,
+		orderBy: sort && sort.id !== "_count" ? { [sort.id]: sort.desc ? "desc" : "asc" } : undefined,
 		where: {
 			AND:
 				(query === undefined && [
@@ -75,7 +75,7 @@ export const load = async ({ cookies, locals: { prisma, user }, url }) => {
 							}
 						]
 					},
-					user.role !== 'user' ? {} : { snapps: { every: { userId: user.id } } }
+					user.role !== "user" ? {} : { snapps: { every: { userId: user.id } } }
 				]) ||
 				{}
 		}
@@ -97,7 +97,7 @@ export const actions = {
 		const {
 			locals: { prisma, user }
 		} = event;
-		if (!user) redirect(302, '/auth/sign-in');
+		if (!user) redirect(302, "/auth/sign-in");
 		const createForm = await superValidate(event, zod(tagSchema));
 		if (!createForm.valid) {
 			return fail(400, {
@@ -118,11 +118,11 @@ export const actions = {
 			locals: { prisma, user },
 			request
 		} = event;
-		if (!user) redirect(302, '/auth/sign-in');
+		if (!user) redirect(302, "/auth/sign-in");
 
 		const form = await request.formData();
 
-		const ids = form.getAll('ids[]') as string[];
+		const ids = form.getAll("ids[]") as string[];
 		await prisma.tag.deleteMany({ where: { slug: { in: ids } } });
 	}
 };

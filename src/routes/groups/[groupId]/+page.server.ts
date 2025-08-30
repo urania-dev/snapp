@@ -1,15 +1,15 @@
-import type { SortingState } from '@tanstack/table-core';
+import type { SortingState } from "@tanstack/table-core";
 
-import { redirect } from '@sveltejs/kit';
-import { ParamsHandler } from '$lib/server/params/index.js';
+import { redirect } from "@sveltejs/kit";
+import { ParamsHandler } from "$lib/server/params/index.js";
 
 export const load = async ({ cookies, locals: { prisma, user }, params: { groupId }, url }) => {
-	if (!user) redirect(302, '/auth/sign-in');
+	if (!user) redirect(302, "/auth/sign-in");
 	const group = await prisma.group.findFirst({
 		include: {
 			_count: true,
 			users:
-				user.role !== 'user'
+				user.role !== "user"
 					? {
 							select: {
 								createdAt: true,
@@ -27,16 +27,16 @@ export const load = async ({ cookies, locals: { prisma, user }, params: { groupI
 		},
 		where: { slug: groupId }
 	});
-	if (!group) redirect(302, '/groups');
+	if (!group) redirect(302, "/groups");
 	const beParams = new ParamsHandler(url.toString(), cookies, 9, 1);
 
 	const limit = beParams.getLimit();
 	beParams.saveLimit(limit);
 	const { page, query, sorting, tag } = beParams.getParams();
-	const [sort] = JSON.parse(sorting || '[]') as SortingState;
+	const [sort] = JSON.parse(sorting || "[]") as SortingState;
 	const snapps = await prisma.snapp.findMany({
 		include: { tag: true },
-		orderBy: sort ? { [sort.id]: sort.desc ? 'desc' : 'asc' } : undefined,
+		orderBy: sort ? { [sort.id]: sort.desc ? "desc" : "asc" } : undefined,
 		skip: limit * parseInt(page),
 		take: limit,
 		where: {
@@ -70,7 +70,7 @@ export const load = async ({ cookies, locals: { prisma, user }, params: { groupI
 		}
 	});
 	const count = await prisma.snapp.count({
-		orderBy: sort ? { [sort.id]: sort.desc ? 'desc' : 'asc' } : undefined,
+		orderBy: sort ? { [sort.id]: sort.desc ? "desc" : "asc" } : undefined,
 		where: {
 			AND:
 				query === undefined

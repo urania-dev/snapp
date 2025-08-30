@@ -1,20 +1,21 @@
-import type { Snapp, Tag } from '@prisma/client';
-import type { ColumnDef } from '@tanstack/table-core';
+import type { Snapp, Tag } from "@prisma/client";
+import type { ColumnDef } from "@tanstack/table-core";
 
-import { renderComponent, renderSnippet } from '$lib/components/ui/data-table';
-import { type TranslationsStoreType } from '$lib/i18n/index.svelte';
-import { formatTimeAgo } from '$lib/utils';
-import { createRawSnippet } from 'svelte';
+import { renderComponent, renderSnippet } from "$lib/components/ui/data-table";
+import { type TranslationsStoreType } from "$lib/i18n/index.svelte";
+import { formatTimeAgo } from "$lib/utils";
+import { createRawSnippet } from "svelte";
+import { SvelteDate } from "svelte/reactivity";
 
-import Checkbox from '../checkbox.svelte';
-import Actions from './actions.svelte';
-import Expiration from './expiration.svelte';
-import Lock from './lock.svelte';
-import OriginalUrl from './originalUrl.svelte';
-import SortButton from './sortButton.svelte';
-import Status from './status.svelte';
-import Tags from './tags.svelte';
-import UTMColumn from './UTMColumn.svelte';
+import Checkbox from "../checkbox.svelte";
+import Actions from "./actions.svelte";
+import Expiration from "./expiration.svelte";
+import Lock from "./lock.svelte";
+import OriginalUrl from "./originalUrl.svelte";
+import SortButton from "./sortButton.svelte";
+import Status from "./status.svelte";
+import Tags from "./tags.svelte";
+import UTMColumn from "./UTMColumn.svelte";
 
 interface SnappWithTags extends Snapp {
 	tag: Tag[];
@@ -23,10 +24,10 @@ interface SnappWithTags extends Snapp {
 export const columns = (i18n: TranslationsStoreType, isPrivateView: boolean = true) => {
 	return [
 		{
-			accessorKey: 'id',
+			accessorKey: "id",
 			cell: ({ row }) =>
 				renderComponent(Checkbox, {
-					'aria-label': 'Select row',
+					"aria-label": "Select row",
 					checked: row.getIsSelected(),
 					onCheckedChange: (value) => row.toggleSelected(!!value)
 				}),
@@ -34,15 +35,15 @@ export const columns = (i18n: TranslationsStoreType, isPrivateView: boolean = tr
 			enableSorting: false,
 			header: ({ table }) =>
 				renderComponent(Checkbox, {
-					'aria-label': 'Select all',
+					"aria-label": "Select all",
 					checked: table.getIsAllPageRowsSelected(),
 					indeterminate: table.getIsSomePageRowsSelected() && !table.getIsAllPageRowsSelected(),
 					onCheckedChange: (value) => table.toggleAllPageRowsSelected(!!value)
 				}),
-			id: 'id'
+			id: "id"
 		},
 		{
-			accessorKey: 'createdAt',
+			accessorKey: "createdAt",
 			cell: ({ row }) => {
 				const timesAgo = createRawSnippet<[{ date: string | undefined }]>((getProps) => {
 					const { date } = getProps();
@@ -51,7 +52,7 @@ export const columns = (i18n: TranslationsStoreType, isPrivateView: boolean = tr
 						render: () =>
 							(date &&
 								`<div class="text-muted-foreground font-medium whitespace-nowrap w-full text-xs text-center">${formatTimeAgo(
-									new Date(date),
+									new SvelteDate(date),
 									i18n.locale
 								)}</span>`) ||
 							`<span></span>`
@@ -59,7 +60,7 @@ export const columns = (i18n: TranslationsStoreType, isPrivateView: boolean = tr
 				});
 
 				return renderSnippet(timesAgo, {
-					date: row.getValue<string>('createdAt')
+					date: row.getValue<string>("createdAt")
 				});
 			},
 			enableHiding: true,
@@ -68,15 +69,15 @@ export const columns = (i18n: TranslationsStoreType, isPrivateView: boolean = tr
 				return renderComponent(SortButton, {
 					data: {
 						id: column.id,
-						label: i18n.t('snapps.fields.created')
+						label: i18n.t("snapps.fields.created")
 					},
-					onclick: () => column.toggleSorting(column.getIsSorted() === 'asc')
+					onclick: () => column.toggleSorting(column.getIsSorted() === "asc")
 				});
 			},
-			id: 'createdAt'
+			id: "createdAt"
 		},
 		{
-			accessorKey: 'shortcode',
+			accessorKey: "shortcode",
 			cell: ({ row }) => {
 				const getContent = createRawSnippet<[{ id: string; shortcode: string | undefined }]>(
 					(getProps) => {
@@ -90,8 +91,8 @@ export const columns = (i18n: TranslationsStoreType, isPrivateView: boolean = tr
 					}
 				);
 				return renderSnippet(getContent, {
-					id: row.getValue<string>('id'),
-					shortcode: row.getValue<string>('shortcode')
+					id: row.getValue<string>("id"),
+					shortcode: row.getValue<string>("shortcode")
 				});
 			},
 			enableHiding: true,
@@ -100,16 +101,16 @@ export const columns = (i18n: TranslationsStoreType, isPrivateView: boolean = tr
 				return renderComponent(SortButton, {
 					data: {
 						id: column.id,
-						label: i18n.t('snapps.fields.shortcode')
+						label: i18n.t("snapps.fields.shortcode")
 					},
-					onclick: () => column.toggleSorting(column.getIsSorted() === 'asc')
+					onclick: () => column.toggleSorting(column.getIsSorted() === "asc")
 				});
 			},
-			id: 'shortcode'
+			id: "shortcode"
 		},
 
 		{
-			accessorKey: 'originalUrl',
+			accessorKey: "originalUrl",
 			cell: ({ row }) =>
 				renderComponent(OriginalUrl, {
 					url: row.original.originalUrl
@@ -120,15 +121,15 @@ export const columns = (i18n: TranslationsStoreType, isPrivateView: boolean = tr
 				return renderComponent(SortButton, {
 					data: {
 						id: column.id,
-						label: 'snapps.fields.original-url'
+						label: "snapps.fields.original-url"
 					},
-					onclick: () => column.toggleSorting(column.getIsSorted() === 'asc')
+					onclick: () => column.toggleSorting(column.getIsSorted() === "asc")
 				});
 			},
-			id: 'originalUrl'
+			id: "originalUrl"
 		},
 		{
-			accessorKey: 'hit',
+			accessorKey: "hit",
 			cell: ({ row }) => {
 				const getContent = createRawSnippet<[{ hit: string | undefined }]>((getProps) => {
 					const { hit } = getProps();
@@ -136,7 +137,7 @@ export const columns = (i18n: TranslationsStoreType, isPrivateView: boolean = tr
 						render: () => `<span class="w-full text-center text-muted-foreground">${hit}</span>`
 					};
 				});
-				return renderSnippet(getContent, { hit: row.getValue<string>('hit') });
+				return renderSnippet(getContent, { hit: row.getValue<string>("hit") });
 			},
 			enableHiding: true,
 			enableSorting: true,
@@ -144,15 +145,15 @@ export const columns = (i18n: TranslationsStoreType, isPrivateView: boolean = tr
 				return renderComponent(SortButton, {
 					data: {
 						id: column.id,
-						label: i18n.t('snapps.fields.hit')
+						label: i18n.t("snapps.fields.hit")
 					},
-					onclick: () => column.toggleSorting(column.getIsSorted() === 'asc')
+					onclick: () => column.toggleSorting(column.getIsSorted() === "asc")
 				});
 			},
-			id: 'hit'
+			id: "hit"
 		},
 		{
-			accessorKey: 'maxUsages',
+			accessorKey: "maxUsages",
 			cell: ({ row }) => {
 				const getContent = createRawSnippet<
 					[{ maxUsages: number | undefined; used: number | undefined }]
@@ -173,19 +174,19 @@ export const columns = (i18n: TranslationsStoreType, isPrivateView: boolean = tr
 			enableHiding: true,
 			enableSorting: true,
 			header: ({ column }) => {
-				const label = i18n.t('snapps.fields.max-usages');
+				const label = i18n.t("snapps.fields.max-usages");
 				return renderComponent(SortButton, {
 					data: {
 						id: column.id,
 						label
 					},
-					onclick: () => column.toggleSorting(column.getIsSorted() === 'asc')
+					onclick: () => column.toggleSorting(column.getIsSorted() === "asc")
 				});
 			},
-			id: 'maxUsages'
+			id: "maxUsages"
 		},
 		{
-			accessorKey: 'disabled',
+			accessorKey: "disabled",
 			cell: ({ row }) =>
 				renderComponent(Status, {
 					disabled: row.original.disabled
@@ -201,10 +202,10 @@ export const columns = (i18n: TranslationsStoreType, isPrivateView: boolean = tr
 				});
 				return renderSnippet(getHeader, {});
 			},
-			id: 'disabled'
+			id: "disabled"
 		},
 		{
-			accessorKey: 'secret',
+			accessorKey: "secret",
 			cell: ({ row }) =>
 				renderComponent(Lock, {
 					secret: row.original.secret
@@ -222,13 +223,13 @@ export const columns = (i18n: TranslationsStoreType, isPrivateView: boolean = tr
 				});
 				return renderSnippet(getHeader, {});
 			},
-			id: 'secret'
+			id: "secret"
 		},
 		{
-			accessorKey: 'utmParams',
+			accessorKey: "utmParams",
 			cell: ({ row }) =>
 				renderComponent(UTMColumn, {
-					utms: row.original.utmParams || '[]'
+					utms: row.original.utmParams || "[]"
 				}),
 			enableHiding: true,
 			enableSorting: true,
@@ -241,10 +242,10 @@ export const columns = (i18n: TranslationsStoreType, isPrivateView: boolean = tr
 				return renderSnippet(getHeader, {});
 			},
 
-			id: 'utmParams'
+			id: "utmParams"
 		},
 		{
-			accessorKey: 'expiration',
+			accessorKey: "expiration",
 			cell: ({ row }) =>
 				renderComponent(Expiration, {
 					expiresAt: row.original.expiresAt
@@ -263,10 +264,10 @@ export const columns = (i18n: TranslationsStoreType, isPrivateView: boolean = tr
 				return renderSnippet(getHeader, {});
 			},
 
-			id: 'expiration'
+			id: "expiration"
 		},
 		{
-			accessorKey: 'tag',
+			accessorKey: "tag",
 			cell: ({ row }) => renderComponent(Tags, { tags: row.original.tag }),
 			header: () => {
 				const getHeader = createRawSnippet<[]>(() => {
@@ -276,10 +277,10 @@ export const columns = (i18n: TranslationsStoreType, isPrivateView: boolean = tr
 				});
 				return renderSnippet(getHeader, {});
 			},
-			id: 'tag'
+			id: "tag"
 		},
 		{
-			accessorKey: 'actions',
+			accessorKey: "actions",
 
 			cell: ({ row }) =>
 				renderComponent(Actions, {
@@ -288,8 +289,8 @@ export const columns = (i18n: TranslationsStoreType, isPrivateView: boolean = tr
 				}),
 			enableHiding: false,
 			enableSorting: false,
-			header: '',
-			id: 'actions'
+			header: "",
+			id: "actions"
 		}
 	] satisfies ColumnDef<SnappWithTags>[];
 };

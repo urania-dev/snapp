@@ -1,19 +1,20 @@
 <script lang="ts">
-	import type { Usage } from '@prisma/client';
+	import type { Usage } from "@prisma/client";
 
-	import { getLocalTimeZone } from '@internationalized/date';
-	import { format, PeriodType } from '@layerstack/utils';
-	import { browser } from '$app/environment';
-	import { page } from '$app/state';
-	import { getTranslations } from '$lib/i18n/index.svelte';
-	import { getMetricsStore } from '$lib/stores/metrics.svelte';
-	import { scaleBand } from 'd3-scale';
-	import { Axis, Bars, Chart, LinearGradient, Svg, Tooltip } from 'layerchart';
-	import { prefersReducedMotion } from 'svelte/motion';
-	import { fly } from 'svelte/transition';
+	import { getLocalTimeZone } from "@internationalized/date";
+	import { format, PeriodType } from "@layerstack/utils";
+	import { browser } from "$app/environment";
+	import { page } from "$app/state";
+	import { getTranslations } from "$lib/i18n/index.svelte";
+	import { getMetricsStore } from "$lib/stores/metrics.svelte";
+	import { scaleBand } from "d3-scale";
+	import { Axis, Bars, Chart, LinearGradient, Svg, Tooltip } from "layerchart";
+	import { prefersReducedMotion } from "svelte/motion";
+	import { SvelteDate, SvelteMap } from "svelte/reactivity";
+	import { fly } from "svelte/transition";
 
-	import { DateSelector } from '../metrics';
-	import { Separator } from '../ui/separator';
+	import { DateSelector } from "../metrics";
+	import { Separator } from "../ui/separator";
 	type CharData = { date: string; value: number };
 
 	let { snappId }: { snappId: string } = $props();
@@ -39,12 +40,12 @@
 			})}`;
 
 			const res = (await (await f(url)).json()) as { data: Usage[] };
-			const usageMap = new Map<string, number>();
+			const usageMap = new SvelteMap<string, number>();
 
 			res.data?.forEach((u) => {
 				const date = new Date(u.timestamp).toLocaleDateString(page.data.locale, {
-					day: 'numeric',
-					month: 'numeric',
+					day: "numeric",
+					month: "numeric",
 					timeZone: getLocalTimeZone()
 				});
 
@@ -52,13 +53,13 @@
 			});
 
 			for (
-				let d = new Date(mstore.start.toDate(getLocalTimeZone()));
+				let d = new SvelteDate(mstore.start.toDate(getLocalTimeZone()));
 				d <= new Date(mstore.end.toDate(getLocalTimeZone()));
 				d.setDate(d.getDate() + 1)
 			) {
 				const dateStr = d.toLocaleDateString(page.data.locale, {
-					day: 'numeric',
-					month: 'numeric',
+					day: "numeric",
+					month: "numeric",
 					timeZone: getLocalTimeZone()
 				});
 				data.push({ date: dateStr, value: usageMap.get(dateStr) || 0 });
@@ -110,7 +111,7 @@
 							yDomain={[0, null]}
 							yNice={4}
 							padding={{ bottom: 24, left: 16 }}
-							tooltip={{ mode: 'band' }}
+							tooltip={{ mode: "band" }}
 						>
 							<Svg>
 								<Axis placement="left" grid rule class="fill-current" />
@@ -118,7 +119,7 @@
 								{#if days < 10}
 									<Axis
 										placement="bottom"
-										format={(d: string) => format(d, PeriodType.Day, { variant: 'short' })}
+										format={(d: string) => format(d, PeriodType.Day, { variant: "short" })}
 										rule
 										class="fill-current"
 									/>
@@ -141,7 +142,7 @@
 							<Tooltip.Root let:data>
 								<Tooltip.Header>{data.date}</Tooltip.Header>
 								<Tooltip.List>
-									<Tooltip.Item label={i18n.t('snapps.fields.hit')} value={data.value} />
+									<Tooltip.Item label={i18n.t("snapps.fields.hit")} value={data.value} />
 								</Tooltip.List>
 							</Tooltip.Root>
 						</Chart>

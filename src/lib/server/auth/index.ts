@@ -1,13 +1,13 @@
-import type { Session, User } from '@prisma/client';
-import type { RequestEvent } from '@sveltejs/kit';
+import type { Session, User } from "@prisma/client";
+import type { RequestEvent } from "@sveltejs/kit";
 
-import { sha256 } from '@oslojs/crypto/sha2';
-import { encodeBase32LowerCaseNoPadding, encodeHexLowerCase } from '@oslojs/encoding';
-import { enhance } from '@zenstackhq/runtime';
-import { dev } from '$app/environment';
-import { prisma } from '$lib/db/prisma';
+import { sha256 } from "@oslojs/crypto/sha2";
+import { encodeBase32LowerCaseNoPadding, encodeHexLowerCase } from "@oslojs/encoding";
+import { enhance } from "@zenstackhq/runtime";
+import { dev } from "$app/environment";
+import { prisma } from "$lib/db/prisma";
 
-import { getSettings } from '../config';
+import { getSettings } from "../config";
 
 export type SessionValidationResult =
 	| { session: null; user: null }
@@ -44,11 +44,11 @@ export async function createSession(token: string, userId: string, tfs = false):
 }
 
 export function deleteSessionTokenCookie(event: RequestEvent): void {
-	event.cookies.delete('auth', {
+	event.cookies.delete("auth", {
 		expires: new Date(),
 		httpOnly: true,
-		path: '/',
-		sameSite: 'lax',
+		path: "/",
+		sameSite: "lax",
 		secure: !dev
 	});
 }
@@ -69,18 +69,18 @@ export async function invalidateSessions(userId: string): Promise<void> {
 }
 
 export function setSessionTokenCookie(event: RequestEvent, token: string, expiresAt: Date): void {
-	event.cookies.set('auth', token, {
+	event.cookies.set("auth", token, {
 		expires: expiresAt,
 		httpOnly: true,
-		path: '/',
-		sameSite: 'lax',
-		secure: process.env.NODE_ENV !== 'development'
+		path: "/",
+		sameSite: "lax",
+		secure: process.env.NODE_ENV !== "development"
 	});
 }
 
 export async function validateSessionToken(token: string): Promise<SessionValidationResult> {
 	const settings = await getSettings();
-	const DATABASE_OFFLINE = settings.get<boolean>('DB_OFFLINE') === true;
+	const DATABASE_OFFLINE = settings.get<boolean>("DB_OFFLINE") === true;
 	if (DATABASE_OFFLINE) {
 		return {
 			session: null,

@@ -1,21 +1,21 @@
 <script lang="ts">
-	import type { Infer, SuperForm } from 'sveltekit-superforms/client';
+	import type { Infer, SuperForm } from "sveltekit-superforms/client";
 
-	import * as Form from '$lib/components/ui/form';
-	import { getTranslations } from '$lib/i18n/index.svelte';
-	import { formatTimeAgo } from '$lib/utils';
-	import { decode } from 'html-entities';
-	import { fly } from 'svelte/transition';
+	import * as Form from "$lib/components/ui/form";
+	import { getTranslations } from "$lib/i18n/index.svelte";
+	import { formatTimeAgo } from "$lib/utils";
+	import { decode } from "html-entities";
+	import { fly } from "svelte/transition";
 
-	import type { SnappSchema } from './schema';
+	import type { SnappSchema } from "./schema";
 
-	import { getExpiration, timeUnits } from '.';
-	import P from '../typography/text/p.svelte';
-	import Button from '../ui/button/button.svelte';
-	import { Input } from '../ui/input';
-	import { Label } from '../ui/label';
-	import * as Select from '../ui/select';
-	import { Switch } from '../ui/switch';
+	import { getExpiration, timeUnits } from ".";
+	import P from "../typography/text/p.svelte";
+	import Button from "../ui/button/button.svelte";
+	import { Input } from "../ui/input";
+	import { Label } from "../ui/label";
+	import * as Select from "../ui/select";
+	import { Switch } from "../ui/switch";
 
 	let {
 		form,
@@ -29,19 +29,19 @@
 	const i18n = getTranslations();
 
 	const units = timeUnits(i18n);
-	let value = $state('hours');
+	let value = $state("hours");
 	let timeSpan = $state(0);
 	let newValue = $state<string>();
-	const triggerContent = $derived(units.find((f) => f.id === value)?.value ?? '');
+	const triggerContent = $derived(units.find((f) => f.id === value)?.value ?? "");
 </script>
 
 <div class="grid gap-2">
 	<div class="mt-2 flex items-start justify-between">
 		<div class="flex flex-col gap-2 px-2">
-			<Label for="expiration">{decode(i18n.t('snapps.fields.has-expiration'))}</Label>
+			<Label for="expiration">{decode(i18n.t("snapps.fields.has-expiration"))}</Label>
 			<Label for="expiration">
 				<p class="max-w-[90%] text-balance text-sm leading-relaxed text-muted-foreground">
-					{decode(i18n.t('snapps.helpers.expiration'))}
+					{decode(i18n.t("snapps.helpers.expiration"))}
 				</p>
 			</Label>
 		</div>
@@ -54,7 +54,7 @@
 			<Form.Field {form} name="expiresAt" class="mb-2 w-full">
 				<Form.Control>
 					{#snippet children({ props })}
-						<Form.Label class="px-2">{i18n.t('snapps.fields.expiration')}</Form.Label>
+						<Form.Label class="px-2">{i18n.t("snapps.fields.expiration")}</Form.Label>
 						<div class="flex w-full gap-2">
 							<input type="text" name="expiresAt" hidden bind:value={newValue} />
 							<Input
@@ -86,7 +86,7 @@
 									{triggerContent}
 								</Select.Trigger>
 								<Select.Content>
-									{#each units as unit}
+									{#each units as unit (unit.value)}
 										<Select.Item value={unit.id}>{unit.value}</Select.Item>
 									{/each}
 								</Select.Content>
@@ -104,7 +104,7 @@
 			in:fly|global={{ duration: 400, y: 25 }}
 		>
 			<P class="text-sm text-muted-foreground">
-				{i18n.t('snapps.helpers.previous-expiration', {
+				{i18n.t("snapps.helpers.previous-expiration", {
 					relativeTime: formatTimeAgo(new Date(formData.expiresAt))!
 				})}
 			</P>

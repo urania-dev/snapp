@@ -1,14 +1,14 @@
 <script lang="ts">
-	import type { HTMLAttributes } from 'svelte/elements';
+	import type { HTMLAttributes } from "svelte/elements";
 
-	import { cn } from '$lib/utils';
-	import { type WithElementRef } from 'bits-ui';
+	import { cn } from "$lib/utils";
+	import { type WithElementRef } from "bits-ui";
 
 	let {
 		children,
 		class: className,
 		inset,
-		ref = $bindable(null), // eslint-disable-next-line svelte/valid-compile
+		ref = $bindable(null),
 		...restProps
 	}: {
 		inset?: boolean;
@@ -17,7 +17,7 @@
 
 <div
 	bind:this={ref}
-	class={cn('px-2 py-1.5 text-sm font-semibold', inset && 'pl-8', className)}
+	class={cn("px-2 py-1.5 text-sm font-semibold", inset && "pl-8", className)}
 	{...restProps}
 >
 	{@render children?.()}

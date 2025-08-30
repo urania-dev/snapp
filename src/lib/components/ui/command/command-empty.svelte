@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { cn } from '$lib/utils';
-	import { Command as CommandPrimitive } from 'bits-ui';
+	import { cn } from "$lib/utils";
+	import { Command as CommandPrimitive } from "bits-ui";
 
 	let {
 		class: className,
-		ref = $bindable(null), // eslint-disable-next-line svelte/valid-compile
+		ref = $bindable(null),
 		...restProps
 	}: CommandPrimitive.EmptyProps = $props();
 </script>
 
-<CommandPrimitive.Empty class={cn('py-6 text-center text-sm', className)} {...restProps} />
+<CommandPrimitive.Empty class={cn("py-6 text-center text-sm", className)} {...restProps} />

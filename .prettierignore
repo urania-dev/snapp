@@ -2,3 +2,10 @@
 package-lock.json
 pnpm-lock.yaml
 yarn.lock
+static/openapi.yaml
+bun.lock
+bun.lockb
+
+# Miscellaneous
+/static/
+/dbschema/

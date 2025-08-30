@@ -1,27 +1,27 @@
-import type { SortingState } from '@tanstack/table-core';
+import type { SortingState } from "@tanstack/table-core";
 
-import { fail, redirect } from '@sveltejs/kit';
-import { createUserSchema } from '$lib/components/auth/schema.js';
-import { createPasswordResetToken } from '$lib/server/auth';
-import { getSettings } from '$lib/server/config';
-import InvitationEmail from '$lib/server/emails/invitationEmail.svelte';
-import { ParamsHandler } from '$lib/server/params/index.js';
-import { sendEmail } from '$lib/server/smtp';
-import { superValidate } from 'sveltekit-superforms';
-import { zod } from 'sveltekit-superforms/adapters';
+import { fail, redirect } from "@sveltejs/kit";
+import { createUserSchema } from "$lib/components/auth/schema.js";
+import { createPasswordResetToken } from "$lib/server/auth";
+import { getSettings } from "$lib/server/config";
+import InvitationEmail from "$lib/server/emails/invitationEmail.svelte";
+import { ParamsHandler } from "$lib/server/params/index.js";
+import { sendEmail } from "$lib/server/smtp";
+import { superValidate } from "sveltekit-superforms";
+import { zod } from "sveltekit-superforms/adapters";
 
 export const load = async ({ cookies, locals: { prisma, user }, url }) => {
-	if (!user) redirect(302, '/auth/sign-in');
+	if (!user) redirect(302, "/auth/sign-in");
 
 	const beParams = new ParamsHandler(url.toString(), cookies, 9, 1);
 
 	const limit = beParams.getLimit();
 	beParams.saveLimit(limit);
 	const { group, page, query, sorting } = beParams.getParams();
-	const [sort] = JSON.parse(sorting || '[]') as SortingState;
+	const [sort] = JSON.parse(sorting || "[]") as SortingState;
 	const users = await prisma.user.findMany({
 		include: { groups: true },
-		orderBy: sort ? { [sort.id]: sort.desc ? 'desc' : 'asc' } : undefined,
+		orderBy: sort ? { [sort.id]: sort.desc ? "desc" : "asc" } : undefined,
 		skip: limit * parseInt(page),
 		take: limit,
 		where: {
@@ -54,7 +54,7 @@ export const load = async ({ cookies, locals: { prisma, user }, url }) => {
 		}
 	});
 	const count = await prisma.user.count({
-		orderBy: sort ? { [sort.id]: sort.desc ? 'desc' : 'asc' } : undefined,
+		orderBy: sort ? { [sort.id]: sort.desc ? "desc" : "asc" } : undefined,
 		skip: limit * parseInt(page),
 		take: limit,
 		where: {
@@ -99,7 +99,7 @@ export const actions = {
 		const {
 			locals: { prisma, user }
 		} = event;
-		if (!user) redirect(302, '/auth/sign-in');
+		if (!user) redirect(302, "/auth/sign-in");
 		const form = await superValidate(event, zod(createUserSchema));
 		if (!form.valid) {
 			return fail(400, {
@@ -114,13 +114,13 @@ export const actions = {
 
 		const { tokenHash } = await createPasswordResetToken(guest.id);
 		const recoveryURL = `${event.url.origin}/auth/recover-password?token=${tokenHash}`;
-		const appname = settings.get<string>('appname') || 'Snapp';
+		const appname = settings.get<string>("appname") || "Snapp";
 
-		sendEmail(
+		await sendEmail(
 			InvitationEmail,
 			{ appname, recoveryURL },
 			guest.email,
-			appname + ' | You have been invited'
+			appname + " | You have been invited"
 		);
 		return { form };
 	},
@@ -129,13 +129,13 @@ export const actions = {
 			locals: { prisma, user },
 			request
 		} = event;
-		if (!user) redirect(302, '/auth/sign-in');
-		if (user.role === 'user') {
-			return fail(401, { message: 'errors.unauthorized' });
+		if (!user) redirect(302, "/auth/sign-in");
+		if (user.role === "user") {
+			return fail(401, { message: "errors.unauthorized" });
 		}
 
 		const form = await request.formData();
-		const ids = form.getAll('ids[]') as string[];
+		const ids = form.getAll("ids[]") as string[];
 
 		await prisma.snapp.deleteMany({ where: { userId: { in: ids } } });
 		await prisma.user.deleteMany({ where: { id: { in: ids } } });

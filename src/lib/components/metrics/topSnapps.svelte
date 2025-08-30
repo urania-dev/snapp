@@ -1,14 +1,14 @@
 <script lang="ts">
-	import type { Usage } from '@prisma/client';
+	import type { Usage } from "@prisma/client";
 
-	import { getLocalTimeZone } from '@internationalized/date';
-	import { browser } from '$app/environment';
-	import { page } from '$app/state';
-	import { getTranslations } from '$lib/i18n/index.svelte';
-	import { getMetricsStore } from '$lib/stores/metrics.svelte';
+	import { getLocalTimeZone } from "@internationalized/date";
+	import { browser } from "$app/environment";
+	import { page } from "$app/state";
+	import { getTranslations } from "$lib/i18n/index.svelte";
+	import { getMetricsStore } from "$lib/stores/metrics.svelte";
 
-	import { Separator } from '../ui/separator';
-	import * as Table from '../ui/table';
+	import { Separator } from "../ui/separator";
+	import * as Table from "../ui/table";
 	const mstore = getMetricsStore();
 
 	let data = $state<{ id: null | string; name: null | string; shortcode: string; value: number }[]>(
@@ -21,11 +21,11 @@
 				await (page.data.fetch as typeof fetch)(
 					`/api/usage/groupBy?q=${JSON.stringify({
 						_count: { snappId: true },
-						by: ['snappId'],
-						orderBy: { _count: { snappId: 'desc' } },
+						by: ["snappId"],
+						orderBy: { _count: { snappId: "desc" } },
 						take: 10,
 						where: {
-							ownerId: page.data.user.role !== 'user' ? undefined : page.data.user.id,
+							ownerId: page.data.user.role !== "user" ? undefined : page.data.user.id,
 							timestamp: {
 								gte: mstore.start.toDate(getLocalTimeZone()).toISOString(),
 								lte: mstore.end.toDate(getLocalTimeZone()).toISOString()
@@ -61,7 +61,7 @@
 								id: u.snappId,
 								name: snapp?.user?.username,
 								shortcode: snapp.groupId
-									? 'groups/' + snapp.groupId + '/' + snapp?.shortcode
+									? "groups/" + snapp.groupId + "/" + snapp?.shortcode
 									: snapp?.shortcode,
 								value: u._count.snappId
 							};
@@ -70,7 +70,7 @@
 				data = _data.filter((d) => d !== undefined);
 			}
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		}
 	};
 
@@ -82,10 +82,10 @@
 		<Table.Header>
 			<Table.Row class="h-8">
 				<Table.Head class="h-10 whitespace-nowrap px-2"
-					>{i18n.t('snapps.fields.shortcode')}</Table.Head
+					>{i18n.t("snapps.fields.shortcode")}</Table.Head
 				>
-				<Table.Head class="h-10 px-2 ">{i18n.t('users.groups.labels.member')}</Table.Head>
-				<Table.Head class="h-10 w-full min-w-max px-2">{i18n.t('snapps.fields.hit')}</Table.Head>
+				<Table.Head class="h-10 px-2 ">{i18n.t("users.groups.labels.member")}</Table.Head>
+				<Table.Head class="h-10 w-full min-w-max px-2">{i18n.t("snapps.fields.hit")}</Table.Head>
 			</Table.Row>
 		</Table.Header>
 		<Table.Body>
@@ -102,7 +102,7 @@
 					</Table.Cell>
 				</Table.Row>
 			{:then}
-				{#each data as { name, shortcode, value }}
+				{#each data as { id, name, shortcode, value } (id)}
 					<Table.Row>
 						<Table.Cell
 							class="w-full max-w-[160px] overflow-clip text-ellipsis whitespace-nowrap font-medium"

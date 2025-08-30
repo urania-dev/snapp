@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { DateFormatter, getLocalTimeZone } from '@internationalized/date';
-	import { page } from '$app/state';
-	import * as Calendar from '$lib/components/ui/calendar';
-	import * as Select from '$lib/components/ui/select';
-	import { cn } from '$lib/utils.js';
-	import { Calendar as CalendarPrimitive, type WithoutChildrenOrChild } from 'bits-ui';
+	import { DateFormatter, getLocalTimeZone } from "@internationalized/date";
+	import { page } from "$app/state";
+	import * as Calendar from "$lib/components/ui/calendar";
+	import * as Select from "$lib/components/ui/select";
+	import { cn } from "$lib/utils.js";
+	import { Calendar as CalendarPrimitive, type WithoutChildrenOrChild } from "bits-ui";
 
 	let {
 		class: className,
@@ -12,16 +12,16 @@
 		onChange,
 		placeholder = $bindable(),
 		value = $bindable(),
-		weekdayFormat = 'short', // eslint-disable-next-line svelte/valid-compile
+		weekdayFormat = "short",
 		...restProps
 	}: { onChange?: () => void } & WithoutChildrenOrChild<CalendarPrimitive.RootProps> = $props();
 
 	const monthOptions = Array.from({ length: 12 }, (_, i) =>
-		new Intl.DateTimeFormat(page.data.locale, { month: 'long' }).format(new Date(2000, i))
+		new Intl.DateTimeFormat(page.data.locale, { month: "long" }).format(new Date(2000, i))
 	).map((month, i) => ({ label: month, value: i + 1 }));
 
 	const monthFmt = new DateFormatter(page.data.locale, {
-		month: 'long'
+		month: "long"
 	});
 
 	const yearOptions = Array.from({ length: 100 }, (_, i) => ({
@@ -43,7 +43,7 @@
 	);
 
 	const monthLabel = $derived(
-		monthOptions.find((m) => m.value === defaultMonth?.value)?.label ?? 'Select a month'
+		monthOptions.find((m) => m.value === defaultMonth?.value)?.label ?? "Select a month"
 	);
 </script>
 
@@ -51,7 +51,7 @@
 	bind:value={value as never}
 	bind:placeholder
 	{weekdayFormat}
-	class={cn('rounded-md p-3', className)}
+	class={cn("rounded-md p-3", className)}
 	{...restProps}
 	onValueChange={onChange}
 	initialFocus={false}
@@ -73,7 +73,7 @@
 						{monthLabel}
 					</Select.Trigger>
 					<Select.Content class="max-h-[200px] overflow-y-auto">
-						{#each monthOptions as { label, value }}
+						{#each monthOptions as { label, value }, idx (idx)}
 							<Select.Item value={`${value}`} {label} />
 						{/each}
 					</Select.Content>
@@ -89,10 +89,10 @@
 					}}
 				>
 					<Select.Trigger aria-label="Select year" class="w-[40%]">
-						{defaultYear?.label ?? 'Select year'}
+						{defaultYear?.label ?? "Select year"}
 					</Select.Trigger>
 					<Select.Content class="max-h-[200px] overflow-y-auto">
-						{#each yearOptions as { label, value }}
+						{#each yearOptions as { label, value }, idx (idx)}
 							<Select.Item value={`${value}`} {label} />
 						{/each}
 					</Select.Content>
@@ -100,11 +100,11 @@
 			</Calendar.Heading>
 		</Calendar.Header>
 		<Calendar.Months>
-			{#each months as month}
+			{#each months as month, idx (idx)}
 				<Calendar.Grid>
 					<Calendar.GridHead>
 						<Calendar.GridRow class="flex">
-							{#each weekdays as weekday}
+							{#each weekdays as weekday, idx (idx)}
 								<Calendar.HeadCell class="text-[10px] font-semibold uppercase">
 									{weekday.slice(0, 2)}
 								</Calendar.HeadCell>
@@ -112,9 +112,9 @@
 						</Calendar.GridRow>
 					</Calendar.GridHead>
 					<Calendar.GridBody>
-						{#each month.weeks as weekDates}
+						{#each month.weeks as weekDates, idx (idx)}
 							<Calendar.GridRow class="mt-2 w-full">
-								{#each weekDates as date}
+								{#each weekDates as date, idx (idx)}
 									<Calendar.Cell {date} month={month.value}>
 										<Calendar.Day />
 									</Calendar.Cell>

@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { Tag } from '@prisma/client';
+	import type { Tag } from "@prisma/client";
 
-	import Badge from '$lib/components/ui/badge/badge.svelte';
-	import { queryParameters } from 'sveltekit-search-params';
+	import Badge from "$lib/components/ui/badge/badge.svelte";
+	import { queryParameters } from "sveltekit-search-params";
 
 	const { tags }: { tags: Tag[] } = $props();
 	const params = queryParameters({
@@ -11,7 +11,7 @@
 </script>
 
 <div class="flex w-full flex-wrap justify-center gap-1 px-2">
-	{#each tags as tag}
+	{#each tags as tag (tag.slug)}
 		<Badge
 			onclick={() => {
 				if (params.tag === tag.slug) params.tag = null;

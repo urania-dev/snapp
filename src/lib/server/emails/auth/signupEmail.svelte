@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Button, Container, Heading, Image, Paragraph } from '@uraniadev/emailer';
-	import { env } from '$env/dynamic/public';
+	import { Button, Container, Heading, Image, Paragraph } from "@uraniadev/emailer";
+	import { env } from "$env/dynamic/public";
 
 	const { appname, cta, name }: { appname: string; cta: string; name: string } = $props();
 </script>

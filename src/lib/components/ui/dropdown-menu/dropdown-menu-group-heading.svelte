@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { cn } from '$lib/utils';
-	import { DropdownMenu as DropdownMenuPrimitive } from 'bits-ui';
+	import { cn } from "$lib/utils";
+	import { DropdownMenu as DropdownMenuPrimitive } from "bits-ui";
 
 	let {
 		class: className,
 		inset,
-		ref = $bindable(null), // eslint-disable-next-line svelte/valid-compile
+		ref = $bindable(null),
 		...restProps
 	}: {
 		inset?: boolean;
@@ -14,6 +14,6 @@
 
 <DropdownMenuPrimitive.GroupHeading
 	bind:ref
-	class={cn('px-2 py-1.5 text-sm font-semibold', inset && 'pl-8', className)}
+	class={cn("px-2 py-1.5 text-sm font-semibold", inset && "pl-8", className)}
 	{...restProps}
 />

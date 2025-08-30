@@ -5,17 +5,17 @@ declare global {
 		// interface Error {}
 		interface Locals {
 			lang: string;
-			prisma: import('@prisma/client').PrismaClient;
-			session: import('@prisma/client').Session | null;
+			prisma: import("@prisma/client").PrismaClient;
+			session: import("@prisma/client").Session | null;
 			theme: string;
-			user: import('@prisma/client').User | null;
+			user: import("@prisma/client").User | null;
 		}
 		// interface PageData {}
 		// interface PageState {}
 		// interface Platform {}
 	}
 
-	declare module '*.md';
+	declare module "*.md";
 }
 
 export {};

@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { Group } from '@prisma/client';
+	import type { Group } from "@prisma/client";
 
-	import Badge from '$lib/components/ui/badge/badge.svelte';
-	import { queryParameters } from 'sveltekit-search-params';
+	import Badge from "$lib/components/ui/badge/badge.svelte";
+	import { queryParameters } from "sveltekit-search-params";
 
 	const { groups }: { groups: Group[] } = $props();
 	const params = queryParameters({
@@ -11,7 +11,7 @@
 </script>
 
 <div class="flex w-full flex-wrap justify-center gap-1 px-2">
-	{#each groups as group}
+	{#each groups as group (group.slug)}
 		<Badge
 			onclick={() => {
 				if (params.group === group.slug) params.group = null;
