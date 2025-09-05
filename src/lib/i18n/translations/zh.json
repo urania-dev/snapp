@@ -182,6 +182,7 @@
 		"import": "导入",
 		"export": "导出",
 		"helper": "在此，您可以导入和导出您的 URL。",
+		"fake-metrics": "是否要根据导入的 [hit] 和 [created_at] 列生成虚拟指标？",
 		"set-fields": {
 			"label": "选择字段",
 			"helper": "您可以选择从导入文件中提取的字段，并将其映射到本平台所需的字段，以完成 URL 迁移。"

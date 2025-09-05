@@ -11,6 +11,8 @@
 
 	const i18n = getTranslations();
 	const { user }: { user: User } = $props();
+
+	let fakeMetrics = $state(false);
 	let activeTab = $state("import");
 </script>
 
@@ -34,7 +36,7 @@
 				</div>
 			</Tabs.Trigger>
 		</Tabs.List>
-		<Import {user}></Import>
+		<Import bind:fakeMetrics {user}></Import>
 		<Tabs.Content value="export" class="w-full">
 			{#if activeTab === "export"}
 				<Export />

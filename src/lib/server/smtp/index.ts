@@ -47,7 +47,7 @@ export const sendEmail = async <T extends Component<ComponentProps<T>, any, any>
 		smtp = await getSMTP();
 		if (smtp !== null) {
 			transporter = createTransport({ ...smtp });
-			log.info({ label: "test", smtp, test: await transporter.verify() });
+			if (DEBUG) log.info({ label: "smtp configuration", smtp, test: await transporter.verify() });
 		}
 	} catch (e) {
 		smtp = null;

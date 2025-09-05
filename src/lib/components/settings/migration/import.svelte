@@ -16,6 +16,7 @@
 	import { applyAction, enhance } from "$app/forms";
 	import { goto } from "$app/navigation";
 	import { page } from "$app/state";
+	import { Checkbox } from "$lib/components/ui/checkbox";
 	import { getTranslations } from "$lib/i18n/index.svelte";
 	import { formatTimeAgo } from "$lib/utils";
 	import { decode } from "html-entities";
@@ -25,7 +26,7 @@
 
 	import { FieldSelector } from ".";
 	import UserSelector from "./userSelector.svelte";
-	const { user }: { user: User } = $props();
+	let { fakeMetrics = $bindable(false), user }: { fakeMetrics: boolean; user: User } = $props();
 	const i18n = getTranslations();
 
 	let fileInput = $state<HTMLInputElement>();
@@ -200,6 +201,8 @@
 		for (const item of parsed) {
 			formData.append("snapp[]", JSON.stringify(item));
 		}
+
+		formData.append("fake-metrics", String(fakeMetrics));
 		return async ({ result }) => {
 			await applyAction(result);
 			uploading = false;
@@ -269,6 +272,10 @@
 					});
 				}}
 			/>
+		</div>
+		<div class="mt-4 flex w-full items-center gap-2">
+			<P class="!m-0 px-4 text-sm text-muted-foreground">{i18n.t("migrations.fake-metrics")}</P>
+			<Checkbox bind:checked={fakeMetrics} />
 		</div>
 		<div class="grid gap-1 py-4">
 			<Card.Root class="w-full overflow-hidden">

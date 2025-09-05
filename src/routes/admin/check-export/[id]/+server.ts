@@ -7,6 +7,7 @@ import { existsSync, writeFileSync } from "fs";
 import { stat } from "fs/promises";
 import papa from "papaparse";
 import path from "path";
+import { randomUUID } from "crypto";
 
 export const GET = async ({ locals: { prisma, user }, params: { id } }) => {
 	if (!user || (user.id !== id && user.role === "user")) {
@@ -46,7 +47,10 @@ const createCSV = async (user: User, userId: string, prisma: PrismaClient, csvPa
 	const isAdmin = user.role !== "user";
 	if (!userId) return;
 
-	const snapps = await prisma.snapp.findMany({ where: { userId: isAdmin ? undefined : userId } });
+	const snapps = (
+		await prisma.snapp.findMany({ where: { userId: isAdmin ? undefined : userId } })
+	).map((s) => ({ ...s, notes: (s.notes && encodeURI(s.notes)) || undefined }));
+
 	const csv = papa.unparse(snapps, { header: true });
 
 	writeFileSync(csvPath, csv, { encoding: "utf-8" });

@@ -182,6 +182,7 @@
 		"import": "Importer",
 		"export": "Exporter",
 		"helper": "Ici, vous pouvez importer et exporter vos URLs depuis la plateforme.",
+		"fake-metrics": "Faut-il générer des métriques fabriquées à partir des colonnes importées [hit] et [created_at] ?",
 		"set-fields": {
 			"label": "Sélectionner les champs",
 			"helper": "Ici, vous pouvez sélectionner les champs de votre fichier importé pour les mapper avec ceux requis par cette plateforme afin de transférer vos URLs"

@@ -299,3 +299,7 @@
   - [#134 SMTP Issue](https://github.com/urania-dev/snapp/issues/134) fix: password recovery link redirects to dashboard - now removes all sessions
   - [#135 group members being able to edit any links in the group](https://github.com/urania-dev/snapp/issues/135) fix: groups editable permission via ENV not working
   - [#136](https://github.com/urania-dev/snapp/issues/136) small smtp fix and checks
+- 0.9-rc-031
+  - [#138 Printing SMTP credentials to the docker log when signing up](https://github.com/urania-dev/snapp/issues/138) fix: reinstantiated the debug check before logging
+  - [#139 import of large Shlink csv file #139](https://github.com/urania-dev/snapp/issues/139) fix: BODY_SIZE_LIMIT and now parsed import have possibility to fake metrics across the last year
+  - fixed snapp import encoding and decoding of csv to avoid breaking the row in file

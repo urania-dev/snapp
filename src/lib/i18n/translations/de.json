@@ -182,6 +182,7 @@
 		"import": "Importieren",
 		"export": "Exportieren",
 		"helper": "Importieren und Exportieren Ihrer URLs über dieses Tool.",
+		"fake-metrics": "Sollen die Metriken aus den importierten Spalten [hit] und [created_at] künstlich erzeugt werden?",
 		"set-fields": {
 			"label": "Felder zuordnen",
 			"helper": "Ordnen Sie die Felder Ihrer Importdatei den erforderlichen Feldern dieser Plattform zu."
