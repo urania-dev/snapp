@@ -1,4 +1,5 @@
 import type { prisma } from "$lib/db/prisma";
+import { log } from "$lib/server/log";
 import type { Snapp, Usage } from "@prisma/client";
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -15,18 +16,15 @@ function enumerateDays(start: Date, end: Date) {
 	return days;
 }
 
-/** Uniform allocation; remainder given to the most recent days. */
 function allocateUniform(total: number, daysLen: number): number[] {
 	if (total <= 0 || daysLen <= 0) return Array(daysLen).fill(0);
 	const base = Math.floor(total / daysLen);
 	let rem = total - base * daysLen;
 	const arr = Array(daysLen).fill(base);
-	// give +1 to the last `rem` days (most recent)
 	for (let i = daysLen - 1; i >= 0 && rem > 0; i--, rem--) arr[i]++;
 	return arr;
 }
 
-/** Random time inside a given UTC day */
 function randomTimeInDay(dayUTC: Date) {
 	const h = Math.floor(Math.random() * 24);
 	const m = Math.floor(Math.random() * 60);
@@ -45,12 +43,10 @@ export const generateMetrics = async (target: Snapp, userId: string, db: typeof 
 	const createdAt = new Date(target.createdAt || Date.now());
 	console.log(totalHits);
 	if (totalHits > 0) {
-		// Skip if we already have usage rows for this snapp
 		const already = await db.usage.count({
 			where: { snappId: target.id }
 		});
 		if (already === 0) {
-			// Cap to last 365 days to avoid super thin tails on very old links.
 			const today = new Date();
 			const startCap = new Date(today.getTime() - 365 * DAY);
 			const start = createdAt < startCap ? startCap : createdAt;
@@ -58,7 +54,6 @@ export const generateMetrics = async (target: Snapp, userId: string, db: typeof 
 			const days = enumerateDays(start, today);
 			const perDay = allocateUniform(totalHits, days.length);
 
-			// Build UsageCreateManyInput[]
 			const rows: Partial<Usage>[] = [];
 			for (let i = 0; i < days.length; i++) {
 				const count = perDay[i];
@@ -66,9 +61,9 @@ export const generateMetrics = async (target: Snapp, userId: string, db: typeof 
 
 				for (let k = 0; k < count; k++) {
 					const when = randomTimeInDay(days[i]);
-					const ua = {
+					const payload = {
 						language: "en-US",
-						userAgent: "Mozilla/5.0 (X11; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0",
+						userAgent: "synthetic",
 						device: "syntethic",
 						os: "syntethic",
 						browser: "Syntethic",
@@ -83,31 +78,52 @@ export const generateMetrics = async (target: Snapp, userId: string, db: typeof 
 						timestamp: when,
 						snappId: target.id,
 						ownerId: userId,
-						language: ua.language,
-						userAgent: ua.userAgent,
-						referrer: ua.referrer,
-						device: ua.device,
-						country: ua.country,
-						region: ua.region,
-						city: ua.city,
-						os: ua.os,
-						browser: ua.browser,
-						cpu: ua.cpu
-						// if you have a 'source' field add: source: 'synthetic'
+						language: payload.language,
+						userAgent: payload.userAgent,
+						referrer: payload.referrer,
+						device: payload.device,
+						country: payload.country,
+						region: payload.region,
+						city: payload.city,
+						os: payload.os,
+						browser: payload.browser,
+						cpu: payload.cpu
 					});
 				}
 			}
 
-			// Insert in chunks for memory/perf
 			for (const part of chunk(rows, 1000)) {
 				if (part && part.length) {
-					await db.usage
-						.createMany({
-							data: part as Usage[]
-						})
-						.then((c) => console.log(c));
+					await db.usage.createMany({
+						data: part as Usage[]
+					});
 				}
 			}
 		}
 	}
 };
+
+import { spawn } from "node:child_process";
+import path from "node:path";
+
+export function runMetricsJob(snappId: string, userId: string) {
+	const workerPath = path.resolve("./generate-metrics-worker.ts");
+
+	const child = spawn("bun", [workerPath, snappId, userId], {
+		detached: true
+	});
+	child.stdout.on("data", (data) => {
+		log.info(`[worker ${snappId}] ${data.toString().trim()}`);
+	});
+
+	// log worker stderr
+	child.stderr.on("data", (data) => {
+		log.info(`[worker ${snappId} ERROR] ${data.toString().trim()}`);
+	});
+
+	// detect exit
+	child.on("close", (code) => {
+		log.info(`[worker ${snappId}] exited with code ${code}`);
+	});
+	child.unref();
+}

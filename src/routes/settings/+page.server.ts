@@ -27,15 +27,16 @@ import { convertTtlToString } from "$lib/utils";
 import * as shiki from "shiki";
 import { superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
-import { generateMetrics } from "$lib/components/settings/migration/fake-metrics.js";
+import { generateMetrics, runMetricsJob } from "$lib/components/settings/migration/fake-metrics.js";
 
 export const load = async ({ locals: { prisma, theme, user } }) => {
 	if (!user) redirect(302, "/dashboard");
 	const settings = await getSettings();
 	const isAdmin = user.role === "admin" || user.role === "root";
 	const parsed = settings.list();
-
+	console.log(parsed.IS_IMPORTING);
 	return {
+		isImporting: (parsed.IS_IMPORTING as boolean) || false,
 		allowUnsecureHTTP: parsed.ALLOW_UNSECURE_HTTP as boolean,
 		availableLanguages: parsed.AVAILABLE_LANGUAGES as string | undefined,
 		blackListForm: isAdmin && (await superValidate(zod(blackListSchema))),
@@ -260,45 +261,90 @@ export const actions = {
 				} & Partial<Snapp>
 		);
 		try {
-			await prisma.$transaction(async (db) => {
-				for (const snapp of snapps) {
-					if (!snapp.shortcode || !snapp.originalUrl) return;
-					const groupId = snapp.groupId || null;
-					const fakeMetrics =
-						form.get("fake-metrics")?.toString()?.toLowerCase() === "true" || false;
-					let metrics: Usage[] = [];
-
-					if (groupId && snapp.userId)
-						await db.group.upsert({
-							create: { name: groupId, slug: groupId, users: { connect: { id: snapp.userId } } },
-							update: { slug: groupId },
-							where: { slug: groupId }
-						});
-					const target =
-						(await db.snapp.findFirst({
-							where: { shortcode: snapp.shortcode }
-						})) ||
-						(await db.snapp.create({
-							data: {
-								createdAt: snapp.createdAt,
-								disabled: snapp.disabled || false,
-								expiresAt: snapp.expiresAt || null,
-								groupId,
-								hit: snapp.hit || 0,
-								maxUsages: snapp.maxUsages || undefined,
-								notes: (snapp.notes && decodeURI(snapp.notes)) || undefined,
-								originalUrl: snapp.originalUrl,
-								secret: snapp.secret || null,
-								shortcode: snapp.shortcode,
-								userId: snapp.userId || user.id,
-								utmParams: snapp.utmParams
-							}
-						}));
-
-					if (fakeMetrics)
-						await generateMetrics(target, snapp.userId || user.id, db as typeof prisma);
+			const fakeMetrics = form.get("fake-metrics")?.toString()?.toLowerCase() === "true" || false;
+			await prisma.setting.upsert({
+				create: {
+					id: "migration_" + user.id,
+					field: "migration_" + user.id,
+					value: "running",
+					userId: user.id
+				},
+				where: {
+					id: "migration_" + user.id
+				},
+				update: {
+					value: "running"
 				}
 			});
+			function chunkArray<T>(arr: T[], size: number): T[][] {
+				const chunks: T[][] = [];
+				for (let i = 0; i < arr.length; i += size) {
+					chunks.push(arr.slice(i, i + size));
+				}
+				return chunks;
+			}
+
+			const BATCH_SIZE = 500;
+
+			const chunks = chunkArray(snapps, BATCH_SIZE);
+
+			const targets: Snapp[] = [];
+
+			for (const chunk of chunks) {
+				const results = await prisma.$transaction(async (db) => {
+					return Promise.all(
+						chunk.map(
+							async (snapp) => {
+								if (!snapp.shortcode || !snapp.originalUrl) return null;
+
+								const groupId = snapp.groupId || null;
+
+								if (groupId && snapp.userId) {
+									await db.group.upsert({
+										create: {
+											name: groupId,
+											slug: groupId,
+											users: { connect: { id: snapp.userId } }
+										},
+										update: { slug: groupId },
+										where: { slug: groupId }
+									});
+								}
+
+								return db.snapp.upsert({
+									where: { shortcode: snapp.shortcode },
+									create: {
+										createdAt: snapp.createdAt,
+										disabled: snapp.disabled || false,
+										expiresAt: snapp.expiresAt || null,
+										groupId,
+										hit: snapp.hit || 0,
+										maxUsages: snapp.maxUsages || undefined,
+										notes: (snapp.notes && decodeURI(snapp.notes)) || undefined,
+										originalUrl: snapp.originalUrl,
+										secret: snapp.secret || null,
+										shortcode: snapp.shortcode,
+										userId: snapp.userId || user.id,
+										utmParams: snapp.utmParams
+									},
+									update: {}
+								});
+							},
+							{ timeout: 60000 }
+						)
+					);
+				});
+
+				targets.push(...results.filter((t): t is Snapp => t !== null));
+			}
+			if (fakeMetrics) targets.map((t) => runMetricsJob(t.id, t.userId));
+			else
+				await prisma.setting.delete({
+					where: {
+						id: "migration_" + user.id,
+						userId: user.id
+					}
+				});
 		} catch (error) {
 			log.error(error);
 		}

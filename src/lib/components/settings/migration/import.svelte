@@ -187,6 +187,8 @@
 		document.forms.namedItem("load-csv")?.requestSubmit();
 	};
 	let uploading = $state(false);
+
+	let isImporting = $derived((page.data?.isImporting as boolean) || false);
 </script>
 
 <form
@@ -213,186 +215,193 @@
 	}}
 ></form>
 <Tabs.Content value="import" class="h-full w-full">
-	<P class="mt-4 text-sm text-muted-foreground">
-		{decode(i18n.t("migrations.import-helper"))}
-	</P>
-	<div class="mt-8 grid gap-4">
-		<input
-			type="file"
-			accept="text/csv,application/json"
-			onchange={handleUpload}
-			hidden
-			multiple
-			bind:this={fileInput}
-			bind:files
-		/>
-		<Button
-			disabled={parsing}
-			variant="outline"
-			onclick={() => {
-				fileInput?.click();
-			}}
-		>
-			<i class="ph ph-upload-simple text-[20px]"> </i>
-			<span>
-				{i18n.t("migrations.upload")}
-			</span>
-		</Button>
-	</div>
-	{#if parsing === false && parsedTable === false}
-		<div class="grid gap-1">
-			<FieldSelector bind:snappStructure {structuredFields} />
+	{#if isImporting}
+		<div class="flex h-[50dvh] w-full items-center justify-center gap-4">
+			<p>{i18n.t("globals.loading")}</p>
+			<i class="ph ph-spinner animate-spin text-3xl"></i>
+		</div>
+	{:else}
+		<P class="mt-4 text-sm text-muted-foreground">
+			{decode(i18n.t("migrations.import-helper"))}
+		</P>
+		<div class="mt-8 grid gap-4">
+			<input
+				type="file"
+				accept="text/csv,application/json"
+				onchange={handleUpload}
+				hidden
+				multiple
+				bind:this={fileInput}
+				bind:files
+			/>
 			<Button
+				disabled={parsing}
 				variant="outline"
 				onclick={() => {
-					parseTableWithSnappStructure();
-				}}>{i18n.t("migrations.labels.check-fields")}</Button
-			>
-		</div>
-	{/if}
-	{#if parsing === true}
-		<div class="flex h-full w-full animate-spin items-center justify-center duration-1000">
-			<div class="grid h-6 w-6 place-content-center">
-				<i class="ph ph-spinner text-[24px]"></i>
-			</div>
-		</div>
-	{/if}
-	{#if parsedTable === true}
-		<div class="mt-4 flex w-full items-center gap-2">
-			<P class="!m-0 px-4 text-sm text-muted-foreground"
-				>{i18n.t("migrations.helpers.user-overwrite")}</P
-			>
-			<UserSelector
-				bind:users
-				{user}
-				onChange={(userId) => {
-					parsedData = parsedData.map((p) => {
-						p.userId = userId;
-						return p;
-					});
+					fileInput?.click();
 				}}
-			/>
+			>
+				<i class="ph ph-upload-simple text-[20px]"> </i>
+				<span>
+					{i18n.t("migrations.upload")}
+				</span>
+			</Button>
 		</div>
-		<div class="mt-4 flex w-full items-center gap-2">
-			<P class="!m-0 px-4 text-sm text-muted-foreground">{i18n.t("migrations.fake-metrics")}</P>
-			<Checkbox bind:checked={fakeMetrics} />
-		</div>
-		<div class="grid gap-1 py-4">
-			<Card.Root class="w-full overflow-hidden">
-				<Card.Content>
-					<Table.Root>
-						<Table.Header>
-							<Table.Row>
-								<Table.Head class="capitalize">
-									{i18n.t("users.roles.user")}
-								</Table.Head>
-								{#each Object.keys(snappStructure) as fields, idx (idx)}
+		{#if parsing === false && parsedTable === false}
+			<div class="grid gap-1">
+				<FieldSelector bind:snappStructure {structuredFields} />
+				<Button
+					variant="outline"
+					onclick={() => {
+						parseTableWithSnappStructure();
+					}}>{i18n.t("migrations.labels.check-fields")}</Button
+				>
+			</div>
+		{/if}
+		{#if parsing === true}
+			<div class="flex h-full w-full animate-spin items-center justify-center duration-1000">
+				<div class="grid h-6 w-6 place-content-center">
+					<i class="ph ph-spinner text-[24px]"></i>
+				</div>
+			</div>
+		{/if}
+		{#if parsedTable === true}
+			<div class="mt-4 flex w-full items-center gap-2">
+				<P class="!m-0 px-4 text-sm text-muted-foreground"
+					>{i18n.t("migrations.helpers.user-overwrite")}</P
+				>
+				<UserSelector
+					bind:users
+					{user}
+					onChange={(userId) => {
+						parsedData = parsedData.map((p) => {
+							p.userId = userId;
+							return p;
+						});
+					}}
+				/>
+			</div>
+			<div class="mt-4 flex w-full items-center gap-2">
+				<P class="!m-0 px-4 text-sm text-muted-foreground">{i18n.t("migrations.fake-metrics")}</P>
+				<Checkbox bind:checked={fakeMetrics} />
+			</div>
+			<div class="grid gap-1 py-4">
+				<Card.Root class="w-full overflow-hidden">
+					<Card.Content>
+						<Table.Root>
+							<Table.Header>
+								<Table.Row>
 									<Table.Head class="capitalize">
-										{i18n.t(fields)}
+										{i18n.t("users.roles.user")}
 									</Table.Head>
-								{/each}
-							</Table.Row>
-						</Table.Header>
-						<Table.Body>
-							{#each parsedData.slice(start, end) || [] as data, idx (data.shortcode)}
-								<Table.Row class="h-[72px]" id={data.shortcode as string}>
-									<Table.Cell>
-										<UserSelector
-											bind:users
-											onChange={(userId) => {
-												parsedData[idx + start].userId = userId;
-											}}
-											{user}
-											userId={data.userId as string}
-										/>
-									</Table.Cell>
-									{#each Object.keys(snappStructure) as field, idx (idx)}
-										<Table.Cell>
-											{#if ["createdAt", "expiresAt"].includes(field)}
-												{data?.[field] && formatTimeAgo(data?.[field] as Date, page.data.locale)}
-											{:else if ["utmParams"].includes(field) && typeof data?.[field] === "string"}
-												<span class="w-full text-center"
-													>{JSON.parse((data?.[field] as string) || "").length ||
-														decode("&mdash;")}</span
-												>
-											{:else if ["originalUrl"].includes(field)}
-												<span
-													class=" flex w-full max-w-[12ch] overflow-clip text-ellipsis whitespace-nowrap"
-													>{(data?.[field] as string)?.slice?.(0, 12)}...</span
-												>
-											{:else if ["secret"].includes(field) && data?.[field] !== null}
-												<i class="ph ph-lock text-[20px]"></i>
-											{:else}
-												{data?.[field]}
-											{/if}
-										</Table.Cell>
+									{#each Object.keys(snappStructure) as fields, idx (idx)}
+										<Table.Head class="capitalize">
+											{i18n.t(fields)}
+										</Table.Head>
 									{/each}
 								</Table.Row>
-							{/each}
-						</Table.Body>
-					</Table.Root>
-				</Card.Content>
-			</Card.Root>
-			<div class="flex w-full justify-between gap-4">
-				<Pagination.Root
-					class="mt-4 w-full"
-					count={parsedData.length}
-					bind:page={currentPage}
-					perPage={5}
-					{siblingCount}
-				>
-					{#snippet children({ currentPage, pages })}
-						<Pagination.Content>
-							<Pagination.Item>
-								<Pagination.PrevButton>
-									<i class="ph ph-caret-left text-[20px]"></i>
-									<span class="hidden sm:block"></span>
-								</Pagination.PrevButton>
-							</Pagination.Item>
-							{#each pages as page (page.key)}
-								{#if page.type === "ellipsis"}
-									<Pagination.Item>
-										<Pagination.Ellipsis />
-									</Pagination.Item>
-								{:else}
-									<Pagination.Item>
-										<Pagination.Link {page} isActive={currentPage === page.value}>
-											{page.value}
-										</Pagination.Link>
-									</Pagination.Item>
-								{/if}
-							{/each}
-							<Pagination.Item>
-								<Pagination.NextButton>
-									<span class="hidden sm:block"></span>
-									<i class="ph ph-caret-right text-[20px]"></i>
-								</Pagination.NextButton>
-							</Pagination.Item>
-						</Pagination.Content>
-					{/snippet}
-				</Pagination.Root>
+							</Table.Header>
+							<Table.Body>
+								{#each parsedData.slice(start, end) || [] as data, idx (data.shortcode)}
+									<Table.Row class="h-[72px]" id={data.shortcode as string}>
+										<Table.Cell>
+											<UserSelector
+												bind:users
+												onChange={(userId) => {
+													parsedData[idx + start].userId = userId;
+												}}
+												{user}
+												userId={data.userId as string}
+											/>
+										</Table.Cell>
+										{#each Object.keys(snappStructure) as field, idx (idx)}
+											<Table.Cell>
+												{#if ["createdAt", "expiresAt"].includes(field)}
+													{data?.[field] && formatTimeAgo(data?.[field] as Date, page.data.locale)}
+												{:else if ["utmParams"].includes(field) && typeof data?.[field] === "string"}
+													<span class="w-full text-center"
+														>{JSON.parse((data?.[field] as string) || "").length ||
+															decode("&mdash;")}</span
+													>
+												{:else if ["originalUrl"].includes(field)}
+													<span
+														class=" flex w-full max-w-[12ch] overflow-clip text-ellipsis whitespace-nowrap"
+														>{(data?.[field] as string)?.slice?.(0, 12)}...</span
+													>
+												{:else if ["secret"].includes(field) && data?.[field] !== null}
+													<i class="ph ph-lock text-[20px]"></i>
+												{:else}
+													{data?.[field]}
+												{/if}
+											</Table.Cell>
+										{/each}
+									</Table.Row>
+								{/each}
+							</Table.Body>
+						</Table.Root>
+					</Card.Content>
+				</Card.Root>
+				<div class="flex w-full justify-between gap-4">
+					<Pagination.Root
+						class="mt-4 w-full"
+						count={parsedData.length}
+						bind:page={currentPage}
+						perPage={5}
+						{siblingCount}
+					>
+						{#snippet children({ currentPage, pages })}
+							<Pagination.Content>
+								<Pagination.Item>
+									<Pagination.PrevButton>
+										<i class="ph ph-caret-left text-[20px]"></i>
+										<span class="hidden sm:block"></span>
+									</Pagination.PrevButton>
+								</Pagination.Item>
+								{#each pages as page (page.key)}
+									{#if page.type === "ellipsis"}
+										<Pagination.Item>
+											<Pagination.Ellipsis />
+										</Pagination.Item>
+									{:else}
+										<Pagination.Item>
+											<Pagination.Link {page} isActive={currentPage === page.value}>
+												{page.value}
+											</Pagination.Link>
+										</Pagination.Item>
+									{/if}
+								{/each}
+								<Pagination.Item>
+									<Pagination.NextButton>
+										<span class="hidden sm:block"></span>
+										<i class="ph ph-caret-right text-[20px]"></i>
+									</Pagination.NextButton>
+								</Pagination.Item>
+							</Pagination.Content>
+						{/snippet}
+					</Pagination.Root>
+				</div>
+				<div class="mt-4 flex w-full items-center gap-4">
+					<P class="!m-0 text-sm text-muted-foreground"
+						>{decode(i18n.t("migrations.helpers.found", { count: parsedData.length }))}</P
+					>
+					<Button
+						disabled={uploading}
+						class="ms-auto max-w-max"
+						variant="ghost"
+						onclick={() => {
+							parsedTable = false;
+						}}>{i18n.t("globals.cancel")}</Button
+					>
+					<Button disabled={uploading} class="max-w-max" onclick={loadURLSToDB}
+						>{i18n.t("globals.save")}
+						<span
+							class="inline-flex h-5 w-5 items-center justify-center"
+							class:animate-spin={uploading}
+							><i class="ph ph-{uploading ? 'spinner' : 'floppy-disk'} text-[20px]"></i></span
+						></Button
+					>
+				</div>
 			</div>
-			<div class="mt-4 flex w-full items-center gap-4">
-				<P class="!m-0 text-sm text-muted-foreground"
-					>{decode(i18n.t("migrations.helpers.found", { count: parsedData.length }))}</P
-				>
-				<Button
-					disabled={uploading}
-					class="ms-auto max-w-max"
-					variant="ghost"
-					onclick={() => {
-						parsedTable = false;
-					}}>{i18n.t("globals.cancel")}</Button
-				>
-				<Button disabled={uploading} class="max-w-max" onclick={loadURLSToDB}
-					>{i18n.t("globals.save")}
-					<span
-						class="inline-flex h-5 w-5 items-center justify-center"
-						class:animate-spin={uploading}
-						><i class="ph ph-{uploading ? 'spinner' : 'floppy-disk'} text-[20px]"></i></span
-					></Button
-				>
-			</div>
-		</div>
+		{/if}
 	{/if}
 </Tabs.Content>

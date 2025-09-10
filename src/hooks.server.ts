@@ -113,7 +113,6 @@ const handleErrorWithDB: Handle = async ({ event, resolve }) => {
 		if (ping) settings.set("DB_OFFLINE", true);
 		else {
 			settings.set("DB_OFFLINE", false);
-			if (DEBUG) console.clear();
 		}
 	} catch (error) {
 		log.error(error);
