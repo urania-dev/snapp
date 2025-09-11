@@ -303,5 +303,5 @@
   - [#138 Printing SMTP credentials to the docker log when signing up](https://github.com/urania-dev/snapp/issues/138) fix: reinstantiated the debug check before logging
   - [#139 import of large Shlink csv file #139](https://github.com/urania-dev/snapp/issues/139) fix: BODY_SIZE_LIMIT and now parsed import have possibility to fake metrics across the last year
   - fixed snapp import encoding and decoding of csv to avoid breaking the row in file
-- 0.9-rc-032
+- 0.9-rc-032 | 0.9-rc-033
   - [#139 import of large Shlink csv file #139](https://github.com/urania-dev/snapp/issues/139) fix: importing multiple batch at once now should not crash the app.
