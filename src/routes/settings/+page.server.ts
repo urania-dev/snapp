@@ -310,7 +310,10 @@ export const actions = {
 										where: { slug: groupId }
 									});
 								}
-
+								const existing = await db.snapp.findUnique({
+									where: { shortcode: snapp.shortcode }
+								});
+								if (existing) return null;
 								return db.snapp.upsert({
 									where: { shortcode: snapp.shortcode },
 									create: {
