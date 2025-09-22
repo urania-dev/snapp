@@ -68,6 +68,20 @@ export const GET = async (event) => {
 			throw error(400, "Missing email");
 		}
 
+		// Extract username from OIDC user response using configured field mapping
+		// Fallback chain: userNameField -> userIdField -> email-based username
+		let username = oauthUser[config.rawConfig.userNameField];
+		
+		if (!username || typeof username !== "string") {
+			// First fallback: try userIdField
+			username = oauthUser[config.rawConfig.userIdField];
+		}
+		
+		if (!username || typeof username !== "string") {
+			// Final fallback: extracting username from email (legacy behavior)
+			username = email.split("@")[0];
+		}
+
 		// Replace this with your own DB client.
 		const existingUser = await prisma.user.findFirst({ where: { email } });
 
@@ -79,11 +93,15 @@ export const GET = async (event) => {
 			const enabledSignup = settings.get("ENABLE_SIGNUP");
 			if (!enabledSignup) redirect(302, "/auth/sign-up");
 			const password = generateSessionToken();
+			
+			// Use the configured username field with fallback to email-based generation
+			const cleanUsername = slugify(username.slice(0, 20));
+			
 			const user = await prisma.user.create({
 				data: {
 					email,
 					password,
-					username: slugify(email.split("@")[0].slice(0, 20)),
+					username: cleanUsername,
 					verified: true
 				}
 			});
