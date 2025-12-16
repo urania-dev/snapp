@@ -1,0 +1,12 @@
+[{
+  "id": "provider",
+  "providerId": "provider",
+  "discoveryUrl": "https://url.to.provider/.well-known/openid-configuration",
+  "clientId": "CLIENT_ID",
+  "redirectURI": "http://localhost:5173/api/auth/callback/provider-name",
+  "scopes": ["openid", "profile", "email", "offline_access"],
+  "responseType": "code",
+  "pkce": true,
+  "accessType": "offline",
+  "prompt": "consent"
+}]

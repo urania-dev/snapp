@@ -1,0 +1,13 @@
+appname: Snapp
+admin:
+  - email: admin@example.org
+    username: admin
+hosts:
+  - options:
+      customRedirect: /dashboard
+      disable:
+        homepage: false
+        twoFactor: true
+    origin: http://localhost:5173
+smtp:
+  enabled: false
