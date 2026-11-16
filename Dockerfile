@@ -1,8 +1,8 @@
 
 # Build stage: install all dependencies and bu  ild the application
-FROM oven/bun:slim AS builder
+FROM oven/bun:1.2.21-slim AS builder
 WORKDIR /app
-RUN apt-get update -y && apt-get install -y openssl curl
+RUN apt-get update -y && apt-get upgrade -y && apt-get install -y --no-install-recommends openssl curl ca-certificates && rm -rf /var/lib/apt/lists/*
 
 # Copy package files and install all dependencies (including dev)
 COPY package*.json ./
@@ -51,9 +51,10 @@ RUN --mount=type=secret,id=ADMIN_PASSWORD \
     bun run build
 RUN touch /app/dbschema/sqlite/prisma/db.sqlite
 # Final stage: set up a lean runtime environment and reinstall production dependencies
-FROM oven/bun:slim
+FROM oven/bun:1.2.21-slim
 WORKDIR /app
-RUN apt-get update -y && apt-get install -y openssl curl
+# ca-certificates used to come in as a Recommends of curl/openssl; --no-install-recommends would drop it.
+RUN apt-get update -y && apt-get upgrade -y && apt-get install -y --no-install-recommends openssl curl ca-certificates && rm -rf /var/lib/apt/lists/*
 
 
 # Copy the built output (adjust path if necessary)
